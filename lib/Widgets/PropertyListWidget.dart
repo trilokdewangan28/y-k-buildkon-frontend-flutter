@@ -51,8 +51,6 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
               final propertyResult = snapshot.data!;
               //print('property list is ${propertyResult}');
               if(propertyResult['result'].length!=0){
-                appState.propertyList= propertyResult['result'];
-
                 for (var propertyData in propertyResult['result']) {
                   if (propertyData['pi_name'] != null && propertyData['pi_name'] != '') {
                     // Split pi_name into an array of image URLs

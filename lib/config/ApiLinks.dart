@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "https://fb9f-2401-4900-51f5-cfc0-4c54-b767-a1aa-90dd.ngrok-free.app/";
+  static const baseUrl = "https://1e7c54bbd9b7ef8cec1e1e33b3396ded.serveo.net/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -14,6 +14,8 @@ class ApiLinks{
   static const fetchVisitRequestedList = "${baseUrl}api/customer/fetchVisitRequestedList";
   static const fetchVisitRequestedPropertyDetails = "${baseUrl}api/customer/fetchVisitRequestedPropertyDetails";
   static const submitPropertyRating = "${baseUrl}api/customer/submitPropertyRating";
+  static const uploadProfilePic = "${baseUrl}api/customer/uploadProfilePic";
+  static const accessCustomerProfilePic = "${baseUrl}api/customer/accessCustomerProfilePic";
 
   //==================================ADMIN API================================
   static const fetchAdminContact = "${baseUrl}api/admin/fetchAdminContact";

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/config/ApiLinks.dart';
 class FavoritePropertyListPage extends StatefulWidget {
   const FavoritePropertyListPage({Key? key}) : super(key: key);
 
@@ -14,6 +16,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
     final appState = Provider.of<MyProvider>(context);
     return Column(
       children: [
+        //=====================================PROPERTY LIST CONTAINER
         Container(
             child: Expanded(
                 child: ListView.builder(
@@ -32,27 +35,30 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            elevation: 3,
+                            elevation: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                //-----------------------------------------property imagges container
+                                //==============================PROPERTY IMAGE CONTAINER
                                 Container(
                                   margin: EdgeInsets.all(8),
                                   child:Center(
                                     child: ClipRRect(
+
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                        'assets/images/home.jpg',
+                                      child: property['pi_name'].length>0 ? Image.network(
+                                        '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                        height: 100,
+                                        width: 100,
                                         fit: BoxFit.fill,
-                                        height: 80,
-                                      ),
+                                      )
+                                          : Image.asset('assets/images/home.jpg',height: 100,width: 100,),
                                     ),
                                   ),
                                 ),
 
-                                //----------------------------------------detail container
+                                //==============================PROPERTY DETAIL CONTAINER
                                 Expanded(
                                     child: Container(
                                       width: double.infinity,
@@ -61,9 +67,10 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          //=======================NAME CONTAINER
                                           Container(
                                             child: Text(
-                                              '${property['p_name']}',
+                                              '${property['p_name'].toUpperCase()}',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
@@ -72,10 +79,14 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               softWrap: true,
                                             ),
                                           ),
+
+                                          //=======================AREA TEXT
                                           Text(
                                             '${property['p_area']} sq feet',
                                             style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
+
+                                          //=======================PRICE ROW SECTION
                                           Row(
                                             children: [
                                               Text(
@@ -88,6 +99,8 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               ),
                                             ],
                                           ),
+
+                                          //=======================LOCATION ROW SECTION
                                           Row(
                                             children: [
                                               Icon(Icons.location_pin,color: Theme.of(context).hintColor,size: 20,),
@@ -101,7 +114,18 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                                 ),
                                               )),)
                                             ],
-                                          )
+                                          ),
+
+                                          //=======================RATING ROW SECTION
+                                          Row(
+                                            children: [
+                                              RatingDisplayWidgetTwo(rating: property['p_rating'].toDouble(),),
+                                              Text(
+                                                  '(${property['p_rating_count']})'
+                                              )
+                                            ],
+                                          ),
+                                          //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
                                         ],
                                       ),
                                     ))

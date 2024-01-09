@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Profile/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/ProfileWidget.dart';
+import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 
@@ -31,8 +33,15 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                   padding: EdgeInsets.symmetric(vertical: 30),
                   child: CircleAvatar(
                     radius: 50,
-                    backgroundColor: Theme.of(context).primaryColor,
-                    child: Image.asset('assets/images/logo.png'),
+                    backgroundColor: Colors.grey,
+                    backgroundImage: appState.customerDetails['c_profilePic'].length > 0
+                        ? NetworkImage(
+                      '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['c_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                    )
+                        : null, // Set to null if there is no profile picture
+                    child: appState.customerDetails['c_profilePic'].isEmpty
+                        ? Icon(Icons.person, size: 70, color: Colors.black) // Centered icon when no profile picture
+                        : null, // No child when there is a profile picture, since it's set as backgroundImage
                   ),
                 ),
                 Positioned(
@@ -42,7 +51,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       radius: 15,
                       backgroundColor: Theme.of(context).hintColor,
                       child:
-                          IconButton(onPressed: () {}, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
+                          IconButton(onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(customerDetails: appState.customerDetails,forWhich: 'profilePic',)));
+                          }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
                     ))
               ],
             ),

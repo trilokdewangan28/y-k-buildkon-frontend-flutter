@@ -328,7 +328,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 //================================NAME
                 Expanded(child: Container(
                   child: Text(
-                    '${appState.selectedProperty['p_name']}',
+                    '${appState.selectedProperty['p_name'].toUpperCase()}',
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 17,

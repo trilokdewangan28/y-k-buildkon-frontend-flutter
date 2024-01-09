@@ -26,6 +26,7 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
     var data = {
       "c_id":appState.customerDetails['c_id']
     };
+    List<Map<String, dynamic>> propertyListDemo = [];
     return Container(
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchVisitRequestedList(data,url),
@@ -53,6 +54,21 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
               //print('property list is ${propertyResult}');
               if(propertyResult['result'].length!=0){
                 appState.visitRequestedPropertyList= propertyResult['result'];
+                for (var propertyData in propertyResult['result']) {
+                  if (propertyData['pi_name'] != null && propertyData['pi_name'] != '') {
+                    // Split pi_name into an array of image URLs
+                    List<String> imageUrls = propertyData['pi_name'].split(',');
+                    // Update the propertyData with the new imageUrls array
+                    propertyData['pi_name'] = imageUrls;
+                  } else {
+                    // Handle the case where there are no images
+                    propertyData['pi_name'] = []; // or an empty array []
+                  }
+
+                  // Add the updated propertyData to the propertyList
+                  propertyListDemo.add(propertyData);
+                }
+                appState.visitRequestedPropertyList=propertyListDemo;
                 visitRequestContent = VisitRequestedListPage();
               }else{
                 visitRequestContent = EmptyPropertyPage();

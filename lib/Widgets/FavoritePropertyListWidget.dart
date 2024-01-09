@@ -26,6 +26,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
     var data = {
       "c_id":appState.customerDetails['c_id']
     };
+    List<Map<String, dynamic>> propertyListDemo = [];
     return Container(
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchFavoritePropertyListDetails(data,url),
@@ -52,7 +53,21 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               final propertyResult = snapshot.data!;
               //print('property list is ${propertyResult}');
               if(propertyResult['result'].length!=0){
-                appState.favoritePropertyList= propertyResult['result'];
+                for (var propertyData in propertyResult['result']) {
+                  if (propertyData['pi_name'] != null && propertyData['pi_name'] != '') {
+                    // Split pi_name into an array of image URLs
+                    List<String> imageUrls = propertyData['pi_name'].split(',');
+                    // Update the propertyData with the new imageUrls array
+                    propertyData['pi_name'] = imageUrls;
+                  } else {
+                    // Handle the case where there are no images
+                    propertyData['pi_name'] = []; // or an empty array []
+                  }
+
+                  // Add the updated propertyData to the propertyList
+                  propertyListDemo.add(propertyData);
+                }
+                appState.favoritePropertyList= propertyListDemo;
                 favoritePropertyContent = FavoritePropertyListPage();
               }else{
                 favoritePropertyContent = EmptyPropertyPage();

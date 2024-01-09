@@ -26,6 +26,14 @@ class MyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //--------------------------------------------------------------IMAGE VARIABLE
+  File? _imageFile;
+  File? get imageFile => _imageFile;
+  set imageFile(File? value) {
+    _imageFile = value;
+    notifyListeners();
+  }
+
 
   //-------------------------widget initializer for navigation------------------
   String _activeWidget = 'LoginWidget';

@@ -112,7 +112,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Scaffold(
                 resizeToAvoidBottomInset:false,
               appBar: AppBar(
-                title: Text('${appBarContent}',style: TextStyle(fontWeight: FontWeight.w600),),
+                title: Row(
+                  children: [
+                    Image.asset('assets/images/logo.png',width: 50,color: Theme.of(context).hintColor,),
+                    Text('${appBarContent}',style: TextStyle(fontWeight: FontWeight.w600),),
+                  ],
+                ),
                 centerTitle: true,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(

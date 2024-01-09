@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 class VisitRequestedListPage extends StatefulWidget {
   const VisitRequestedListPage({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     final appState = Provider.of<MyProvider>(context);
     return Column(
       children: [
-        //-------------------------------property list container
+        //=====================================PROPERTY LIST CONTAINER
         Container(
             child: Expanded(
                 child: ListView.builder(
@@ -24,7 +25,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                     final property = appState.visitRequestedPropertyList[index];
                     return InkWell(
                       onTap: () {
-                        appState.selectedVisitRequestedProperty = property;
+                        appState.selectedProperty = property;
                         appState.activeWidget = "VisitRequestedDetailPage";
                       },
                       child: Container(
@@ -34,27 +35,30 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                             color: Colors.white,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            elevation: 3,
+                            elevation: 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                //-----------------------------------------property imagges container
+                                //==============================PROPERTY IMAGE CONTAINER
                                 Container(
                                   margin: EdgeInsets.all(8),
                                   child:Center(
                                     child: ClipRRect(
+
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.asset(
-                                        'assets/images/home.jpg',
+                                      child: property['pi_name'].length>0 ? Image.network(
+                                        '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                        height: 100,
+                                        width: 100,
                                         fit: BoxFit.fill,
-                                        height: 80,
-                                      ),
+                                      )
+                                          : Image.asset('assets/images/home.jpg',height: 100,width: 100,),
                                     ),
                                   ),
                                 ),
 
-                                //----------------------------------------detail container
+                                //==============================PROPERTY DETAIL CONTAINER
                                 Expanded(
                                     child: Container(
                                       width: double.infinity,
@@ -63,9 +67,10 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          //=======================NAME CONTAINER
                                           Container(
                                             child: Text(
-                                              '${property['p_name']}',
+                                              '${property['p_name'].toUpperCase()}',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
@@ -74,10 +79,14 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                               softWrap: true,
                                             ),
                                           ),
+
+                                          //=======================AREA TEXT
                                           Text(
                                             '${property['p_area']} sq feet',
                                             style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
+
+                                          //=======================PRICE ROW SECTION
                                           Row(
                                             children: [
                                               Text(
@@ -90,6 +99,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                               ),
                                             ],
                                           ),
+
+                                          //=======================LOCATION ROW SECTION
                                           Row(
                                             children: [
                                               Icon(Icons.location_pin,color: Theme.of(context).hintColor,size: 20,),
@@ -105,19 +116,23 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                             ],
                                           ),
 
-                                          //---------------------------------request status
+                                          //=======================RATING ROW SECTION
                                           Row(
                                             children: [
+                                              RatingDisplayWidgetTwo(rating: property['p_rating'].toDouble(),),
                                               Text(
-                                                'request status: ',
-                                                style: TextStyle(fontSize: 14,color: Theme.of(context).hintColor,fontWeight: FontWeight.w600),
-                                              ),
-                                              Text(
-                                                '${property['v_status']}',
-                                                style: TextStyle(fontSize: 14,color: Colors.orange, fontWeight: FontWeight.w500),
-                                              ),
+                                                  '(${property['p_rating_count']})'
+                                              )
                                             ],
                                           ),
+
+                                          //========================REQUEST STATUS
+                                          Container(
+                                            child: Text(
+                                                '${property['v_status']}'
+                                            ),
+                                          )
+                                          //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
                                         ],
                                       ),
                                     ))

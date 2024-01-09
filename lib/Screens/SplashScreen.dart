@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:real_state/Pages/StaticContentPage/IntroductionPageOne.dart';
 import 'package:real_state/Screens/HomeScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (_, __, ___) => HomeScreen(),
-          // Navigate to your home page
-          transitionsBuilder: (_, animation, __, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-        ),
-      );
+    Future.delayed(Duration(seconds: 2), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+
+      bool hasSeenIntroduction = prefs.getBool('hasSeenIntroduction') ?? false;
+
+      if (hasSeenIntroduction) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => HomeScreen()),
+        );
+      } else {
+        // User hasn't seen introduction, navigate to IntroductionPageOne
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => IntroductionPageOne()),
+        );
+
+        // Set the flag to indicate that the user has seen the introduction
+        prefs.setBool('hasSeenIntroduction', true);
+      }
     });
     return SafeArea(child: Scaffold(
         body: Container(
-            decoration: BoxDecoration(color: Colors.black),
+            decoration: BoxDecoration(color: Theme.of(context).hintColor),
             child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/logo.png'),
+                    Image.asset('assets/images/logo.png',color: Theme.of(context).primaryColor,),
                     Text(
                       'Y&K BUILCON',
                       style: TextStyle(

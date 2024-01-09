@@ -44,6 +44,10 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   dots_indicator: ^3.0.0
   photo_view: ^0.14.0
+  image_picker: ^1.0.7
+  mime: ^1.0.4
+  cached_network_image: ^3.3.1
+  shared_preferences: ^2.2.2
 
 
 dev_dependencies:
