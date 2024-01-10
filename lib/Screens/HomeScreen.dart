@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Property/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/VisitRequestedDetailPage.dart';
-import 'package:real_state/Pages/StaticContentPage/AdminContactPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/EmiCalculatorWidget.dart';
@@ -15,10 +12,10 @@ import 'package:real_state/Widgets/OtpVerificationWidget.dart';
 import 'package:real_state/Widgets/ProfileWidget.dart';
 import 'package:real_state/Widgets/PropertyListWidget.dart';
 import 'package:real_state/Widgets/SignupWidget.dart';
-import 'package:real_state/Widgets/VisitRequestedDetailWidget.dart';
 import 'package:real_state/Widgets/VisitRequestedListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -28,64 +25,76 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool darkMode = false;
+
   @override
   void initState() {
-    final appState = Provider.of<MyProvider>(context,listen: false);
+    final appState = Provider.of<MyProvider>(context, listen: false);
     StaticMethod.initialFetch(appState);
-    if(appState.token!=""){
+    if (appState.token != "") {
       var url = Uri.parse(ApiLinks.customerProfile);
       StaticMethod.customerProfileInitial(appState.token, url, appState);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
 
     Widget darkModeAction = IconButton(
-        onPressed: (){
+        onPressed: () {
           darkMode = !darkMode;
           print(darkMode);
-             setState(() {
-               appState.toggleTheme();
-             });
-             //logout();
-          },
-        icon: Icon( darkMode==false ? Icons.dark_mode : Icons.light_mode)
-    );
-    String secondBtmContent = appState.userType!="" && appState.token!="" ? 'profile' :'login';
-    IconData btmIcon = appState.userType!="" && appState.token!="" ? Icons.person : Icons.login;
-
+          setState(() {
+            appState.toggleTheme();
+          });
+          //logout();
+        },
+        icon: Icon(darkMode == false ? Icons.dark_mode : Icons.light_mode));
+    String secondBtmContent =
+        appState.userType != "" && appState.token != "" ? 'profile' : 'login';
+    IconData btmIcon = appState.userType != "" && appState.token != ""
+        ? Icons.person
+        : Icons.login;
 
     //================== CONDITIONALLY PAGE NAVIGATION==========================
-    Widget widgetContent =  LoginWidget();
+    Widget widgetContent = LoginWidget();
     String appBarContent = 'Y&K BUILDCON';
-    switch(appState.activeWidget){
+    switch (appState.activeWidget) {
       case "PropertyListWidget":
-        widgetContent =  PropertyListWidget();
+        widgetContent = PropertyListWidget();
         appBarContent = 'Y&K BUILDCON';
         break;
       case "LoginWidget":
-        widgetContent = appState.userType.isNotEmpty && appState.token.isNotEmpty ? ProfileWidget() : LoginWidget();
-        secondBtmContent =appState.userType.isNotEmpty && appState.token.isNotEmpty ? 'Profile' : 'Login';
-        appBarContent = appState.userType.isNotEmpty && appState.token.isNotEmpty ? 'Profile'  :'Login';
+        widgetContent =
+            appState.userType.isNotEmpty && appState.token.isNotEmpty
+                ? ProfileWidget()
+                : LoginWidget();
+        secondBtmContent =
+            appState.userType.isNotEmpty && appState.token.isNotEmpty
+                ? 'Profile'
+                : 'Login';
+        appBarContent =
+            appState.userType.isNotEmpty && appState.token.isNotEmpty
+                ? 'Profile'
+                : 'Login';
         break;
       case "SignupWidget":
         widgetContent = SignupWidget();
         appBarContent = 'Registration';
-        secondBtmContent='registration';
+        secondBtmContent = 'registration';
         btmIcon = Icons.person_add;
       case "ProfileWidget":
-        widgetContent=ProfileWidget();
-        secondBtmContent='Profile';
+        widgetContent = ProfileWidget();
+        secondBtmContent = 'Profile';
         btmIcon = Icons.person;
-        appBarContent="Your Profile";
+        appBarContent = "Your Profile";
         break;
       case "PropertyDetailPage":
-        widgetContent=PropertyDetailPage();
+        widgetContent = PropertyDetailPage();
         appBarContent = 'Property Details';
         break;
       case "FavoritePropertyDetailPage":
-        widgetContent=FavoritePropertyDetailPage();
+        widgetContent = FavoritePropertyDetailPage();
         appBarContent = 'Your Favorite Property';
         break;
       case "OtpVerificationWidget":
@@ -99,8 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = "Your Request List";
         break;
       case "VisitRequestedDetailPage":
-        widgetContent=VisitRequestedDetailPage();
-        appBarContent="Your Requested Property";
+        widgetContent = VisitRequestedDetailPage();
+        appBarContent = "Your Requested Property";
         break;
       case "EmiCalculatorWidget":
         widgetContent = EmiCalculatorWidget();
@@ -110,74 +119,92 @@ class _HomeScreenState extends State<HomeScreen> {
     return WillPopScope(
         child: SafeArea(
             child: Scaffold(
-                resizeToAvoidBottomInset:false,
-              appBar: AppBar(
-                title: Row(
-                  children: [
-                    Image.asset('assets/images/logo.png',width: 50,color: Theme.of(context).hintColor,),
-                    Text('${appBarContent}',style: TextStyle(fontWeight: FontWeight.w600),),
-                  ],
-                ),
-                centerTitle: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(30),
-                      bottomLeft: Radius.circular(30)),
-                ),
-                actions: [darkModeAction],
-                backgroundColor: Theme.of(context).primaryColor,
-              ),
-              body: widgetContent,
-              bottomNavigationBar: BottomNavigationBar(
-                iconSize: 20,
-                selectedIconTheme: const IconThemeData(size: 30,),
-                selectedFontSize: 15,
-                selectedItemColor: Theme.of(context).hintColor,
-                unselectedItemColor: Colors.grey,
-                currentIndex: appState.currentState,
-                onTap: (index) async {
-                  //setState(() {
-                  appState.currentState = index;
-                  switch(index){
-                    case 0:
-                      appState.activeWidget = 'PropertyListWidget';
-                      break;
-                    case 1:
-                      appState.token.isNotEmpty && appState.userType.isNotEmpty ? appState.activeWidget="ProfileWidget" : appState.activeWidget='LoginWidget';
-                      break;
-                  }
-                },
-                items: [
-                  const BottomNavigationBarItem(
-                    icon: Icon(Icons.home),
-                    label: 'Home',
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            title: Row(
+              children: [
+                Container(
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                    width: 50,
+                    color: Theme.of(context).hintColor,
                   ),
-                  BottomNavigationBarItem(
-                    icon: Icon(btmIcon),
-                    label: secondBtmContent,
+                ),
+                Expanded(child: Container(
+                  child: Text(
+                    '${appBarContent}',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        overflow: TextOverflow.ellipsis
+                    ),
+                    softWrap: true,
                   ),
-                ],
+                ))
+              ],
+            ),
+            centerTitle: true,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(30)),
+            ),
+            actions: [darkModeAction],
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          body: widgetContent,
+          bottomNavigationBar: BottomNavigationBar(
+            iconSize: 20,
+            selectedIconTheme: const IconThemeData(
+              size: 30,
+            ),
+            selectedFontSize: 15,
+            selectedItemColor: Theme.of(context).hintColor,
+            unselectedItemColor: Colors.grey,
+            currentIndex: appState.currentState,
+            onTap: (index) async {
+              //setState(() {
+              appState.currentState = index;
+              switch (index) {
+                case 0:
+                  appState.activeWidget = 'PropertyListWidget';
+                  break;
+                case 1:
+                  appState.token.isNotEmpty && appState.userType.isNotEmpty
+                      ? appState.activeWidget = "ProfileWidget"
+                      : appState.activeWidget = 'LoginWidget';
+                  break;
+              }
+            },
+            items: [
+              const BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              drawer: AppDrawerWidget(),
-            )
-        ),
-        onWillPop: ()async{
-          switch(appState.activeWidget){
+              BottomNavigationBarItem(
+                icon: Icon(btmIcon),
+                label: secondBtmContent,
+              ),
+            ],
+          ),
+          drawer: AppDrawerWidget(),
+        )),
+        onWillPop: () async {
+          switch (appState.activeWidget) {
             case "PropertyDetailPage":
               appState.activeWidget = "PropertyListWidget";
-              appState.selectedProperty={};
+              appState.selectedProperty = {};
               appState.addedToFavorite = false;
               break;
             case "FavoritePropertyDetailPage":
               appState.activeWidget = "FavoritePropertyListWidget";
-              appState.selectedProperty={};
+              appState.selectedProperty = {};
               appState.addedToFavorite = false;
               break;
             case "FavoritePropertyListWidget":
               appState.activeWidget = "ProfileWidget";
             case "VisitRequestedDetailPage":
               appState.activeWidget = "VisitRequestedListWidget";
-              appState.selectedProperty={};
+              appState.selectedProperty = {};
               appState.addedToFavorite = false;
             case "VisitRequestedListWidget":
               appState.activeWidget = "ProfileWidget";
@@ -185,7 +212,6 @@ class _HomeScreenState extends State<HomeScreen> {
               appState.activeWidget = "PropertyListWidget";
           }
           return false;
-        }
-    );
+        });
   }
 }

@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "https://1e7c54bbd9b7ef8cec1e1e33b3396ded.serveo.net/";
+  static const baseUrl = "https://9c197129974ecbbcdbf7390aa499593b.serveo.net/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";

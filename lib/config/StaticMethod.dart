@@ -416,6 +416,7 @@ class StaticMethod{
     int minPrice = 0,
     int maxPrice = 100000000,
     String propertyName = "",
+    int propertyId = 0,
   }) {
 
     appState.filteredPropertyList = appState.propertyList.where((property) {
@@ -423,8 +424,10 @@ class StaticMethod{
       final String type = property['p_type'].toLowerCase();
       final String city = property['p_city'].toLowerCase();
 
+
       return (selectedPropertyType.isEmpty || type.contains(selectedPropertyType.toLowerCase())) &&
           (property['p_price'] >= minPrice && property['p_price'] <= maxPrice) &&
+          (propertyId!=0 ? property['p_id']==propertyId : property['p_id']>0) &&
           (selectedCity.isEmpty || city.contains(selectedCity.toLowerCase())) &&
           (propertyName.isEmpty || name.contains(propertyName.toLowerCase()));
     }).toList();

@@ -23,6 +23,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
   int minPrice = 1;
   int maxPrice = 100000000;
+  int propertyId = 0;
   String selectedCity = "";
   String selectedPropertyType = "";
   String selectedPropertyName = "";
@@ -37,6 +38,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         selectedCity: selectedCity,
         minPrice: minPrice,
         maxPrice: maxPrice,
+        propertyId: propertyId,
         selectedPropertyType: selectedPropertyType);
     super.initState();
   }
@@ -159,12 +161,16 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             onPressed: () {
                               minPrice = 1;
                               maxPrice = 100000000;
+                              propertyId=0;
                               selectedCity = "";
                               selectedPropertyType = "";
                               selectedPropertyName = "";
                               StaticMethod.filterProperties(appState,
                                   propertyName: selectedPropertyName,
                                   selectedCity: selectedCity,
+                                  maxPrice: maxPrice,
+                                  minPrice: minPrice,
+                                  propertyId: propertyId,
                                   selectedPropertyType: selectedPropertyType);
                               filterApplied = false;
                               Navigator.pop(context);
@@ -181,6 +187,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   selectedCity: selectedCity,
                                   minPrice: minPrice,
                                   maxPrice: maxPrice,
+                                  propertyId: propertyId,
                                   selectedPropertyType: selectedPropertyType);
                               filterApplied = true;
                               Navigator.pop(context);
@@ -221,12 +228,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   } else {
                     selectedPropertyType = "";
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   }
                   setState(() {});
@@ -257,12 +270,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   } else {
                     selectedPropertyType = "";
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   }
                   setState(() {});
@@ -293,12 +312,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   } else {
                     selectedPropertyType = "";
                     StaticMethod.filterProperties(appState,
                         propertyName: selectedPropertyName,
                         selectedCity: selectedCity,
+                        minPrice: minPrice,
+                        maxPrice: maxPrice,
+                        propertyId: propertyId,
                         selectedPropertyType: selectedPropertyType);
                   }
                   setState(() {});
@@ -336,6 +361,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       StaticMethod.filterProperties(appState,
                           propertyName: selectedPropertyName,
                           selectedCity: selectedCity,
+                          minPrice: minPrice,
+                          maxPrice: maxPrice,
+                          propertyId: propertyId,
                           selectedPropertyType: selectedPropertyType);
                     });
                   },
@@ -374,7 +402,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
         ),
 
         //=====================================PROPERTY LIST CONTAINER
-        Container(
+        appState.filteredPropertyList.length>0
+            ? Container(
             child: Expanded(
                 child: ListView.builder(
           itemCount: appState.filteredPropertyList.length,
@@ -511,6 +540,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
             );
           },
         )))
+            : Container(
+          margin: EdgeInsets.symmetric(vertical:100 ),
+          child: Center(
+            child: Text(
+              'No Such Properties',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+          ),
+        )
       ],
     );
   }
