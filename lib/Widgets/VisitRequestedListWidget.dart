@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/Pages/Property/EmptyPropertyPage.dart';
+import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Pages/Property/VisitRequestedListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -71,7 +71,7 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
                 appState.visitRequestedPropertyList=propertyListDemo;
                 visitRequestContent = VisitRequestedListPage();
               }else{
-                visitRequestContent = EmptyPropertyPage();
+                visitRequestContent = EmptyPropertyPage(text: "empty request",);
               }
               return visitRequestContent;
             }else{

@@ -1,3 +1,5 @@
+
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:real_state/Pages/Property/FullImageView.dart';
@@ -84,8 +86,8 @@ class _ImageSliderState extends State<ImageSlider> {
                 dotsCount: imageUrlList!.length,
                 position: _currentPage.toInt(),
                 decorator: DotsDecorator(
-                  activeColor: Colors.blue,
-                  activeSize: const Size(10.0, 10.0),
+                  activeColor: Theme.of(context).hintColor,
+                  activeSize: const Size(10.0, 25.0),
                   spacing: EdgeInsets.all(4),
                 ),
               )

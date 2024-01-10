@@ -6,7 +6,7 @@ import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Property/FavoritePropertyListPage.dart';
-import 'package:real_state/Pages/Property/EmptyPropertyPage.dart';
+import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -70,7 +70,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
                 appState.favoritePropertyList= propertyListDemo;
                 favoritePropertyContent = FavoritePropertyListPage();
               }else{
-                favoritePropertyContent = EmptyPropertyPage();
+                favoritePropertyContent = EmptyPropertyPage(text: "empty favorite property",);
               }
               return favoritePropertyContent;
             }else{

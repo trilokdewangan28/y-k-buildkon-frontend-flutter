@@ -487,6 +487,30 @@ class StaticMethod{
     }
   }
 
+  //============================================================================FETCH OFFER LIST
+  static Future<Map<String,dynamic>> fetchOfferList(url)async{
+    var response;
+    try{
+      final res = await http.get(url);
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+
+    }catch(e){
+      print('failed to complete fetchOfferList api');
+      print(e.toString());
+      return {
+        "success":false ,
+        "message":'An error occured while requesting offer list'
+      };
+    }
+  }
+
 
 
 

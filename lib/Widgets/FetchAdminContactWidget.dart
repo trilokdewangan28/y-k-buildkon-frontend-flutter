@@ -6,7 +6,7 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/Pages/Property/EmptyPropertyPage.dart';
+import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -54,7 +54,7 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
                 appState.adminContact= adminContactResult['result'][0];
                 propertyContent = AdminContactPage();
               }else{
-                propertyContent = EmptyPropertyPage();
+                propertyContent = EmptyPropertyPage(text: "empty contact",);
               }
               return propertyContent;
             }else{

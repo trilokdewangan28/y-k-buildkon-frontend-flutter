@@ -6,7 +6,7 @@ import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Profile/CustomerProfilePage.dart';
-import 'package:real_state/Pages/Property/EmptyPropertyPage.dart';
+import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -52,7 +52,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 appState.customerDetails= customerResult['result'];
                 profileContent = CustomerProfilePage();
               }else{
-                profileContent = EmptyPropertyPage();
+                profileContent = EmptyPropertyPage(text: "empty customer details",);
               }
               return profileContent;
             }else{

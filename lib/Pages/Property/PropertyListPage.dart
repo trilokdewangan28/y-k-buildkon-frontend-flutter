@@ -1,7 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Error/InternetErrorPage.dart';
+import 'package:real_state/Pages/Error/ServerErrorPage.dart';
+import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
+import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/OfferListWidget.dart';
 import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class PropertyListPage extends StatefulWidget {
@@ -40,6 +48,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         maxPrice: maxPrice,
         propertyId: propertyId,
         selectedPropertyType: selectedPropertyType);
+
     super.initState();
   }
 
@@ -209,6 +218,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    var url = Uri.parse(ApiLinks.fetchOfferList);
+    Widget offerContent = Container();
     return Column(
       children: [
         //=====================================FILTER USING PROPERTY TYPE
@@ -353,6 +364,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
           margin: EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Row(
             children: [
+              //=====================================FILTER BY NAME TEXTFIELD
               Expanded(
                 child: TextField(
                   onChanged: (value) {
@@ -375,31 +387,78 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           borderRadius: BorderRadius.circular(10))),
                 ),
               ),
-              Container(
-                decoration:
+
+              //=====================================FILTER BTN
+              Stack(
+                children: [
+                  Container(
+                    decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: IconButton(
-                  icon: Icon(Icons.filter_list),
-                  onPressed: () {
-                    _showFilterContainer(appState);
-                  },
-                ),
-              ),
+                    child: IconButton(
+                      icon: Icon(Icons.filter_list),
+                      onPressed: () {
+                        _showFilterContainer(appState);
+                      },
+                    ),
+                  ),
+                 filterApplied ? Positioned(
+                    bottom: 10,
+                      right: 12,
+                      child: Icon(Icons.circle, color: Colors.red, size: 10,)
+                  ) : Container()
+                ],
+              )
             ],
           ),
         ),
 
         //=====================================OFFER CONTAINER
         Container(
-          height: MediaQuery.of(context).size.height * 0.1,
           margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-          decoration: BoxDecoration(
-              color: Colors.green, borderRadius: BorderRadius.circular(10)),
-          width: double.infinity,
-          child: Center(
-            child: Text('offer here'),
-          ),
+          child: Container(
+            child: FutureBuilder<Map<String, dynamic>>(
+              future: StaticMethod.fetchOfferList(url),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  // Display a circular progress indicator while waiting for data.
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError ) {
+                  // Handle error state.
+                  if (snapshot.error is SocketException) {
+                    // Handle network-related errors (internet connection loss).
+                    return InternetErrorPage();
+                  } else {
+                    // Handle other errors (server error or unexpected error).
+                    return ServerErrorPage(errorString: snapshot.error.toString(),);
+                  }
+                }
+                else if(snapshot.hasData){
+
+                  // Display user details when data is available.
+                  if(snapshot.data!['success']==true){
+                    final offerResult = snapshot.data!;
+                    //print('property list is ${propertyResult}');
+                    if(offerResult['result'].length!=0){
+                      appState.offerList = offerResult['result'];
+                      offerContent = appState.offerList.length>0 ?  OfferListWidget() : Container(child: Text('empty offer'),);
+                    }else{
+                      offerContent = EmptyPropertyPage(text: "empty offers",);
+                    }
+                    return offerContent;
+                  }else{
+                    return SpacificErrorPage(errorString: snapshot.data!['message'],);
+                  }
+                }
+                else{
+                  return ServerErrorPage(errorString: snapshot.error.toString(),);
+                }
+              },
+            ),
+          )
         ),
+        SizedBox(height: 20,),
 
         //=====================================PROPERTY LIST CONTAINER
         appState.filteredPropertyList.length>0

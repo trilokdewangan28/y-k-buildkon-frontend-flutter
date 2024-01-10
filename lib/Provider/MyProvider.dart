@@ -56,6 +56,10 @@ class MyProvider extends ChangeNotifier {
   Map<String,dynamic> requestedPropertyDetail={};
   var requestedPropertyId = "";
 
+  //-----------------------------OFFER LIST VARIABLE----------------------------
+  List<dynamic> offerList=[];
+  Map<String,dynamic> selectedOffer={};
+
   //----------------------------------------------------------------------------USER RELATED DATA
   Map<String,dynamic> customerDetails={};
   bool addedToFavorite = false;

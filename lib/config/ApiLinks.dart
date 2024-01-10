@@ -1,11 +1,12 @@
 class ApiLinks{
-  static const baseUrl = "https://9c197129974ecbbcdbf7390aa499593b.serveo.net/";
+  static const baseUrl = "https://7f02be08db3a484950f0b6e1c73f5c3e.serveo.net/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
   static const customerLogin = "${baseUrl}api/customer/customerLogin";
   static const customerProfile = "${baseUrl}api/customer/customerProfile";
   static const sendOtpForLogin = "${baseUrl}api/customer/sendOtpForLogin";
+
   static const verifyOtpForLogin = "${baseUrl}api/customer/verifyOtpForLogin";
   static const addToFavorite = "${baseUrl}api/customer/addToFavorite";
   static const removeFromFavorite = "${baseUrl}api/customer/removeFromFavorite";
@@ -16,9 +17,11 @@ class ApiLinks{
   static const submitPropertyRating = "${baseUrl}api/customer/submitPropertyRating";
   static const uploadProfilePic = "${baseUrl}api/customer/uploadProfilePic";
   static const accessCustomerProfilePic = "${baseUrl}api/customer/accessCustomerProfilePic";
+  static const fetchOfferList = "${baseUrl}api/customer/fetchOfferList";
 
   //==================================ADMIN API================================
   static const fetchAdminContact = "${baseUrl}api/admin/fetchAdminContact";
+  static const uploadOfferImages = "${baseUrl}api/admin/uploadOfferImages";
 
   //=================================VISIT API=================================
   static const requestVisit = "${baseUrl}api/visit/requestVisit";
