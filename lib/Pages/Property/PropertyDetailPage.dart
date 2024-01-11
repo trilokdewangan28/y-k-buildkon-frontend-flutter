@@ -17,6 +17,16 @@ class PropertyDetailPage extends StatefulWidget {
 }
 
 class _PropertyDetailPageState extends State<PropertyDetailPage> {
+  DateTime selectedDate =  DateTime.now().add(Duration(days: 1));
+  final DateTime lastSelectableDate = DateTime.now().add(Duration(days: 365));
+  final DateTime firstSelectableDate = DateTime.now().add(Duration(days: 1));
+  final _visitingDateController = TextEditingController();
+  final _visitorNameController = TextEditingController();
+  final _visitorNumberController = TextEditingController();
+
+  final FocusNode _visitingDateFocusNode = FocusNode();
+  final FocusNode _visitorNameFocusNode = FocusNode();
+  final FocusNode _visitorNumberFocusNode = FocusNode();
 
   //==================================BOOK VISIT
   bookVisit(requestData,appState,context)async{
@@ -275,6 +285,144 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   ));
             }
         )
+    );
+  }
+
+  //===================================DATE PICKER
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: firstSelectableDate,
+      lastDate:  lastSelectableDate
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        _visitingDateController.text = '${selectedDate.toLocal()}'.split(' ')[0];
+      });
+    }
+  }
+
+  //===================================SHOW VISIT DETAIL CONTAINER
+  void _showVisitDetailContainer(appState,pageContext) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).viewInsets.top + 16,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      //===================================VISITOR NAME TEXTFIELD
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: TextField(
+                          controller: _visitorNameController,
+                          focusNode: _visitorNameFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Name',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+
+                      //===================================VISITOR NUMBER TEXTFIELD
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: TextField(
+                          controller: _visitorNumberController,
+                          focusNode: _visitorNumberFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Number',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+
+                      //===================================VISITING DATE TEXTFIELD
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: Container(
+                          child:TextFormField(
+                            controller: _visitingDateController,
+                              focusNode: _visitingDateFocusNode,
+                              keyboardType: TextInputType.number,
+                              decoration:  InputDecoration(
+                                  labelText: 'Vising Date',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      // color: Theme.of(context).hintColor
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(10),),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: Colors.grey,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(10),),
+                                  )
+                              ),
+                              onTap: () => _selectDate(context),
+                              readOnly: true,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'please enter valid locality';
+                                }
+                                return null;
+                              }
+
+                          ),
+                        ),
+                      ),
+
+                      //====================================SUBMIT BTN
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).hintColor
+                          ),
+                            onPressed: (){
+                            var visitData = {
+                              "visitor_name":_visitorNameController.text,
+                              "visitor_number":_visitorNumberController.text,
+                              "v_date":_visitingDateController.text,
+                              "c_id":appState.customerDetails['c_id'],
+                              "p_id":appState.selectedProperty['p_id']
+                            };
+                            bookVisit(visitData, appState, pageContext);
+                            Navigator.pop(context);
+
+                            },
+                            child: Text(
+                              'Submit',
+                              style: TextStyle(color: Theme.of(context).primaryColor),
+                            )),
+                      )
+                    ],
+                  ),
+                ));
+          },
+        );
+      },
     );
   }
 @override
@@ -561,14 +709,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         foregroundColor: Theme.of(context).primaryColor
                       ),
                         onPressed: () {
-                          var requestData = {
-                            "c_id":appState.customerDetails['c_id'],
-                            "p_id":appState.selectedProperty['p_id']
-                          };
-                          print(requestData);
-                         appState.customerDetails!={}
-                         ? bookVisit(requestData, appState, context)
-                          : ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('to request for visit, you have to login. please login', style: TextStyle(color: Colors.red),)));
+                          _showVisitDetailContainer(appState,context);
                         },
                         child: Text('Request Visit', style: TextStyle(color: Theme.of(context).primaryColor),)
                     ),
@@ -592,7 +733,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).hintColor
                 ),
-                onPressed: (){},
+                onPressed: (){
+                },
                 child: Text(
                   'Book Now',
                   style: TextStyle(

@@ -11,6 +11,9 @@ class VisitRequestedListPage extends StatefulWidget {
 }
 
 class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
+  String requestStatus = "";
+  Color statusColor = Colors.orange;
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
@@ -23,6 +26,16 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                   itemCount: appState.visitRequestedPropertyList.length,
                   itemBuilder: (context, index) {
                     final property = appState.visitRequestedPropertyList[index];
+                    if(property['v_status']==0){
+                      requestStatus = "Pending";
+                      statusColor = Colors.orange;
+                    }else if(property['v_status']==1){
+                      requestStatus="Accepted";
+                      statusColor=Colors.green;
+                    }else{
+                      requestStatus="Completed";
+                      statusColor=Colors.red;
+                    }
                     return InkWell(
                       onTap: () {
                         appState.selectedProperty = property;
@@ -129,7 +142,10 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                           //========================REQUEST STATUS
                                           Container(
                                             child: Text(
-                                                '${property['v_status']}'
+                                                '${requestStatus}',
+                                              style: TextStyle(
+                                                color: statusColor
+                                              ),
                                             ),
                                           )
                                           //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
