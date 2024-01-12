@@ -12,11 +12,11 @@ import 'package:real_state/config/ApiLinks.dart';
 
 
 class ImagePickerPage extends StatefulWidget {
-  final Map<String,dynamic> customerDetails;
+  final Map<String,dynamic> userDetails;
   final String forWhich;
 
 
-  ImagePickerPage({Key? key, required this.customerDetails, required this.forWhich,}) : super(key: key);
+  ImagePickerPage({Key? key, required this.userDetails, required this.forWhich,}) : super(key: key);
 
   @override
   State<ImagePickerPage> createState() => _ImagePickerPageState();
@@ -54,7 +54,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   }
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
-  Future<Map<String, dynamic>> uploadImages(data, Uri url, fieldName) async {
+  Future<Map<String, dynamic>> uploadImages(data, Uri url, fieldName, appState) async {
     print('upload profile pic method called');
     //print(data['email']);
     print(data['imageFile']);
@@ -63,7 +63,11 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       'PUT',
       url,
     );
-    request.fields['c_id'] = data['c_id'].toString();
+    if(appState.userType == "admin"){
+      request.fields['ad_id'] = data['ad_id'].toString();
+    }else{
+      request.fields['c_id'] = data['c_id'].toString();
+    }
     var mimeType = lookupMimeType(data['imageFile'].path);
     var fileExtension = mimeType!.split('/').last;
 
@@ -185,17 +189,25 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       var url;
                       if(widget.forWhich=='profilePic'){
                         if (appState.userType == 'customer') {
-                          url = Uri.parse(ApiLinks.uploadProfilePic);
+                          url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
                         } else {
-                          //url = Uri.parse(ApiLinks.uploadOwnerProfilePicApi);
+                          url = Uri.parse(ApiLinks.uploadAdminProfilePic);
                         }
                       }else{
                         //url=Uri.parse(ApiLinks.uploadOwnerHostlePicApi);
                       }
-                      var data={
-                        "c_id":widget.customerDetails['c_id'],
-                        "imageFile":appState.imageFile!
-                      };
+                      var data;
+                      if(appState.userType=="admin"){
+                        data = {
+                          "ad_id":widget.userDetails['ad_id'],
+                          "imageFile":appState.imageFile!
+                        };
+                      }else{
+                         data={
+                          "c_id":widget.userDetails['c_id'],
+                          "imageFile":appState.imageFile!
+                        };
+                      }
                       showDialog(
                         context: context,
                         barrierDismissible: false,
@@ -203,7 +215,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-                      final response = await uploadImages(data, url, widget.forWhich);
+                      final response = await uploadImages(data, url, widget.forWhich, appState);
                       print('inside the floating action');
                       print(response);
                       if(response.isNotEmpty){

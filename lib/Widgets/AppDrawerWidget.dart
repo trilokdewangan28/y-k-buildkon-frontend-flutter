@@ -164,6 +164,19 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+              Card(
+                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                elevation: 1,
+                child: ListTile(
+                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
+                  title: Text('Admin Pannel'),
+                  onTap: () {
+                    Navigator.pop(context);// Close the drawer
+                    appState.activeWidget='AdminLoginWidget';
+                    appState.currentState=0;
+                  },
+                ),
+              ),
 
             ],
           ),

@@ -7,14 +7,14 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 
-class CustomerProfilePage extends StatefulWidget {
-  const CustomerProfilePage({Key? key}) : super(key: key);
+class AdminProfilePage extends StatefulWidget {
+  const AdminProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<CustomerProfilePage> createState() => _CustomerProfilePageState();
+  State<AdminProfilePage> createState() => _AdminProfilePageState();
 }
 
-class _CustomerProfilePageState extends State<CustomerProfilePage> {
+class _AdminProfilePageState extends State<AdminProfilePage> {
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,12 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey,
-                    backgroundImage: appState.customerDetails['c_profilePic'].length > 0
+                    backgroundImage: appState.adminDetails['ad_profilePic'].length > 0
                         ? NetworkImage(
-                      '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['c_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                      '${ApiLinks.accessAdminProfilePic}/${appState.adminDetails['ad_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
                     )
                         : null, // Set to null if there is no profile picture
-                    child: appState.customerDetails['c_profilePic'].isEmpty
+                    child: appState.adminDetails['ad_profilePic'].isEmpty
                         ? Icon(Icons.person, size: 70, color: Colors.black) // Centered icon when no profile picture
                         : null, // No child when there is a profile picture, since it's set as backgroundImage
                   ),
@@ -51,9 +51,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       radius: 15,
                       backgroundColor: Theme.of(context).hintColor,
                       child:
-                          IconButton(onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(userDetails: appState.customerDetails,forWhich: 'profilePic',)));
-                          }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
+                      IconButton(onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(userDetails: appState.adminDetails,forWhich: 'profilePic',)));
+                      }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
                     ))
               ],
             ),
@@ -61,10 +61,10 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             //------------------------------------------Name
             Container(
               child: Text(
-                  '${appState.customerDetails['c_name']}',
+                '${appState.adminDetails['ad_name']}',
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
                 ),
               ),
             ),
@@ -72,7 +72,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             //------------------------------------------Email
             Container(
               child: Text(
-                '${appState.customerDetails['c_email']}',
+                '${appState.adminDetails['ad_email']}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal
@@ -83,7 +83,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             //------------------------------------------mobile
             Container(
               child: Text(
-                '${appState.customerDetails['c_mobile']}',
+                '${appState.adminDetails['ad_mobile']}',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal
@@ -94,22 +94,22 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
 
             //------------------------------------------edit btn
             Container(
-              margin: EdgeInsets.symmetric(vertical: 15),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
+                margin: EdgeInsets.symmetric(vertical: 15),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
 
-                  elevation: 4
-                ),
-                  onPressed: (){},
-                  child: Text('Edit Details',style: TextStyle(color: Theme.of(context).hintColor),)
-              )
+                        elevation: 4
+                    ),
+                    onPressed: (){},
+                    child: Text('Edit Details',style: TextStyle(color: Theme.of(context).hintColor),)
+                )
             ),
             SizedBox(height: 20,),
 
             //-----------------------------------------your visit request
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              width: MediaQuery.of(context).size.width*0.85,
+             // width: MediaQuery.of(context).size.width*0.85,
               height: MediaQuery.of(context).size.height*0.07,
               child: Card(
                 child: Row(
@@ -117,11 +117,11 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     SizedBox(width: 15,),
                     Icon(Icons.book_outlined),
                     SizedBox(width: 15,),
-                    Text('Your Visit Request'),
+                    Text('Customer Visit Request'),
                     Spacer(),
                     IconButton(
                         onPressed: (){
-                          appState.activeWidget = "VisitRequestedListWidget";
+                          appState.activeWidget = "CustomerVisitRequestWidget";
                         },
                         icon: Icon(Icons.arrow_right, size: 40,)
                     )
@@ -135,7 +135,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             //----------------------------------------your favorite property
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              width: MediaQuery.of(context).size.width*0.85,
+              //width: MediaQuery.of(context).size.width*0.85,
               height: MediaQuery.of(context).size.height*0.07,
               child: Card(
                 child: Row(
@@ -143,10 +143,35 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     SizedBox(width: 15,),
                     Icon(Icons.favorite_outline),
                     SizedBox(width: 15,),
-                    Text('Your Favorite Properties'),
+                    Text('Customer Payment History'),
+                    Spacer(),
+                    Expanded(
+                        child:IconButton(onPressed: (){
+                          //appState.activeWidget="";
+                        }, icon: Icon(Icons.arrow_right, size: 40,))
+                    )
+                  ],
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15,),
+
+            //----------------------------------------sold property list
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+             // width: MediaQuery.of(context).size.width*0.85,
+              height: MediaQuery.of(context).size.height*0.07,
+              child: Card(
+                child: Row(
+                  children: [
+                    SizedBox(width: 15,),
+                    Icon(Icons.favorite_outline),
+                    SizedBox(width: 15,),
+                    Text('sold property list'),
                     Spacer(),
                     IconButton(onPressed: (){
-                      appState.activeWidget="FavoritePropertyListWidget";
+                      //appState.activeWidget="";
                     }, icon: Icon(Icons.arrow_right, size: 40,))
                   ],
                 ),
@@ -157,24 +182,24 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
 
             //----------------------------------------logout btn
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              width: MediaQuery.of(context).size.width*0.85,
-              height: MediaQuery.of(context).size.height*0.07,
-              child: InkWell(
-                onTap: (){
-                  StaticMethod.logout(appState);
-                },
-                child: Card(
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15,),
-                      Icon(Icons.logout_sharp),
-                      SizedBox(width: 15,),
-                      Text('Log Out from your account', style: TextStyle(color: Colors.red),),
-                    ],
+                padding: EdgeInsets.symmetric(horizontal: 20),
+               // width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){
+                    StaticMethod.logout(appState);
+                  },
+                  child: Card(
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.logout_sharp),
+                        SizedBox(width: 15,),
+                        Text('Log Out from your account', style: TextStyle(color: Colors.red),),
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             )
 
           ],

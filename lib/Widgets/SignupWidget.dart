@@ -66,7 +66,7 @@ class _SignupWidgetState extends State<SignupWidget> {
          child: CircularProgressIndicator(),
        ),
      );
-     final res = await StaticMethod.customerSignup(customerData, url);
+     final res = await StaticMethod.userSignup(customerData, url);
      if(res.isNotEmpty){
        Navigator.pop(context);
        if(res['success']==true){

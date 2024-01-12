@@ -60,12 +60,13 @@ class MyProvider extends ChangeNotifier {
   List<dynamic> offerList=[];
   Map<String,dynamic> selectedOffer={};
 
-  //----------------------------------------------------------------------------USER RELATED DATA
+  //----------------------------------------------------------------------------CUSTOMER RELATED DATA
   Map<String,dynamic> customerDetails={};
   bool addedToFavorite = false;
 
   //----------------------------------------------------------------------------ADMIN DATA CONTACT
   Map<String,dynamic> adminContact={};
+  Map<String,dynamic> adminDetails={};
 
   //----------------------------------------------------------------------------HANDLING USER TYPE
   String userType="";

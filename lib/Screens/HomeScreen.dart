@@ -4,6 +4,8 @@ import 'package:real_state/Pages/Property/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/VisitRequestedDetailPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
+import 'package:real_state/Widgets/Admin/AdminProfileWidget.dart';
 import 'package:real_state/Widgets/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/FavoritePropertyListWidget.dart';
@@ -30,9 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
     StaticMethod.initialFetch(appState);
-    if (appState.token != "") {
-      var url = Uri.parse(ApiLinks.customerProfile);
-      StaticMethod.customerProfileInitial(appState.token, url, appState);
+    if (appState.token != "" && appState.userType!="") {
+      var url;
+      if(appState.userType=="admin"){
+        url = Uri.parse(ApiLinks.adminProfile);
+      }else{
+         url = Uri.parse(ApiLinks.customerProfile);
+      }
+      StaticMethod.userProfileInitial(appState.token, url, appState);
     }
   }
 
@@ -65,18 +72,28 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = 'Y&K BUILDCON';
         break;
       case "LoginWidget":
-        widgetContent =
-            appState.userType.isNotEmpty && appState.token.isNotEmpty
-                ? ProfileWidget()
-                : LoginWidget();
+        if(appState.userType.isNotEmpty && appState.token.isNotEmpty){
+           if(appState.userType=="admin"){
+             widgetContent = AdminProfileWidget();
+           }else{
+             widgetContent = ProfileWidget();
+           }
+        }else{
+          widgetContent = LoginWidget();
+        }
         secondBtmContent =
             appState.userType.isNotEmpty && appState.token.isNotEmpty
                 ? 'Profile'
                 : 'Login';
-        appBarContent =
-            appState.userType.isNotEmpty && appState.token.isNotEmpty
-                ? 'Profile'
-                : 'Login';
+        if(appState.userType.isNotEmpty && appState.token.isNotEmpty){
+          if(appState.userType=="admin"){
+            appBarContent = "Admin Profile";
+          }else{
+            appBarContent = "Customer Profile";
+          }
+        }else{
+          appBarContent = "Customer Login";
+        }
         break;
       case "SignupWidget":
         widgetContent = SignupWidget();
@@ -84,10 +101,18 @@ class _HomeScreenState extends State<HomeScreen> {
         secondBtmContent = 'registration';
         btmIcon = Icons.person_add;
       case "ProfileWidget":
-        widgetContent = ProfileWidget();
+        if(appState.userType=="admin"){
+          widgetContent = AdminProfileWidget();
+        }else{
+          widgetContent = ProfileWidget();
+        }
         secondBtmContent = 'Profile';
         btmIcon = Icons.person;
-        appBarContent = "Your Profile";
+        if(appState.userType=="admin"){
+          appBarContent = "Admin Profile";
+        }else{
+          appBarContent = "Profile";
+        }
         break;
       case "PropertyDetailPage":
         widgetContent = PropertyDetailPage();
@@ -114,6 +139,10 @@ class _HomeScreenState extends State<HomeScreen> {
       case "EmiCalculatorWidget":
         widgetContent = EmiCalculatorWidget();
         appBarContent = "EMI CALCULATOR";
+        break;
+      case "AdminLoginWidget":
+        widgetContent=AdminLoginWidget();
+        appBarContent="Admin Login";
         break;
     }
     return WillPopScope(

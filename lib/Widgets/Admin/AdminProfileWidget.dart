@@ -5,24 +5,25 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
+import 'package:real_state/Pages/Profile/Admin/AdminProfilePage.dart';
 import 'package:real_state/Pages/Profile/CustomerProfilePage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
-class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
+class AdminProfileWidget extends StatefulWidget {
+  const AdminProfileWidget({Key? key}) : super(key: key);
 
   @override
-  State<ProfileWidget> createState() => _ProfileWidgetState();
+  State<AdminProfileWidget> createState() => _AdminProfileWidgetState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget> {
+class _AdminProfileWidgetState extends State<AdminProfileWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     Widget profileContent = Container();
-    var url = Uri.parse(ApiLinks.customerProfile);
+    var url = Uri.parse(ApiLinks.adminProfile);
     var token = appState.token;
     return Container(
       child: FutureBuilder<Map<String, dynamic>>(
@@ -47,12 +48,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
             // Display user details when data is available.
             if(snapshot.data!['success']==true){
-              final customerResult = snapshot.data!;
-              if(customerResult['result'].length!=0){
-                appState.customerDetails= customerResult['result'];
-                profileContent = CustomerProfilePage();
+              final adminResult = snapshot.data!;
+              if(adminResult['result'].length!=0){
+                print(adminResult['result'][0]);
+                appState.adminDetails= adminResult['result'][0];
+                profileContent = AdminProfilePage();
               }else{
-                profileContent = EmptyPropertyPage(text: "empty customer details",);
+                profileContent = EmptyPropertyPage(text: "empty admin details",);
               }
               return profileContent;
             }else{

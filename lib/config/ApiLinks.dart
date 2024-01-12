@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "http://192.168.198.154:5000/";
+  static const baseUrl = "https://1ba4-2401-4900-7b12-4dbc-44f5-a247-f072-255f.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -15,13 +15,19 @@ class ApiLinks{
   static const fetchVisitRequestedList = "${baseUrl}api/customer/fetchVisitRequestedList";
   static const fetchVisitRequestedPropertyDetails = "${baseUrl}api/customer/fetchVisitRequestedPropertyDetails";
   static const submitPropertyRating = "${baseUrl}api/customer/submitPropertyRating";
-  static const uploadProfilePic = "${baseUrl}api/customer/uploadProfilePic";
+  static const uploadCustomerProfilePic = "${baseUrl}api/customer/uploadProfilePic";
   static const accessCustomerProfilePic = "${baseUrl}api/customer/accessCustomerProfilePic";
   static const fetchOfferList = "${baseUrl}api/customer/fetchOfferList";
+  static const fetchAdminContact = "${baseUrl}api/admin/fetchAdminContact";
 
   //==================================ADMIN API================================
-  static const fetchAdminContact = "${baseUrl}api/admin/fetchAdminContact";
   static const uploadOfferImages = "${baseUrl}api/admin/uploadOfferImages";
+  static const fetchCustomerRequest = "${baseUrl}api/admin/fetchCustomerRequest";
+  static const sendOtpForAdminLogin = "${baseUrl}api/admin/sendOtpForAdminLogin";
+  static const verifyOtpForAdminLogin = "${baseUrl}api/admin/verifyOtpForAdminLogin";
+  static const adminProfile = "${baseUrl}api/admin/adminProfile";
+  static const uploadAdminProfilePic = "";
+  static const accessAdminProfilePic = "";
 
   //=================================VISIT API=================================
   static const requestVisit = "${baseUrl}api/visit/requestVisit";

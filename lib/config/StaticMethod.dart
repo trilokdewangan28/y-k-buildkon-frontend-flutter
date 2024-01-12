@@ -36,7 +36,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------SIGNUP CUSTOMER
-  static Future<Map<String,dynamic>> customerSignup(customerData, url)async{
+  static Future<Map<String,dynamic>> userSignup(signupData, url)async{
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -44,7 +44,7 @@ class StaticMethod{
         'Accept': 'application/json',
       };
       final res = await http.post(url,
-          body: jsonEncode(customerData), headers: requestHeaders);
+          body: jsonEncode(signupData), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -63,7 +63,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------GENERATE OTP
-  static Future<Map<String,dynamic>> generateOtp(otpModel, url)async{
+  static Future<Map<String,dynamic>> generateOtp(userData, url)async{
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -71,7 +71,7 @@ class StaticMethod{
         'Accept': 'application/json',
       };
       final res = await http.post(url,
-          body: jsonEncode(otpModel), headers: requestHeaders);
+          body: jsonEncode(userData), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -117,7 +117,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
-  static customerProfileInitial(token,url, appState)async{
+  static userProfileInitial(token,url, appState)async{
     var response;
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
@@ -131,7 +131,11 @@ class StaticMethod{
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         print('customer data is :'+response['result'].toString());
-        appState.customerDetails = response['result'];
+        if(appState.userType=="admin"){
+          appState.adminDetails = response['result'];
+        }else{
+          appState.customerDetails = response['result'];
+        }
         return response;
       } else {
         response = jsonDecode(res.body);
@@ -139,17 +143,17 @@ class StaticMethod{
       }
 
     }catch(e){
-      print('failed to complete customer profile api');
+      print('failed to complete user profile api');
       print(e.toString());
       return {
         "success":false ,
-        "message":'An error occured while fetching customer detail'
+        "message":'An error occured while fetching user detail'
       };
     }
   }
 
   //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
-  static Future<Map<String,dynamic>> customerProfile(token,url)async{
+  static Future<Map<String,dynamic>> userProfile(token,url)async{
     var response;
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
