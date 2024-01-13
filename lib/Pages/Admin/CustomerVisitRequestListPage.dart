@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class CustomerVisitRequestListPage extends StatefulWidget {
   const CustomerVisitRequestListPage({Key? key}) : super(key: key);
@@ -194,8 +194,8 @@ class _CustomerVisitRequestListPageState
                                           LinearProgressIndicator(),
                                       errorWidget: (context, url, error) =>
                                           Icon(Icons.error),
-//height: 100,
                                       width: 100,
+                                      height: 100,
                                       fit: BoxFit.fill,
                                     )
                                   : Image.asset(

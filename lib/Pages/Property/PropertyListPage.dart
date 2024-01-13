@@ -619,7 +619,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 // imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
 // placeholder: (context, url) =>LinearProgressIndicator(),
 // errorWidget: (context, url, error) => Icon(Icons.error),
-// //height: 100,
+// height: 100,
 // width: 100,
 // fit: BoxFit.fill,
 // )

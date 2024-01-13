@@ -22,10 +22,10 @@ class AppDrawerWidget extends StatelessWidget {
           elevation: 0,
           width: 270,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(25),
-              bottomRight: Radius.circular(25)
-            )
+            // borderRadius: BorderRadius.only(
+            //   topRight: Radius.circular(25),
+            //   bottomRight: Radius.circular(25)
+            // )
           ),
           shadowColor: Theme.of(context).primaryColor,
           child: ListView(

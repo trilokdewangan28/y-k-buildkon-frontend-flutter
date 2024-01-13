@@ -143,8 +143,13 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = "EMI CALCULATOR";
         break;
       case "AdminLoginWidget":
-        widgetContent=AdminLoginWidget();
-        appBarContent="Admin Login";
+        if(appState.token.isNotEmpty && appState.userType.isNotEmpty){
+          widgetContent=AdminProfileWidget();
+          appBarContent="Admin Profile";
+        }else{
+          widgetContent = AdminLoginWidget();
+          appBarContent = "Admin Login";
+        }
         break;
       case "CustomerVisitRequestListWidget":
         widgetContent = CustomerVisitRequestListWidget();

@@ -400,6 +400,8 @@ class StaticMethod{
 
     appState.customerDetails = {};
     appState.customerDetails.clear();
+    appState.adminDetails={};
+    appState.adminDetails.clear();
     await Future.delayed(const Duration(milliseconds: 100));
 
     await appState.fetchUserType();
