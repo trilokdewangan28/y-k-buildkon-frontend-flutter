@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Property/ImageSlider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/FetchAdminContactWidget.dart';
-import 'package:real_state/Widgets/RatingDisplayWidget.dart';
-import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
+import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PropertyDetailPage extends StatefulWidget {
   const PropertyDetailPage({Key? key}) : super(key: key);

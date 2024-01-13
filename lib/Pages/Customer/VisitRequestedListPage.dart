@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 class VisitRequestedListPage extends StatefulWidget {
   const VisitRequestedListPage({Key? key}) : super(key: key);

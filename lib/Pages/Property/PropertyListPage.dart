@@ -7,8 +7,8 @@ import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/OfferListWidget.dart';
-import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/Widgets/Other/OfferListWidget.dart';
+import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
@@ -415,8 +415,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         //=====================================OFFER CONTAINER
         Container(
           margin: EdgeInsets.only(top: 15, left: 15, right: 15),
-          child: Container(
-            child: FutureBuilder<Map<String, dynamic>>(
+          child:FutureBuilder<Map<String, dynamic>>(
               future: StaticMethod.fetchOfferList(url),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -456,7 +455,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 }
               },
             ),
-          )
+
         ),
         SizedBox(height: 20,),
 

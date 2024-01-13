@@ -67,6 +67,9 @@ class MyProvider extends ChangeNotifier {
   //----------------------------------------------------------------------------ADMIN DATA CONTACT
   Map<String,dynamic> adminContact={};
   Map<String,dynamic> adminDetails={};
+  List<dynamic> customerRequestList = [];
+  List<dynamic> filteredCustomerRequestList = [];
+  Map<String,dynamic> selectedCustomerRequest = {};
 
   //----------------------------------------------------------------------------HANDLING USER TYPE
   String userType="";

@@ -2,21 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Property/ImageSlider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/FetchAdminContactWidget.dart';
-import 'package:real_state/Widgets/RatingDisplayWidgetTwo.dart';
+import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
+import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-class FavoritePropertyDetailPage extends StatefulWidget {
-  const FavoritePropertyDetailPage({Key? key}) : super(key: key);
+class VisitRequestedDetailPage extends StatefulWidget {
+  const VisitRequestedDetailPage({Key? key}) : super(key: key);
 
   @override
-  State<FavoritePropertyDetailPage> createState() => _FavoritePropertyDetailPageState();
+  State<VisitRequestedDetailPage> createState() => _VisitRequestedDetailPageState();
 }
 
-class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage> {
-
+class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
   bookVisit(requestData,appState,context)async{
 
     var url = Uri.parse(ApiLinks.requestVisit);
@@ -84,7 +81,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
   fetchFavoriteProperty(appState)async{
     var data = {
       "c_id":appState.customerDetails['c_id'],
-      "p_id":appState.selectedProperty['p_id']
+      "p_id":appState.selectedVisitRequestedProperty['p_id']
     };
     var url = Uri.parse(ApiLinks.fetchFavoriteProperty);
     final res = await StaticMethod.fetchFavoriteProperty(data,url);

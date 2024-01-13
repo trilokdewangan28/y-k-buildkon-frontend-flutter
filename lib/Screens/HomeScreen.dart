@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/Property/FavoritePropertyDetailPage.dart';
+import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
+import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
-import 'package:real_state/Pages/Property/VisitRequestedDetailPage.dart';
+import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminProfileWidget.dart';
-import 'package:real_state/Widgets/AppDrawerWidget.dart';
-import 'package:real_state/Widgets/EmiCalculatorWidget.dart';
-import 'package:real_state/Widgets/FavoritePropertyListWidget.dart';
-import 'package:real_state/Widgets/LoginWidget.dart';
-import 'package:real_state/Widgets/OtpVerificationWidget.dart';
-import 'package:real_state/Widgets/ProfileWidget.dart';
-import 'package:real_state/Widgets/PropertyListWidget.dart';
-import 'package:real_state/Widgets/SignupWidget.dart';
-import 'package:real_state/Widgets/VisitRequestedListWidget.dart';
+import 'package:real_state/Widgets/Admin/CustomerVisitRequestListWidget.dart';
+import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
+import 'package:real_state/Widgets/Customer/FavoritePropertyListWidget.dart';
+import 'package:real_state/Widgets/Customer/LoginWidget.dart';
+import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
+import 'package:real_state/Widgets/Other/OtpVerificationWidget.dart';
+import 'package:real_state/Widgets/Customer/ProfileWidget.dart';
+import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
+import 'package:real_state/Widgets/Customer/SignupWidget.dart';
+import 'package:real_state/Widgets/Customer/VisitRequestedListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
@@ -144,6 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent=AdminLoginWidget();
         appBarContent="Admin Login";
         break;
+      case "CustomerVisitRequestListWidget":
+        widgetContent = CustomerVisitRequestListWidget();
+        appBarContent = "Customer Request";
+        break;
+      case "CustomerVisitRequestDetailPage":
+        widgetContent = CustomerVisitRequestDetailPage();
+        appBarContent = "Request Detail";
+
     }
     return WillPopScope(
         child: SafeArea(

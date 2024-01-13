@@ -516,6 +516,43 @@ class StaticMethod{
   }
 
 
+  //============================================================================FETCH CUSTOMER REQUEST
+  static Future<Map<String,dynamic>> fetchCustomerRequest(url)async{
+    var response;
+    try{
+      final res = await http.get(url);
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    }catch(e){
+      print('failed to complete fetchCustomerRequest api');
+      print(e.toString());
+      return {
+        "success":false ,
+        "message":'An error occured while requesting customer Request list'
+      };
+    }
+  }
+
+  //============================================================filter customer request method
+  static void filterCustomerRequest(appState,{
+    int selectedRequestStatus = 4,
+  }) {
+
+    appState.filteredCustomerRequestList = appState.customerRequestList.where((property) {
+      int status = property['v_status'];
+
+
+      return ( selectedRequestStatus!=4 ? status==selectedRequestStatus : status<selectedRequestStatus);
+    }).toList();
+  }
+
+
 
 
 

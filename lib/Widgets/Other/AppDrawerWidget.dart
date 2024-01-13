@@ -1,9 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/StaticContentPage/AdminContactPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/FetchAdminContactWidget.dart';
+import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
 
