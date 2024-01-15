@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "https://372f-2401-4900-7b10-85ab-9179-98a8-2b38-108a.ngrok-free.app/";
+  static const baseUrl = "https://d9c7-2401-4900-7b36-6953-a02e-8738-5414-5643.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -27,6 +27,7 @@ class ApiLinks{
 
 
   //==================================ADMIN API================================
+  static const insertPropertyDetails = "${baseUrl}api/admin/insertPropertyDetails";
   static const uploadOfferImages = "${baseUrl}api/admin/uploadOfferImages";
   static const fetchCustomerRequest = "${baseUrl}api/admin/fetchCustomerRequest";
   static const sendOtpForAdminLogin = "${baseUrl}api/admin/sendOtpForAdminLogin";

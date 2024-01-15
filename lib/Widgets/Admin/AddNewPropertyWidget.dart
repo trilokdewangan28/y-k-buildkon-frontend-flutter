@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 class AddNewPropertyWidget extends StatefulWidget {
   const AddNewPropertyWidget({Key? key}) : super(key: key);
@@ -58,8 +61,53 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final FocusNode _propertyLocationUrlFocusNode = FocusNode();
 
 
+  _submitData(appState, context)async{
+    var propertyData = {
+      "p_name":_propertyNameController.text,
+      "p_un":_propertyUnController.text,
+      "p_area":_propertyAreaController.text,
+      "p_price":_propertyPriceController.text,
+      "p_bookAmount":_propertyBookingAmountController.text,
+      "p_type":selectedPropertyType,
+      "p_bhk":selectedBhk,
+      "p_floor":selectedFloor,
+      "p_isGarden":selectedGarden,
+      "p_isParking":selectedParking,
+      "p_isFurnished":selectedFurnished,
+      "p_isAvailable":selectedAvailability,
+      "p_desc":_propertyDescriptionController.text,
+      "p_address":_propertyAddressController.text,
+      "p_locality":_propertyLocalityController.text,
+      "p_city":_propertyCityController.text,
+      "p_pincode":_propertyPincodeController.text,
+      "p_locationUrl":_propertyLocationUrlController.text,
+    };
+    var url = Uri.parse(ApiLinks.insertPropertyDetails);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res = await StaticMethod.insertProperty(propertyData, url);
+    if(res.isNotEmpty){
+      Navigator.pop(context);
+      if(res['success']==true){
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        appState.activeWidget = "PropertyListWidget";
+        appState.currentState = 0;
+      }else{
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+      }
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<MyProvider>(context);
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(bottom: 250),
@@ -784,7 +832,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                       ElevatedButton(
                           onPressed: (){
                             if (_formKey.currentState!.validate()) {
-                              //_submitData(appState, context);
+                              _submitData(appState,context);
                             }
                           },
                           child: Text('Add Properties',style: TextStyle(color: Theme.of(context).hintColor),)

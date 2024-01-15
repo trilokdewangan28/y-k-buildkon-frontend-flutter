@@ -586,7 +586,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   RatingDisplayWidgetTwo(
                                     rating: property['p_rating'].toDouble(),
                                   ),
-                                  Text('(${property['p_rating_count']})')
+                                  Text('(${property['p_ratingCount']})')
                                 ],
                               ),
                               //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()

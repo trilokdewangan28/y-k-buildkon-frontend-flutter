@@ -425,7 +425,7 @@ class StaticMethod{
     int propertyId = 0,
   }) {
 
-    appState.filteredPropertyList = appState.propertyList.where((property) {
+    appState.filteredPropertyList = appState.propertyList.length != 0 ? appState.propertyList.where((property) {
       final String name = property['p_name'].toLowerCase();
       final String type = property['p_type'].toLowerCase();
       final String city = property['p_city'].toLowerCase();
@@ -436,7 +436,7 @@ class StaticMethod{
           (propertyId!=0 ? property['p_id']==propertyId : property['p_id']>0) &&
           (selectedCity.isEmpty || city.contains(selectedCity.toLowerCase())) &&
           (propertyName.isEmpty || name.contains(propertyName.toLowerCase()));
-    }).toList();
+    }).toList() : [];
   }
 
 
@@ -577,6 +577,33 @@ class StaticMethod{
       return {
         "success": false,
         "message": 'An error occured while requesting for changeVisitStatus api'
+      };
+    }
+  }
+
+  //----------------------------------------------------------------------------Insert property
+  static Future<Map<String,dynamic>> insertProperty(data, url)async{
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete insertProperty api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for insertProperty api'
       };
     }
   }

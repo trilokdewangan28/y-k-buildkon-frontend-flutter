@@ -486,14 +486,14 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                 //================================RATINGS
                 InkWell(
-                  onTap: (){
+                  onTap: appState.userType=='customer' ? (){
                     _showBottomSheetForSubmitRating(context, appState);
-                  },
+                  } : null,
                   child: RatingDisplayWidgetTwo(rating: appState.selectedProperty['p_rating'].toDouble())
                 ),
                 //================================RATING USER COUNT
                 Text(
-                    '(${appState.selectedProperty['p_rating_count']})'
+                    '(${appState.selectedProperty['p_ratingCount']})'
                 )
 
               ],
@@ -539,7 +539,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 Spacer(),
                 //=============================FAVRITE BTN
                 IconButton(
-                    onPressed: (){
+                    onPressed: appState.userType=='customer' ? (){
                       if(appState.customerDetails.isNotEmpty){
                         print(appState.customerDetails);
                         var data={
@@ -551,93 +551,167 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       }else{
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('you have to login. please login', style: TextStyle(color: Colors.red),)));
                       }
-                    },
+                    } : null,
                     icon: appState.addedToFavorite==false ?  Icon(Icons.favorite_outline) : Icon(Icons.favorite, color: Colors.red,)
                 ),
               ],
             ),
           ),     //-----------price
-
           SizedBox(height: 10,),
+
+
           //=================================ROW 4
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-            padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-            decoration: BoxDecoration(
-              border: Border.all(width: 1),
-              borderRadius: BorderRadius.circular(10)
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+              decoration: BoxDecoration(
+                  border: Border.all(width: 1),
+                  borderRadius: BorderRadius.circular(10)
+              ),
+            child:Column(
               children: [
-                //===================================SQUARE FEET
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                //------------------------------type and area
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      'Square Foot',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Property Type',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.home_work_outlined, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_type']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
                     ),
-                    Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
-                    Text('${appState.selectedProperty['p_area']}',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15
-                      ),)
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Area',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_area']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
+                    ),
                   ],
                 ),
-                SizedBox(width: 20,),
-                //===================================BEDROOM
-                Column(
+
+                SizedBox(height: 20,),
+
+                //-----------------------------bhk and furnished
+                appState.selectedProperty['p_type']=='House' || appState.selectedProperty['p_type']=='Flat'
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Bedroom',style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                      fontSize: 15
-                    ),),
-                    Icon(Icons.bedroom_parent,color: Theme.of(context).hintColor,),
-                    Text('${appState.selectedProperty['p_bedroom']}',style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15
-                    ))
-                  ],
-                ),
-                SizedBox(width: 20,),
-                //===================================BATHROOM
-                Column(
-                  children: [
-                    Text('Bathroom',style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                      fontSize: 15
-                    ),),
-                    Icon(Icons.bathroom,color: Theme.of(context).hintColor,),
-                    Text('${appState.selectedProperty['p_bathroom']}',style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15
-                    ))
-                  ],
-                ),
-                SizedBox(width: 20,),
-                //====================================HALL
-                Column(
-                  children: [
-                    Text('Hall',style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                      fontSize: 15
-                    ),),
-                    Icon(Icons.living,color: Theme.of(context).hintColor,),
-                    Text('${appState.selectedProperty['p_hall']}',style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15
-                    ))
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Property BHK',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.bedroom_parent_sharp, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_bhk']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Furnished',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.chair, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_isFurnished']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
+                    ),
                   ],
                 )
+                : Container(),
+
+                SizedBox(height: 20,),
+
+
+                //---------------------------garden and parking
+                appState.selectedProperty['p_type']=='House'
+                ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Garden',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.park_outlined, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_isGarden']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Parking',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                          ),
+                        ),
+                        Icon(Icons.local_parking, color: Theme.of(context).hintColor,),
+                        Text('${appState.selectedProperty['p_isParking']}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15
+                          ),)
+                      ],
+                    ),
+                  ],
+                )
+                : Container(),
               ],
-            ),
+            )
           ),
-          SizedBox(height: 10,),
+          SizedBox(width: 20,),
+
 
           //==========================================PROPERTY DESCRIPTION
           Container(
@@ -653,7 +727,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           Container(
             margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
             child: Text(
-              'afdkljaskldfjasdjfklasjdflkjasdklfjalskdjflk;asdjflkasjdfkljasdlk;fjasldkfjkakl;sdjfl;kasdjfklajsdklf;jasldfjasldkjflkasdjf',
+              '${appState.selectedProperty['p_desc']}',
               style: TextStyle(
                   fontWeight: FontWeight.w500,
                 fontSize: 15,
@@ -680,8 +754,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               child: InkWell(
                 highlightColor: Theme.of(context).primaryColorDark,
                 onTap: () {
-                  print('map url is ${appState.selectedProperty['p_locationurl']}');
-                  StaticMethod.openMap(appState.selectedProperty['p_locationurl']);
+                  print('map url is ${appState.selectedProperty['p_locationUrl']}');
+                  StaticMethod.openMap(appState.selectedProperty['p_locationUrl']);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
@@ -695,7 +769,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               )),
 
           //===========================================BUTTONS
-          Row(
+          appState.userType=='customer'
+          ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
@@ -725,8 +800,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         appState.currentState=0;
                       }, child: Text('Contact Now',style: TextStyle(color: Theme.of(context).primaryColor),))),
             ],
-          ),
-          Center(
+          )
+          : Container(),
+          appState.userType=='customer'
+              ? Center(
             child:ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(context).hintColor
@@ -741,6 +818,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 )
             ),
           )
+              : Container()
         ],
       ),
     ));
