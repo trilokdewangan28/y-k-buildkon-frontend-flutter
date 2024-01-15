@@ -61,7 +61,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             //------------------------------------------Name
             Container(
               child: Text(
-                '${appState.adminDetails['ad_name']}',
+                '${appState.adminDetails['ad_name'].toUpperCase()} (ADMIN)',
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
@@ -172,7 +172,29 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 ),
               )
             ),
+            SizedBox(height: 15,),
 
+            //----------------------------------------LIST NEW PROPETY
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                // width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){
+                    appState.activeWidget = "AddNewPropertyWidget";
+                  },
+                  child: Card(
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.add_business),
+                        SizedBox(width: 15,),
+                        Text('Add New Property'),
+                      ],
+                    ),
+                  ),
+                )
+            ),
             SizedBox(height: 15,),
 
             //----------------------------------------logout btn

@@ -133,8 +133,6 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
         appState.activeWidget='ProfileWidget';
         appState.currentState=1;
-        setState(() {
-        });
       }else{
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
       }

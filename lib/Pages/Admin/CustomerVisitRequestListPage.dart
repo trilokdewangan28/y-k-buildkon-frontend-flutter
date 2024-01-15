@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -40,7 +41,8 @@ class _CustomerVisitRequestListPageState
     final appState = Provider.of<MyProvider>(context);
     return Column(
       children: [
-        //=====================================FILTER USING PROPERTY TYPE
+        SizedBox(height: 10,),
+        //=====================================FILTER USING REQUEST STATUS
         Container(
           height: 30,
           margin: EdgeInsets.symmetric(horizontal: 15),

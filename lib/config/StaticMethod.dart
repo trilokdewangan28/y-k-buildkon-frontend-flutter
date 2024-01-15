@@ -554,6 +554,33 @@ class StaticMethod{
     }).toList();
   }
 
+  //----------------------------------------------------------------------------Change Visit Status
+  static Future<Map<String,dynamic>> changeVisitStatus(data, url)async{
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.put(url,
+          body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete changeVisitStatus api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for changeVisitStatus api'
+      };
+    }
+  }
+
 
 
 

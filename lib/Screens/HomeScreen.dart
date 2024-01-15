@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
-import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
+import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Admin/AddNewPropertyWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminProfileWidget.dart';
 import 'package:real_state/Widgets/Admin/CustomerVisitRequestListWidget.dart';
-import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/Customer/FavoritePropertyListWidget.dart';
 import 'package:real_state/Widgets/Customer/LoginWidget.dart';
-import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
-import 'package:real_state/Widgets/Other/OtpVerificationWidget.dart';
 import 'package:real_state/Widgets/Customer/ProfileWidget.dart';
-import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
 import 'package:real_state/Widgets/Customer/SignupWidget.dart';
 import 'package:real_state/Widgets/Customer/VisitRequestedListWidget.dart';
+import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
+import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
+import 'package:real_state/Widgets/Other/OtpVerificationWidget.dart';
+import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
@@ -34,12 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
     StaticMethod.initialFetch(appState);
-    if (appState.token != "" && appState.userType!="") {
+    if (appState.token != "" && appState.userType != "") {
       var url;
-      if(appState.userType=="admin"){
+      if (appState.userType == "admin") {
         url = Uri.parse(ApiLinks.adminProfile);
-      }else{
-         url = Uri.parse(ApiLinks.customerProfile);
+      } else {
+        url = Uri.parse(ApiLinks.customerProfile);
       }
       StaticMethod.userProfileInitial(appState.token, url, appState);
     }
@@ -58,7 +59,15 @@ class _HomeScreenState extends State<HomeScreen> {
           });
           //logout();
         },
-        icon: Icon(darkMode == false ? Icons.dark_mode : Icons.light_mode));
+        icon: darkMode == false
+            ? Icon(
+                Icons.dark_mode,
+                color: Colors.black,
+              )
+            : Icon(
+                Icons.light_mode,
+                color: Colors.black,
+              ));
     String secondBtmContent =
         appState.userType != "" && appState.token != "" ? 'profile' : 'login';
     IconData btmIcon = appState.userType != "" && appState.token != ""
@@ -74,26 +83,18 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = 'Y&K BUILDCON';
         break;
       case "LoginWidget":
-        if(appState.userType.isNotEmpty && appState.token.isNotEmpty){
-           if(appState.userType=="admin"){
-             widgetContent = AdminProfileWidget();
-           }else{
-             widgetContent = ProfileWidget();
-           }
-        }else{
-          widgetContent = LoginWidget();
-        }
-        secondBtmContent =
-            appState.userType.isNotEmpty && appState.token.isNotEmpty
-                ? 'Profile'
-                : 'Login';
-        if(appState.userType.isNotEmpty && appState.token.isNotEmpty){
-          if(appState.userType=="admin"){
+        if (appState.userType.isNotEmpty && appState.token.isNotEmpty) {
+          if (appState.userType == "admin") {
+            widgetContent = AdminProfileWidget();
             appBarContent = "Admin Profile";
-          }else{
+          } else {
+            widgetContent = ProfileWidget();
             appBarContent = "Customer Profile";
           }
-        }else{
+          secondBtmContent = "Profile";
+        } else {
+          widgetContent = LoginWidget();
+          secondBtmContent = "Login";
           appBarContent = "Customer Login";
         }
         break;
@@ -103,16 +104,16 @@ class _HomeScreenState extends State<HomeScreen> {
         secondBtmContent = 'registration';
         btmIcon = Icons.person_add;
       case "ProfileWidget":
-        if(appState.userType=="admin"){
+        if (appState.userType == "admin") {
           widgetContent = AdminProfileWidget();
-        }else{
+        } else {
           widgetContent = ProfileWidget();
         }
         secondBtmContent = 'Profile';
         btmIcon = Icons.person;
-        if(appState.userType=="admin"){
+        if (appState.userType == "admin") {
           appBarContent = "Admin Profile";
-        }else{
+        } else {
           appBarContent = "Profile";
         }
         break;
@@ -143,10 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = "EMI CALCULATOR";
         break;
       case "AdminLoginWidget":
-        if(appState.token.isNotEmpty && appState.userType.isNotEmpty){
-          widgetContent=AdminProfileWidget();
-          appBarContent="Admin Profile";
-        }else{
+        if (appState.token.isNotEmpty && appState.userType.isNotEmpty) {
+          widgetContent = AdminProfileWidget();
+          appBarContent = "Admin Profile";
+          appState.currentState = 1;
+        } else {
           widgetContent = AdminLoginWidget();
           appBarContent = "Admin Login";
         }
@@ -158,29 +160,34 @@ class _HomeScreenState extends State<HomeScreen> {
       case "CustomerVisitRequestDetailPage":
         widgetContent = CustomerVisitRequestDetailPage();
         appBarContent = "Request Detail";
-
+      case "AddNewPropertyWidget":
+        widgetContent = AddNewPropertyWidget();
+        appBarContent = "Add New Property";
+        break;
     }
-    return WillPopScope(
+    return PopScope(
         child: SafeArea(
             child: Scaffold(
           resizeToAvoidBottomInset: false,
           appBar: AppBar(
+            elevation: 10,
             title: Row(
               children: [
                 Container(
                   child: Image.asset(
                     'assets/images/logo.png',
                     width: 50,
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
-                Expanded(child: Container(
+                Expanded(
+                    child: Container(
                   child: Text(
                     '${appBarContent}',
                     style: TextStyle(
+                        color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
-                        overflow: TextOverflow.ellipsis
-                    ),
+                        overflow: TextOverflow.ellipsis),
                     softWrap: true,
                   ),
                 ))
@@ -189,11 +196,12 @@ class _HomeScreenState extends State<HomeScreen> {
             centerTitle: true,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(30),
-                  bottomLeft: Radius.circular(30)),
+                bottomRight: Radius.circular(40),
+                //topRight: Radius.circular(50)
+              ),
             ),
             actions: [darkModeAction],
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).hintColor,
           ),
           body: widgetContent,
           bottomNavigationBar: BottomNavigationBar(
@@ -232,7 +240,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           drawer: AppDrawerWidget(),
         )),
-        onWillPop: () async {
+        canPop: false,
+        onPopInvoked:(didPop) {
+
           switch (appState.activeWidget) {
             case "PropertyDetailPage":
               appState.activeWidget = "PropertyListWidget";
@@ -246,16 +256,31 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
             case "FavoritePropertyListWidget":
               appState.activeWidget = "ProfileWidget";
+              break;
             case "VisitRequestedDetailPage":
               appState.activeWidget = "VisitRequestedListWidget";
               appState.selectedProperty = {};
               appState.addedToFavorite = false;
+              break;
             case "VisitRequestedListWidget":
               appState.activeWidget = "ProfileWidget";
+              break;
             case "EmiCalculatorWidget":
               appState.activeWidget = "PropertyListWidget";
+              break;
+            case "CustomerVisitRequestDetailPage":
+              appState.activeWidget = "CustomerVisitRequestListWidget";
+              break;
+            case "CustomerVisitRequestListWidget":
+              appState.activeWidget = "ProfileWidget";
+              break;
+            case "AddNewPropertyWidget":
+              appState.activeWidget = "ProfileWidget";
+              break;
+
           }
-          return false;
-        });
+
+        },
+        );
   }
 }

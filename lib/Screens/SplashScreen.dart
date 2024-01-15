@@ -3,8 +3,15 @@ import 'package:real_state/Pages/StaticContentPage/IntroductionPageOne.dart';
 import 'package:real_state/Screens/HomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -14,19 +21,23 @@ class SplashScreen extends StatelessWidget {
       bool hasSeenIntroduction = prefs.getBool('hasSeenIntroduction') ?? false;
 
       if (hasSeenIntroduction) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => HomeScreen()),
-        );
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => HomeScreen()),
+          );
+        }
       } else {
-        // User hasn't seen introduction, navigate to IntroductionPageOne
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => IntroductionPageOne()),
-        );
+        if (mounted) {
+          // User hasn't seen introduction, navigate to IntroductionPageOne
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (_) => IntroductionPageOne()),
+          );
 
-        // Set the flag to indicate that the user has seen the introduction
-        prefs.setBool('hasSeenIntroduction', true);
+          // Set the flag to indicate that the user has seen the introduction
+          prefs.setBool('hasSeenIntroduction', true);
+        }
       }
     });
     return SafeArea(child: Scaffold(

@@ -172,7 +172,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context);// Close the drawer
                     appState.activeWidget='AdminLoginWidget';
-                    appState.currentState=0;
+                    appState.currentState=1;
                   },
                 ),
               ),

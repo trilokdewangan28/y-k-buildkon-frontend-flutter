@@ -222,6 +222,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     Widget offerContent = Container();
     return Column(
       children: [
+        SizedBox(height: 10,),
         //=====================================FILTER USING PROPERTY TYPE
         Container(
           height: 30,
