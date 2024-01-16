@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -17,12 +18,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    print(appState.visitRequestedPropertyList);
+    //print(appState.visitRequestedPropertyList);
     return Column(
       children: [
         //=====================================PROPERTY LIST CONTAINER
-        Container(
-            child: Expanded(
+         Expanded(
                 child: ListView.builder(
                   itemCount: appState.visitRequestedPropertyList.length,
                   itemBuilder: (context, index) {
@@ -43,7 +43,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         appState.activeWidget = "VisitRequestedDetailPage";
                       },
                       child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                           child: Card(
                             shadowColor: Colors.black,
                             color: Colors.white,
@@ -56,17 +56,26 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                               children: [
                                 //==============================PROPERTY IMAGE CONTAINER
                                 Container(
-                                  margin: EdgeInsets.all(8),
-                                  child:Center(
+                                  margin: const EdgeInsets.all(8),
+                                  child: Center(
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: property['pi_name'].length>0 ? Image.network(
-                                        '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.fill,
-                                      )
-                                          : Image.asset('assets/images/home.jpg',height: 100,width: 100,),
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: property['pi_name'].length > 0
+                                            ? CachedNetworkImage(
+                                          imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                          placeholder: (context, url) =>const LinearProgressIndicator(),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.fill,
+                                        )
+                                            : ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            'assets/images/home.jpg',
+                                            width: 100,
+                                          ),
+                                        )
                                     ),
                                   ),
                                 ),
@@ -75,28 +84,27 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                 Expanded(
                                     child: Container(
                                       width: double.infinity,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 4, vertical: 8),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           //=======================NAME CONTAINER
-                                          Container(
-                                            child: Text(
+                                          Text(
                                               '${property['p_name'].toUpperCase()}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               softWrap: true,
                                             ),
-                                          ),
+
 
                                           //=======================AREA TEXT
                                           Text(
                                             '${property['p_area']} ${property['p_areaUnit']}',
-                                            style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
+                                            style: const TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
 
                                           //=======================PRICE ROW SECTION
@@ -108,7 +116,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                               ),
                                               Text(
                                                 '${property['p_price']}',
-                                                style: TextStyle(fontSize: 14,color: Colors.grey, fontWeight: FontWeight.w500),
+                                                style: const TextStyle(fontSize: 14,color: Colors.grey, fontWeight: FontWeight.w500),
                                               ),
                                             ],
                                           ),
@@ -117,15 +125,16 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                           Row(
                                             children: [
                                               Icon(Icons.location_pin,color: Theme.of(context).hintColor,size: 20,),
-                                              Expanded(child: Container(child:Text(
+                                              Expanded(child:Text(
                                                 '${property['p_locality']}, ${property['p_city']}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
-                                              )),)
+                                              )
+                                              )
                                             ],
                                           ),
 
@@ -140,14 +149,13 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                           ),
 
                                           //========================REQUEST STATUS
-                                          Container(
-                                            child: Text(
-                                                '${requestStatus}',
+                                           Text(
+                                                requestStatus,
                                               style: TextStyle(
                                                 color: statusColor
                                               ),
                                             ),
-                                          )
+
                                           //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
                                         ],
                                       ),
@@ -157,7 +165,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           )),
                     );
                   },
-                )))
+                ))
       ],
     );
   }

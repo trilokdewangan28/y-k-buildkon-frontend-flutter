@@ -25,7 +25,7 @@ class ImagePickerPage extends StatefulWidget {
 class _ImagePickerPageState extends State<ImagePickerPage> {
   //------------------------------------------------------PICK IMAGE FROM GALARY
   Future _pickImageFromGallery(appState) async {
-    print('pick image from galary method called');
+    //print('pick image from galary method called');
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
@@ -33,14 +33,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       if (pickedImage != null) {
         appState.imageFile = File(pickedImage.path);
       } else {
-        print('No image selected.');
+        //print('No image selected.');
       }
     });
   }
 
 //-----------------------------------------------------CAPTURE IMAGE FROM CAMERA
   Future _captureImageFromCamera(appState) async {
-    print('capture image from camera method called');
+    //print('capture image from camera method called');
     final picker = ImagePicker();
     final capturedImage = await picker.pickImage(source: ImageSource.camera);
 
@@ -48,17 +48,17 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       if (capturedImage != null) {
         appState.imageFile = File(capturedImage.path);
       } else {
-        print('No image captured.');
+        //print('No image captured.');
       }
     });
   }
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
   Future<Map<String, dynamic>> uploadImage(data, Uri url, forWhich, appState) async {
-    print('upload profile pic method called');
+    //print('upload profile pic method called');
     //print(data['email']);
-    print(data['imageFile']);
-    print(url);
+    //print(data['imageFile']);
+    //print(url);
     var request = http.MultipartRequest(
       'POST',
       url,
@@ -84,7 +84,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     try {
       var res = await request.send();
       if (res.statusCode == 200) {
-        print('image uploaded successful inside the upload function');
+        //print('image uploaded successful inside the upload function');
         return {
           'success': true,
           'message': 'image uploaded successfully',
@@ -107,8 +107,8 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   //----------------------------------------------------------------BUILD METHOD
   @override
   Widget build(BuildContext context) {
-    print('image picker widget rebuild');
-    print('forWhich value is ${widget.forWhich}');
+    //print('image picker widget rebuild');
+    //print('forWhich value is ${widget.forWhich}');
     final appState = Provider.of<MyProvider>(context, listen: false);
     //print('initialy image file is :');
     //print(appState.imageFile);
@@ -128,7 +128,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               children: <Widget>[
                 if (appState.imageFile != null)
                   Image.file(
-                    appState.imageFile! as File,
+                    appState.imageFile!,
                     height: 200,
                   ),
                 const SizedBox(height: 20),
@@ -230,12 +230,12 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         ),
                       );
                       final response = await uploadImage(data, url, widget.forWhich, appState);
-                      print('inside the floating action');
-                      print(response);
+                      //print('inside the floating action');
+                      //print(response);
                       if(response.isNotEmpty){
                         Navigator.pop(context);
                         if(response['success']==true){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: TextStyle(color: Colors.green),)));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: const TextStyle(color: Colors.green),)));
                           if(appState.activeWidget=="PropertyDetailPage"){
                             appState.activeWidget="PropertyListWidget";
                             Navigator.pop(context);
@@ -243,7 +243,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             Navigator.pop(context);
                           }
                         }else{
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: TextStyle(color: Colors.red),)));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: const TextStyle(color: Colors.red),)));
                         }
                       }
                   },

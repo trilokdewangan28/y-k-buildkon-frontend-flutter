@@ -322,7 +322,7 @@ class StaticMethod{
   //----------------------------------------------------------------------------fetch favorite property List
   static Future<Map<String,dynamic>> fetchVisitRequestedList(data,url)async{
     var response;
-    print("data is: "+data.toString());
+    //print("data is: "+data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -378,12 +378,12 @@ class StaticMethod{
   //----------------------------------------------------------------------------OPEN MAP
   static void openMap(url) async {
     // Replace with the desired latitude and longitude
-     print('inside the open map url is ${url}');
+     print('inside the open map url is $url');
     // Use the URL format for opening a map with coordinates
     String mapUrl = url;
 
     // Launch the map with the provided URL
-    if (!await launchUrl(Uri.parse(mapUrl) as Uri, mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(mapUrl), mode: LaunchMode.externalApplication)) {
       throw 'Could not launch the map.';
     }
   }

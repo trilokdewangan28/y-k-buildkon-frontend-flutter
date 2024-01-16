@@ -41,9 +41,9 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -60,12 +60,12 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         fetchFavoriteProperty(appState);
         setState(() {
         });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -82,13 +82,13 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         appState.activeWidget = "FavoritePropertyListWidget";
         //fetchFavoriteProperty(appState);
         // setState(() {
         // });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -101,7 +101,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     final res = await StaticMethod.fetchFavoriteProperty(data,url);
     if(res.isNotEmpty){
       if(res['success']==true){
-        print(res);
+        //print(res);
         if(res['result'].length>0){
           appState.addedToFavorite = true;
           setState(() {
@@ -155,10 +155,10 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     if (response.isNotEmpty) {
       if(response['success']==true){
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: const TextStyle(color: Colors.green),)));
       }else{
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -215,8 +215,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                       //===================================VISITING DATE TEXTFIELD
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        child: Container(
-                          child:TextFormField(
+                        child: TextFormField(
                               controller: _visitingDateController,
                               focusNode: _visitingDateFocusNode,
                               keyboardType: TextInputType.number,
@@ -248,7 +247,6 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                               }
 
                           ),
-                        ),
                       ),
 
                       //====================================SUBMIT BTN
@@ -286,7 +284,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
 
   //===================================SUBMIT FEEDBACK & RATING BTMST
   void _showBottomSheetForSubmitRating(BuildContext context, appState) {
-    final _feedbackController = TextEditingController();
+    final feedbackController = TextEditingController();
     int rateValue = 0;
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -323,7 +321,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                                       setState(() {
                                         rateValue = 1;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 1
                                         ? const Icon(
@@ -336,7 +334,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                                       setState(() {
                                         rateValue = 2;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 2
                                         ? const Icon(
@@ -349,7 +347,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                                       setState(() {
                                         rateValue = 3;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 3
                                         ? const Icon(
@@ -362,7 +360,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                                       setState(() {
                                         rateValue = 4;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 4
                                         ? const Icon(
@@ -375,7 +373,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                                       setState(() {
                                         rateValue = 5;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue == 5
                                         ? const Icon(
@@ -389,7 +387,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                         Container(
                           margin: const EdgeInsets.all(15),
                           child: TextField(
-                            controller: _feedbackController,
+                            controller: feedbackController,
                             maxLines: null, // Allows an unlimited number of lines
                             decoration: InputDecoration(
                               labelText: 'Enter your feedback...',
@@ -405,7 +403,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                               var data = {
                                 "c_id":appState.customerDetails['c_id'],
                                 "p_id":appState.selectedProperty['p_id'],
-                                "feedback":_feedbackController.text,
+                                "feedback":feedbackController.text,
                                 "rating":rateValue
                               };
                               submitPropertyRating(data, appState,context);
@@ -428,8 +426,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
   Widget build(BuildContext context)  {
     final appState = Provider.of<MyProvider>(context);
     //print(appState.selectedProperty);
-    return Container(
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -472,8 +469,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                 child: Row(
                   children: [
                     //================================NAME
-                    Expanded(child: Container(
-                      child: Text(
+                    Expanded(child: Text(
                         '${appState.selectedProperty['p_name'].toUpperCase()}',
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -481,7 +477,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                         ),
                         softWrap: true,
                       ),
-                    ),),
+                    ),
                     const SizedBox(width: 10,),
 
                     //================================RATINGS
@@ -507,8 +503,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                   children: [
                     //============================LOCATION
                     Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
-                    Expanded(child: Container(
-                      child: Text(
+                    Expanded(child: Text(
                         '${appState.selectedProperty['p_address']}, ${appState.selectedProperty['p_locality']} , ${appState.selectedProperty['p_city']}',
                         style: const TextStyle(
                             color: Colors.grey,
@@ -517,7 +512,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                         ),
                         softWrap: true,
                       ),
-                    ))
+                    )
                   ],
                 ),
               ),
@@ -695,7 +690,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                               children: [
                                 const Text(
                                   'Garden',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 15
                                   ),
@@ -852,6 +847,6 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                   : Container()
             ],
           ),
-        ));
+        );
   }
 }

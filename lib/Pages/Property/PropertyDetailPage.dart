@@ -154,7 +154,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
   //===================================SUBMIT FEEDBACK & RATING BTMST
   void _showBottomSheetForSubmitRating(BuildContext context, appState) {
-    final _feedbackController = TextEditingController();
+    final feedbackController = TextEditingController();
     int rateValue = 0;
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -191,7 +191,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       setState(() {
                                         rateValue = 1;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 1
                                         ? const Icon(
@@ -204,7 +204,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       setState(() {
                                         rateValue = 2;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 2
                                         ? const Icon(
@@ -217,7 +217,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       setState(() {
                                         rateValue = 3;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 3
                                         ? const Icon(
@@ -230,7 +230,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       setState(() {
                                         rateValue = 4;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue >= 4
                                         ? const Icon(
@@ -243,7 +243,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       setState(() {
                                         rateValue = 5;
                                       });
-                                      print(rateValue);
+                                      //print(rateValue);
                                     },
                                     icon: rateValue == 5
                                         ? const Icon(
@@ -257,7 +257,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         Container(
                           margin: const EdgeInsets.all(15),
                           child: TextField(
-                            controller: _feedbackController,
+                            controller: feedbackController,
                             maxLines: null, // Allows an unlimited number of lines
                             decoration: InputDecoration(
                               labelText: 'Enter your feedback...',
@@ -273,7 +273,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               var data = {
                                 "c_id":appState.customerDetails['c_id'],
                                 "p_id":appState.selectedProperty['p_id'],
-                                "feedback":_feedbackController.text,
+                                "feedback":feedbackController.text,
                                 "rating":rateValue
                               };
                               submitPropertyRating(data, appState,context);
@@ -356,8 +356,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       //===================================VISITING DATE TEXTFIELD
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                        child: Container(
-                          child:TextFormField(
+                        child: TextFormField(
                             controller: _visitingDateController,
                               focusNode: _visitingDateFocusNode,
                               keyboardType: TextInputType.number,
@@ -389,7 +388,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               }
 
                           ),
-                        ),
+
                       ),
 
                       //====================================SUBMIT BTN
@@ -433,9 +432,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    print("proeprty data is ${appState.selectedProperty}");
-    return Container(
-        child: SingleChildScrollView(
+    //print("proeprty data is ${appState.selectedProperty}");
+    return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -499,8 +497,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             child: Row(
               children: [
                 //================================NAME
-                Expanded(child: Container(
-                  child: Text(
+                Expanded(child: Text(
                     '${appState.selectedProperty['p_name'].toUpperCase()}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w600,
@@ -508,7 +505,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ),
                     softWrap: true,
                   ),
-                ),),
+                ),
                 const SizedBox(width: 10,),
 
                 //================================RATINGS
@@ -534,8 +531,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               children: [
                 //============================LOCATION
                 Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
-                Expanded(child: Container(
-                  child: Text(
+                Expanded(child: Text(
                       '${appState.selectedProperty['p_address']}, ${appState.selectedProperty['p_locality']} , ${appState.selectedProperty['p_city']}',
                     style: const TextStyle(
                       color: Colors.grey,
@@ -544,7 +540,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ),
                     softWrap: true,
                   ),
-                ))
+                )
               ],
             ),
           ),
@@ -722,7 +718,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         children: [
                           const Text(
                             'Garden',
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 15
                             ),
@@ -879,6 +875,6 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               : Container()
         ],
       ),
-    ));
+    );
   }
 }

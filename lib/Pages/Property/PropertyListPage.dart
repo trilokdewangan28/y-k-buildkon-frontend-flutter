@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
@@ -74,21 +75,21 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    child: Text(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    child: const Text(
                       'Enter Price Range',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Row(
                     children: [
                       Expanded(
                         child: Container(
-                          margin: EdgeInsets.only(left: 15, right: 5),
+                          margin: const EdgeInsets.only(left: 15, right: 5),
                           child: TextField(
                             onChanged: (value) {
                               minPrice = int.parse(value);
@@ -96,7 +97,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'minimum price',
-                                labelStyle: TextStyle(fontSize: 14),
+                                labelStyle: const TextStyle(fontSize: 14),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10))),
                           ),
@@ -104,7 +105,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       ),
                       Expanded(
                         child: Container(
-                            margin: EdgeInsets.only(left: 5, right: 15),
+                            margin: const EdgeInsets.only(left: 5, right: 15),
                             child: TextField(
                               onChanged: (value) {
                                 maxPrice = int.parse(value);
@@ -112,7 +113,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   labelText: 'maximum price',
-                                  labelStyle: TextStyle(fontSize: 14),
+                                  labelStyle: const TextStyle(fontSize: 14),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10))),
                             )),
@@ -120,7 +121,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: TextField(
                       onChanged: (value) {
                         selectedPropertyName = value;
@@ -128,13 +129,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           labelText: 'filter by name',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: TextField(
                       onChanged: (value) {
                         selectedPropertyType = value;
@@ -142,13 +143,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           labelText: 'filter by property type',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: TextField(
                       onChanged: (value) {
                         selectedCity = value;
@@ -156,13 +157,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                           labelText: 'filter by city',
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: const Icon(Icons.search),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -185,7 +186,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               Navigator.pop(context);
                               setTheState();
                             },
-                            child: Text(
+                            child: const Text(
                               'Clear Filter',
                               style: TextStyle(color: Colors.red),
                             )),
@@ -202,7 +203,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               Navigator.pop(context);
                               setTheState();
                             },
-                            child: Text('Apply Filter'))
+                            child: const Text('Apply Filter'))
                       ],
                     ),
                   )
@@ -222,11 +223,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
     Widget offerContent = Container();
     return Column(
       children: [
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         //=====================================FILTER USING PROPERTY TYPE
         Container(
           height: 30,
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -257,7 +258,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: houseTapped
@@ -265,7 +266,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'House',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -299,7 +300,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: flatTapped
@@ -307,7 +308,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Flat',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -341,7 +342,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: plotTapped
@@ -349,7 +350,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Plot',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -362,7 +363,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
         //=====================================SEARCH AND FILTER BTN CONT.
         Container(
-          margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+          margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
           child: Row(
             children: [
               //=====================================FILTER BY NAME TEXTFIELD
@@ -383,7 +384,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: 'filter by name',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),
@@ -396,16 +397,16 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     decoration:
                     BoxDecoration(borderRadius: BorderRadius.circular(10)),
                     child: IconButton(
-                      icon: Icon(Icons.filter_list),
+                      icon: const Icon(Icons.filter_list),
                       onPressed: () {
                         _showFilterContainer(appState);
                       },
                     ),
                   ),
-                 filterApplied ? Positioned(
+                 filterApplied ? const Positioned(
                     bottom: 10,
                       right: 12,
-                      child: Icon(Icons.circle, color: Colors.red, size: 10,)
+                      child:  Icon(Icons.circle, color: Colors.red, size: 10,)
                   ) : Container()
                 ],
               )
@@ -415,20 +416,20 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
         //=====================================OFFER CONTAINER
         Container(
-          margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+          margin: const EdgeInsets.only(top: 15, left: 15, right: 15),
           child:FutureBuilder<Map<String, dynamic>>(
               future: StaticMethod.fetchOfferList(url),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // Display a circular progress indicator while waiting for data.
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (snapshot.hasError ) {
                   // Handle error state.
                   if (snapshot.error is SocketException) {
                     // Handle network-related errors (internet connection loss).
-                    return InternetErrorPage();
+                    return const InternetErrorPage();
                   } else {
                     // Handle other errors (server error or unexpected error).
                     return ServerErrorPage(errorString: snapshot.error.toString(),);
@@ -442,9 +443,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     //print('property list is ${propertyResult}');
                     if(offerResult['result'].length!=0){
                       appState.offerList = offerResult['result'];
-                      offerContent = appState.offerList.length>0 ?  OfferListWidget() : Container(child: Text('empty offer'),);
+                      offerContent = appState.offerList.isNotEmpty ?  const OfferListWidget() : const Text('empty offer');
                     }else{
-                      offerContent = EmptyPropertyPage(text: "empty offers",);
+                      offerContent = const EmptyPropertyPage(text: "empty offers",);
                     }
                     return offerContent;
                   }else{
@@ -458,12 +459,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
             ),
 
         ),
-        SizedBox(height: 20,),
+        const SizedBox(height: 20,),
 
         //=====================================PROPERTY LIST CONTAINER
-        appState.filteredPropertyList.length>0
-            ? Container(
-            child: Expanded(
+        appState.filteredPropertyList.isNotEmpty
+            ?  Expanded(
                 child: ListView.builder(
           itemCount: appState.filteredPropertyList.length,
           itemBuilder: (context, index) {
@@ -474,7 +474,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 appState.activeWidget = "PropertyDetailPage";
               },
               child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                   child: Card(
                     shadowColor: Colors.black,
                     color: Colors.white,
@@ -487,21 +487,26 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       children: [
                         //==============================PROPERTY IMAGE CONTAINER
                         Container(
-                          margin: EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
                           child: Center(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: property['pi_name'].length > 0
-                                  ? Image.asset(
-                                      'assets/images/home.jpg',
-                                      height: 100,
-                                      width: 100,
-                                    )
-                                  : Image.asset(
-                                      'assets/images/home.jpg',
-                                      height: 100,
-                                      width: 100,
-                                    ),
+                                  ? CachedNetworkImage(
+                                imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                placeholder: (context, url) =>const LinearProgressIndicator(),
+                                errorWidget: (context, url, error) => const Icon(Icons.error),
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.fill,
+                              )
+                                  : ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  'assets/images/home.jpg',
+                                  width: 100,
+                                ),
+                              )
                             ),
                           ),
                         ),
@@ -511,27 +516,25 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             child: Container(
                           width: double.infinity,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                          const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //=======================NAME CONTAINER
-                              Container(
-                                child: Text(
+                               Text(
                                   '${property['p_name'].toUpperCase()}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   softWrap: true,
                                 ),
-                              ),
 
                               //=======================AREA TEXT
                               Text(
                                 '${property['p_area']}  ${property['p_areaUnit']}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w500),
@@ -549,7 +552,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   ),
                                   Text(
                                     '${property['p_price']}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w500),
@@ -566,16 +569,16 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     size: 20,
                                   ),
                                   Expanded(
-                                    child: Container(
-                                        child: Text(
+                                    child: Text(
                                       '${property['p_locality']}, ${property['p_city']}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    )),
+                                    )
+
                                   )
                                 ],
                               ),
@@ -598,10 +601,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   )),
             );
           },
-        )))
+        ))
             : Container(
-          margin: EdgeInsets.symmetric(vertical:100 ),
-          child: Center(
+          margin: const EdgeInsets.symmetric(vertical:100 ),
+          child: const Center(
             child: Text(
               'No Such Properties',
               style: TextStyle(
@@ -616,11 +619,3 @@ class _PropertyListPageState extends State<PropertyListPage> {
   }
 }
 
-// CachedNetworkImage(
-// imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-// placeholder: (context, url) =>LinearProgressIndicator(),
-// errorWidget: (context, url, error) => Icon(Icons.error),
-// height: 100,
-// width: 100,
-// fit: BoxFit.fill,
-// )

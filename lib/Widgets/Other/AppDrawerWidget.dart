@@ -21,7 +21,7 @@ class AppDrawerWidget extends StatelessWidget {
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
           width: 270,
-          shape: RoundedRectangleBorder(
+          shape: const RoundedRectangleBorder(
             // borderRadius: BorderRadius.only(
             //   topRight: Radius.circular(25),
             //   bottomRight: Radius.circular(25)
@@ -42,7 +42,7 @@ class AppDrawerWidget extends StatelessWidget {
                       height: 100,
                       color: Theme.of(context).hintColor,
                     ),
-                    Text(
+                    const Text(
                       'Y&K BUILDCON',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
@@ -53,11 +53,11 @@ class AppDrawerWidget extends StatelessWidget {
                 )
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.home,color: Theme.of(context).hintColor,),
-                  title: Text('Home'),
+                  title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -67,11 +67,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).hintColor,),
-                  title: Text('Offers'),
+                  title: const Text('Offers'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -81,11 +81,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.calculate_rounded,color: Theme.of(context).hintColor),
-                  title: Text('EMI Calculator'),
+                  title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -95,11 +95,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.business,color: Theme.of(context).hintColor),
-                  title: Text('Future Of Colony'),
+                  title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -109,11 +109,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.chat_outlined,color: Theme.of(context).hintColor),
-                  title: Text('Customer Inquery'),
+                  title: const Text('Customer Inquery'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -123,11 +123,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.landscape_outlined,color: Theme.of(context).hintColor),
-                  title: Text('Bhuiya App'),
+                  title: const Text('Bhuiya App'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -137,11 +137,11 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.post_add,color: Theme.of(context).hintColor),
-                  title: Text('Blog Post'),
+                  title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
@@ -151,24 +151,24 @@ class AppDrawerWidget extends StatelessWidget {
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
-                  title: Text('Contact Support'),
+                  title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>FetchAdminContactWidget()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const FetchAdminContactWidget()));
                     appState.currentState=0;
                   },
                 ),
               ),
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 elevation: 1,
                 child: ListTile(
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
-                  title: Text('Admin Pannel'),
+                  title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.pop(context);// Close the drawer
                     appState.activeWidget='AdminLoginWidget';

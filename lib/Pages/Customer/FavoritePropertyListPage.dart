@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -18,8 +19,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
     return Column(
       children: [
         //=====================================PROPERTY LIST CONTAINER
-        Container(
-            child: Expanded(
+         Expanded(
                 child: ListView.builder(
                   itemCount: appState.favoritePropertyList.length,
                   itemBuilder: (context, index) {
@@ -30,7 +30,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                         appState.activeWidget = "FavoritePropertyDetailPage";
                       },
                       child: Container(
-                          margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                           child: Card(
                             shadowColor: Colors.black,
                             color: Colors.white,
@@ -43,18 +43,26 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                               children: [
                                 //==============================PROPERTY IMAGE CONTAINER
                                 Container(
-                                  margin: EdgeInsets.all(8),
-                                  child:Center(
+                                  margin: const EdgeInsets.all(8),
+                                  child: Center(
                                     child: ClipRRect(
-
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: property['pi_name'].length>0 ? Image.network(
-                                        '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                                        height: 100,
-                                        width: 100,
-                                        fit: BoxFit.fill,
-                                      )
-                                          : Image.asset('assets/images/home.jpg',height: 100,width: 100,),
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: property['pi_name'].length > 0
+                                            ? CachedNetworkImage(
+                                          imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                          placeholder: (context, url) =>const LinearProgressIndicator(),
+                                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                                          height: 100,
+                                          width: 100,
+                                          fit: BoxFit.fill,
+                                        )
+                                            : ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            'assets/images/home.jpg',
+                                            width: 100,
+                                          ),
+                                        )
                                     ),
                                   ),
                                 ),
@@ -63,7 +71,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                 Expanded(
                                     child: Container(
                                       width: double.infinity,
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 4, vertical: 8),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +80,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                           Container(
                                             child: Text(
                                               '${property['p_name'].toUpperCase()}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,
                                                 overflow: TextOverflow.ellipsis,
@@ -84,7 +92,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                           //=======================AREA TEXT
                                           Text(
                                             '${property['p_area']} ${property['p_areaUnit']}',
-                                            style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
+                                            style: const TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
 
                                           //=======================PRICE ROW SECTION
@@ -96,7 +104,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               ),
                                               Text(
                                                 '${property['p_price']}',
-                                                style: TextStyle(fontSize: 14,color: Colors.grey, fontWeight: FontWeight.w500),
+                                                style: const TextStyle(fontSize: 14,color: Colors.grey, fontWeight: FontWeight.w500),
                                               ),
                                             ],
                                           ),
@@ -107,7 +115,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               Icon(Icons.location_pin,color: Theme.of(context).hintColor,size: 20,),
                                               Expanded(child: Container(child:Text(
                                                 '${property['p_locality']}, ${property['p_city']}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
@@ -135,7 +143,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                           )),
                     );
                   },
-                )))
+                ))
       ],
     );
   }

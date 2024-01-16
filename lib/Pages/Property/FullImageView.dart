@@ -7,15 +7,15 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class FullImageView extends StatelessWidget {
-   FullImageView({Key? key, required this.imageUrl, required this.asFinder}) : super(key: key);
+  const FullImageView({Key? key, required this.imageUrl, required this.asFinder}) : super(key: key);
 
   final imageUrl;
-  bool asFinder;
+  final bool asFinder;
 
    //----------------------------------------------------------------------------SEND OTP METHODS
 
    _deletePropertyImage(BuildContext context, appState, imageUrl)async{
-     print('send otp called');
+     //print('send otp called');
      var data = {
        "propertyImage":imageUrl,
      };
@@ -31,11 +31,11 @@ class FullImageView extends StatelessWidget {
      if(res.isNotEmpty){
        Navigator.pop(context);
        if(res['success']==true){
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
          appState.activeWidget='PropertyListWidget';
          Navigator.pop(context);
        }else{
-         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
        }
      }
 
@@ -45,12 +45,8 @@ class FullImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context, listen: false);
-    print(imageUrl);
-    return WillPopScope(
-        onWillPop: ()async{
-          Navigator.pop(context);
-          return false;
-        },
+    //print(imageUrl);
+    return PopScope(
         child: SafeArea(child:
         Scaffold(
           appBar: AppBar(
@@ -61,19 +57,17 @@ class FullImageView extends StatelessWidget {
                   onPressed: (){
                     _deletePropertyImage(context, appState, imageUrl);
                   },
-                  icon: Icon(Icons.delete,color: Colors.red,)
+                  icon: const Icon(Icons.delete,color: Colors.red,)
               )
                   : Container()
             ],
           ),
-      body: Container(
-        child: PhotoView(
-          imageProvider: NetworkImage('${ApiLinks.accessPropertyImages}/${imageUrl}?timestamp=${DateTime.now().millisecondsSinceEpoch}'),
+      body:PhotoView(
+          imageProvider: NetworkImage('${ApiLinks.accessPropertyImages}/$imageUrl?timestamp=${DateTime.now().millisecondsSinceEpoch}'),
           initialScale: PhotoViewComputedScale.contained,
           minScale: PhotoViewComputedScale.contained,
           maxScale: PhotoViewComputedScale.covered * 2.0,
         ),
-      ),
     )));
   }
 }

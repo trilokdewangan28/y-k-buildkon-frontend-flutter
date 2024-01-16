@@ -12,36 +12,35 @@ class ServerErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return WillPopScope(
-        onWillPop: () async {
+    return PopScope(
+      canPop: false,
+        onPopInvoked: (didPop) {
           appState.activeWidget = "LoginWidget";
           appState.currentState = 1;
-          return false;
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-                child: Center(
+            const Center(
               child: Text(
                   'Internal Server Error',
                 style: TextStyle(
                   color: Colors.red
                 ),
               ),
-            )),
-            SizedBox(
+            ),
+            const SizedBox(
               height: 200,
             ),
             Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () {
                       appState.activeWidget = "LoginWidget";
                       appState.currentState = 1;
                     },
-                    child: Text('BACK TO HOME')))
+                    child: const Text('BACK TO HOME')))
           ],
         ));
   }

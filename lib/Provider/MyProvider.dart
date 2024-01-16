@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -106,7 +106,7 @@ class MyProvider extends ChangeNotifier {
     const storage = FlutterSecureStorage();
     await storage.delete(key: 'userType');
     await storage.delete(key: 'userTypeExpiration');
-    this.userType = "";
+    userType = "";
     //print('inside the deleteUserType');
     notifyListeners();
   }
@@ -167,7 +167,7 @@ class MyProvider extends ChangeNotifier {
       //print('owner token deleted');
     }
 
-    this.token = "";
+    token = "";
     notifyListeners();
   }
 

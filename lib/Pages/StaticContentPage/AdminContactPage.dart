@@ -27,11 +27,11 @@ class AdminContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return WillPopScope(
+    return PopScope(
         child: SafeArea(
           child: Scaffold(
             appBar: AppBar(
-              title: Text(
+              title: const Text(
                 'Contact Support',
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
@@ -43,7 +43,7 @@ class AdminContactPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //=============================================EMAIL CONTACT
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
@@ -64,13 +64,13 @@ class AdminContactPage extends StatelessWidget {
                         child: Text(
                       '${appState.adminContact['email']}',
                       style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                     )),
                   ),
 
 
                   //============================================PHONE CONTACT
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
@@ -91,13 +91,13 @@ class AdminContactPage extends StatelessWidget {
                         child: Text(
                       '${appState.adminContact['mobile']}',
                       style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                     )),
                   ),
 
 
                   //============================================COMPANY ADDRESS
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   Container(
@@ -112,7 +112,7 @@ class AdminContactPage extends StatelessWidget {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    child: Center(
+                    child: const Center(
                         child: Text(
                       'Company Address',
                       style:
@@ -125,7 +125,7 @@ class AdminContactPage extends StatelessWidget {
                         child: Text(
                       '${appState.adminContact['address']}',
                       style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                     )),
                   )
                 ],
@@ -133,9 +133,6 @@ class AdminContactPage extends StatelessWidget {
             ),
           ),
         ),
-        onWillPop: () async {
-          Navigator.pop(context);
-          return false;
-        });
+        );
   }
 }

@@ -25,20 +25,19 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
     final appState = Provider.of<MyProvider>(context);
     Widget propertyContent = Container();
     var url = Uri.parse(ApiLinks.fetchAdminContact);
-    return Container(
-      child: FutureBuilder<Map<String, dynamic>>(
+    return  FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchAdminContact(url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
               return ServerErrorPage(errorString: snapshot.error.toString(),);
@@ -52,9 +51,9 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
               //print('property list is ${propertyResult}');
               if(adminContactResult['result'].length!=0){
                 appState.adminContact= adminContactResult['result'][0];
-                propertyContent = AdminContactPage();
+                propertyContent = const AdminContactPage();
               }else{
-                propertyContent = EmptyPropertyPage(text: "empty contact",);
+                propertyContent = const EmptyPropertyPage(text: "empty contact",);
               }
               return propertyContent;
             }else{
@@ -65,7 +64,6 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
             return ServerErrorPage(errorString: snapshot.error.toString(),);
           }
         },
-      ),
-    );
+      );
   }
 }

@@ -10,23 +10,23 @@ class GetStartedPage extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.only(bottomRight: Radius.circular(70)),
+              borderRadius: const BorderRadius.only(bottomRight: Radius.circular(70)),
               child:  Image.asset(
                 'assets/images/home.jpg',
                 fit: BoxFit.fill,
                 height: MediaQuery.of(context).size.height*0.5,
               ),
             ),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
 
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 15),
+              margin: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'fast way buy your property',
-                    style: TextStyle(
+                    style:  TextStyle(
                         color: Colors.black,
                         fontSize: 22,
                         fontWeight: FontWeight.w700
@@ -40,15 +40,15 @@ class GetStartedPage extends StatelessWidget {
                         fontWeight: FontWeight.w700
                     ),
                   ),
-                  SizedBox(height: 20,),
-                  Text(
+                  const SizedBox(height: 20,),
+                  const Text(
                     'something demo text for y&k buildcon private limited company that provide good real estate',
                     style: TextStyle(
                         fontSize: 18
                     ),
                   ),
 
-                  SizedBox(height: 35,),
+                  const SizedBox(height: 35,),
                   Center(child:  ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).hintColor,
@@ -59,7 +59,7 @@ class GetStartedPage extends StatelessWidget {
                           )
                       ),
                       onPressed: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
                       },
                       child: Text(
                         'GET STARTED',
@@ -68,8 +68,8 @@ class GetStartedPage extends StatelessWidget {
                         ),
                       )
                   ),),
-                  SizedBox(height: 20,),
-                  Center(child: Text(
+                  const SizedBox(height: 20,),
+                  const Center(child: Text(
                       'Version 1.1.0',
                     style: TextStyle(
                       color: Colors.grey

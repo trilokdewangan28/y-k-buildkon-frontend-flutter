@@ -29,9 +29,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       color: Colors.black,
     ),
     decoration: BoxDecoration(
-      color: Color.fromARGB(150, 255, 255, 255),
+      color: const Color.fromARGB(150, 255, 255, 255),
       borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: Color.fromARGB(255, 18, 19, 19),width: 1),
+      border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
     ),
   );
 
@@ -67,7 +67,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   _generateOtp(BuildContext context, appState)async{
     remainingTime='';
-    print('send otp called');
+    //print('send otp called');
     var otpModel = {
       "c_email":_emailController.text,
     };
@@ -85,10 +85,10 @@ class _LoginWidgetState extends State<LoginWidget> {
       if(res['success']==true){
         startCountdown();
         readOnly=true;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         appState.activeWidget='LoginWidget';
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
 
@@ -96,13 +96,13 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
   _submitOtp(BuildContext context, appState)async{
-    print('send otp called');
+    //print('send otp called');
     var otpModel = {
       "c_email":_emailController.text,
       "c_otp":_otpController.text
     };
-    print('otp model is');
-    print(otpModel);
+    //print('otp model is');
+    //print(otpModel);
     var url = Uri.parse(ApiLinks.verifyOtpForLogin);
     showDialog(
       context: context,
@@ -117,8 +117,8 @@ class _LoginWidgetState extends State<LoginWidget> {
       if(res['success']==true){
         startCountdown();
         readOnly=true;
-        print('response data is');
-        print(res['token']);
+        //print('response data is');
+        //print(res['token']);
         final token = res['token'];
         //-----------------------------------storing customer sensitive data
         appState.storeUserType('customer');
@@ -130,12 +130,12 @@ class _LoginWidgetState extends State<LoginWidget> {
         appState.fetchToken('customer');
         await Future.delayed(const Duration(milliseconds: 100));
         //--------------------------------------------------------------------
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         appState.activeWidget='ProfileWidget';
         setState(() {
         });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
 
@@ -147,7 +147,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     final appState = Provider.of<MyProvider>(context);
     return SingleChildScrollView(
       child:  Container(
-        padding: EdgeInsets.only(bottom: 250),
+        padding: const EdgeInsets.only(bottom: 250),
         child: Column(
           children: [
             // const SizedBox(
@@ -160,7 +160,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             ),
             Container(
               width: double.infinity,
-              child: Center(
+              child: const Center(
                   child:Text(
                     'Welcome To Y&K Buildkon',
                     style: TextStyle(
@@ -176,7 +176,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             //==============================LOGIN HEADING
             Container(
               width: double.infinity,
-              child: Center(
+              child: const Center(
                   child:Text(
                     'LOGIN NOW',
                     style: TextStyle(
@@ -215,13 +215,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                           */
 
                       //============================EMAIL TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                           focusNode: _emailFocusNode,
                           controller: _emailController,
                           readOnly: readOnly,
-                          style: TextStyle(),
-                          decoration:  InputDecoration(
+                          style: const TextStyle(),
+                          decoration:  const InputDecoration(
                               labelText: 'Email',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
@@ -246,7 +245,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             return null;
                           },
                         ),
-                      ),
+
                       TextButton(
                           onPressed: (){
                             if (_formKey1.currentState!.validate()) {

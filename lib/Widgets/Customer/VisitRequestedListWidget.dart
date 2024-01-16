@@ -27,20 +27,19 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
       "c_id":appState.customerDetails['c_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
-    return Container(
-      child: FutureBuilder<Map<String, dynamic>>(
+    return FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchVisitRequestedList(data,url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
               return ServerErrorPage(errorString: snapshot.error.toString(),);
@@ -69,9 +68,9 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
                   propertyListDemo.add(propertyData);
                 }
                 appState.visitRequestedPropertyList=propertyListDemo;
-                visitRequestContent = VisitRequestedListPage();
+                visitRequestContent = const VisitRequestedListPage();
               }else{
-                visitRequestContent = EmptyPropertyPage(text: "empty request",);
+                visitRequestContent = const EmptyPropertyPage(text: "empty request",);
               }
               return visitRequestContent;
             }else{
@@ -82,7 +81,6 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
             return ServerErrorPage(errorString: snapshot.error.toString(),);
           }
         },
-      ),
-    );
+      );
   }
 }

@@ -27,20 +27,19 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
       "c_id":appState.customerDetails['c_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
-    return Container(
-      child: FutureBuilder<Map<String, dynamic>>(
+    return  FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchFavoritePropertyListDetails(data,url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
               return ServerErrorPage(errorString: snapshot.error.toString(),);
@@ -68,9 +67,9 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
                   propertyListDemo.add(propertyData);
                 }
                 appState.favoritePropertyList= propertyListDemo;
-                favoritePropertyContent = FavoritePropertyListPage();
+                favoritePropertyContent = const FavoritePropertyListPage();
               }else{
-                favoritePropertyContent = EmptyPropertyPage(text: "empty favorite property",);
+                favoritePropertyContent = const EmptyPropertyPage(text: "empty favorite property",);
               }
               return favoritePropertyContent;
             }else{
@@ -81,7 +80,6 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
             return ServerErrorPage(errorString: snapshot.error.toString(),);
           }
         },
-      ),
-    );
+      );
   }
 }

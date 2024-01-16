@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/Customer/ProfileWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
@@ -21,7 +20,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     return Container(
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(),
+      decoration: const BoxDecoration(),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -29,7 +28,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             Stack(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 30),
+                  padding: const EdgeInsets.symmetric(vertical: 30),
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey,
@@ -39,7 +38,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     )
                         : null, // Set to null if there is no profile picture
                     child: appState.customerDetails['c_profilePic'].isEmpty
-                        ? Icon(Icons.person,
+                        ? const Icon(Icons.person,
                             size: 70,
                             color: Colors
                                 .black) // Centered icon when no profile picture
@@ -72,32 +71,27 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             ),
 
             //------------------------------------------Name
-            Container(
-              child: Text(
+            Text(
                 '${appState.customerDetails['c_name']}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-            ),
 
             //------------------------------------------Email
-            Container(
-              child: Text(
+            Text(
                 '${appState.customerDetails['c_email']}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
-            ),
 
             //------------------------------------------mobile
-            Container(
-              child: Text(
+            Text(
                 '${appState.customerDetails['c_mobile']}',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
-            ),
+
 
             //------------------------------------------edit btn
             Container(
-                margin: EdgeInsets.symmetric(vertical: 15),
+                margin: const EdgeInsets.symmetric(vertical: 15),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(elevation: 4),
                     onPressed: () {},
@@ -105,32 +99,32 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       'Edit Details',
                       style: TextStyle(color: Theme.of(context).hintColor),
                     ))),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
             //-----------------------------------------your visit request
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width * 0.85,
               height: MediaQuery.of(context).size.height * 0.07,
               child: Card(
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    Icon(Icons.book_outlined),
-                    SizedBox(
+                    const Icon(Icons.book_outlined),
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text('Your Visit Request'),
-                    Spacer(),
+                    const Text('Your Visit Request'),
+                    const Spacer(),
                     IconButton(
                         onPressed: () {
                           appState.activeWidget = "VisitRequestedListWidget";
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_right,
                           size: 40,
                         ))
@@ -139,32 +133,32 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
 
             //----------------------------------------your favorite property
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               width: MediaQuery.of(context).size.width * 0.85,
               height: MediaQuery.of(context).size.height * 0.07,
               child: Card(
                 child: Row(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
-                    Icon(Icons.favorite_outline),
-                    SizedBox(
+                    const Icon(Icons.favorite_outline),
+                    const SizedBox(
                       width: 15,
                     ),
-                    Text('Your Favorite Properties'),
-                    Spacer(),
+                    const Text('Your Favorite Properties'),
+                    const Spacer(),
                     IconButton(
                         onPressed: () {
                           appState.activeWidget = "FavoritePropertyListWidget";
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_right,
                           size: 40,
                         ))
@@ -173,20 +167,20 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
               ),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
 
             //----------------------------------------logout btn
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 width: MediaQuery.of(context).size.width * 0.85,
                 height: MediaQuery.of(context).size.height * 0.07,
                 child: InkWell(
                   onTap: () {
                     StaticMethod.logout(appState);
                   },
-                  child: Card(
+                  child: const Card(
                     child: Row(
                       children: [
                         SizedBox(

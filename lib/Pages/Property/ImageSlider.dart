@@ -16,7 +16,7 @@ class ImageSlider extends StatefulWidget {
 
 class _ImageSliderState extends State<ImageSlider> {
   List<dynamic>? imageUrlList;
-  PageController _pageController = PageController(initialPage: 0);
+  final PageController _pageController = PageController(initialPage: 0);
   double _currentPage = 0.0;
 
   @override
@@ -78,8 +78,8 @@ class _ImageSliderState extends State<ImageSlider> {
                       child: CachedNetworkImage(
                         imageUrl: singleImageUrl,
                         placeholder: (context, url) =>
-                            LinearProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        const LinearProgressIndicator(),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                         //height: 200,
                         fit: BoxFit.fitHeight,
                       )));
@@ -93,10 +93,10 @@ class _ImageSliderState extends State<ImageSlider> {
                 decorator: DotsDecorator(
                   activeColor: Theme.of(context).hintColor,
                   activeSize: const Size(10.0, 25.0),
-                  spacing: EdgeInsets.all(4),
+                  spacing: const EdgeInsets.all(4),
                 ),
               )
-            : Text('length 0'),
+            : const Text('length 0'),
       ],
     );
   }

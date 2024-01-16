@@ -24,20 +24,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     Widget profileContent = Container();
     var url = Uri.parse(ApiLinks.customerProfile);
     var token = appState.token;
-    return Container(
-      child: FutureBuilder<Map<String, dynamic>>(
+    return FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.userProfile(token, url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
               return ServerErrorPage(errorString: snapshot.error.toString(),);
@@ -50,9 +49,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               final customerResult = snapshot.data!;
               if(customerResult['result'].length!=0){
                 appState.customerDetails= customerResult['result'];
-                profileContent = CustomerProfilePage();
+                profileContent = const CustomerProfilePage();
               }else{
-                profileContent = EmptyPropertyPage(text: "empty customer details",);
+                profileContent = const EmptyPropertyPage(text: "empty customer details",);
               }
               return profileContent;
             }else{
@@ -63,7 +62,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             return ServerErrorPage(errorString: snapshot.error.toString(),);
           }
         },
-      ),
-    );
+      );
   }
 }

@@ -21,11 +21,11 @@ class _OfferListWidgetState extends State<OfferListWidget> {
         CarouselSlider.builder(
           itemCount: appState.offerList.length,
           itemBuilder: (BuildContext context, int index, int realIndex) {
-            final offers = appState.offerList[index];
+            //final offers = appState.offerList[index];
             return Container(
               width: MediaQuery.of(context).size.width,
-              margin: EdgeInsets.symmetric(horizontal: 5.0),
-              decoration: BoxDecoration(
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              decoration: const BoxDecoration(
                 color: Colors.grey,
                 //borderRadius: BorderRadius.circular(8.0),
                 image: DecorationImage(
@@ -44,8 +44,8 @@ class _OfferListWidgetState extends State<OfferListWidget> {
             enableInfiniteScroll: true,
             reverse: false,
             autoPlay: true,
-            autoPlayInterval: Duration(seconds: 3),
-            autoPlayAnimationDuration: Duration(milliseconds: 800),
+            autoPlayInterval: const Duration(seconds: 3),
+            autoPlayAnimationDuration: const Duration(milliseconds: 800),
             autoPlayCurve: Curves.fastOutSlowIn,
             enlargeCenterPage: true,
             onPageChanged: (index, reason) {

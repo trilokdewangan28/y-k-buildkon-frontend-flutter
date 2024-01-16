@@ -11,11 +11,11 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 2), () async {
+    Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
       bool hasSeenIntroduction = prefs.getBool('hasSeenIntroduction') ?? false;
@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (mounted) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => HomeScreen()),
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
           );
         }
       } else {
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
           // User hasn't seen introduction, navigate to IntroductionPageOne
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (_) => IntroductionPageOne()),
+            MaterialPageRoute(builder: (_) => const IntroductionPageOne()),
           );
 
           // Set the flag to indicate that the user has seen the introduction
@@ -49,14 +49,14 @@ class _SplashScreenState extends State<SplashScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset('assets/images/logo.png',color: Theme.of(context).primaryColor,),
-                    Text(
+                    const Text(
                       'Y&K BUILCON',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    const Text(
                       'LETS CONNECT TO YOUR DREAM',
                       style: TextStyle(
                           fontSize: 16,
