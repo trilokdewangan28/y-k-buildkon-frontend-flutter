@@ -52,7 +52,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       backgroundColor: Theme.of(context).hintColor,
                       child:
                       IconButton(onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(userDetails: appState.adminDetails,forWhich: 'profilePic',)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(userDetails: appState.adminDetails,forWhich: 'adminProfilePic',)));
                       }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
                     ))
               ],

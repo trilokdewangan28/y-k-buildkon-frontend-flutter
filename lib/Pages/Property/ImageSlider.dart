@@ -1,5 +1,4 @@
-
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:real_state/Pages/Property/FullImageView.dart';
@@ -64,20 +63,26 @@ class _ImageSliderState extends State<ImageSlider> {
               final singleImageUrl =
                   '${ApiLinks.accessPropertyImages}/${imageUrlList![index]}';
               return ClipRRect(
-                borderRadius:BorderRadius.circular(25),
-                child: InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FullImageView(
-                              imageUrl: imageUrlList![index],
-                              asFinder: widget.asFinder),
-                        ),
-                      );
-                    },
-                    child: Image.network(singleImageUrl, fit: BoxFit.fill, height: 200,)),
-              );
+                  borderRadius: BorderRadius.circular(25),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FullImageView(
+                                imageUrl: imageUrlList![index],
+                                asFinder: widget.asFinder),
+                          ),
+                        );
+                      },
+                      child: CachedNetworkImage(
+                        imageUrl: singleImageUrl,
+                        placeholder: (context, url) =>
+                            LinearProgressIndicator(),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                        //height: 200,
+                        fit: BoxFit.fitHeight,
+                      )));
             },
           ),
         ),

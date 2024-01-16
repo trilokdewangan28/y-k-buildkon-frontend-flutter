@@ -59,7 +59,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                 MaterialPageRoute(
                                     builder: (context) => ImagePickerPage(
                                           userDetails: appState.customerDetails,
-                                          forWhich: 'profilePic',
+                                          forWhich: 'customerProfilePic',
                                         )));
                           },
                           icon: Icon(

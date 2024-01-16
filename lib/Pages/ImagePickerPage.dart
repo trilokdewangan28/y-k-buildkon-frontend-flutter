@@ -54,25 +54,29 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   }
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
-  Future<Map<String, dynamic>> uploadImages(data, Uri url, fieldName, appState) async {
+  Future<Map<String, dynamic>> uploadImage(data, Uri url, forWhich, appState) async {
     print('upload profile pic method called');
     //print(data['email']);
     print(data['imageFile']);
     print(url);
     var request = http.MultipartRequest(
-      'PUT',
+      'POST',
       url,
     );
-    if(appState.userType == "admin"){
+    if(forWhich == "adminProfilePic"){
       request.fields['ad_id'] = data['ad_id'].toString();
-    }else{
+    }else if(forWhich == "customerProfilePic"){
       request.fields['c_id'] = data['c_id'].toString();
+    }else if(forWhich == "propertyImage"){
+      request.fields['p_id'] = data['p_id'].toString();
+    }else if(forWhich == "offerImage"){
+      request.fields['p_id'] = data['p_id'].toString();
     }
     var mimeType = lookupMimeType(data['imageFile'].path);
     var fileExtension = mimeType!.split('/').last;
 
     var pic = await http.MultipartFile.fromPath(
-      fieldName,
+      forWhich,
       data['imageFile'].path,
       contentType: MediaType('image', fileExtension),
     );
@@ -187,24 +191,34 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
               ? FloatingActionButton(
                   onPressed: () async {
                       var url;
-                      if(widget.forWhich=='profilePic'){
-                        if (appState.userType == 'customer') {
-                          url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
-                        } else {
-                          url = Uri.parse(ApiLinks.uploadAdminProfilePic);
-                        }
-                      }else{
-                        //url=Uri.parse(ApiLinks.uploadOwnerHostlePicApi);
+                      if(widget.forWhich=='customerProfilePic'){
+                        url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
+                      }else if(widget.forWhich=='offerImage'){
+                        url = Uri.parse(ApiLinks.uploadOfferImage);
+                      }else if(widget.forWhich=='propertyImage'){
+                        url = Uri.parse(ApiLinks.uploadPropertyImage);
+                      }else if(widget.forWhich=='adminProfilePic'){
+                        url = Uri.parse(ApiLinks.uploadAdminProfilePic);
                       }
                       var data;
-                      if(appState.userType=="admin"){
+                      if(widget.forWhich=="adminProfilePic"){
                         data = {
                           "ad_id":widget.userDetails['ad_id'],
                           "imageFile":appState.imageFile!
                         };
-                      }else{
+                      }else if(widget.forWhich=="customerProfilePic"){
                          data={
                           "c_id":widget.userDetails['c_id'],
+                          "imageFile":appState.imageFile!
+                        };
+                      }else if(widget.forWhich=='propertyImage'){
+                        data={
+                          "p_id":widget.userDetails['p_id'],
+                          "imageFile":appState.imageFile!
+                        };
+                      }else if(widget.forWhich=='offerImage'){
+                        data={
+                          "p_id":widget.userDetails['p_id'],
                           "imageFile":appState.imageFile!
                         };
                       }
@@ -215,7 +229,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                           child: CircularProgressIndicator(),
                         ),
                       );
-                      final response = await uploadImages(data, url, widget.forWhich, appState);
+                      final response = await uploadImage(data, url, widget.forWhich, appState);
                       print('inside the floating action');
                       print(response);
                       if(response.isNotEmpty){

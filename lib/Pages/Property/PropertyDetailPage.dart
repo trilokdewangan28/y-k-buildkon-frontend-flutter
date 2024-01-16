@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Pages/Property/ImageSlider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
@@ -15,9 +16,9 @@ class PropertyDetailPage extends StatefulWidget {
 }
 
 class _PropertyDetailPageState extends State<PropertyDetailPage> {
-  DateTime selectedDate =  DateTime.now().add(Duration(days: 1));
-  final DateTime lastSelectableDate = DateTime.now().add(Duration(days: 365));
-  final DateTime firstSelectableDate = DateTime.now().add(Duration(days: 1));
+  DateTime selectedDate =  DateTime.now().add(const Duration(days: 1));
+  final DateTime lastSelectableDate = DateTime.now().add(const Duration(days: 365));
+  final DateTime firstSelectableDate = DateTime.now().add(const Duration(days: 1));
   final _visitingDateController = TextEditingController();
   final _visitorNameController = TextEditingController();
   final _visitorNumberController = TextEditingController();
@@ -41,9 +42,9 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -62,12 +63,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         fetchFavoriteProperty(appState);
         setState(() {
         });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -86,12 +87,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         fetchFavoriteProperty(appState);
         setState(() {
         });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -143,10 +144,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if (response.isNotEmpty) {
       if(response['success']==true){
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: const TextStyle(color: Colors.green),)));
       }else{
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -321,12 +322,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       //===================================VISITOR NAME TEXTFIELD
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                         child: TextField(
                           controller: _visitorNameController,
                           focusNode: _visitorNameFocusNode,
@@ -340,7 +341,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                       //===================================VISITOR NUMBER TEXTFIELD
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                         child: TextField(
                           controller: _visitorNumberController,
                           focusNode: _visitorNumberFocusNode,
@@ -354,13 +355,13 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                       //===================================VISITING DATE TEXTFIELD
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                         child: Container(
                           child:TextFormField(
                             controller: _visitingDateController,
                               focusNode: _visitingDateFocusNode,
                               keyboardType: TextInputType.number,
-                              decoration:  InputDecoration(
+                              decoration:  const InputDecoration(
                                   labelText: 'Vising Date',
                                   labelStyle: TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
@@ -393,7 +394,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                       //====================================SUBMIT BTN
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).hintColor
@@ -432,57 +433,81 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    print("proeprty data is ${appState.selectedProperty}");
     return Container(
         child: SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           //===========================PROPERTY IMAGES
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: Stack(
-              children: [
-                ClipRRect(
+          Stack(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  child: Stack(
+                    children: [
+                      ClipRRect(
 
-                  child: appState.selectedProperty['pi_name'].length != 0
-                      ? Container(
-                    width: double.infinity,
-                    decoration: const BoxDecoration(color: Colors.white),
-                    child: ImageSlider(
-                      propertyData: appState.selectedProperty,
-                      asFinder: true,
-                    ),
+                          child: appState.selectedProperty['pi_name'].length != 0
+                              ? Container(
+                            width: double.infinity,
+                            decoration: const BoxDecoration(color: Colors.white),
+                            child: ImageSlider(
+                              propertyData: appState.selectedProperty,
+                              asFinder: true,
+                            ),
+                          )
+                              : Container(
+                            height: 200,
+                            width: double.infinity,
+                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(25)),
+                            child: const Center(child: Text('no image found')),
+                          )
+                      ),
+                    ],
                   )
-                      : Container(
-                    height: 200,
-                    width: double.infinity,
-                    decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(25)),
-                    child: const Center(child: Text('no image found')),
+              ),
+              Positioned(
+                bottom: 25,
+                  right: 25,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Theme.of(context).hintColor,
+                    child: IconButton(
+                        onPressed: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ImagePickerPage(
+                                    userDetails: appState.selectedProperty,
+                                    forWhich: 'propertyImage',
+                                  )));
+                        },
+                        icon: Icon(Icons.edit, color: Theme.of(context).primaryColor,)),
                   )
-                ),
-              ],
-            )
+              )
+            ],
           ),
 
 
           //===========================PROPERTY DETAIL SECTION
           //================================== ROW 1
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
             child: Row(
               children: [
                 //================================NAME
                 Expanded(child: Container(
                   child: Text(
                     '${appState.selectedProperty['p_name'].toUpperCase()}',
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                     ),
                     softWrap: true,
                   ),
                 ),),
-                SizedBox(width: 10,),
+                const SizedBox(width: 10,),
 
                 //================================RATINGS
                 InkWell(
@@ -502,7 +527,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
           //==================================ROW 2
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
             child: Row(
               children: [
                 //============================LOCATION
@@ -510,7 +535,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 Expanded(child: Container(
                   child: Text(
                       '${appState.selectedProperty['p_address']}, ${appState.selectedProperty['p_locality']} , ${appState.selectedProperty['p_city']}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.grey,
                       fontWeight: FontWeight.w500,
                       fontSize: 14
@@ -524,7 +549,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
           //==================================ROW 3
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
             child: Row(
               children: [
                 //=============================PRICE
@@ -536,12 +561,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     color: Theme.of(context).hintColor
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 //=============================FAVRITE BTN
                 IconButton(
                     onPressed: appState.userType=='customer' ? (){
                       if(appState.customerDetails.isNotEmpty){
-                        print(appState.customerDetails);
+                        //print(appState.customerDetails);
                         var data={
                           "c_id":appState.customerDetails['c_id'],
                           "p_id":appState.selectedProperty['p_id']
@@ -549,21 +574,21 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                         appState.addedToFavorite==false ? addToFavorite(data,appState, context) : removeFromFavorite(data, appState, context);
                       }else{
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('you have to login. please login', style: TextStyle(color: Colors.red),)));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('you have to login. please login', style: TextStyle(color: Colors.red),)));
                       }
                     } : null,
-                    icon: appState.addedToFavorite==false ?  Icon(Icons.favorite_outline) : Icon(Icons.favorite, color: Colors.red,)
+                    icon: appState.addedToFavorite==false ?  const Icon(Icons.favorite_outline) : const Icon(Icons.favorite, color: Colors.red,)
                 ),
               ],
             ),
           ),     //-----------price
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
 
           //=================================ROW 4
           Container(
-              margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+              margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
               decoration: BoxDecoration(
                   border: Border.all(width: 1),
                   borderRadius: BorderRadius.circular(10)
@@ -572,151 +597,182 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               children: [
                 //------------------------------type and area
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Property Type',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    //=========================type container
+                    Container(
+                      width:MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Type',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.home_work_outlined, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_type']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
+                          Icon(Icons.home_work_outlined, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_type']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.grey
+                            ),)
+                        ],
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Area',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    const Spacer(),
+                    //=========================area container
+                    Container(
+                      width:MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Area',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_area']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
-                    ),
+                          Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_area']} ${appState.selectedProperty['p_areaUnit']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.grey
+                            ),)
+                        ],
+                      ),
+                    )
                   ],
                 ),
 
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
                 //-----------------------------bhk and furnished
                 appState.selectedProperty['p_type']=='House' || appState.selectedProperty['p_type']=='Flat'
                 ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Property BHK',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    //==========================BHK CONTAINER
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'BHK',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.bedroom_parent_sharp, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_bhk']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
+                          Icon(Icons.bedroom_parent_sharp, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_bhk']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.grey
+                            ),)
+                        ],
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Furnished',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    const Spacer(),
+                    //==========================FURNISHED CONTAINER
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Furnished',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.chair, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_isFurnished']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
-                    ),
+                          Icon(Icons.chair, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_isFurnished']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.grey
+                            ),)
+                        ],
+                      ),
+                    )
                   ],
                 )
                 : Container(),
 
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
 
                 //---------------------------garden and parking
                 appState.selectedProperty['p_type']=='House'
                 ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Garden',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    //==============================garden container
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Garden',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.park_outlined, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_isGarden']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
+                          Icon(Icons.park_outlined, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_isGarden']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                                color: Colors.grey
+                            ),)
+                        ],
+                      ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Parking',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16
+                    const Spacer(),
+                    //==============================parking container
+                    Container(
+                      width: MediaQuery.of(context).size.width*0.3,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Parking',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15
+                            ),
                           ),
-                        ),
-                        Icon(Icons.local_parking, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_isParking']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
-                          ),)
-                      ],
-                    ),
+                          Icon(Icons.local_parking, color: Theme.of(context).hintColor,),
+                          Text('${appState.selectedProperty['p_isParking']}',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              color: Colors.grey
+
+                            ),)
+                        ],
+                      ),
+                    )
                   ],
                 )
                 : Container(),
               ],
             )
           ),
-          SizedBox(width: 20,),
+          const SizedBox(width: 20,),
 
 
           //==========================================PROPERTY DESCRIPTION
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-            child: Text(
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+            child: const Text(
               'About Property',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -725,10 +781,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
             child: Text(
               '${appState.selectedProperty['p_desc']}',
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.w500,
                 fontSize: 15,
                 color: Colors.grey
@@ -736,12 +792,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               softWrap: true,
             ),
           ),
-          SizedBox(height: 10,),
+          const SizedBox(height: 10,),
 
           //==========================================LOCATION MAP
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-            child: Text(
+            margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+            child: const Text(
               'Location',
               style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -750,11 +806,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             ),
           ),
           Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: InkWell(
                 highlightColor: Theme.of(context).primaryColorDark,
                 onTap: () {
-                  print('map url is ${appState.selectedProperty['p_locationUrl']}');
+                  //print('map url is ${appState.selectedProperty['p_locationUrl']}');
                   StaticMethod.openMap(appState.selectedProperty['p_locationUrl']);
                 },
                 child: ClipRRect(
@@ -796,7 +852,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       ),
                       onPressed: () {
                         //Navigator.pop(context);
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>FetchAdminContactWidget()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const FetchAdminContactWidget()));
                         appState.currentState=0;
                       }, child: Text('Contact Now',style: TextStyle(color: Theme.of(context).primaryColor),))),
             ],

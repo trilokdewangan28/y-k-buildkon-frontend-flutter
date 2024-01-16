@@ -35,6 +35,8 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final List<String> available = ['Yes', 'No'];
   String selectedAvailability = "Yes";
 
+  String areaUnit = "Squar Feet";
+
   //===================================ALL THE FORM CONTROLLERS
   final _propertyNameController = TextEditingController();
   final _propertyUnController = TextEditingController();
@@ -66,6 +68,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       "p_name":_propertyNameController.text,
       "p_un":_propertyUnController.text,
       "p_area":_propertyAreaController.text,
+      "p_areaUnit":areaUnit,
       "p_price":_propertyPriceController.text,
       "p_bookAmount":_propertyBookingAmountController.text,
       "p_type":selectedPropertyType,
@@ -108,6 +111,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    if(selectedPropertyType=="Plot"){
+      areaUnit = "Acre";
+    }
     return SingleChildScrollView(
       child: Container(
         padding: EdgeInsets.only(bottom: 250),
@@ -157,6 +163,302 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      //===========================SPACIFICATION CONTAINER
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Column(
+                          children: [
+                            //==========================PROPERTY TYPE
+                            Row(
+                              children: [
+                                Container(
+                                  width:MediaQuery.of(context).size.width*0.45,
+                                  child: Text('Select Property Type: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                  elevation: 1,
+                                  child: Container(
+                                      width: MediaQuery.of(context).size.width*0.3,
+                                      child:Center(
+                                        child: DropdownButton<String>(
+                                          value: selectedPropertyType,
+                                          icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedPropertyType = value!;
+                                              print('selected property type is ${selectedPropertyType}');
+                                            });
+                                          },
+                                          items: propertyType.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      )
+                                  ),
+                                )
+
+                              ],
+                            ),
+
+                            //==========================PROPERTY BHK
+                            selectedPropertyType=='House' || selectedPropertyType=="Flat"
+                                ? Row(
+                              children: [
+                                Container(
+                                  width:MediaQuery.of(context).size.width*0.45,
+                                  child:  Text('Select Property BHK: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                      width: MediaQuery.of(context).size.width*0.3,
+                                      child: Center(
+                                        child: DropdownButton<String>(
+                                          value: selectedBhk.toString(),
+                                          icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedBhk = int.parse(value!);
+                                              print('selected bhk is : ${selectedBhk}');
+                                            });
+                                          },
+                                          items: bhk.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    )
+                                )
+
+                              ],
+                            )
+                                : Container(),
+
+                            //==========================PROPERTY FLOOR
+                            selectedPropertyType=='House'
+                                ? Row(
+                              children: [
+                                Container(
+                                  width:MediaQuery.of(context).size.width*0.45,
+                                  child: Text('Select No. Of Floors: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                      width: MediaQuery.of(context).size.width*0.3,
+                                      child: Center(
+                                        child: DropdownButton<String>(
+                                          value: selectedFloor.toString(),
+                                          icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedFloor = int.parse(value!);
+                                              print('selected floor is : ${selectedFloor}');
+                                            });
+                                          },
+                                          items: floor.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    )
+                                )
+
+                              ],
+                            )
+                                : Container(),
+
+                            //==========================isGarden facility
+                            selectedPropertyType=='House'
+                                ? Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.45,
+                                  child:Text('Garden Availibility?: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                        width: MediaQuery.of(context).size.width*0.3,
+                                        child:Center(
+                                          child: DropdownButton<String>(
+                                            value: selectedGarden,
+                                            icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                selectedGarden = value!;
+                                                print('is Garden : ${selectedGarden}');
+                                              });
+                                            },
+                                            items: garden.map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        )
+                                    )
+                                )
+
+                              ],
+                            )
+                                : Container(),
+
+                            //==========================isParking facility
+                            selectedPropertyType=='House'
+                                ? Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.45,
+                                  child: Text('Parking Facility?: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                        width: MediaQuery.of(context).size.width*0.3,
+                                        child:Center(
+                                          child: DropdownButton<String>(
+                                            value: selectedParking,
+                                            icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                selectedParking = value!;
+                                                print('is Parking : ${selectedParking}');
+                                              });
+                                            },
+                                            items: parking.map<DropdownMenuItem<String>>((String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(value),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        )
+                                    )
+                                )
+
+                              ],
+                            )
+                                : Container(),
+
+                            //==========================isFurnished facility
+                            selectedPropertyType=='House' || selectedPropertyType=='Flat'
+                                ? Row(
+                              children: [
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.45,
+                                  child:  Text('Furnished Or Not?: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                      width: MediaQuery.of(context).size.width*0.3,
+                                      child: Center(
+                                        child: DropdownButton<String>(
+                                          value: selectedFurnished,
+                                          icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedFurnished = value!;
+                                              print('is furnished : ${selectedFurnished}');
+                                            });
+                                          },
+                                          items: furnished.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    )
+                                )
+
+                              ],
+                            )
+                                : Container(),
+
+                            //==========================AVAILABILITY
+                            Row(
+                              children: [
+                                Container(
+                                  width:MediaQuery.of(context).size.width*0.45,
+                                  child:Text('Available Or Not?: '),
+                                ),
+                                SizedBox(width: 10,),
+                                Card(
+                                    elevation: 1,
+                                    child:Container(
+                                      width: MediaQuery.of(context).size.width*0.3,
+                                      child: Center(
+                                        child: DropdownButton<String>(
+                                          value: selectedAvailability,
+                                          icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedAvailability = value!;
+                                              print('is available : ${selectedFurnished}');
+                                            });
+                                          },
+                                          items: available.map<DropdownMenuItem<String>>((String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(value),
+                                            );
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    )
+                                )
+
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 15,),
+
                       //=============================PROPERTY NAME TEXTFIELD
                       Container(
                         child:TextFormField(
@@ -231,7 +533,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                           controller: _propertyAreaController,
                           keyboardType: TextInputType.number,
                           decoration:  InputDecoration(
-                              labelText: 'Property Area',
+                              labelText: 'Property Area in ${areaUnit}',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -322,268 +624,6 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             }
                             return null;
                           },
-                        ),
-                      ),
-                      const SizedBox(height: 15,),
-
-
-                      //===========================SPACIFICATION CONTAINER
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 1),
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Column(
-                          children: [
-                            //==========================PROPERTY TYPE
-                            Row(
-                              children: [
-                                Text('Select Property Type: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedPropertyType,
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedPropertyType = value!;
-                                            print('selected property type is ${selectedPropertyType}');
-                                          });
-                                        },
-                                        items: propertyType.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                  )
-
-                              ],
-                            ),
-
-                            //==========================PROPERTY BHK
-                            selectedPropertyType=='House' || selectedPropertyType=="Flat"
-                                ? Row(
-                              children: [
-                                Text('Select Property BHK: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedBhk.toString(),
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedBhk = int.parse(value!);
-                                            print('selected bhk is : ${selectedBhk}');
-                                          });
-                                        },
-                                        items: bhk.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                                : Container(),
-
-                            //==========================PROPERTY FLOOR
-                            selectedPropertyType=='House'
-                                ? Row(
-                              children: [
-                                Text('Select No. Of Floors: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedFloor.toString(),
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedFloor = int.parse(value!);
-                                            print('selected floor is : ${selectedFloor}');
-                                          });
-                                        },
-                                        items: floor.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                                : Container(),
-
-                            //==========================isGarden facility
-                            selectedPropertyType=='House'
-                                ? Row(
-                              children: [
-                                Text('Garden Availibility?: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedGarden,
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedGarden = value!;
-                                            print('is Garden : ${selectedGarden}');
-                                          });
-                                        },
-                                        items: garden.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                                : Container(),
-
-                            //==========================isParking facility
-                            selectedPropertyType=='House'
-                                ? Row(
-                              children: [
-                                Text('Parking Facility?: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedParking,
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedParking = value!;
-                                            print('is Parking : ${selectedParking}');
-                                          });
-                                        },
-                                        items: parking.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                                : Container(),
-
-                            //==========================isFurnished facility
-                            selectedPropertyType=='House' || selectedPropertyType=='Flat'
-                                ? Row(
-                              children: [
-                                Text('Furnished Or Not?: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedFurnished,
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedFurnished = value!;
-                                            print('is furnished : ${selectedFurnished}');
-                                          });
-                                        },
-                                        items: furnished.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                                : Container(),
-
-                            //==========================AVAILABILITY
-                            Row(
-                              children: [
-                                Text('Available Or Not?: '),
-                                SizedBox(width: 10,),
-                                Card(
-                                    elevation: 1,
-                                    child:Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 5),
-                                      child: DropdownButton<String>(
-                                        value: selectedAvailability,
-                                        icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedAvailability = value!;
-                                            print('is available : ${selectedFurnished}');
-                                          });
-                                        },
-                                        items: available.map<DropdownMenuItem<String>>((String value) {
-                                          return DropdownMenuItem<String>(
-                                            value: value,
-                                            child: Text(value),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    )
-                                )
-
-                              ],
-                            )
-                          ],
                         ),
                       ),
                       const SizedBox(height: 15,),
