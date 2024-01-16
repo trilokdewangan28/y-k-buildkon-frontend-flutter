@@ -236,6 +236,12 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         Navigator.pop(context);
                         if(response['success']==true){
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: TextStyle(color: Colors.green),)));
+                          if(appState.activeWidget=="PropertyDetailPage"){
+                            appState.activeWidget="PropertyListWidget";
+                            Navigator.pop(context);
+                          }else {
+                            Navigator.pop(context);
+                          }
                         }else{
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: TextStyle(color: Colors.red),)));
                         }

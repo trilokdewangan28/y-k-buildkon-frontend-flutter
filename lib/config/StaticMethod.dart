@@ -392,10 +392,12 @@ class StaticMethod{
   //=======================LOGOUT METHOD======================================
  static void logout(appState) async {
     appState.deleteToken(appState.userType);
+    appState.token="";
     await Future.delayed(
         const Duration(milliseconds: 100)); // Add a small delay (100 milliseconds)
 
     appState.deleteUserType();
+    appState.userType="";
     await Future.delayed(const Duration(milliseconds: 100));
 
     appState.customerDetails = {};
@@ -604,6 +606,34 @@ class StaticMethod{
       return {
         "success": false,
         "message": 'An error occured while requesting for insertProperty api'
+      };
+    }
+  }
+
+
+  //----------------------------------------------------------------------------delete property image
+  static Future<Map<String,dynamic>> deletePropertyImage(data, url)async{
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete deletePropertyImage api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for deletePropertyImage api'
       };
     }
   }

@@ -467,7 +467,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ],
                   )
               ),
-              Positioned(
+              appState.userType=='admin'
+               ? Positioned(
                 bottom: 25,
                   right: 25,
                   child: CircleAvatar(
@@ -486,6 +487,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         icon: Icon(Icons.edit, color: Theme.of(context).primaryColor,)),
                   )
               )
+                  : Container()
             ],
           ),
 

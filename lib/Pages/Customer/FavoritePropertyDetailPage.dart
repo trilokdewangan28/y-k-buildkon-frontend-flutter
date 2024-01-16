@@ -16,6 +16,16 @@ class FavoritePropertyDetailPage extends StatefulWidget {
 }
 
 class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage> {
+  DateTime selectedDate =  DateTime.now().add(const Duration(days: 1));
+  final DateTime lastSelectableDate = DateTime.now().add(const Duration(days: 365));
+  final DateTime firstSelectableDate = DateTime.now().add(const Duration(days: 1));
+  final _visitingDateController = TextEditingController();
+  final _visitorNameController = TextEditingController();
+  final _visitorNumberController = TextEditingController();
+
+  final FocusNode _visitingDateFocusNode = FocusNode();
+  final FocusNode _visitorNameFocusNode = FocusNode();
+  final FocusNode _visitorNumberFocusNode = FocusNode();
 
   bookVisit(requestData,appState,context)async{
 
@@ -73,9 +83,10 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
       Navigator.pop(context);
       if(res['success']==true){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
-        fetchFavoriteProperty(appState);
-        setState(() {
-        });
+        appState.activeWidget = "FavoritePropertyListWidget";
+        //fetchFavoriteProperty(appState);
+        // setState(() {
+        // });
       }else{
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
       }
@@ -111,6 +122,23 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
     }
   }
 
+  //===================================DATE PICKER
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: firstSelectableDate,
+        lastDate:  lastSelectableDate
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+        _visitingDateController.text = '${selectedDate.toLocal()}'.split(' ')[0];
+      });
+    }
+  }
+
   //===================================SUBMIT PROPERTY RATING
   submitPropertyRating(data,appState, btmSheetContext)async{
     var url = Uri.parse(ApiLinks.submitPropertyRating);
@@ -133,6 +161,127 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}', style: TextStyle(color: Colors.red),)));
       }
     }
+  }
+
+  //===================================SHOW VISIT DETAIL CONTAINER
+  void _showVisitDetailContainer(appState,pageContext) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).viewInsets.top + 16,
+                    bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      //===================================VISITOR NAME TEXTFIELD
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: TextField(
+                          controller: _visitorNameController,
+                          focusNode: _visitorNameFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Name',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+
+                      //===================================VISITOR NUMBER TEXTFIELD
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: TextField(
+                          controller: _visitorNumberController,
+                          focusNode: _visitorNumberFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Number',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                        ),
+                      ),
+
+                      //===================================VISITING DATE TEXTFIELD
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: Container(
+                          child:TextFormField(
+                              controller: _visitingDateController,
+                              focusNode: _visitingDateFocusNode,
+                              keyboardType: TextInputType.number,
+                              decoration:  const InputDecoration(
+                                  labelText: 'Vising Date',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      // color: Theme.of(context).hintColor
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(10),),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: Colors.grey,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(10),),
+                                  )
+                              ),
+                              onTap: () => _selectDate(context),
+                              readOnly: true,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'please enter valid locality';
+                                }
+                                return null;
+                              }
+
+                          ),
+                        ),
+                      ),
+
+                      //====================================SUBMIT BTN
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).hintColor
+                            ),
+                            onPressed: (){
+                              var visitData = {
+                                "visitor_name":_visitorNameController.text,
+                                "visitor_number":_visitorNumberController.text,
+                                "v_date":_visitingDateController.text,
+                                "c_id":appState.customerDetails['c_id'],
+                                "p_id":appState.selectedProperty['p_id']
+                              };
+                              bookVisit(visitData, appState, pageContext);
+                              Navigator.pop(context);
+
+                            },
+                            child: Text(
+                              'Submit',
+                              style: TextStyle(color: Theme.of(context).primaryColor),
+                            )),
+                      )
+                    ],
+                  ),
+                ));
+          },
+        );
+      },
+    );
   }
 
   //===================================SUBMIT FEEDBACK & RATING BTMST
@@ -278,68 +427,73 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
   @override
   Widget build(BuildContext context)  {
     final appState = Provider.of<MyProvider>(context);
+    //print(appState.selectedProperty);
     return Container(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               //===========================PROPERTY IMAGES
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
+              Stack(
+                children: [
+                  Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      child: Stack(
+                        children: [
+                          ClipRRect(
 
-                          child: appState.selectedProperty['pi_name'].length != 0
-                              ? Container(
-                            width: double.infinity,
-                            decoration: const BoxDecoration(color: Colors.white),
-                            child: ImageSlider(
-                              propertyData: appState.selectedProperty,
-                              asFinder: true,
-                            ),
-                          )
-                              : Container(
-                            height: 200,
-                            width: double.infinity,
-                            decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(25)),
-                            child: const Center(child: Text('no image found')),
-                          )
-                      ),
-                    ],
-                  )
+                              child: appState.selectedProperty['pi_name'].length != 0
+                                  ? Container(
+                                width: double.infinity,
+                                decoration: const BoxDecoration(color: Colors.white),
+                                child: ImageSlider(
+                                  propertyData: appState.selectedProperty,
+                                  asFinder: true,
+                                ),
+                              )
+                                  : Container(
+                                height: 200,
+                                width: double.infinity,
+                                decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(25)),
+                                child: const Center(child: Text('no image found')),
+                              )
+                          ),
+                        ],
+                      )
+                  ),
+                ],
               ),
 
 
               //===========================PROPERTY DETAIL SECTION
               //================================== ROW 1
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: Row(
                   children: [
                     //================================NAME
                     Expanded(child: Container(
                       child: Text(
                         '${appState.selectedProperty['p_name'].toUpperCase()}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
                         ),
                         softWrap: true,
                       ),
                     ),),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
 
                     //================================RATINGS
                     InkWell(
-                        onTap: (){
+                        onTap: appState.userType=='customer' ? (){
                           _showBottomSheetForSubmitRating(context, appState);
-                        },
+                        } : null,
                         child: RatingDisplayWidgetTwo(rating: appState.selectedProperty['p_rating'].toDouble())
                     ),
                     //================================RATING USER COUNT
                     Text(
-                        '(${appState.selectedProperty['p_rating_count']})'
+                        '(${appState.selectedProperty['p_ratingCount']})'
                     )
 
                   ],
@@ -348,7 +502,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
 
               //==================================ROW 2
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
                 child: Row(
                   children: [
                     //============================LOCATION
@@ -356,7 +510,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                     Expanded(child: Container(
                       child: Text(
                         '${appState.selectedProperty['p_address']}, ${appState.selectedProperty['p_locality']} , ${appState.selectedProperty['p_city']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w500,
                             fontSize: 14
@@ -370,7 +524,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
 
               //==================================ROW 3
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: Row(
                   children: [
                     //=============================PRICE
@@ -382,12 +536,12 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                           color: Theme.of(context).hintColor
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     //=============================FAVRITE BTN
                     IconButton(
-                        onPressed: (){
+                        onPressed: appState.userType=='customer' ? (){
                           if(appState.customerDetails.isNotEmpty){
-                            print(appState.customerDetails);
+                            //print(appState.customerDetails);
                             var data={
                               "c_id":appState.customerDetails['c_id'],
                               "p_id":appState.selectedProperty['p_id']
@@ -395,100 +549,205 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
 
                             appState.addedToFavorite==false ? addToFavorite(data,appState, context) : removeFromFavorite(data, appState, context);
                           }else{
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('you have to login. please login', style: TextStyle(color: Colors.red),)));
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('you have to login. please login', style: TextStyle(color: Colors.red),)));
                           }
-                        },
-                        icon: appState.addedToFavorite==false ?  Icon(Icons.favorite_outline) : Icon(Icons.favorite, color: Colors.red,)
+                        } : null,
+                        icon: appState.addedToFavorite==false ?  const Icon(Icons.favorite_outline) : const Icon(Icons.favorite, color: Colors.red,)
                     ),
                   ],
                 ),
               ),     //-----------price
+              const SizedBox(height: 10,),
 
-              SizedBox(height: 10,),
+
               //=================================ROW 4
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                decoration: BoxDecoration(
-                    border: Border.all(width: 1),
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    //===================================SQUARE FEET
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Square Foot',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 25,vertical: 15),
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 1),
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child:Column(
+                    children: [
+                      //------------------------------type and area
+                      Row(
+                        children: [
+                          //=========================type container
+                          Container(
+                            width:MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Type',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.home_work_outlined, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_type']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+                                  ),)
+                              ],
+                            ),
                           ),
-                        ),
-                        Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_area']}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15
-                          ),)
-                      ],
-                    ),
-                    SizedBox(width: 20,),
-                    //===================================BEDROOM
-                    Column(
-                      children: [
-                        Text('Bedroom',style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15
-                        ),),
-                        Icon(Icons.bedroom_parent,color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_bedroom']}',style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15
-                        ))
-                      ],
-                    ),
-                    SizedBox(width: 20,),
-                    //===================================BATHROOM
-                    Column(
-                      children: [
-                        Text('Bathroom',style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15
-                        ),),
-                        Icon(Icons.bathroom,color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_bathroom']}',style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15
-                        ))
-                      ],
-                    ),
-                    SizedBox(width: 20,),
-                    //====================================HALL
-                    Column(
-                      children: [
-                        Text('Hall',style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15
-                        ),),
-                        Icon(Icons.living,color: Theme.of(context).hintColor,),
-                        Text('${appState.selectedProperty['p_hall']}',style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 15
-                        ))
-                      ],
-                    )
-                  ],
-                ),
+                          const Spacer(),
+                          //=========================area container
+                          Container(
+                            width:MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Area',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.square_foot, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_area']} ${appState.selectedProperty['p_areaUnit']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+                                  ),)
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+
+                      const SizedBox(height: 20,),
+
+                      //-----------------------------bhk and furnished
+                      appState.selectedProperty['p_type']=='House' || appState.selectedProperty['p_type']=='Flat'
+                          ? Row(
+                        children: [
+                          //==========================BHK CONTAINER
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'BHK',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.bedroom_parent_sharp, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_bhk']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+                                  ),)
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          //==========================FURNISHED CONTAINER
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Furnished',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.chair, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_isFurnished']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+                                  ),)
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                          : Container(),
+
+                      const SizedBox(height: 20,),
+
+
+                      //---------------------------garden and parking
+                      appState.selectedProperty['p_type']=='House'
+                          ? Row(
+                        children: [
+                          //==============================garden container
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Garden',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.park_outlined, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_isGarden']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+                                  ),)
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          //==============================parking container
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.3,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Parking',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                                ),
+                                Icon(Icons.local_parking, color: Theme.of(context).hintColor,),
+                                Text('${appState.selectedProperty['p_isParking']}',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15,
+                                      color: Colors.grey
+
+                                  ),)
+                              ],
+                            ),
+                          )
+                        ],
+                      )
+                          : Container(),
+                    ],
+                  )
               ),
-              SizedBox(height: 10,),
+              const SizedBox(width: 20,),
+
 
               //==========================================PROPERTY DESCRIPTION
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                child: const Text(
                   'About Property',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -497,10 +756,10 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                 ),
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
                 child: Text(
-                  'afdkljaskldfjasdjfklasjdflkjasdklfjalskdjflk;asdjflkasjdfkljasdlk;fjasldkfjkakl;sdjfl;kasdjfklajsdklf;jasldfjasldkjflkasdjf',
-                  style: TextStyle(
+                  '${appState.selectedProperty['p_desc']}',
+                  style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
                       color: Colors.grey
@@ -508,12 +767,12 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                   softWrap: true,
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
 
               //==========================================LOCATION MAP
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                child: Text(
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                child: const Text(
                   'Location',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -522,12 +781,12 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: InkWell(
                     highlightColor: Theme.of(context).primaryColorDark,
                     onTap: () {
-                      print('map url is ${appState.selectedProperty['p_locationurl']}');
-                      StaticMethod.openMap(appState.selectedProperty['p_locationurl']);
+                      //print('map url is ${appState.selectedProperty['p_locationUrl']}');
+                      StaticMethod.openMap(appState.selectedProperty['p_locationUrl']);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(25),
@@ -541,7 +800,8 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                   )),
 
               //===========================================BUTTONS
-              Row(
+              appState.userType=='customer'
+                  ? Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Container(
@@ -553,14 +813,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                             foregroundColor: Theme.of(context).primaryColor
                         ),
                         onPressed: () {
-                          var requestData = {
-                            "c_id":appState.customerDetails['c_id'],
-                            "p_id":appState.selectedProperty['p_id']
-                          };
-                          print(requestData);
-                          appState.customerDetails!={}
-                              ? bookVisit(requestData, appState, context)
-                              : ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('to request for visit, you have to login. please login', style: TextStyle(color: Colors.red),)));
+                          _showVisitDetailContainer(appState,context);
                         },
                         child: Text('Request Visit', style: TextStyle(color: Theme.of(context).primaryColor),)
                     ),
@@ -574,17 +827,20 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                           ),
                           onPressed: () {
                             //Navigator.pop(context);
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>FetchAdminContactWidget()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const FetchAdminContactWidget()));
                             appState.currentState=0;
                           }, child: Text('Contact Now',style: TextStyle(color: Theme.of(context).primaryColor),))),
                 ],
-              ),
-              Center(
+              )
+                  : Container(),
+              appState.userType=='customer'
+                  ? Center(
                 child:ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Theme.of(context).hintColor
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                    },
                     child: Text(
                       'Book Now',
                       style: TextStyle(
@@ -593,6 +849,7 @@ class _FavoritePropertyDetailPageState extends State<FavoritePropertyDetailPage>
                     )
                 ),
               )
+                  : Container()
             ],
           ),
         ));

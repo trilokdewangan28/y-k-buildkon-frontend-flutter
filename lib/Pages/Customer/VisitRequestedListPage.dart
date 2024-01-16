@@ -17,6 +17,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    print(appState.visitRequestedPropertyList);
     return Column(
       children: [
         //=====================================PROPERTY LIST CONTAINER
@@ -58,7 +59,6 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                   margin: EdgeInsets.all(8),
                                   child:Center(
                                     child: ClipRRect(
-
                                       borderRadius: BorderRadius.circular(10),
                                       child: property['pi_name'].length>0 ? Image.network(
                                         '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
@@ -95,7 +95,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
 
                                           //=======================AREA TEXT
                                           Text(
-                                            '${property['p_area']} sq feet',
+                                            '${property['p_area']} ${property['p_areaUnit']}',
                                             style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
 
@@ -134,7 +134,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                             children: [
                                               RatingDisplayWidgetTwo(rating: property['p_rating'].toDouble(),),
                                               Text(
-                                                  '(${property['p_rating_count']})'
+                                                  '(${property['p_ratingCount']})'
                                               )
                                             ],
                                           ),

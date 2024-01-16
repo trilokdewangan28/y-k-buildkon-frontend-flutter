@@ -14,6 +14,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    //print(appState.favoritePropertyList);
     return Column(
       children: [
         //=====================================PROPERTY LIST CONTAINER
@@ -82,7 +83,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
 
                                           //=======================AREA TEXT
                                           Text(
-                                            '${property['p_area']} sq feet',
+                                            '${property['p_area']} ${property['p_areaUnit']}',
                                             style: TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
                                           ),
 
@@ -121,7 +122,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                             children: [
                                               RatingDisplayWidgetTwo(rating: property['p_rating'].toDouble(),),
                                               Text(
-                                                  '(${property['p_rating_count']})'
+                                                  '(${property['p_ratingCount']})'
                                               )
                                             ],
                                           ),

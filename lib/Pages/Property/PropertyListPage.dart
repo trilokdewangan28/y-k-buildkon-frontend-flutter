@@ -530,7 +530,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
                               //=======================AREA TEXT
                               Text(
-                                '${property['p_area']} sq feet',
+                                '${property['p_area']}  ${property['p_areaUnit']}',
                                 style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,

@@ -270,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
               break;
             case "CustomerVisitRequestDetailPage":
               appState.activeWidget = "CustomerVisitRequestListWidget";
+              appState.addedToFavorite=false;
               break;
             case "CustomerVisitRequestListWidget":
               appState.activeWidget = "ProfileWidget";
