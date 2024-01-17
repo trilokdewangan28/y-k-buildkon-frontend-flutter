@@ -16,7 +16,6 @@ import 'package:real_state/Widgets/Customer/SignupWidget.dart';
 import 'package:real_state/Widgets/Customer/VisitRequestedListWidget.dart';
 import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
-import 'package:real_state/Widgets/Other/OtpVerificationWidget.dart';
 import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -125,8 +124,6 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent = const FavoritePropertyDetailPage();
         appBarContent = 'Your Favorite Property';
         break;
-      case "OtpVerificationWidget":
-        widgetContent = const OtpVerificationWidget();
       case "FavoritePropertyListWidget":
         widgetContent = const FavoritePropertyListWidget();
         appBarContent = "Favorite List";

@@ -196,8 +196,31 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                // width: MediaQuery.of(context).size.width*0.85,
                 height: MediaQuery.of(context).size.height*0.07,
                 child: InkWell(
-                  onTap: (){
-                    StaticMethod.logout(appState);
+                  onTap: ()async{
+                    //StaticMethod.logout(appState);
+                    appState.deleteToken(appState.userType);
+                    appState.token="";
+                    await Future.delayed(
+                        const Duration(milliseconds: 100)); // Add a small delay (100 milliseconds)
+
+                    appState.deleteUserType();
+                    appState.userType="";
+                    await Future.delayed(const Duration(milliseconds: 100));
+
+                    appState.customerDetails = {};
+                    appState.customerDetails.clear();
+                    appState.adminDetails={};
+                    appState.adminDetails.clear();
+                    await Future.delayed(const Duration(milliseconds: 100));
+
+                    appState.activeWidget = "PropertyListWidget";
+                    appState.currentState=0;
+
+                    await appState.fetchUserType();
+                    Future.delayed(const Duration(milliseconds: 100));
+
+                    appState.fetchToken(appState.userType);
+                    Future.delayed(const Duration(milliseconds: 100));
                   },
                   child: const Card(
                     child: Row(

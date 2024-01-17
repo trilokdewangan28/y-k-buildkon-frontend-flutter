@@ -406,14 +406,15 @@ class StaticMethod{
     appState.adminDetails.clear();
     await Future.delayed(const Duration(milliseconds: 100));
 
+    appState.activeWidget = "PropertyListWidget";
+    appState.currentState=0;
+
     await appState.fetchUserType();
     Future.delayed(const Duration(milliseconds: 100));
 
     appState.fetchToken(appState.userType);
     Future.delayed(const Duration(milliseconds: 100));
 
-    appState.activeWidget = "LoginWidget";
-    appState.currentState=1;
   }
 
 

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -41,11 +40,11 @@ class _CustomerVisitRequestListPageState
     final appState = Provider.of<MyProvider>(context);
     return Column(
       children: [
-        SizedBox(height: 10,),
+        const SizedBox(height: 10,),
         //=====================================FILTER USING REQUEST STATUS
         Container(
           height: 30,
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -66,7 +65,7 @@ class _CustomerVisitRequestListPageState
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: houseTapped
@@ -74,7 +73,7 @@ class _CustomerVisitRequestListPageState
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Pending',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -98,7 +97,7 @@ class _CustomerVisitRequestListPageState
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: flatTapped
@@ -106,7 +105,7 @@ class _CustomerVisitRequestListPageState
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Accepted',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -130,7 +129,7 @@ class _CustomerVisitRequestListPageState
                   setState(() {});
                 },
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 6),
+                  margin: const EdgeInsets.symmetric(horizontal: 6),
                   width: 110,
                   decoration: BoxDecoration(
                       color: plotTapped
@@ -138,7 +137,7 @@ class _CustomerVisitRequestListPageState
                           : Theme.of(context).primaryColor,
                       border: Border.all(width: 2),
                       borderRadius: BorderRadius.circular(5)),
-                  child: Center(
+                  child: const Center(
                       child: Text(
                     'Completed',
                     style: TextStyle(fontWeight: FontWeight.w500),
@@ -149,8 +148,7 @@ class _CustomerVisitRequestListPageState
           ),
         ),
         //=====================================PROPERTY LIST CONTAINER
-        Container(
-            child: Expanded(
+         Expanded(
                 child: ListView.builder(
           itemCount: appState.filteredCustomerRequestList.length,
           itemBuilder: (context, index) {
@@ -171,7 +169,7 @@ class _CustomerVisitRequestListPageState
                 appState.activeWidget = "CustomerVisitRequestDetailPage";
               },
               child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                   child: Card(
                     shadowColor: Colors.black,
                     color: Colors.white,
@@ -184,7 +182,7 @@ class _CustomerVisitRequestListPageState
                       children: [
                         //==============================PROPERTY IMAGE CONTAINER
                         Container(
-                          margin: EdgeInsets.all(8),
+                          margin: const EdgeInsets.all(8),
                           child: Center(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
@@ -193,9 +191,9 @@ class _CustomerVisitRequestListPageState
                                       imageUrl:
                                           '${ApiLinks.accessCustomerProfilePic}/${property['c_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
                                       placeholder: (context, url) =>
-                                          LinearProgressIndicator(),
+                                      const LinearProgressIndicator(),
                                       errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
+                                      const Icon(Icons.error),
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.fill,
@@ -214,27 +212,26 @@ class _CustomerVisitRequestListPageState
                             child: Container(
                           width: double.infinity,
                           padding:
-                              EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                          const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //=======================CUSTOMER NAME CONTAINER
-                              Container(
-                                child: Text(
+                               Text(
                                   '${property['c_name'].toUpperCase()}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   softWrap: true,
                                 ),
-                              ),
+
 
                               //=======================AREA TEXT
                               Text(
                                 '${property['p_name']}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
                                     fontWeight: FontWeight.w500),
@@ -252,7 +249,7 @@ class _CustomerVisitRequestListPageState
                                   ),
                                   Text(
                                     '${property['p_price']}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w500),
@@ -269,16 +266,15 @@ class _CustomerVisitRequestListPageState
                                     size: 20,
                                   ),
                                   Expanded(
-                                    child: Container(
-                                        child: Text(
+                                    child: Text(
                                       '${property['p_locality']}, ${property['p_city']}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    )),
+                                    ),
                                   )
                                 ],
                               ),
@@ -289,17 +285,16 @@ class _CustomerVisitRequestListPageState
                                   RatingDisplayWidgetTwo(
                                     rating: property['p_rating'].toDouble(),
                                   ),
-                                  Text('(${property['p_rating_count']})')
+                                  Text('(${property['p_ratingCount']})')
                                 ],
                               ),
 
                               //========================REQUEST STATUS
-                              Container(
-                                child: Text(
-                                  '${requestStatus}',
+                               Text(
+                                  requestStatus,
                                   style: TextStyle(color: statusColor),
                                 ),
-                              )
+
                               //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
                             ],
                           ),
@@ -309,7 +304,7 @@ class _CustomerVisitRequestListPageState
                   )),
             );
           },
-        )))
+        ))
       ],
     );
   }

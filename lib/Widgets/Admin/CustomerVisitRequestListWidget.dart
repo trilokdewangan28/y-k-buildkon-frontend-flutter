@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Admin/CustomerVisitRequestListPage.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
-import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
-import 'package:real_state/Pages/Customer/VisitRequestedListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -25,23 +23,22 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
     Widget visitRequestContent = Container();
     var url = Uri.parse(ApiLinks.fetchCustomerRequest);
     List<Map<String, dynamic>> propertyListDemo = [];
-    return Container(
-      child: FutureBuilder<Map<String, dynamic>>(
+    return  FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchCustomerRequest(url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
-              return ServerErrorPage(errorString: snapshot.error.toString(),);
+              return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
             }
           }
           else if(snapshot.hasData){
@@ -49,7 +46,7 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
             // Display user details when data is available.
             if(snapshot.data!['success']==true){
               final propertyResult = snapshot.data!;
-              print('property list is ${propertyResult}');
+              //print('property list is ${propertyResult}');
               if(propertyResult['result'].length!=0){
                 appState.customerRequestList= propertyResult['result'];
                 for (var propertyData in propertyResult['result']) {
@@ -67,20 +64,19 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
                   propertyListDemo.add(propertyData);
                 }
                 appState.customerRequestList=propertyListDemo;
-                visitRequestContent = CustomerVisitRequestListPage();
+                visitRequestContent = const CustomerVisitRequestListPage();
               }else{
-                visitRequestContent = EmptyPropertyPage(text: "empty request",);
+                visitRequestContent = const EmptyPropertyPage(text: "empty request",);
               }
               return visitRequestContent;
             }else{
-              return SpacificErrorPage(errorString: snapshot.data!['message'],);
+              return SpacificErrorPage(errorString: snapshot.data!['message'],fromWidget: appState.activeWidget,);
             }
           }
           else{
-            return ServerErrorPage(errorString: snapshot.error.toString(),);
+            return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
-      ),
-    );
+      );
   }
 }

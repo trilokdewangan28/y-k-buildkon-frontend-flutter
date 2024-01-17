@@ -19,10 +19,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     //print(appState.visitRequestedPropertyList);
-    return Column(
-      children: [
-        //=====================================PROPERTY LIST CONTAINER
-         Expanded(
+    return RefreshIndicator(
+        child: Column(
+          children: [
+            //=====================================PROPERTY LIST CONTAINER
+            Expanded(
                 child: ListView.builder(
                   itemCount: appState.visitRequestedPropertyList.length,
                   itemBuilder: (context, index) {
@@ -91,14 +92,14 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                         children: [
                                           //=======================NAME CONTAINER
                                           Text(
-                                              '${property['p_name'].toUpperCase()}',
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              softWrap: true,
+                                            '${property['p_name'].toUpperCase()}',
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w600,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
+                                            softWrap: true,
+                                          ),
 
 
                                           //=======================AREA TEXT
@@ -149,12 +150,12 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                           ),
 
                                           //========================REQUEST STATUS
-                                           Text(
-                                                requestStatus,
-                                              style: TextStyle(
+                                          Text(
+                                            requestStatus,
+                                            style: TextStyle(
                                                 color: statusColor
-                                              ),
                                             ),
+                                          ),
 
                                           //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
                                         ],
@@ -166,7 +167,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                     );
                   },
                 ))
-      ],
+          ],
+        ),
+        onRefresh: ()async{
+          appState.activeWidget = appState.activeWidget;
+        }
     );
   }
 }

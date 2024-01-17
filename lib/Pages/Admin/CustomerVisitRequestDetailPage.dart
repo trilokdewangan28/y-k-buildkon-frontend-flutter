@@ -21,9 +21,9 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
   Color reqBtnColor = Colors.green;
   int newStatus = 0;
 
-  DateTime selectedDate =  DateTime.now().add(Duration(days: 1));
-  final DateTime lastSelectableDate = DateTime.now().add(Duration(days: 365));
-  final DateTime firstSelectableDate = DateTime.now().add(Duration(days: 1));
+  DateTime selectedDate =  DateTime.now().add(const Duration(days: 1));
+  final DateTime lastSelectableDate = DateTime.now().add(const Duration(days: 365));
+  final DateTime firstSelectableDate = DateTime.now().add(const Duration(days: 1));
 
   _changeVisitStatus(data,appState,context)async{
     var url = Uri.parse(ApiLinks.changeVisitStatus);
@@ -38,10 +38,10 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         appState.activeWidget = "CustomerVisitRequestListWidget";
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
   }
@@ -65,8 +65,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
       requestStatus = "Visit Completed";
       statusColor = Colors.red;
     }
-    return Container(
-        child: SingleChildScrollView(
+    return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -100,10 +99,10 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
 
                */
               //=======================HEADING 1================================
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                child: Center(
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                child: const Center(
                   child: Text(
                     'PROPERTY DETAILS',
                     style: TextStyle(
@@ -113,34 +112,34 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   ),
                 )
               ),
-              Divider(),
+              const Divider(),
 
 
 
               //===========================PROPERTY DETAIL SECTION
               //================================== ROW 1
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: Row(
                   children: [
                     //================================NAME
                     Expanded(child: Container(
                       child: Text(
                         '${appState.selectedCustomerRequest['p_name'].toUpperCase()}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
                         ),
                         softWrap: true,
                       ),
                     ),),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
 
                     //================================RATINGS
                     RatingDisplayWidgetTwo(rating: appState.selectedCustomerRequest['p_rating'].toDouble()),
                     //================================RATING USER COUNT
                     Text(
-                        '(${appState.selectedCustomerRequest['p_rating_count']})'
+                        '(${appState.selectedCustomerRequest['p_ratingCount']})'
                     )
 
                   ],
@@ -149,7 +148,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
 
               //==================================ROW 2
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: Row(
                   children: [
                     //=============================PRICE
@@ -162,7 +161,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       ),
                     ),
 
-                    Spacer(),
+                    const Spacer(),
                     //=============================MEASLE NO.
                     Text(
                       'Measle No: ${appState.selectedCustomerRequest['p_un']}',
@@ -180,22 +179,22 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
 
               //==================================ROW 3
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
                 child: Row(
                   children: [
                     //============================LOCATION
                     Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
-                    Expanded(child: Container(
-                      child: Text(
+                    Expanded(child:  Text(
                         '${appState.selectedCustomerRequest['p_address']}, ${appState.selectedCustomerRequest['p_locality']} , ${appState.selectedCustomerRequest['p_city']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w500,
                             fontSize: 14
                         ),
                         softWrap: true,
                       ),
-                    ))
+
+                    )
                   ],
                 ),
               ),
@@ -204,8 +203,8 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
 
               //==========================================LOCATION MAP
               Container(
-                margin: EdgeInsets.only(right: 15, left: 15, top: 15),
-                child: Text(
+                margin: const EdgeInsets.only(right: 15, left: 15, top: 15),
+                child: const Text(
                   'Location',
                   style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -214,11 +213,11 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15, ),
+                  padding: const EdgeInsets.symmetric(horizontal: 15, ),
                   child: InkWell(
                     highlightColor: Theme.of(context).primaryColorDark,
                     onTap: () {
-                      print('map url is ${appState.selectedProperty['p_locationurl']}');
+                      //print('map url is ${appState.selectedProperty['p_locationurl']}');
                       StaticMethod.openMap(appState.selectedProperty['p_locationurl']);
                     },
                     child: ClipRRect(
@@ -232,13 +231,13 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                   )),
 
-              Divider(),
+              const Divider(),
 
               //======================CUSTOMER DETAIL SECTION===================
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                  child: Center(
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                  child: const Center(
                     child: Text(
                       'CUSTOMER DETAILS',
                       style: TextStyle(
@@ -248,74 +247,74 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                   )
               ),
-              Divider(),
+              const Divider(),
 
               //==================================CUSTOMER NAME
               Card(
-                margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: ListTile(
-                  title: Text('Name'),
+                  title: const Text('Name'),
                   subtitle: Text('${appState.selectedCustomerRequest['c_name']}'),
                 )
               ),
               //==================================CUSTOMER MOBILE
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Mobile'),
+                    title: const Text('Mobile'),
                     subtitle: Text('${appState.selectedCustomerRequest['c_mobile']}'),
                   )
               ),
               //==================================CUSTOMER EMAIL
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Email'),
+                    title: const Text('Email'),
                     subtitle: Text('${appState.selectedCustomerRequest['c_email']}'),
                   )
               ),
               //==================================CUSTOMER ADDRESS
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Address'),
+                    title: const Text('Address'),
                     subtitle: Text('${appState.selectedCustomerRequest['c_address']}, ${appState.selectedCustomerRequest['c_locality']}, ${appState.selectedCustomerRequest['c_city']}, ${appState.selectedCustomerRequest['c_pincode']}'),
                   )
               ),
               //==================================VISITOR NAME
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Visitor Name'),
+                    title: const Text('Visitor Name'),
                     subtitle: Text('${appState.selectedCustomerRequest['visitor_name']}'),
                   )
               ),
               //==================================VISITOR NUMBER
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Visitor Number'),
+                    title: const Text('Visitor Number'),
                     subtitle: Text('${appState.selectedCustomerRequest['visitor_number']}'),
                   )
               ),
               //==================================VISITING DATE
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Visiting Date'),
+                    title: const Text('Visiting Date'),
                     subtitle: Text('${appState.selectedCustomerRequest['v_date']}'),
                   )
               ),
               //==================================VISITING Status
               Card(
-                  margin: EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
-                    title: Text('Visiting Status'),
-                    subtitle: Text('${requestStatus}', style: TextStyle(color: statusColor),),
+                    title: const Text('Visiting Status'),
+                    subtitle: Text(requestStatus, style: TextStyle(color: statusColor),),
                   )
               ),
               //==================================STATUS CHANGE BTN
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               appState.selectedCustomerRequest['v_status']==2
               ? Container()
               : Center(
@@ -340,7 +339,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       _changeVisitStatus(data, appState, context);
                     },
                     child: Text(
-                      '${reqBtnText}',
+                      reqBtnText,
                       style: TextStyle(
                           color: Theme.of(context).primaryColor
                       ),
@@ -349,7 +348,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
               )
 
       ]
-        )));
+        ));
   }
 }
 //

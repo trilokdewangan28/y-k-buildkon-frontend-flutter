@@ -97,11 +97,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
         appState.activeWidget = "PropertyListWidget";
         appState.currentState = 0;
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
       }
     }
 
@@ -116,7 +116,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     }
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.only(bottom: 250),
+        padding: const EdgeInsets.only(bottom: 250),
         child: Column(
           children: [
             Image.asset(
@@ -126,7 +126,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
             ),
             Container(
               width: double.infinity,
-              child: Center(
+              child: const Center(
                   child:Text(
                     'Welcome To Y&K Buildkon',
                     style: TextStyle(
@@ -165,7 +165,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                     children: [
                       //===========================SPACIFICATION CONTAINER
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                             border: Border.all(width: 1),
                             borderRadius: BorderRadius.circular(10)
@@ -177,9 +177,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width:MediaQuery.of(context).size.width*0.45,
-                                  child: Text('Select Property Type: '),
+                                  child: const Text('Select Property Type: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                   elevation: 1,
                                   child: Container(
@@ -194,7 +194,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             // This is called when the user selects an item.
                                             setState(() {
                                               selectedPropertyType = value!;
-                                              print('selected property type is ${selectedPropertyType}');
+                                              //print('selected property type is ${selectedPropertyType}');
                                             });
                                           },
                                           items: propertyType.map<DropdownMenuItem<String>>((String value) {
@@ -217,9 +217,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width:MediaQuery.of(context).size.width*0.45,
-                                  child:  Text('Select Property BHK: '),
+                                  child:  const Text('Select Property BHK: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -234,7 +234,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             // This is called when the user selects an item.
                                             setState(() {
                                               selectedBhk = int.parse(value!);
-                                              print('selected bhk is : ${selectedBhk}');
+                                              //print('selected bhk is : ${selectedBhk}');
                                             });
                                           },
                                           items: bhk.map<DropdownMenuItem<String>>((String value) {
@@ -258,9 +258,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width:MediaQuery.of(context).size.width*0.45,
-                                  child: Text('Select No. Of Floors: '),
+                                  child: const Text('Select No. Of Floors: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -275,7 +275,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             // This is called when the user selects an item.
                                             setState(() {
                                               selectedFloor = int.parse(value!);
-                                              print('selected floor is : ${selectedFloor}');
+                                              //print('selected floor is : ${selectedFloor}');
                                             });
                                           },
                                           items: floor.map<DropdownMenuItem<String>>((String value) {
@@ -299,9 +299,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width: MediaQuery.of(context).size.width*0.45,
-                                  child:Text('Garden Availibility?: '),
+                                  child:const Text('Garden Availibility?: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -316,7 +316,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                               // This is called when the user selects an item.
                                               setState(() {
                                                 selectedGarden = value!;
-                                                print('is Garden : ${selectedGarden}');
+                                                //print('is Garden : ${selectedGarden}');
                                               });
                                             },
                                             items: garden.map<DropdownMenuItem<String>>((String value) {
@@ -340,9 +340,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width: MediaQuery.of(context).size.width*0.45,
-                                  child: Text('Parking Facility?: '),
+                                  child: const Text('Parking Facility?: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -357,7 +357,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                               // This is called when the user selects an item.
                                               setState(() {
                                                 selectedParking = value!;
-                                                print('is Parking : ${selectedParking}');
+                                                //print('is Parking : ${selectedParking}');
                                               });
                                             },
                                             items: parking.map<DropdownMenuItem<String>>((String value) {
@@ -381,9 +381,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width: MediaQuery.of(context).size.width*0.45,
-                                  child:  Text('Furnished Or Not?: '),
+                                  child:  const Text('Furnished Or Not?: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -398,7 +398,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             // This is called when the user selects an item.
                                             setState(() {
                                               selectedFurnished = value!;
-                                              print('is furnished : ${selectedFurnished}');
+                                              //print('is furnished : ${selectedFurnished}');
                                             });
                                           },
                                           items: furnished.map<DropdownMenuItem<String>>((String value) {
@@ -421,9 +421,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               children: [
                                 Container(
                                   width:MediaQuery.of(context).size.width*0.45,
-                                  child:Text('Available Or Not?: '),
+                                  child:const Text('Available Or Not?: '),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 Card(
                                     elevation: 1,
                                     child:Container(
@@ -438,7 +438,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             // This is called when the user selects an item.
                                             setState(() {
                                               selectedAvailability = value!;
-                                              print('is available : ${selectedFurnished}');
+                                              //print('is available : ${selectedFurnished}');
                                             });
                                           },
                                           items: available.map<DropdownMenuItem<String>>((String value) {
@@ -460,11 +460,10 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                       const SizedBox(height: 15,),
 
                       //=============================PROPERTY NAME TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                             focusNode: _propertyNameFocusNode,
                             controller: _propertyNameController,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Property Name',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -489,16 +488,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //========================PROPETY UNIQUE NUMBER TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                             focusNode: _propertyUnFocusNode,
                             controller: _propertyUnController,
                             keyboardType: TextInputType.text,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Property Unique Number',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -523,26 +521,24 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
                       const SizedBox(height: 15,),
 
                       //============================PROPERTY AREA
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                           focusNode: _propertyAreaFocusNode,
                           controller: _propertyAreaController,
                           keyboardType: TextInputType.number,
                           decoration:  InputDecoration(
-                              labelText: 'Property Area in ${areaUnit}',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
+                              labelText: 'Property Area in $areaUnit',
+                              labelStyle: const TextStyle(color: Colors.black),
+                              focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1,
                                   // color: Theme.of(context).hintColor
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(10),),
                               ),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 1,
                                   color: Colors.grey,
@@ -557,16 +553,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             return null;
                           },
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //============================PROPERTY PRICE
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                           focusNode: _propertyPriceFocusNode,
                           controller: _propertyPriceController,
                           keyboardType: TextInputType.number,
-                          decoration:  InputDecoration(
+                          decoration:  const InputDecoration(
                               labelText: 'Property Price',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
@@ -591,16 +586,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             return null;
                           },
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //============================PROPERTY BOOKING AMMOUNT
-                      Container(
-                        child:TextFormField(
+                     TextFormField(
                           focusNode: _propertyBookingAmountFocusNode,
                           controller: _propertyBookingAmountController,
                           keyboardType: TextInputType.number,
-                          decoration:  InputDecoration(
+                          decoration:  const InputDecoration(
                               labelText: 'Property Booking Ammount',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
@@ -625,17 +619,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             return null;
                           },
                         ),
-                      ),
                       const SizedBox(height: 15,),
 
 
                       //============================DESCRIPTION TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                           focusNode: _propertyDescriptionFocusNode,
                           controller: _propertyDescriptionController,
                           maxLines: 5,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Property Description',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -660,16 +652,14 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
                       const SizedBox(height: 15,),
 
 
                       //============================ADDRESS TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                             focusNode: _propertyAddressFocusNode,
                             controller: _propertyAddressController,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Address',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -694,27 +684,27 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //===============================LOCALITY AND CITY
                       Row(
                         children: [
-                          Expanded(child:Container(
+                          Expanded(
                             child:TextFormField(
                                 focusNode: _propertyLocalityFocusNode,
                                 controller: _propertyLocalityController,
-                                decoration:  InputDecoration(
+                                decoration:  const InputDecoration(
                                     labelText: 'Locality',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
+                                    labelStyle:  TextStyle(color: Colors.black),
+                                    focusedBorder:  OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1,
                                         // color: Theme.of(context).hintColor
                                       ),
                                       borderRadius: BorderRadius.all(Radius.circular(10),),
                                     ),
-                                    border: OutlineInputBorder(
+                                    border:  OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1,
                                         color: Colors.grey,
@@ -729,13 +719,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   return null;
                                 }
                             ),
-                          ),),
-                          SizedBox(width: 10,),
-                          Expanded(child:Container(
-                            child:TextFormField(
+                          ),
+                          const SizedBox(width: 10,),
+                          Expanded(child:TextFormField(
                                 focusNode: _propertyCityFocusNode,
                                 controller: _propertyCityController,
-                                decoration:  InputDecoration(
+                                decoration:  const InputDecoration(
                                     labelText: 'City',
                                     labelStyle: TextStyle(color: Colors.black),
                                     focusedBorder: OutlineInputBorder(
@@ -760,18 +749,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   return null;
                                 }
                             ),
-                          ),),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 15,),
 
                       //===========================PINCODE TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                             focusNode: _propertyPincodeFocusNode,
                             controller: _propertyPincodeController,
                             keyboardType: TextInputType.number,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Pincode',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -796,12 +784,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //=============================url note
-                      Container(
-                        child: Row(
+                       const Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -824,23 +811,20 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             ),
                           ],
                         ),
-                      ),
-                      Container(
-                        child: TextButton(
+                       TextButton(
                             onPressed: (){
                               var url = 'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
                               StaticMethod.openMap(url);
                             },
-                            child: Text('Open Map')
+                            child: const Text('Open Map')
                         ),
-                      ),
+
 
                       //============================LOCATION MAP URL TEXTFIELD
-                      Container(
-                        child:TextFormField(
+                      TextFormField(
                           focusNode: _propertyLocationUrlFocusNode,
                           controller: _propertyLocationUrlController,
-                            decoration:  InputDecoration(
+                            decoration:  const InputDecoration(
                                 labelText: 'Google Map Address Url',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
@@ -865,7 +849,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               return null;
                             }
                         ),
-                      ),
+
                       const SizedBox(height: 15,),
 
                       //===============================SIGNUP BTN

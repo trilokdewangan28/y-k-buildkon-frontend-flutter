@@ -3,45 +3,51 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 
-class SpacificErrorPage extends StatelessWidget {
-  const SpacificErrorPage({Key? key, required this.errorString})
-      : super(key: key);
-
+class SpacificErrorPage extends StatefulWidget {
+  final String fromWidget;
   final String errorString;
 
+  const SpacificErrorPage({Key? key, required this.errorString, required this.fromWidget})
+      : super(key: key);
+
+  @override
+  _SpacificErrorPageState createState() => _SpacificErrorPageState();
+}
+
+class _SpacificErrorPageState extends State<SpacificErrorPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return PopScope(
-      canPop: false,
-        onPopInvoked: (didPop){
-          appState.activeWidget = "LoginWidget";
-          appState.currentState = 1;
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Text(
-                  errorString,
-                style: const TextStyle(
-                  color: Colors.red
+    return RefreshIndicator(
+      child: ListView(
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height*0.4),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child: Text(
+                  widget.errorString,
+                  style: const TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 200,
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () {
-                      appState.activeWidget = "LoginWidget";
-                      appState.currentState = 1;
-                    },
-                    child: const Text('BACK TO HOME')))
-          ],
-        ));
+              const SizedBox(
+                height: 200,
+              ),
+            ],
+          ),
+          SizedBox(height: 20,)
+        ],
+      ),
+      onRefresh: () async {
+        appState.activeWidget = widget.fromWidget;
+        setState(() {
+
+        });
+      },
+    );
   }
 }
+

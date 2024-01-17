@@ -38,7 +38,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   //----------------------------------------------------------------------------COUNTDOWN VARIABLE
   bool otpSent = false;
-  Duration countdownDuration = const Duration(minutes: 10); // Example: 10 minutes
+  Duration countdownDuration = const Duration(minutes: 5); // Example: 10 minutes
   Timer? countdownTimer;
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
@@ -246,18 +246,23 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                         ),
 
-                      TextButton(
+                      remainingTime == ''
+                          ? TextButton(
                           onPressed: (){
                             if (_formKey1.currentState!.validate()) {
                               _generateOtp(context, appState);
                             }
                           },
                           child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
-                      ),
+                      )
+                          : Container(),
                     ],
                   ),
                 )
             ),
+            const SizedBox(height: 15,),
+
+            Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
             const SizedBox(height: 15,),
 
             //==============================FORM2 CONTAINER Login

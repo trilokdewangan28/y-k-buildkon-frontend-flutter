@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
-import 'package:real_state/Pages/Error/ServerErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyListPage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
@@ -42,7 +41,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
-              return ServerErrorPage(errorString: snapshot.error.toString(),);
+              return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
             }
           }
           else if(snapshot.hasData){
@@ -73,11 +72,11 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               }
               return favoritePropertyContent;
             }else{
-              return SpacificErrorPage(errorString: snapshot.data!['message'],);
+              return SpacificErrorPage(errorString: snapshot.data!['message'],fromWidget: appState.activeWidget,);
             }
           }
           else{
-            return ServerErrorPage(errorString: snapshot.error.toString(),);
+            return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
       );

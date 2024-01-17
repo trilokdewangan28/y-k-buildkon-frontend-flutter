@@ -16,10 +16,11 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     //print(appState.favoritePropertyList);
-    return Column(
-      children: [
-        //=====================================PROPERTY LIST CONTAINER
-         Expanded(
+    return RefreshIndicator(
+        child: Column(
+          children: [
+            //=====================================PROPERTY LIST CONTAINER
+            Expanded(
                 child: ListView.builder(
                   itemCount: appState.favoritePropertyList.length,
                   itemBuilder: (context, index) {
@@ -144,7 +145,11 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                     );
                   },
                 ))
-      ],
+          ],
+        ),
+        onRefresh: () async{
+          appState.activeWidget = appState.activeWidget;
+        }
     );
   }
 }
