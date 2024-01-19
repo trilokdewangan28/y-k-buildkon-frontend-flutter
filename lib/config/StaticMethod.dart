@@ -422,6 +422,12 @@ class StaticMethod{
  static void filterProperties(appState,{
     String selectedCity = "",
     String selectedPropertyType = "",
+    int selectedBhk = 0,
+    int selectedFloor = 0,
+    String selectedGarden = "None",
+    String selectedParking = "None",
+    String selectedFurnished = "None",
+   String selectedAvailability = "None",
     int minPrice = 0,
     int maxPrice = 100000000,
     String propertyName = "",
@@ -431,10 +437,56 @@ class StaticMethod{
     appState.filteredPropertyList = appState.propertyList.length != 0 ? appState.propertyList.where((property) {
       final String name = property['p_name'].toLowerCase();
       final String type = property['p_type'].toLowerCase();
+      final String garden = property['p_isGarden'].toLowerCase();
+      final String parking = property['p_isParking'].toLowerCase();
+      final String furnished = property['p_isFurnished'].toLowerCase();
+      final String available = property['p_isAvailable'].toLowerCase();
       final String city = property['p_city'].toLowerCase();
 
+      String propertyType = "";
+      if(selectedPropertyType=="All"){
+        propertyType="";
+      }else{
+        propertyType = selectedPropertyType;
+      }
 
-      return (selectedPropertyType.isEmpty || type.contains(selectedPropertyType.toLowerCase())) &&
+      String propertyGarden = "";
+      if(selectedGarden=="None"){
+        propertyGarden="";
+      }else{
+        propertyGarden = selectedGarden;
+      }
+
+      String propertyParking = "";
+      if(selectedParking=="None"){
+        propertyParking="";
+      }else{
+        propertyParking = selectedParking;
+      }
+
+      String propertyFurnished = "";
+      if(selectedFurnished=="None"){
+        propertyFurnished="";
+      }else{
+        propertyFurnished = selectedFurnished;
+      }
+
+      String propertyAvailability = "";
+      if(selectedAvailability=="None"){
+        propertyAvailability="";
+      }else{
+        propertyAvailability = selectedAvailability;
+      }
+
+
+
+      return (propertyType.isEmpty || type.contains(propertyType.toLowerCase())) &&
+          (selectedBhk!=0 ? property['p_bhk']==selectedBhk : property['p_bhk']>0) &&
+          (selectedFloor!=0 ? property['p_floor']==selectedFloor : property['p_floor']>0) &&
+          (propertyGarden.isEmpty || garden.contains(propertyGarden.toLowerCase())) &&
+          (propertyParking.isEmpty || parking.contains(propertyParking.toLowerCase())) &&
+          (propertyFurnished.isEmpty || furnished.contains(propertyFurnished.toLowerCase())) &&
+          (propertyAvailability.isEmpty || available.contains(propertyAvailability.toLowerCase())) &&
           (property['p_price'] >= minPrice && property['p_price'] <= maxPrice) &&
           (propertyId!=0 ? property['p_id']==propertyId : property['p_id']>0) &&
           (selectedCity.isEmpty || city.contains(selectedCity.toLowerCase())) &&

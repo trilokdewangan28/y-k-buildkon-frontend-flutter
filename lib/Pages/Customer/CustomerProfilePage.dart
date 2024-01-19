@@ -43,6 +43,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             height: 100,
                             width: 100,
                             fit: BoxFit.fill,
+
                           )
                               : const Icon(Icons.person, size: 70, color: Colors.black),
                         ),

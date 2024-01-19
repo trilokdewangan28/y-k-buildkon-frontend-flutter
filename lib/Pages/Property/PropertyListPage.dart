@@ -10,6 +10,7 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/OfferListWidget.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class PropertyListPage extends StatefulWidget {
@@ -33,8 +34,33 @@ class _PropertyListPageState extends State<PropertyListPage> {
   int maxPrice = 100000000;
   int propertyId = 0;
   String selectedCity = "";
-  String selectedPropertyType = "";
+  //String selectedPropertyType = "";
   String selectedPropertyName = "";
+
+
+  final List<String> propertyType = ['All','House', 'Flat', 'Plot'];
+  String selectedPropertyType = "All";
+
+  final List<String> bhk = ['0','1','2','3','4','5'];
+  int selectedBhk = 0;
+
+  final List<String> floor = ['0','1','2','3','4','5'];
+  int selectedFloor = 0;
+
+  final List<String> garden = ['None','Yes', 'No'];
+  String selectedGarden = 'None';
+
+
+  final List<String> parking = ['None','Yes', 'No'];
+  String selectedParking='None';
+
+
+  final List<String> furnished = ['None','Yes', 'No'];
+  String selectedFurnished = "None";
+
+  final List<String> available = ['None','Yes', 'No'];
+  String selectedAvailability = "None";
+
 
   List<dynamic> filteredProperties = [];
 
@@ -64,151 +90,500 @@ class _PropertyListPageState extends State<PropertyListPage> {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            return SingleChildScrollView(
-                child: Container(
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).viewInsets.top + 16,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+            return Container(
+              height: MediaQuery.of(context).size.height*0.8,
+              child:Column(
                 children: [
+                  SizedBox(height: 10,),
                   Container(
                     margin: const EdgeInsets.only(left: 15, right: 15),
                     child: const Text(
-                      'Enter Price Range',
+                      'Apply Filters',
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                     ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 15, right: 5),
-                          child: TextField(
-                            onChanged: (value) {
-                              minPrice = int.parse(value);
-                            },
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                                labelText: 'minimum price',
-                                labelStyle: const TextStyle(fontSize: 14),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                            margin: const EdgeInsets.only(left: 5, right: 15),
-                            child: TextField(
-                              onChanged: (value) {
-                                maxPrice = int.parse(value);
-                              },
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  labelText: 'maximum price',
-                                  labelStyle: const TextStyle(fontSize: 14),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10))),
-                            )),
+                  Divider(thickness: 2, color: Colors.black,),
+                  Expanded(
+                      child: SingleChildScrollView(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).viewInsets.top + 16,
+                              bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                //===========================SPACIFICATION CONTAINER
+                                Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 15),
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  decoration: BoxDecoration(
+                                      border: Border.all(width: 1),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      //==========================PROPERTY TYPE
+                                      Row(
+                                        children: [
+                                          Container(
+                                            width:MediaQuery.of(context).size.width*0.4,
+                                            child: const Text('Select Property Type: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                            elevation: 1,
+                                            child: Container(
+                                                width: MediaQuery.of(context).size.width*0.25,
+                                                child:Center(
+                                                  child: DropdownButton<String>(
+                                                    value: selectedPropertyType,
+                                                    icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                    elevation: 16,
+                                                    underline: Container(),
+                                                    onChanged: (String? value) {
+                                                      // This is called when the user selects an item.
+                                                      setState(() {
+                                                        selectedPropertyType = value!;
+                                                        if(value=="All"){
+                                                          houseTapped=false;
+                                                          flatTapped=false;
+                                                          plotTapped=false;
+                                                        }else if(value=="House"){
+                                                          houseTapped=true;
+                                                          flatTapped=false;
+                                                          plotTapped=false;
+                                                        }else if(value=="Flat"){
+                                                          houseTapped=false;
+                                                          flatTapped=true;
+                                                          plotTapped=false;
+                                                        }else if(value=="Plot"){
+                                                          houseTapped=false;
+                                                          flatTapped=false;
+                                                          plotTapped=true;
+                                                        }
+                                                        //print('selected property type is ${selectedPropertyType}');
+                                                      });
+                                                    },
+                                                    items: propertyType.map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                )
+                                            ),
+                                          )
+
+                                        ],
+                                      ),
+
+                                      //==========================PROPERTY BHK
+                                      selectedPropertyType=='House' || selectedPropertyType=="Flat"
+                                          ? Row(
+                                        children: [
+                                          Container(
+                                            width:MediaQuery.of(context).size.width*0.4,
+                                            child:  const Text('Select Property BHK: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                width: MediaQuery.of(context).size.width*0.25,
+                                                child: Center(
+                                                  child: DropdownButton<String>(
+                                                    value: selectedBhk.toString(),
+                                                    icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                    elevation: 16,
+                                                    underline: Container(),
+                                                    onChanged: (String? value) {
+                                                      // This is called when the user selects an item.
+                                                      setState(() {
+                                                        selectedBhk = int.parse(value!);
+                                                        //print('selected bhk is : ${selectedBhk}');
+                                                      });
+                                                    },
+                                                    items: bhk.map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                          : Container(),
+
+                                      //==========================PROPERTY FLOOR
+                                      selectedPropertyType=='House'
+                                          ? Row(
+                                        children: [
+                                          Container(
+                                            width:MediaQuery.of(context).size.width*0.4,
+                                            child: const Text('Select No. Of Floors: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                width: MediaQuery.of(context).size.width*0.25,
+                                                child: Center(
+                                                  child: DropdownButton<String>(
+                                                    value: selectedFloor.toString(),
+                                                    icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                    elevation: 16,
+                                                    underline: Container(),
+                                                    onChanged: (String? value) {
+                                                      // This is called when the user selects an item.
+                                                      setState(() {
+                                                        selectedFloor = int.parse(value!);
+                                                        //print('selected floor is : ${selectedFloor}');
+                                                      });
+                                                    },
+                                                    items: floor.map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                          : Container(),
+
+                                      //==========================isGarden facility
+                                      selectedPropertyType=='House'
+                                          ? Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context).size.width*0.4,
+                                            child:const Text('Garden Availibility?: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                  width: MediaQuery.of(context).size.width*0.25,
+                                                  child:Center(
+                                                    child: DropdownButton<String>(
+                                                      value: selectedGarden,
+                                                      icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                      elevation: 16,
+                                                      underline: Container(),
+                                                      onChanged: (String? value) {
+                                                        // This is called when the user selects an item.
+                                                        setState(() {
+                                                          selectedGarden = value!;
+                                                          //print('is Garden : ${selectedGarden}');
+                                                        });
+                                                      },
+                                                      items: garden.map<DropdownMenuItem<String>>((String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text(value),
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  )
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                          : Container(),
+
+                                      //==========================isParking facility
+                                      selectedPropertyType=='House'
+                                          ? Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context).size.width*0.4,
+                                            child: const Text('Parking Facility?: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                  width: MediaQuery.of(context).size.width*0.25,
+                                                  child:Center(
+                                                    child: DropdownButton<String>(
+                                                      value: selectedParking,
+                                                      icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                      elevation: 16,
+                                                      underline: Container(),
+                                                      onChanged: (String? value) {
+                                                        // This is called when the user selects an item.
+                                                        setState(() {
+                                                          selectedParking = value!;
+                                                          //print('is Parking : ${selectedParking}');
+                                                        });
+                                                      },
+                                                      items: parking.map<DropdownMenuItem<String>>((String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text(value),
+                                                        );
+                                                      }).toList(),
+                                                    ),
+                                                  )
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                          : Container(),
+
+                                      //==========================isFurnished facility
+                                      selectedPropertyType=='House' || selectedPropertyType=='Flat'
+                                          ? Row(
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context).size.width*0.4,
+                                            child:  const Text('Furnished Or Not?: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                width: MediaQuery.of(context).size.width*0.25,
+                                                child: Center(
+                                                  child: DropdownButton<String>(
+                                                    value: selectedFurnished,
+                                                    icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                    elevation: 16,
+                                                    underline: Container(),
+                                                    onChanged: (String? value) {
+                                                      // This is called when the user selects an item.
+                                                      setState(() {
+                                                        selectedFurnished = value!;
+                                                        //print('is furnished : ${selectedFurnished}');
+                                                      });
+                                                    },
+                                                    items: furnished.map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                          : Container(),
+
+                                      //==========================AVAILABILITY
+                                      Row(
+                                        children: [
+                                          Container(
+                                            width:MediaQuery.of(context).size.width*0.4,
+                                            child:const Text('Available Or Not?: '),
+                                          ),
+                                          const SizedBox(width: 10,),
+                                          Card(
+                                              elevation: 1,
+                                              child:Container(
+                                                width: MediaQuery.of(context).size.width*0.25,
+                                                child: Center(
+                                                  child: DropdownButton<String>(
+                                                    value: selectedAvailability,
+                                                    icon: const Icon(Icons.arrow_drop_down_sharp, size: 30,),
+                                                    elevation: 16,
+                                                    underline: Container(),
+                                                    onChanged: (String? value) {
+                                                      // This is called when the user selects an item.
+                                                      setState(() {
+                                                        selectedAvailability = value!;
+                                                        //print('is available : ${selectedFurnished}');
+                                                      });
+                                                    },
+                                                    items: available.map<DropdownMenuItem<String>>((String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text(value),
+                                                      );
+                                                    }).toList(),
+                                                  ),
+                                                ),
+                                              )
+                                          )
+
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 10,),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    margin: const EdgeInsets.only(left: 15, right: 15),
+                                    child: const Text(
+                                      'Enter Price Range',
+                                      style:
+                                      TextStyle(fontSize: 16,),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: const EdgeInsets.only(left: 15, right: 5),
+                                        child: TextField(
+                                          onChanged: (value) {
+                                            minPrice = int.parse(value);
+                                          },
+                                          keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                              labelText: 'minimum price',
+                                              labelStyle: const TextStyle(fontSize: 14),
+                                              border: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(10))),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Container(
+                                          margin: const EdgeInsets.only(left: 5, right: 15),
+                                          child: TextField(
+                                            onChanged: (value) {
+                                              maxPrice = int.parse(value);
+                                            },
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                labelText: 'maximum price',
+                                                labelStyle: const TextStyle(fontSize: 14),
+                                                border: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10))),
+                                          )),
+                                    )
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      selectedPropertyName = value;
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                        labelText: 'filter by name',
+                                        prefixIcon: const Icon(Icons.search),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10))),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      selectedPropertyType = value;
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                        labelText: 'filter by property type',
+                                        prefixIcon: const Icon(Icons.search),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10))),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                  child: TextField(
+                                    onChanged: (value) {
+                                      selectedCity = value;
+                                    },
+                                    keyboardType: TextInputType.text,
+                                    decoration: InputDecoration(
+                                        labelText: 'filter by city',
+                                        prefixIcon: const Icon(Icons.search),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10))),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            minPrice = 1;
+                                            maxPrice = 100000000;
+                                            propertyId=0;
+                                            selectedCity = "";
+                                            selectedPropertyType = "All";
+                                            selectedBhk=0;
+                                            selectedFloor=0;
+                                            selectedGarden="None";
+                                            selectedParking="None";
+                                            selectedFurnished="None";
+                                            selectedAvailability="None";
+                                            selectedPropertyName = "";
+                                            houseTapped=false;
+                                            flatTapped=false;
+                                            plotTapped=false;
+                                            StaticMethod.filterProperties(appState,
+                                                propertyName: selectedPropertyName,
+                                                selectedCity: selectedCity,
+                                                maxPrice: maxPrice,
+                                                minPrice: minPrice,
+                                                propertyId: propertyId,
+                                                selectedPropertyType: selectedPropertyType);
+                                            filterApplied = false;
+                                            Navigator.pop(context);
+                                            setTheState();
+                                          },
+                                          child: const Text(
+                                            'Clear Filter',
+                                            style: TextStyle(color: Colors.red),
+                                          )),
+                                      ElevatedButton(
+                                          onPressed: () {
+                                            StaticMethod.filterProperties(appState,
+                                                propertyName: selectedPropertyName,
+                                                selectedCity: selectedCity,
+                                                minPrice: minPrice,
+                                                maxPrice: maxPrice,
+                                                propertyId: propertyId,
+                                                selectedPropertyType: selectedPropertyType);
+                                            filterApplied = true;
+                                            Navigator.pop(context);
+                                            setTheState();
+                                          },
+                                          child: const Text('Apply Filter'))
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
                       )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    child: TextField(
-                      onChanged: (value) {
-                        selectedPropertyName = value;
-                      },
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          labelText: 'filter by name',
-                          prefixIcon: const Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    child: TextField(
-                      onChanged: (value) {
-                        selectedPropertyType = value;
-                      },
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          labelText: 'filter by property type',
-                          prefixIcon: const Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    child: TextField(
-                      onChanged: (value) {
-                        selectedCity = value;
-                      },
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          labelText: 'filter by city',
-                          prefixIcon: const Icon(Icons.search),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              minPrice = 1;
-                              maxPrice = 100000000;
-                              propertyId=0;
-                              selectedCity = "";
-                              selectedPropertyType = "";
-                              selectedPropertyName = "";
-                              StaticMethod.filterProperties(appState,
-                                  propertyName: selectedPropertyName,
-                                  selectedCity: selectedCity,
-                                  maxPrice: maxPrice,
-                                  minPrice: minPrice,
-                                  propertyId: propertyId,
-                                  selectedPropertyType: selectedPropertyType);
-                              filterApplied = false;
-                              Navigator.pop(context);
-                              setTheState();
-                            },
-                            child: const Text(
-                              'Clear Filter',
-                              style: TextStyle(color: Colors.red),
-                            )),
-                        ElevatedButton(
-                            onPressed: () {
-                              StaticMethod.filterProperties(appState,
-                                  propertyName: selectedPropertyName,
-                                  selectedCity: selectedCity,
-                                  minPrice: minPrice,
-                                  maxPrice: maxPrice,
-                                  propertyId: propertyId,
-                                  selectedPropertyType: selectedPropertyType);
-                              filterApplied = true;
-                              Navigator.pop(context);
-                              setTheState();
-                            },
-                            child: const Text('Apply Filter'))
-                      ],
-                    ),
                   )
                 ],
               ),
-            ));
+            );
           },
         );
       },
@@ -223,13 +598,14 @@ class _PropertyListPageState extends State<PropertyListPage> {
     return RefreshIndicator(
         child: Column(
           children: [
-            const SizedBox(height: 10,),
+            SizedBox(height: MyConst.deviceHeight(context)*0.01,),
             //=====================================FILTER USING PROPERTY TYPE
             Container(
-              height: 30,
+              height: MyConst.deviceHeight(context)*0.045,
               margin: const EdgeInsets.symmetric(horizontal: 15),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //scrollDirection: Axis.horizontal,
                 children: [
                   GestureDetector(
                     onTap: () {
@@ -259,7 +635,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 6),
-                      width: 110,
+                      width: MyConst.deviceWidth(context)*0.25,
                       decoration: BoxDecoration(
                           color: houseTapped
                               ? Theme.of(context).hintColor
@@ -301,7 +677,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 6),
-                      width: 110,
+                      width: MyConst.deviceWidth(context)*0.25,
                       decoration: BoxDecoration(
                           color: flatTapped
                               ? Theme.of(context).hintColor
@@ -343,7 +719,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     },
                     child: Container(
                       margin: const EdgeInsets.symmetric(horizontal: 6),
-                      width: 110,
+                      width: MyConst.deviceWidth(context)*0.25,
                       decoration: BoxDecoration(
                           color: plotTapped
                               ? Theme.of(context).hintColor
@@ -399,6 +775,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                         child: IconButton(
                           icon: const Icon(Icons.filter_list),
                           onPressed: () {
+                            selectedPropertyType="All";
                             _showFilterContainer(appState);
                           },
                         ),
@@ -459,7 +836,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               ),
 
             ),
-            const SizedBox(height: 20,),
+            SizedBox(height:MyConst.deviceHeight(context)*0.02,),
 
             //=====================================PROPERTY LIST CONTAINER
             appState.filteredPropertyList.isNotEmpty
@@ -496,15 +873,17 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                           imageUrl: '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
                                           placeholder: (context, url) =>const LinearProgressIndicator(),
                                           errorWidget: (context, url, error) => const Icon(Icons.error),
-                                          height: 100,
-                                          width: 100,
+                                          height: MyConst.deviceHeight(context)*0.1,
+                                          width: MyConst.deviceWidth(context)*0.25,
                                           fit: BoxFit.fill,
                                         )
                                             : ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
                                           child: Image.asset(
                                             'assets/images/home.jpg',
-                                            width: 100,
+                                            width: MyConst.deviceWidth(context)*0.25,
+                                            height: MyConst.deviceHeight(context)*0.1,
+                                            fit: BoxFit.fill,
                                           ),
                                         )
                                     ),
