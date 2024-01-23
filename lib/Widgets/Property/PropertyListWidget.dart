@@ -1,3 +1,4 @@
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,10 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.
             return Center(
-              child: CircularProgressIndicator(),
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 50),
+                child: LinearProgressIndicator(),
+              )
             );
           } else if (snapshot.hasError ) {
             // Handle error state.

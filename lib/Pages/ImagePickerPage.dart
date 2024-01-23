@@ -196,7 +196,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       if(widget.forWhich=='customerProfilePic'){
                         url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
                       }else if(widget.forWhich=='offerImage'){
-                        url = Uri.parse(ApiLinks.uploadOfferImage);
+                        url = Uri.parse(ApiLinks.uploadOffer);
                       }else if(widget.forWhich=='propertyImage'){
                         url = Uri.parse(ApiLinks.uploadPropertyImage);
                       }else if(widget.forWhich=='adminProfilePic'){

@@ -175,34 +175,38 @@ class _HomeScreenState extends State<HomeScreen> {
 
           switch (appState.activeWidget) {
             case "PropertyDetailPage":
+              appState.selectedProperty.clear();
               appState.activeWidget = "PropertyListWidget";
-              appState.selectedProperty = {};
               appState.addedToFavorite = false;
               break;
             case "FavoritePropertyDetailPage":
+              appState.selectedProperty.clear();
               appState.activeWidget = "FavoritePropertyListWidget";
-              appState.selectedProperty = {};
               appState.addedToFavorite = false;
               break;
             case "FavoritePropertyListWidget":
+              appState.favoritePropertyList.clear();
               appState.activeWidget = "ProfileWidget";
               break;
             case "VisitRequestedDetailPage":
+              appState.selectedProperty.clear();
               appState.activeWidget = "VisitRequestedListWidget";
-              appState.selectedProperty = {};
               appState.addedToFavorite = false;
               break;
             case "VisitRequestedListWidget":
+              appState.visitRequestedPropertyList.clear();
               appState.activeWidget = "ProfileWidget";
               break;
             case "EmiCalculatorWidget":
               appState.activeWidget = "PropertyListWidget";
               break;
             case "CustomerVisitRequestDetailPage":
+              appState.selectedCustomerRequest.clear();
               appState.activeWidget = "CustomerVisitRequestListWidget";
               appState.addedToFavorite=false;
               break;
             case "CustomerVisitRequestListWidget":
+              appState.customerRequestList.clear();
               appState.activeWidget = "ProfileWidget";
               break;
             case "AddNewPropertyWidget":

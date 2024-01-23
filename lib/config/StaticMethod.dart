@@ -1,20 +1,21 @@
 import 'dart:convert';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:http/http.dart' as http;
-class StaticMethod{
+import 'package:url_launcher/url_launcher.dart';
 
+class StaticMethod {
   //----------------------------------------------------------------------------INITIAL FETCH TOKEN AND USERTYPE
-  static void initialFetch(appState)async{
+  static void initialFetch(appState) async {
     appState.fetchUserType();
     await Future.delayed(const Duration(milliseconds: 100));
     appState.fetchToken(appState.userType);
     await Future.delayed(const Duration(milliseconds: 100));
   }
+
   //---------------------------------------------------------------------------- FETCH PROPERTY LIST
-  static Future<Map<String,dynamic>> fetchAllProperties(url)async{
+  static Future<Map<String, dynamic>> fetchAllProperties(url) async {
     var response;
-    try{
+    try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
@@ -24,19 +25,18 @@ class StaticMethod{
         response = jsonDecode(res.body);
         return response;
       }
-
-    }catch(e){
+    } catch (e) {
       print('failed to complete fetchPropertyList api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while requesting property list'
+        "success": false,
+        "message": 'An error occured while requesting property list'
       };
     }
   }
 
   //----------------------------------------------------------------------------SIGNUP CUSTOMER
-  static Future<Map<String,dynamic>> userSignup(signupData, url)async{
+  static Future<Map<String, dynamic>> userSignup(signupData, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -63,7 +63,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------GENERATE OTP
-  static Future<Map<String,dynamic>> generateOtp(userData, url)async{
+  static Future<Map<String, dynamic>> generateOtp(userData, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -90,7 +90,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
-  static Future<Map<String,dynamic>> submitOtpAndLogin(otpModel, url)async{
+  static Future<Map<String, dynamic>> submitOtpAndLogin(otpModel, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -117,7 +117,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
-  static userProfileInitial(token,url, appState)async{
+  static userProfileInitial(token, url, appState) async {
     var response;
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
@@ -125,15 +125,15 @@ class StaticMethod{
       'Accept': 'application/json',
     };
 
-    try{
+    try {
       final res = await http.get(url, headers: requestHeaders);
       await Future.delayed(const Duration(milliseconds: 100));
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
-        print('customer data is :'+response['result'].toString());
-        if(appState.userType=="admin"){
+        print('customer data is :' + response['result'].toString());
+        if (appState.userType == "admin") {
           appState.adminDetails = response['result'];
-        }else{
+        } else {
           appState.customerDetails = response['result'];
         }
         return response;
@@ -141,19 +141,18 @@ class StaticMethod{
         response = jsonDecode(res.body);
         appState.customerDetail = {};
       }
-
-    }catch(e){
+    } catch (e) {
       print('failed to complete user profile api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while fetching user detail'
+        "success": false,
+        "message": 'An error occured while fetching user detail'
       };
     }
   }
 
   //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
-  static Future<Map<String,dynamic>> userProfile(token,url)async{
+  static Future<Map<String, dynamic>> userProfile(token, url) async {
     var response;
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
@@ -161,7 +160,7 @@ class StaticMethod{
       'Accept': 'application/json',
     };
 
-    try{
+    try {
       final res = await http.get(url, headers: requestHeaders);
 
       if (res.statusCode == 200) {
@@ -171,19 +170,18 @@ class StaticMethod{
         response = jsonDecode(res.body);
         return response;
       }
-
-    }catch(e){
+    } catch (e) {
       print('failed to complete customer profile api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while fetching customer detail'
+        "success": false,
+        "message": 'An error occured while fetching customer detail'
       };
     }
   }
 
   //----------------------------------------------------------------------------BOOK VISIT
-  static Future<Map<String,dynamic>> requestVisit(bookVisitModel, url)async{
+  static Future<Map<String, dynamic>> requestVisit(bookVisitModel, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
@@ -210,15 +208,15 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------add to favorite
-  static Future<Map<String,dynamic>> addToFavorite(data,url)async{
+  static Future<Map<String, dynamic>> addToFavorite(data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -237,15 +235,15 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------remove from favorite
-  static Future<Map<String,dynamic>> removeFromFavorite(data,url)async{
+  static Future<Map<String, dynamic>> removeFromFavorite(data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -258,22 +256,23 @@ class StaticMethod{
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for removeFromFavorite api'
+        "message":
+            'An error occured while requesting for removeFromFavorite api'
       };
     }
   }
 
   //----------------------------------------------------------------------------fetch favorite property
-  static Future<Map<String,dynamic>> fetchFavoriteProperty(data,url)async{
+  static Future<Map<String, dynamic>> fetchFavoriteProperty(data, url) async {
     var response;
-    print("data is: "+data.toString());
+    print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -292,16 +291,17 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String,dynamic>> fetchFavoritePropertyListDetails(data,url)async{
+  static Future<Map<String, dynamic>> fetchFavoritePropertyListDetails(
+      data, url) async {
     var response;
-    print("data is: "+data.toString());
+    print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -320,7 +320,7 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String,dynamic>> fetchVisitRequestedList(data,url)async{
+  static Future<Map<String, dynamic>> fetchVisitRequestedList(data, url) async {
     var response;
     //print("data is: "+data.toString());
     try {
@@ -328,8 +328,8 @@ class StaticMethod{
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -348,16 +348,17 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String,dynamic>> fetchVisitRequestedPropertyDetails(data,url)async{
+  static Future<Map<String, dynamic>> fetchVisitRequestedPropertyDetails(
+      data, url) async {
     var response;
-    print("data is: "+data.toString());
+    print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -378,134 +379,119 @@ class StaticMethod{
   //----------------------------------------------------------------------------OPEN MAP
   static void openMap(url) async {
     // Replace with the desired latitude and longitude
-     print('inside the open map url is $url');
+    print('inside the open map url is $url');
     // Use the URL format for opening a map with coordinates
     String mapUrl = url;
 
     // Launch the map with the provided URL
-    if (!await launchUrl(Uri.parse(mapUrl), mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(Uri.parse(mapUrl),
+        mode: LaunchMode.externalApplication)) {
       throw 'Could not launch the map.';
     }
   }
 
-
   //=======================LOGOUT METHOD======================================
- static void logout(appState) async {
+  static void logout(appState) async {
     appState.deleteToken(appState.userType);
-    appState.token="";
-    await Future.delayed(
-        const Duration(milliseconds: 100)); // Add a small delay (100 milliseconds)
+    appState.token = "";
+    await Future.delayed(const Duration(
+        milliseconds: 100)); // Add a small delay (100 milliseconds)
 
     appState.deleteUserType();
-    appState.userType="";
+    appState.userType = "";
     await Future.delayed(const Duration(milliseconds: 100));
 
     appState.customerDetails = {};
     appState.customerDetails.clear();
-    appState.adminDetails={};
+    appState.adminDetails = {};
     appState.adminDetails.clear();
     await Future.delayed(const Duration(milliseconds: 100));
 
     appState.activeWidget = "PropertyListWidget";
-    appState.currentState=0;
+    appState.currentState = 0;
 
     await appState.fetchUserType();
     Future.delayed(const Duration(milliseconds: 100));
 
     appState.fetchToken(appState.userType);
     Future.delayed(const Duration(milliseconds: 100));
-
   }
 
-
   //============================================================filter property method
- static void filterProperties(appState,{
+  static void filterProperties(
+    appState, {
     String selectedCity = "",
-    String selectedPropertyType = "",
+    String selectedPropertyType = "All",
     int selectedBhk = 0,
     int selectedFloor = 0,
     String selectedGarden = "None",
     String selectedParking = "None",
     String selectedFurnished = "None",
-   String selectedAvailability = "None",
+    String selectedAvailability = "None",
     int minPrice = 0,
     int maxPrice = 100000000,
     String propertyName = "",
     int propertyId = 0,
   }) {
 
-    appState.filteredPropertyList = appState.propertyList.length != 0 ? appState.propertyList.where((property) {
-      final String name = property['p_name'].toLowerCase();
-      final String type = property['p_type'].toLowerCase();
-      final String garden = property['p_isGarden'].toLowerCase();
-      final String parking = property['p_isParking'].toLowerCase();
-      final String furnished = property['p_isFurnished'].toLowerCase();
-      final String available = property['p_isAvailable'].toLowerCase();
-      final String city = property['p_city'].toLowerCase();
+    print('------------------------filter method called------------------');
+    print('property type is : ${selectedPropertyType}');
+    print('property bhk is : ${selectedBhk}');
+    print('property floor is : ${selectedFloor}');
+    print('property garden is : ${selectedGarden}');
+    print('property parking is : ${selectedParking}');
+    print('property furnish is : ${selectedFurnished}');
+    print('property availbable is : ${selectedAvailability}');
+    print('------------------------------------------------------------');
 
-      String propertyType = "";
-      if(selectedPropertyType=="All"){
-        propertyType="";
-      }else{
-        propertyType = selectedPropertyType;
-      }
+    appState.filteredPropertyList = appState.propertyList.length != 0
+        ? appState.propertyList.where((property) {
+            final String name = property['p_name'].toLowerCase();
+            final String type = property['p_type'].toLowerCase();
+            final String garden = property['p_isGarden'].toLowerCase();
+            final String parking = property['p_isParking'].toLowerCase();
+            final String furnished = property['p_isFurnished'].toLowerCase();
+            final String available = property['p_isAvailable'].toLowerCase();
+            final String city = property['p_city'].toLowerCase();
 
-      String propertyGarden = "";
-      if(selectedGarden=="None"){
-        propertyGarden="";
-      }else{
-        propertyGarden = selectedGarden;
-      }
+            bool isTypeMatch = selectedPropertyType=="All" || type==selectedPropertyType.toLowerCase();
+            bool isBhkMatch = selectedBhk == 0 ? true : property['p_bhk'] == selectedBhk ;
+            bool isFloorMatch = selectedFloor == 0 ? true : property['p_floor'] == selectedFloor;
+            bool isGardenMatch = selectedGarden=="None" || garden==selectedGarden.toLowerCase();
+            bool isParkingMatch = selectedParking=="None" || parking==selectedParking.toLowerCase();
+            bool isFurnishMatch = selectedFurnished=="None" || furnished==selectedFurnished.toLowerCase();
+            bool isAvailabilityMatch =  selectedAvailability=="None" || available==selectedAvailability.toLowerCase();
+            bool isPriceMatch = property['p_price'] >= minPrice && property['p_price'] <= maxPrice;
+            bool isIdMatch =  propertyId != 0 ? property['p_id'] == propertyId : property['p_id'] > 0;
+            bool isCityMatch = selectedCity=="" || city.contains(selectedCity.toLowerCase());
+            bool isNameMatch = propertyName=="" || name.contains(propertyName.toLowerCase());
 
-      String propertyParking = "";
-      if(selectedParking=="None"){
-        propertyParking="";
-      }else{
-        propertyParking = selectedParking;
-      }
-
-      String propertyFurnished = "";
-      if(selectedFurnished=="None"){
-        propertyFurnished="";
-      }else{
-        propertyFurnished = selectedFurnished;
-      }
-
-      String propertyAvailability = "";
-      if(selectedAvailability=="None"){
-        propertyAvailability="";
-      }else{
-        propertyAvailability = selectedAvailability;
-      }
-
-
-
-      return (propertyType.isEmpty || type.contains(propertyType.toLowerCase())) &&
-          (selectedBhk!=0 ? property['p_bhk']==selectedBhk : property['p_bhk']>0) &&
-          (selectedFloor!=0 ? property['p_floor']==selectedFloor : property['p_floor']>0) &&
-          (propertyGarden.isEmpty || garden.contains(propertyGarden.toLowerCase())) &&
-          (propertyParking.isEmpty || parking.contains(propertyParking.toLowerCase())) &&
-          (propertyFurnished.isEmpty || furnished.contains(propertyFurnished.toLowerCase())) &&
-          (propertyAvailability.isEmpty || available.contains(propertyAvailability.toLowerCase())) &&
-          (property['p_price'] >= minPrice && property['p_price'] <= maxPrice) &&
-          (propertyId!=0 ? property['p_id']==propertyId : property['p_id']>0) &&
-          (selectedCity.isEmpty || city.contains(selectedCity.toLowerCase())) &&
-          (propertyName.isEmpty || name.contains(propertyName.toLowerCase()));
-    }).toList() : [];
+            return (isTypeMatch)
+                && (isBhkMatch)
+                && (isFloorMatch)
+                 && (isGardenMatch)
+                 && (isParkingMatch)
+                 && (isFurnishMatch)
+                 && (isAvailabilityMatch)
+                 && (isPriceMatch)
+                 && (isIdMatch)
+                 && (isCityMatch)
+                && (isNameMatch);
+          }).toList()
+        : [];
   }
 
-
   //----------------------------------------------------------------------------submit property rating
-  static Future<Map<String,dynamic>> submitPropertyRating(data,url)async{
+  static Future<Map<String, dynamic>> submitPropertyRating(data, url) async {
     var response;
-    print("data is: "+data.toString());
+    print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -523,11 +509,10 @@ class StaticMethod{
     }
   }
 
-
   //============================================================================FETCH ADMIN CONTACT WIDGET
-  static Future<Map<String,dynamic>> fetchAdminContact(url)async{
+  static Future<Map<String, dynamic>> fetchAdminContact(url) async {
     var response;
-    try{
+    try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
@@ -537,21 +522,20 @@ class StaticMethod{
         response = jsonDecode(res.body);
         return response;
       }
-
-    }catch(e){
+    } catch (e) {
       print('failed to complete fetchAdminContact api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while requesting admin contact'
+        "success": false,
+        "message": 'An error occured while requesting admin contact'
       };
     }
   }
 
   //============================================================================FETCH OFFER LIST
-  static Future<Map<String,dynamic>> fetchOfferList(url)async{
+  static Future<Map<String, dynamic>> fetchOfferList(url) async {
     var response;
-    try{
+    try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
@@ -561,22 +545,20 @@ class StaticMethod{
         response = jsonDecode(res.body);
         return response;
       }
-
-    }catch(e){
+    } catch (e) {
       print('failed to complete fetchOfferList api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while requesting offer list'
+        "success": false,
+        "message": 'An error occured while requesting offer list'
       };
     }
   }
 
-
   //============================================================================FETCH CUSTOMER REQUEST
-  static Future<Map<String,dynamic>> fetchCustomerRequest(url)async{
+  static Future<Map<String, dynamic>> fetchCustomerRequest(url) async {
     var response;
-    try{
+    try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
@@ -586,39 +568,41 @@ class StaticMethod{
         response = jsonDecode(res.body);
         return response;
       }
-    }catch(e){
+    } catch (e) {
       print('failed to complete fetchCustomerRequest api');
       print(e.toString());
       return {
-        "success":false ,
-        "message":'An error occured while requesting customer Request list'
+        "success": false,
+        "message": 'An error occured while requesting customer Request list'
       };
     }
   }
 
   //============================================================filter customer request method
-  static void filterCustomerRequest(appState,{
+  static void filterCustomerRequest(
+    appState, {
     int selectedRequestStatus = 4,
   }) {
-
-    appState.filteredCustomerRequestList = appState.customerRequestList.where((property) {
+    appState.filteredCustomerRequestList =
+        appState.customerRequestList.where((property) {
       int status = property['v_status'];
 
-
-      return ( selectedRequestStatus!=4 ? status==selectedRequestStatus : status<selectedRequestStatus);
+      return (selectedRequestStatus != 4
+          ? status == selectedRequestStatus
+          : status < selectedRequestStatus);
     }).toList();
   }
 
   //----------------------------------------------------------------------------Change Visit Status
-  static Future<Map<String,dynamic>> changeVisitStatus(data, url)async{
+  static Future<Map<String, dynamic>> changeVisitStatus(data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.put(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.put(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -637,15 +621,15 @@ class StaticMethod{
   }
 
   //----------------------------------------------------------------------------Insert property
-  static Future<Map<String,dynamic>> insertProperty(data, url)async{
+  static Future<Map<String, dynamic>> insertProperty(data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -663,17 +647,16 @@ class StaticMethod{
     }
   }
 
-
   //----------------------------------------------------------------------------delete property image
-  static Future<Map<String,dynamic>> deletePropertyImage(data, url)async{
+  static Future<Map<String, dynamic>> deletePropertyImage(data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
+      final res =
+          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
         return response;
@@ -686,14 +669,9 @@ class StaticMethod{
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for deletePropertyImage api'
+        "message":
+            'An error occured while requesting for deletePropertyImage api'
       };
     }
   }
-
-
-
-
-
-
 }
