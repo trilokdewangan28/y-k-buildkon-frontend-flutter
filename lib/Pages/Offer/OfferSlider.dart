@@ -16,7 +16,7 @@ class OfferSlider extends StatefulWidget {
 
 class _OfferSliderState extends State<OfferSlider>                {
   int _currentIndex = 0;
-  bool _imagesLoaded = false;
+  //bool _imagesLoaded = false;
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
@@ -28,7 +28,7 @@ class _OfferSliderState extends State<OfferSlider>                {
             itemCount: appState.offerList.length ?? 0,
             itemBuilder: (BuildContext context, int index, int realIndex) {
               final offers = appState.offerList[index];
-              final imageUrl = '${ApiLinks.accessOfferImage}/${offers['image_url']}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+              final imageUrl = '${ApiLinks.accessOfferImage}/${offers['image_url']}';
               return Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -50,21 +50,21 @@ class _OfferSliderState extends State<OfferSlider>                {
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
-              autoPlay: _imagesLoaded,
+              autoPlay: true,
               autoPlayInterval: const Duration(seconds: 3),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: true,
               onPageChanged: (index, reason) {
-                if (index == appState.offerList!.length - 1) {
-                  // Last page reached, all images are loaded
-                  setState(() {
-                    _imagesLoaded = true;
-                  });
-                }
+                // if (index == appState.offerList!.length - 1) {
+                //   // Last page reached, all images are loaded
+                //   setState(() {
+                //     _imagesLoaded = true;
+                //   });
+                // }
                 setState(() {
                   _currentIndex = index;
-                  _imagesLoaded = false;
+                  //_imagesLoaded = false;
                 });
               },
               scrollDirection: Axis.horizontal,

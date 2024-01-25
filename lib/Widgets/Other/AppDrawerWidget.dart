@@ -10,13 +10,12 @@ class AppDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return WillPopScope(
-        onWillPop: ()async{
-          appState.activeWidget='HomeWidget';
-          appState.currentState=0;
-          Navigator.pop(context);
-          return false;
-        },
+    return PopScope(
+       onPopInvoked: (didPop) {
+         appState.activeWidget='HomeWidget';
+         appState.currentState=0;
+         Navigator.pop(context);
+       },
         child:Drawer(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
@@ -54,7 +53,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.home,color: Theme.of(context).hintColor,),
                   title: const Text('Home'),
@@ -68,7 +69,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).hintColor,),
                   title: const Text('Offers'),
@@ -82,7 +85,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.calculate_rounded,color: Theme.of(context).hintColor),
                   title: const Text('EMI Calculator'),
@@ -96,7 +101,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.business,color: Theme.of(context).hintColor),
                   title: const Text('Future Of Colony'),
@@ -110,7 +117,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.chat_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Customer Inquery'),
@@ -124,7 +133,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.landscape_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Bhuiya App'),
@@ -138,7 +149,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.post_add,color: Theme.of(context).hintColor),
                   title: const Text('Blog Post'),
@@ -152,7 +165,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Contact Support'),
@@ -165,7 +180,9 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                elevation: 1,
+                color: Theme.of(context).primaryColor,
+                shadowColor: Colors.black,
+                elevation: 0.5,
                 child: ListTile(
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Admin Pannel'),

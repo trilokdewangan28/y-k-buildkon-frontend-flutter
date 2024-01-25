@@ -23,7 +23,10 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
     final appState = Provider.of<MyProvider>(context);
     Widget propertyContent = Container();
     var url = Uri.parse(ApiLinks.fetchAdminContact);
-    return  FutureBuilder<Map<String, dynamic>>(
+    return  Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchAdminContact(url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -62,6 +65,7 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
             return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
-      );
+      ),
+    );
   }
 }

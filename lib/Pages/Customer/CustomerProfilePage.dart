@@ -18,9 +18,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     final appState = Provider.of<MyProvider>(context);
     return RefreshIndicator(
         child: Container(
-          height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          decoration: const BoxDecoration(),
+          color: Theme.of(context).primaryColor,
+          height: MediaQuery.of(context).size.height,
           child: ListView(
             children: [
               Column(
@@ -32,22 +32,21 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         padding: const EdgeInsets.symmetric(vertical: 30),
                         child: CircleAvatar(
                           radius: 50,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.white70,
                           child: appState.customerDetails['customer_profilePic']
                                   .isNotEmpty
-                              ? CachedNetworkImage(
-                                  imageUrl:
-                                      '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                                  placeholder: (context, url) =>
-                                      const CircularProgressIndicator(),
-                                  errorWidget: (context, url, error) =>
-                                      const Icon(Icons.error),
-                                  height: 100,
-                                  width: 100,
-                                  fit: BoxFit.fill,
-                                )
-                              : const Icon(Icons.person,
-                                  size: 70, color: Colors.black),
+                              ? ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: CachedNetworkImage(
+                              imageUrl:
+                              '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                              placeholder: (context, url) => const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) => const Icon(Icons.error),
+                              // Other CachedNetworkImage properties
+                            )
+                          )
+                          :const Icon(Icons.person,
+                                  size: 70, color: Colors.black) ,
                         ),
                       ),
                       Positioned(

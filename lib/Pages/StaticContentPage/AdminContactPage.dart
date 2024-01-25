@@ -37,98 +37,102 @@ class AdminContactPage extends StatelessWidget {
               ),
               centerTitle: true,
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  //=============================================EMAIL CONTACT
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: IconButton(
-                        onPressed: () {
-                          _sendEmail("${appState.adminContact['email']}");
-                        },
-                        icon: Icon(
-                          Icons.email,
-                          size: 100,
-                          color: Theme.of(context).hintColor,
-                        )),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                        child: Text(
-                      '${appState.adminContact['email']}',
-                      style:
-                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                    )),
-                  ),
+            body: Container(
+              color: Theme.of(context).primaryColor,
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //=============================================EMAIL CONTACT
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: IconButton(
+                          onPressed: () {
+                            _sendEmail("${appState.adminContact['email']}");
+                          },
+                          icon: Icon(
+                            Icons.email,
+                            size: 100,
+                            color: Theme.of(context).hintColor,
+                          )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                          child: Text(
+                            '${appState.adminContact['email']}',
+                            style:
+                            const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                          )),
+                    ),
 
 
-                  //============================================PHONE CONTACT
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: IconButton(
-                        onPressed: () {
-                          _makePhoneCall("${appState.adminContact['mobile']}");
-                        },
-                        icon: Icon(
-                          Icons.phone,
-                          size: 100,
-                          color: Theme.of(context).hintColor,
-                        )),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                        child: Text(
-                      '${appState.adminContact['mobile']}',
-                      style:
-                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                    )),
-                  ),
+                    //============================================PHONE CONTACT
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: IconButton(
+                          onPressed: () {
+                            _makePhoneCall("${appState.adminContact['mobile']}");
+                          },
+                          icon: Icon(
+                            Icons.phone,
+                            size: 100,
+                            color: Theme.of(context).hintColor,
+                          )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                          child: Text(
+                            '${appState.adminContact['mobile']}',
+                            style:
+                            const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                          )),
+                    ),
 
 
-                  //============================================COMPANY ADDRESS
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.business,
-                          size: 100,
-                          color: Theme.of(context).hintColor,
-                        )),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: const Center(
-                        child: Text(
-                      'Company Address',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                    )),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Center(
-                        child: Text(
-                      '${appState.adminContact['address']}',
-                      style:
-                      const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                    )),
-                  )
-                ],
+                    //============================================COMPANY ADDRESS
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.business,
+                            size: 100,
+                            color: Theme.of(context).hintColor,
+                          )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: const Center(
+                          child: Text(
+                            'Company Address',
+                            style:
+                            TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                          )),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                          child: Text(
+                            '${appState.adminContact['address']}',
+                            style:
+                            const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

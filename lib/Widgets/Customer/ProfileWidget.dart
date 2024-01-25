@@ -23,7 +23,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     Widget profileContent = Container();
     var url = Uri.parse(ApiLinks.customerProfile);
     var token = appState.token;
-    return FutureBuilder<Map<String, dynamic>>(
+    return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.userProfile(token, url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -61,6 +64,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
-      );
+      ),
+    );
   }
 }

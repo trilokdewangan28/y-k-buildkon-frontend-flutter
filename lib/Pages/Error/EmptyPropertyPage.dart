@@ -5,8 +5,12 @@ class EmptyPropertyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: Center(
         child: Text(text),
-      );
+      ),
+    );
   }
 }

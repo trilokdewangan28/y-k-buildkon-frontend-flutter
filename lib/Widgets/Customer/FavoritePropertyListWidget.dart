@@ -26,7 +26,10 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
       "c_id":appState.customerDetails['customer_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
-    return  FutureBuilder<Map<String, dynamic>>(
+    return  Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchFavoritePropertyListDetails(data,url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -79,6 +82,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
             return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
-      );
+      ),
+    );
   }
 }

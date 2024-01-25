@@ -65,9 +65,9 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
   Future<Map<String, dynamic>> uploadImage(data, Uri url, forWhich, appState) async {
-    print('upload profile pic method called');
-    var response;
-    print(url);
+    //print('upload profile pic method called');
+    //var response;
+    //print(url);
     //print(data['email']);
     //print(data['imageFile']);
     //print(url);
@@ -111,7 +111,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
         return jsonResponse;
       }
     } catch (e) {
-      print(e);
+      //print(e);
       return {
         'success': false,
         'message': 'An error occurred while image uploading $e',
@@ -122,7 +122,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
 //------------------------------------------------------------SUBMIT THE DATA
  _submitData(appState, data, url) async {
-   print('submit data method called');
+   //print('submit data method called');
    showDialog(
      context: context,
      barrierDismissible: false,
@@ -157,204 +157,207 @@ class _AddOfferPageState extends State<AddOfferPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     //print('initialy image file is :');
     //print(appState.imageFile);
-    return SafeArea(child: WillPopScope(
-        onWillPop: () async {
+    return SafeArea(child: PopScope(
+        onPopInvoked: (didPop) {
           appState.imageFile = null;
           Navigator.pop(context);
-          return false;
         },
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Upload Offers'),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                appState.imageFile != null
-                    ? Image.file(
-              appState.imageFile!,
-              height: 200,
-            )
-                    : Container(
-                  height: 200,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Icon(Icons.image_not_supported_outlined,size: 50,),
-                ),
-                const SizedBox(height: 20),
-                // ===========================buttons row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      children: [
-                        //--------------------------------------------FROM GALARY BUTTON
-                        IconButton(onPressed: ()async{
-                          await _pickImageFromGallery(appState);
-                        },
-                            icon: Icon(Icons.photo, color: Theme.of(context).hintColor, size: 50,)
-                        ),
-                        Text('Galary')
-                      ],
+          body: Container(
+            color: Theme.of(context).primaryColor,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  appState.imageFile != null
+                      ? Image.file(
+                    appState.imageFile!,
+                    height: 200,
+                  )
+                      : Container(
+                    height: 200,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10)
                     ),
-                    const SizedBox(width: 100),
-                    Column(
-                      children: [
-                        //--------------------------------------------FROM CAMERA BUTTON
-                        IconButton(onPressed: ()async{
-                          await _captureImageFromCamera(appState);
-                        },
-                            icon: Icon(Icons.camera_alt, color: Theme.of(context).hintColor, size: 50,)
-                        ),
-                        Text('Camera')
-                      ],
-                    )
-                  ],
-                ),
-                const SizedBox(height: 20),
-                //============================form container
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15,),
-                  child: Form(
-                    key: _formKey,
-                      child: Column(
+                    child: const Icon(Icons.image_not_supported_outlined,size: 50,),
+                  ),
+                  const SizedBox(height: 20),
+                  // ===========================buttons row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
                         children: [
-                          //===========================ABOUT OFFER TEXTFIELD 1
-                          TextFormField(
-                            focusNode: _aboutOneFocusNode,
-                            controller: _aboutOneController,
-                              maxLines: 3,
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
-                                  labelText: 'About Offer 1',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      // color: Theme.of(context).hintColor
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.grey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  )),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'should not be empty';
-                                }
-                                return null;
-                              }),
-                          const SizedBox(height: 20,),
-
-                          //===========================ABOUT OFFER TEXTFIELD 2
-                          TextFormField(
-                              focusNode: _aboutTwoFocusNode,
-                              controller: _aboutTwoController,
-                              maxLines: 3,
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
-                                  labelText: 'About Offer 2',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      // color: Theme.of(context).hintColor
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.grey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  )),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'should not be empty';
-                                }
-                                return null;
-                              }),
-                          const SizedBox(height: 20,),
-
-                          //===========================ABOUT OFFER TEXTFIELD 3
-                          TextFormField(
-                              focusNode: _aboutThreeFocusNode,
-                              controller: _aboutThreeController,
-                              maxLines: 3,
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
-                                  labelText: 'About Offer 3',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      // color: Theme.of(context).hintColor
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.grey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  )),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'should not be empty';
-                                }
-                                return null;
-                              }),
-                          const SizedBox(height: 20,),
-
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).hintColor,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                            ),
-                              onPressed: (){
-                                if (_formKey.currentState!.validate()) {
-                                  var url = Uri.parse(ApiLinks.uploadOffer);
-                                  var data = {
-                                    "p_id":widget.p_id,
-                                    "of_text1":_aboutOneController.text,
-                                    "of_text2":_aboutTwoController.text,
-                                    "of_text3":_aboutThreeController.text,
-                                    "imageFile":appState.imageFile!
-                                  };
-                                  _submitData(appState,data, url);
-                                }
-                              },
-                              child: Text('Submit', style: TextStyle(
-                                color: Theme.of(context).primaryColor
-                              ),)
-                          )
+                          //--------------------------------------------FROM GALARY BUTTON
+                          IconButton(onPressed: ()async{
+                            await _pickImageFromGallery(appState);
+                          },
+                              icon: Icon(Icons.photo, color: Theme.of(context).hintColor, size: 50,)
+                          ),
+                          const Text('Galary')
+                        ],
+                      ),
+                      const SizedBox(width: 100),
+                      Column(
+                        children: [
+                          //--------------------------------------------FROM CAMERA BUTTON
+                          IconButton(onPressed: ()async{
+                            await _captureImageFromCamera(appState);
+                          },
+                              icon: Icon(Icons.camera_alt, color: Theme.of(context).hintColor, size: 50,)
+                          ),
+                          const Text('Camera')
                         ],
                       )
+                    ],
                   ),
-                )
+                  const SizedBox(height: 20),
+                  //============================form container
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15,),
+                    child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            //===========================ABOUT OFFER TEXTFIELD 1
+                            TextFormField(
+                                focusNode: _aboutOneFocusNode,
+                                controller: _aboutOneController,
+                                maxLines: 3,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'About Offer 1',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'should not be empty';
+                                  }
+                                  return null;
+                                }),
+                            const SizedBox(height: 20,),
 
-              ],
+                            //===========================ABOUT OFFER TEXTFIELD 2
+                            TextFormField(
+                                focusNode: _aboutTwoFocusNode,
+                                controller: _aboutTwoController,
+                                maxLines: 3,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'About Offer 2',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'should not be empty';
+                                  }
+                                  return null;
+                                }),
+                            const SizedBox(height: 20,),
+
+                            //===========================ABOUT OFFER TEXTFIELD 3
+                            TextFormField(
+                                focusNode: _aboutThreeFocusNode,
+                                controller: _aboutThreeController,
+                                maxLines: 3,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'About Offer 3',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'should not be empty';
+                                  }
+                                  return null;
+                                }),
+                            const SizedBox(height: 20,),
+
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).hintColor,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                ),
+                                onPressed: (){
+                                  if (_formKey.currentState!.validate()) {
+                                    var url = Uri.parse(ApiLinks.uploadOffer);
+                                    var data = {
+                                      "p_id":widget.p_id,
+                                      "of_text1":_aboutOneController.text,
+                                      "of_text2":_aboutTwoController.text,
+                                      "of_text3":_aboutThreeController.text,
+                                      "imageFile":appState.imageFile!
+                                    };
+                                    _submitData(appState,data, url);
+                                  }
+                                },
+                                child: Text('Submit', style: TextStyle(
+                                    color: Theme.of(context).primaryColor
+                                ),)
+                            )
+                          ],
+                        )
+                    ),
+                  )
+
+                ],
+              ),
             ),
           ),
 

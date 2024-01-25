@@ -113,78 +113,81 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     //print('initialy image file is :');
     //print(appState.imageFile);
-    return SafeArea(child: WillPopScope(
-        onWillPop: () async {
-          appState.imageFile = null;
-          Navigator.pop(context);
-          return false;
-        },
+    return SafeArea(child: PopScope(
+      onPopInvoked: (didPop) {
+        appState.imageFile = null;
+        Navigator.pop(context);
+      },
         child: Scaffold(
           appBar: AppBar(
             title: const Text('Image Picker'),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                if (appState.imageFile != null)
-                  Image.file(
-                    appState.imageFile!,
-                    height: 200,
+          body: Container(
+            color: Theme.of(context).primaryColor,
+            height: MediaQuery.of(context).size.height,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (appState.imageFile != null)
+                    Image.file(
+                      appState.imageFile!,
+                      height: 200,
+                    ),
+                  const SizedBox(height: 20),
+                  //--------------------------------------------FROM GALARY BUTTON
+                  ElevatedButton(
+                    onPressed: () async {
+                      await _pickImageFromGallery(appState);
+                    },
+                    child: const Text('Pick Image from Gallery'),
                   ),
-                const SizedBox(height: 20),
-                //--------------------------------------------FROM GALARY BUTTON
-                ElevatedButton(
-                  onPressed: () async {
-                    await _pickImageFromGallery(appState);
-                  },
-                  child: const Text('Pick Image from Gallery'),
-                ),
-                const SizedBox(height: 20),
-                //--------------------------------------------FROM CAMERA BUTTON
-                ElevatedButton(
-                  onPressed: () async {
-                    await _captureImageFromCamera(appState);
-                  },
-                  child: const Text('Capture Image from Camera'),
-                ),
-                const SizedBox(height: 20),
-                //-----------------------------------------DELETE PROFILE BUTTON
-                // widget.forWhich=='profilePic' && appState.userDetail['result']['profilePic'] != null
-                //     ? ElevatedButton(
-                //         onPressed: () async {
-                //           Uri url;
-                //           if(widget.forWhich=='profilePic'){
-                //             if (appState.userType == 'guest') {
-                //               url = Uri.parse(ApiLinks.deleteGuestProfilePicApi);
-                //             } else{
-                //               url = Uri.parse(ApiLinks.deleteOwnerProfilePicApi);
-                //             }
-                //           }else{
-                //             url=Uri.parse(ApiLinks.deleteOwnerHostlePicApi);
-                //           }
-                //
-                //           var data = {
-                //             "email": widget.userData['email'],
-                //             "profilePic": appState.userDetail['result']['profilePic']
-                //           };
-                //           showDialog(
-                //             context: context,
-                //             barrierDismissible: false,
-                //             builder: (dialogContext) => const Center(
-                //               child: CircularProgressIndicator(),
-                //             ),
-                //           );
-                //           final response = await StaticMethod.removeUploadedImage(data,url);
-                //           Navigator.pop(context);
-                //           if(response.isNotEmpty){
-                //             StaticMethod.showDialogMessage(context, response, appState, 'Deletion Response');
-                //           }
-                //           },
-                //         child: const Text('remove profile pic'),
-                //       )
-                //     : Container(),
-              ],
+                  const SizedBox(height: 20),
+                  //--------------------------------------------FROM CAMERA BUTTON
+                  ElevatedButton(
+                    onPressed: () async {
+                      await _captureImageFromCamera(appState);
+                    },
+                    child: const Text('Capture Image from Camera'),
+                  ),
+                  const SizedBox(height: 20),
+                  //-----------------------------------------DELETE PROFILE BUTTON
+                  // widget.forWhich=='profilePic' && appState.userDetail['result']['profilePic'] != null
+                  //     ? ElevatedButton(
+                  //         onPressed: () async {
+                  //           Uri url;
+                  //           if(widget.forWhich=='profilePic'){
+                  //             if (appState.userType == 'guest') {
+                  //               url = Uri.parse(ApiLinks.deleteGuestProfilePicApi);
+                  //             } else{
+                  //               url = Uri.parse(ApiLinks.deleteOwnerProfilePicApi);
+                  //             }
+                  //           }else{
+                  //             url=Uri.parse(ApiLinks.deleteOwnerHostlePicApi);
+                  //           }
+                  //
+                  //           var data = {
+                  //             "email": widget.userData['email'],
+                  //             "profilePic": appState.userDetail['result']['profilePic']
+                  //           };
+                  //           showDialog(
+                  //             context: context,
+                  //             barrierDismissible: false,
+                  //             builder: (dialogContext) => const Center(
+                  //               child: CircularProgressIndicator(),
+                  //             ),
+                  //           );
+                  //           final response = await StaticMethod.removeUploadedImage(data,url);
+                  //           Navigator.pop(context);
+                  //           if(response.isNotEmpty){
+                  //             StaticMethod.showDialogMessage(context, response, appState, 'Deletion Response');
+                  //           }
+                  //           },
+                  //         child: const Text('remove profile pic'),
+                  //       )
+                  //     : Container(),
+                ],
+              ),
             ),
           ),
           //-------------------------------------------------FLOATING ACTION BTN

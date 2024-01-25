@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/Property/ImageSlider.dart';
+
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -65,12 +64,15 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
       requestStatus = "Visit Completed";
       statusColor = Colors.red;
     }
-    return SingleChildScrollView(
+    return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //===========================PROPERTY IMAGES
-              /*
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //===========================PROPERTY IMAGES
+                /*
               Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   child: Stack(
@@ -98,93 +100,92 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
               ),
 
                */
-              //=======================HEADING 1================================
-              const SizedBox(height: 20,),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                child: const Center(
-                  child: Text(
-                    'PROPERTY DETAILS',
-                    style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 18
-                    ),
-                  ),
-                )
-              ),
-              const Divider(),
-
-
-
-              //===========================PROPERTY DETAIL SECTION
-              //================================== ROW 1
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                child: Row(
-                  children: [
-                    //================================NAME
-                    Expanded(child: Container(
+                //=======================HEADING 1================================
+                const SizedBox(height: 20,),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                    child: const Center(
                       child: Text(
-                        '${appState.selectedCustomerRequest['property_name'].toUpperCase()}',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 17,
+                        'PROPERTY DETAILS',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18
                         ),
-                        softWrap: true,
                       ),
-                    ),),
-                    const SizedBox(width: 10,),
-
-                    //================================RATINGS
-                    RatingDisplayWidgetTwo(rating: appState.selectedCustomerRequest['property_rating'].toDouble()),
-                    //================================RATING USER COUNT
-                    Text(
-                        '(${appState.selectedCustomerRequest['property_ratingCount']})'
                     )
-
-                  ],
                 ),
-              ),
+                const Divider(),
 
-              //==================================ROW 2
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                child: Row(
-                  children: [
-                    //=============================PRICE
-                    Text(
-                      '${appState.selectedCustomerRequest['property_price']} ₹',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).hintColor
-                      ),
-                    ),
 
-                    const Spacer(),
-                    //=============================MEASLE NO.
-                    Text(
-                      'Measle No: ${appState.selectedCustomerRequest['property_un']}',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: Theme.of(context).hintColor
-                      ),
-                    ),
-                  ],
+
+                //===========================PROPERTY DETAIL SECTION
+                //================================== ROW 1
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  child: Row(
+                    children: [
+                      //================================NAME
+                      Expanded(
+                        child:  Text(
+                          '${appState.selectedCustomerRequest['property_name'].toUpperCase()}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 17,
+                          ),
+                          softWrap: true,
+                        ),),
+                      const SizedBox(width: 10,),
+
+                      //================================RATINGS
+                      RatingDisplayWidgetTwo(rating: appState.selectedCustomerRequest['property_rating'].toDouble()),
+                      //================================RATING USER COUNT
+                      Text(
+                          '(${appState.selectedCustomerRequest['property_ratingCount']})'
+                      )
+
+                    ],
+                  ),
                 ),
-              ),     //-----------price
-              // SizedBox(height: 10,),
+
+                //==================================ROW 2
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                  child: Row(
+                    children: [
+                      //=============================PRICE
+                      Text(
+                        '${appState.selectedCustomerRequest['property_price']} ₹',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).hintColor
+                        ),
+                      ),
+
+                      const Spacer(),
+                      //=============================MEASLE NO.
+                      Text(
+                        'Measle No: ${appState.selectedCustomerRequest['property_un']}',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: Theme.of(context).hintColor
+                        ),
+                      ),
+                    ],
+                  ),
+                ),     //-----------price
+                // SizedBox(height: 10,),
 
 
-              //==================================ROW 3
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                child: Row(
-                  children: [
-                    //============================LOCATION
-                    Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
-                    Expanded(child:  Text(
+                //==================================ROW 3
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                  child: Row(
+                    children: [
+                      //============================LOCATION
+                      Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
+                      Expanded(child:  Text(
                         '${appState.selectedCustomerRequest['property_address']}, ${appState.selectedCustomerRequest['property_locality']} , ${appState.selectedCustomerRequest['property_city']}',
                         style: const TextStyle(
                             color: Colors.grey,
@@ -194,161 +195,162 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                         softWrap: true,
                       ),
 
-                    )
-                  ],
-                ),
-              ),
-
-
-
-              //==========================================LOCATION MAP
-              Container(
-                margin: const EdgeInsets.only(right: 15, left: 15, top: 15),
-                child: const Text(
-                  'Location',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18
+                      )
+                    ],
                   ),
                 ),
-              ),
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, ),
-                  child: InkWell(
-                    highlightColor: Theme.of(context).primaryColorDark,
-                    onTap: () {
-                      //print('map url is ${appState.selectedProperty['p_locationurl']}');
-                      StaticMethod.openMap(appState.selectedProperty['property_locationurl']);
-                    },
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.asset(
-                        'assets/images/map.jpg',
-                        fit: BoxFit.cover,
-                        height: 100,
-                        width: double.infinity,
+
+
+
+                //==========================================LOCATION MAP
+                Container(
+                  margin: const EdgeInsets.only(right: 15, left: 15, top: 15),
+                  child: const Text(
+                    'Location',
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15, ),
+                    child: InkWell(
+                      highlightColor: Theme.of(context).primaryColorDark,
+                      onTap: () {
+                        //print('map url is ${appState.selectedProperty['p_locationurl']}');
+                        StaticMethod.openMap(appState.selectedProperty['property_locationurl']);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset(
+                          'assets/images/map.jpg',
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: double.infinity,
+                        ),
                       ),
-                    ),
-                  )),
+                    )),
 
-              const Divider(),
+                const Divider(),
 
-              //======================CUSTOMER DETAIL SECTION===================
-              const SizedBox(height: 20,),
-              Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
-                  child: const Center(
-                    child: Text(
-                      'CUSTOMER DETAILS',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 18
-                      ),
-                    ),
-                  )
-              ),
-              const Divider(),
-
-              //==================================CUSTOMER NAME
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                child: ListTile(
-                  title: const Text('Name'),
-                  subtitle: Text('${appState.selectedCustomerRequest['customer_name']}'),
-                )
-              ),
-              //==================================CUSTOMER MOBILE
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Mobile'),
-                    subtitle: Text('${appState.selectedCustomerRequest['customer_mobile']}'),
-                  )
-              ),
-              //==================================CUSTOMER EMAIL
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Email'),
-                    subtitle: Text('${appState.selectedCustomerRequest['customer_email']}'),
-                  )
-              ),
-              //==================================CUSTOMER ADDRESS
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Address'),
-                    subtitle: Text('${appState.selectedCustomerRequest['customer_address']}, ${appState.selectedCustomerRequest['customer_locality']}, ${appState.selectedCustomerRequest['customer_city']}, ${appState.selectedCustomerRequest['customer_pincode']}'),
-                  )
-              ),
-              //==================================VISITOR NAME
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Visitor Name'),
-                    subtitle: Text('${appState.selectedCustomerRequest['visitor_name']}'),
-                  )
-              ),
-              //==================================VISITOR NUMBER
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Visitor Number'),
-                    subtitle: Text('${appState.selectedCustomerRequest['visitor_number']}'),
-                  )
-              ),
-              //==================================VISITING DATE
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Visiting Date'),
-                    subtitle: Text('${appState.selectedCustomerRequest['visiting_date']}'),
-                  )
-              ),
-              //==================================VISITING Status
-              Card(
-                  margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
-                  child: ListTile(
-                    title: const Text('Visiting Status'),
-                    subtitle: Text(requestStatus, style: TextStyle(color: statusColor),),
-                  )
-              ),
-              //==================================STATUS CHANGE BTN
-              const SizedBox(height: 20,),
-              appState.selectedCustomerRequest['v_status']==2
-              ? Container()
-              : Center(
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: reqBtnColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                    ),
-                    onPressed: () {
-                      if(appState.selectedCustomerRequest['v_status']==0){
-                        newStatus=1;
-                      }else if(appState.selectedCustomerRequest['v_status']==1){
-                        newStatus=2;
-                      }else{
-                        newStatus=2;
-                      }
-                      var data = {
-                        "newStatus":newStatus,
-                        "c_id":appState.selectedCustomerRequest['customer_id'],
-                        "p_id":appState.selectedCustomerRequest['property_id'],
-                      };
-                      _changeVisitStatus(data, appState, context);
-                    },
-                    child: Text(
-                      reqBtnText,
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColor
+                //======================CUSTOMER DETAIL SECTION===================
+                const SizedBox(height: 20,),
+                Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 4),
+                    child: const Center(
+                      child: Text(
+                        'CUSTOMER DETAILS',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 18
+                        ),
                       ),
                     )
                 ),
-              )
+                const Divider(),
 
-      ]
-        ));
+                //==================================CUSTOMER NAME
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Name'),
+                      subtitle: Text('${appState.selectedCustomerRequest['customer_name']}'),
+                    )
+                ),
+                //==================================CUSTOMER MOBILE
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Mobile'),
+                      subtitle: Text('${appState.selectedCustomerRequest['customer_mobile']}'),
+                    )
+                ),
+                //==================================CUSTOMER EMAIL
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Email'),
+                      subtitle: Text('${appState.selectedCustomerRequest['customer_email']}'),
+                    )
+                ),
+                //==================================CUSTOMER ADDRESS
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Address'),
+                      subtitle: Text('${appState.selectedCustomerRequest['customer_address']}, ${appState.selectedCustomerRequest['customer_locality']}, ${appState.selectedCustomerRequest['customer_city']}, ${appState.selectedCustomerRequest['customer_pincode']}'),
+                    )
+                ),
+                //==================================VISITOR NAME
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Visitor Name'),
+                      subtitle: Text('${appState.selectedCustomerRequest['visitor_name']}'),
+                    )
+                ),
+                //==================================VISITOR NUMBER
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Visitor Number'),
+                      subtitle: Text('${appState.selectedCustomerRequest['visitor_number']}'),
+                    )
+                ),
+                //==================================VISITING DATE
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Visiting Date'),
+                      subtitle: Text('${appState.selectedCustomerRequest['visiting_date']}'),
+                    )
+                ),
+                //==================================VISITING Status
+                Card(
+                    margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
+                    child: ListTile(
+                      title: const Text('Visiting Status'),
+                      subtitle: Text(requestStatus, style: TextStyle(color: statusColor),),
+                    )
+                ),
+                //==================================STATUS CHANGE BTN
+                const SizedBox(height: 20,),
+                appState.selectedCustomerRequest['v_status']==2
+                    ? Container()
+                    : Center(
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: reqBtnColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                      ),
+                      onPressed: () {
+                        if(appState.selectedCustomerRequest['v_status']==0){
+                          newStatus=1;
+                        }else if(appState.selectedCustomerRequest['v_status']==1){
+                          newStatus=2;
+                        }else{
+                          newStatus=2;
+                        }
+                        var data = {
+                          "newStatus":newStatus,
+                          "c_id":appState.selectedCustomerRequest['customer_id'],
+                          "p_id":appState.selectedCustomerRequest['property_id'],
+                        };
+                        _changeVisitStatus(data, appState, context);
+                      },
+                      child: Text(
+                        reqBtnText,
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor
+                        ),
+                      )
+                  ),
+                )
+
+              ]
+          )),
+    );
   }
 }
 //

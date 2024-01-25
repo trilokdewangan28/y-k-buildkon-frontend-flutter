@@ -90,56 +90,171 @@ class _SignupWidgetState extends State<SignupWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return SingleChildScrollView(
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 250),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              height: 150,
-              color: Theme.of(context).hintColor,
-            ),
-            Container(
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                'Welcome To Y&K Buildkon',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              )),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            //==============================SIGNUP HEADING
-            Container(
-              width: double.infinity,
-              child: const Center(
-                  child: Text(
-                'Personal Information',
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
-              )),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+    return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 250),
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 150,
+                color: Theme.of(context).hintColor,
+              ),
+              Container(
+                width: double.infinity,
+                child: const Center(
+                    child: Text(
+                      'Welcome To Y&K Buildkon',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    )),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              //==============================SIGNUP HEADING
+              Container(
+                width: double.infinity,
+                child: const Center(
+                    child: Text(
+                      'Personal Information',
+                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                    )),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
 
-            //==============================FORM CONTAINER
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    children: [
-                      //=============================FULL NAME TEXTFIELD
-                      TextFormField(
-                          focusNode: _nameFocusNode,
-                          controller: _nameController,
+              //==============================FORM CONTAINER
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        //=============================FULL NAME TEXTFIELD
+                        TextFormField(
+                            focusNode: _nameFocusNode,
+                            controller: _nameController,
+                            decoration: const InputDecoration(
+                                labelText: 'Full Name',
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    // color: Theme.of(context).hintColor
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'please enter valid locality';
+                              }
+                              return null;
+                            }),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //========================MOBILE TEXTFIELD
+                        TextFormField(
+                            focusNode: _mobileFocusNode,
+                            controller: _mobileController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                labelText: 'Mobile Number',
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    // color: Theme.of(context).hintColor
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'please enter valid locality';
+                              }
+                              return null;
+                            }),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //========================DOB TEXTFIELD
+                        // TextFormField(
+                        //     focusNode: _dobFocusNode,
+                        //     controller: _dobController,
+                        //     keyboardType: TextInputType.number,
+                        //     decoration: const InputDecoration(
+                        //         labelText: 'Date Of Birth',
+                        //         labelStyle: TextStyle(color: Colors.black),
+                        //         focusedBorder: OutlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //             width: 1,
+                        //             // color: Theme.of(context).hintColor
+                        //           ),
+                        //           borderRadius: BorderRadius.all(
+                        //             Radius.circular(10),
+                        //           ),
+                        //         ),
+                        //         border: OutlineInputBorder(
+                        //           borderSide: BorderSide(
+                        //             width: 1,
+                        //             color: Colors.grey,
+                        //           ),
+                        //           borderRadius: BorderRadius.all(
+                        //             Radius.circular(10),
+                        //           ),
+                        //         )),
+                        //     onTap: () => _selectDate(context),
+                        //     readOnly: true,
+                        //     validator: (value) {
+                        //       if (value!.isEmpty) {
+                        //         return 'please enter valid locality';
+                        //       }
+                        //       return null;
+                        //     }),
+                        //
+                        // const SizedBox(
+                        //   height: 15,
+                        // ),
+
+                        //============================EMAIL TEXTFIELD
+                        TextFormField(
+                          focusNode: _emailFocusNode,
+                          controller: _emailController,
                           decoration: const InputDecoration(
-                              labelText: 'Full Name',
+                              labelText: 'Email',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -160,315 +275,208 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 ),
                               )),
                           validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter valid locality';
+                            if (value!.isEmpty || !value.contains("@gmail.com")) {
+                              return "please enter valid email";
                             }
                             return null;
-                          }),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //========================MOBILE TEXTFIELD
-                      TextFormField(
-                          focusNode: _mobileFocusNode,
-                          controller: _mobileController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Mobile Number',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter valid locality';
-                            }
-                            return null;
-                          }),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //========================DOB TEXTFIELD
-                      // TextFormField(
-                      //     focusNode: _dobFocusNode,
-                      //     controller: _dobController,
-                      //     keyboardType: TextInputType.number,
-                      //     decoration: const InputDecoration(
-                      //         labelText: 'Date Of Birth',
-                      //         labelStyle: TextStyle(color: Colors.black),
-                      //         focusedBorder: OutlineInputBorder(
-                      //           borderSide: BorderSide(
-                      //             width: 1,
-                      //             // color: Theme.of(context).hintColor
-                      //           ),
-                      //           borderRadius: BorderRadius.all(
-                      //             Radius.circular(10),
-                      //           ),
-                      //         ),
-                      //         border: OutlineInputBorder(
-                      //           borderSide: BorderSide(
-                      //             width: 1,
-                      //             color: Colors.grey,
-                      //           ),
-                      //           borderRadius: BorderRadius.all(
-                      //             Radius.circular(10),
-                      //           ),
-                      //         )),
-                      //     onTap: () => _selectDate(context),
-                      //     readOnly: true,
-                      //     validator: (value) {
-                      //       if (value!.isEmpty) {
-                      //         return 'please enter valid locality';
-                      //       }
-                      //       return null;
-                      //     }),
-                      //
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
-
-                      //============================EMAIL TEXTFIELD
-                      TextFormField(
-                        focusNode: _emailFocusNode,
-                        controller: _emailController,
-                        decoration: const InputDecoration(
-                            labelText: 'Email',
-                            labelStyle: TextStyle(color: Colors.black),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                                // color: Theme.of(context).hintColor
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: Colors.grey,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            )),
-                        validator: (value) {
-                          if (value!.isEmpty || !value.contains("@gmail.com")) {
-                            return "please enter valid email";
-                          }
-                          return null;
-                        },
-                      ),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //============================ADDRESS TEXTFIELD
-                      TextFormField(
-                          focusNode: _addressFocusNode,
-                          controller: _addressController,
-                          decoration: const InputDecoration(
-                              labelText: 'Address',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter valid address';
-                            }
-                            return null;
-                          }),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //===============================LOCALITY AND CITY
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                                focusNode: _localityFocusNode,
-                                controller: _localityController,
-                                decoration: const InputDecoration(
-                                    labelText: 'Locality',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter valid locality';
-                                  }
-                                  return null;
-                                }),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: TextFormField(
-                                focusNode: _cityFocusNode,
-                                controller: _cityController,
-                                decoration: const InputDecoration(
-                                    labelText: 'City',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter valid city name';
-                                  }
-                                  return null;
-                                }),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //===========================PINCODE TEXTFIELD
-                      TextFormField(
-                          focusNode: _pincodeFocusNode,
-                          controller: _pincodeController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Pincode',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty || value.length != 6) {
-                              return 'please enter valid pincode';
-                            }
-                            return null;
-                          }),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
-
-                      //===============================SIGNUP BTN
-                      ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _submitData(appState, context);
-                            }
                           },
-                          child: Text(
-                            'Signup',
-                            style:
-                                TextStyle(color: Theme.of(context).hintColor),
-                          )),
-                      const SizedBox(
-                        height: 15,
-                      ),
+                        ),
 
-                      //================================LOGIN BTN
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text('already have an account?'),
-                          TextButton(
-                              onPressed: () {
-                                appState.activeWidget = "LoginWidget";
-                              },
-                              child: Text(
-                                'login',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).hintColor),
-                              ))
-                        ],
-                      )
-                    ],
-                  ),
-                ))
-          ],
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //============================ADDRESS TEXTFIELD
+                        TextFormField(
+                            focusNode: _addressFocusNode,
+                            controller: _addressController,
+                            decoration: const InputDecoration(
+                                labelText: 'Address',
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    // color: Theme.of(context).hintColor
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'please enter valid address';
+                              }
+                              return null;
+                            }),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //===============================LOCALITY AND CITY
+                        Row(
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                  focusNode: _localityFocusNode,
+                                  controller: _localityController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'Locality',
+                                      labelStyle: TextStyle(color: Colors.black),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          // color: Theme.of(context).hintColor
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      )),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter valid locality';
+                                    }
+                                    return null;
+                                  }),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                  focusNode: _cityFocusNode,
+                                  controller: _cityController,
+                                  decoration: const InputDecoration(
+                                      labelText: 'City',
+                                      labelStyle: TextStyle(color: Colors.black),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          // color: Theme.of(context).hintColor
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          width: 1,
+                                          color: Colors.grey,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      )),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'please enter valid city name';
+                                    }
+                                    return null;
+                                  }),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //===========================PINCODE TEXTFIELD
+                        TextFormField(
+                            focusNode: _pincodeFocusNode,
+                            controller: _pincodeController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                labelText: 'Pincode',
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    // color: Theme.of(context).hintColor
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1,
+                                    color: Colors.grey,
+                                  ),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(10),
+                                  ),
+                                )),
+                            validator: (value) {
+                              if (value!.isEmpty || value.length != 6) {
+                                return 'please enter valid pincode';
+                              }
+                              return null;
+                            }),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //===============================SIGNUP BTN
+                        ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                _submitData(appState, context);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).hintColor,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                            ),
+                            child: Text(
+                              'Signup',
+                              style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                            )),
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        //================================LOGIN BTN
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('already have an account?'),
+                            TextButton(
+                                onPressed: () {
+                                  appState.activeWidget = "LoginWidget";
+                                },
+                                child: Text(
+                                  'login',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context).hintColor),
+                                ))
+                          ],
+                        )
+                      ],
+                    ),
+                  ))
+            ],
+          ),
         ),
       ),
     );

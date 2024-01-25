@@ -14,14 +14,16 @@ class _OfferListPageState extends State<OfferListPage> {
     final appState = Provider.of<MyProvider>(context);
     return PopScope(
         child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  child: ListView.builder(
-                    itemCount: appState.offerList.length,
+          body: Container(
+            color: Theme.of(context).primaryColor,
+            height: MediaQuery.of(context).size.height,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.builder(
+                      itemCount: appState.offerList.length,
                       itemBuilder: (context,index){
-                        final offer = appState.offerList[index];
+                        //final offer = appState.offerList[index];
                         return Column(
                           children: [
                             // offer image container
@@ -33,10 +35,10 @@ class _OfferListPageState extends State<OfferListPage> {
                         );
                       }
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
+          )
         )
     );
   }

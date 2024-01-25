@@ -14,24 +14,28 @@ class InternetErrorPage extends StatelessWidget {
           appState.activeWidget = "LoginWidget";
           appState.currentState=1;
       },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Container(
+          color: Theme.of(context).primaryColor,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
 
-          children: [
+            children: [
               const Center(child: Text(''
-                    'Internet connection error'),),
+                  'Internet connection error'),),
 
-            const SizedBox(
-              height: 200,
-            ),
-            Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                width: double.infinity,
-                child:ElevatedButton(onPressed: (){
-                  appState.activeWidget = "LoginWidget";
-                  appState.currentState = 1;
-                }, child:const Text('BACK TO HOME')))
-          ],
+              const SizedBox(
+                height: 200,
+              ),
+              Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  width: double.infinity,
+                  child:ElevatedButton(onPressed: (){
+                    appState.activeWidget = "LoginWidget";
+                    appState.currentState = 1;
+                  }, child:const Text('BACK TO HOME')))
+            ],
+          ),
         )
     );
   }

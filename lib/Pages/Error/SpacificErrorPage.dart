@@ -19,27 +19,31 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     return RefreshIndicator(
-      child: ListView(
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height*0.4),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  widget.errorString,
-                  style: const TextStyle(
-                    color: Colors.red,
+      child: Container(
+        color: Theme.of(context).primaryColor,
+        height: MediaQuery.of(context).size.height,
+        child: ListView(
+          children: [
+            SizedBox(height: MediaQuery.of(context).size.height*0.4),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                  child: Text(
+                    widget.errorString,
+                    style: const TextStyle(
+                      color: Colors.red,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 200,
-              ),
-            ],
-          ),
-          SizedBox(height: 20,)
-        ],
+                const SizedBox(
+                  height: 200,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20,)
+          ],
+        ),
       ),
       onRefresh: () async {
         appState.activeWidget = widget.fromWidget;

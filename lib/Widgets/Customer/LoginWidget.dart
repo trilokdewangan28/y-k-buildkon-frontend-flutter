@@ -145,60 +145,63 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return SingleChildScrollView(
-      child:  Container(
-        padding: const EdgeInsets.only(bottom: 250),
-        child: Column(
-          children: [
-            // const SizedBox(
-            //   height: 60,
-            // ),
-            Image.asset(
-              'assets/images/logo.png',
-              height: 150,
-              color: Theme.of(context).hintColor,
-            ),
-            Container(
-              width: double.infinity,
-              child: const Center(
-                  child:Text(
-                    'Welcome To Y&K Buildkon',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                    ),
-                  )
+    return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child:  Container(
+          padding: const EdgeInsets.only(bottom: 250),
+          child: Column(
+            children: [
+              // const SizedBox(
+              //   height: 60,
+              // ),
+              Image.asset(
+                'assets/images/logo.png',
+                height: 150,
+                color: Theme.of(context).hintColor,
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            //==============================LOGIN HEADING
-            Container(
-              width: double.infinity,
-              child: const Center(
-                  child:Text(
-                    'LOGIN NOW',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 25,
-                    ),
-                  )
+              Container(
+                width: double.infinity,
+                child: const Center(
+                    child:Text(
+                      'Welcome To Y&K Buildkon',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    )
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
+              const SizedBox(
+                height: 30,
+              ),
+              //==============================LOGIN HEADING
+              Container(
+                width: double.infinity,
+                child: const Center(
+                    child:Text(
+                      'LOGIN NOW',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 25,
+                      ),
+                    )
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
 
-            //==============================FORM1 CONTAINER Gen Otp
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Form(
-                  key: _formKey1,
-                  child: Column(
-                    children: [
-                      //========================MOBILE TEXTFIELD
-                      /*
+              //==============================FORM1 CONTAINER Gen Otp
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey1,
+                    child: Column(
+                      children: [
+                        //========================MOBILE TEXTFIELD
+                        /*
                           Card(
                             elevation: 5,
                             child:TextFormField(
@@ -214,8 +217,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                           const SizedBox(height: 15,),
                           */
 
-                      //============================EMAIL TEXTFIELD
-                      TextFormField(
+                        //============================EMAIL TEXTFIELD
+                        TextFormField(
                           focusNode: _emailFocusNode,
                           controller: _emailController,
                           readOnly: readOnly,
@@ -246,97 +249,102 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                         ),
 
-                      remainingTime == ''
-                          ? TextButton(
-                          onPressed: (){
-                            if (_formKey1.currentState!.validate()) {
-                              _generateOtp(context, appState);
-                            }
-                          },
-                          child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
-                      )
-                          : Container(),
-                    ],
-                  ),
-                )
-            ),
-            const SizedBox(height: 15,),
+                        remainingTime == ''
+                            ? TextButton(
+                            onPressed: (){
+                              if (_formKey1.currentState!.validate()) {
+                                _generateOtp(context, appState);
+                              }
+                            },
+                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
+                        )
+                            : Container(),
+                      ],
+                    ),
+                  )
+              ),
+              const SizedBox(height: 15,),
 
-            Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
-            const SizedBox(height: 15,),
+              const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
+              const SizedBox(height: 15,),
 
-            //==============================FORM2 CONTAINER Login
-            Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Form(
-                  key: _formKey2,
-                  child: Column(
-                    children: [
-                      //==================================OTP TEXTFIELD
-                      Pinput(
-                        controller: _otpController,
-                        focusNode: _otpFocusNode,
-                        length: 6,
-                        defaultPinTheme: defaultPinTheme,
-                        focusedPinTheme: defaultPinTheme.copyWith(
-                          decoration: defaultPinTheme.decoration!.copyWith(
-                            border: Border.all(color: Theme.of(context).primaryColor),
+              //==============================FORM2 CONTAINER Login
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey2,
+                    child: Column(
+                      children: [
+                        //==================================OTP TEXTFIELD
+                        Pinput(
+                          controller: _otpController,
+                          focusNode: _otpFocusNode,
+                          length: 6,
+                          defaultPinTheme: defaultPinTheme,
+                          focusedPinTheme: defaultPinTheme.copyWith(
+                            decoration: defaultPinTheme.decoration!.copyWith(
+                              border: Border.all(color: Theme.of(context).primaryColor),
+                            ),
                           ),
+                          validator: (value){
+                            if(value!.isEmpty || value.length!=6){
+                              return "please enter correct otp";
+                            }
+                            return null;
+                          },
+                          onCompleted: (pin) => debugPrint(pin),
                         ),
-                        validator: (value){
-                          if(value!.isEmpty || value.length!=6){
-                            return "please enter correct otp";
-                          }
-                          return null;
-                        },
-                        onCompleted: (pin) => debugPrint(pin),
-                      ),
-                      Text(
-                        remainingTime,
-                        style: const TextStyle(fontSize: 24),
-                      ),
-                      const SizedBox(height: 15,),
+                        Text(
+                          remainingTime,
+                          style: const TextStyle(fontSize: 24),
+                        ),
+                        const SizedBox(height: 15,),
 
 
-                      //===============================LOGIN BTN
-                      ElevatedButton(
-                          onPressed: (){
-                            if (_formKey2.currentState!.validate()) {
-                              _submitOtp(context, appState);
-                            }
-                          },
-                          child: Text('LOGIN',style: TextStyle(color: Theme.of(context).hintColor),)
-                      ),
-                      const SizedBox(height: 15,),
+                        //===============================LOGIN BTN
+                        ElevatedButton(
+                            onPressed: (){
+                              if (_formKey2.currentState!.validate()) {
+                                _submitOtp(context, appState);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).hintColor,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                            ),
+                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColor),)
+                        ),
+                        const SizedBox(height: 15,),
 
-                      //================================SIGNUP BTN
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                              'dont have an account ?'
-                          ),
-                          TextButton(
-                              onPressed: (){
-                                appState.activeWidget = "SignupWidget";
-                              },
-                              child:  Text(
-                                'Signup',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).hintColor
-                                ),
-                              )
-                          )
-                        ],
-                      )
+                        //================================SIGNUP BTN
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                                'dont have an account ?'
+                            ),
+                            TextButton(
+                                onPressed: (){
+                                  appState.activeWidget = "SignupWidget";
+                                },
+                                child:  Text(
+                                  'Signup',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context).hintColor
+                                  ),
+                                )
+                            )
+                          ],
+                        )
 
-                    ],
-                  ),
-                )
-            ),
+                      ],
+                    ),
+                  )
+              ),
 
-          ],
+            ],
+          ),
         ),
       ),
     );

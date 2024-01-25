@@ -13,14 +13,17 @@ class RatingDisplayWidgetTwo extends StatelessWidget {
     }else{
       color = Colors.orange;
     }
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(
-        5,
-            (index) => Icon(
-          index < rating.floor() ? Icons.star : Icons.star_border,
-          color: index < rating.floor() ? color : Colors.grey,
-              size: 20,
+    return Container(
+      color: Theme.of(context).primaryColor,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: List.generate(
+          5,
+              (index) => Icon(
+            index < rating.floor() ? Icons.star : Icons.star_border,
+            color: index < rating.floor() ? color : Colors.grey,
+            size: 20,
+          ),
         ),
       ),
     );

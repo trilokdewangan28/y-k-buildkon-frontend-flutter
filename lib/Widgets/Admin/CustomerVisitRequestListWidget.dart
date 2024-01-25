@@ -23,7 +23,10 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
     Widget visitRequestContent = Container();
     var url = Uri.parse(ApiLinks.fetchCustomerRequest);
     List<Map<String, dynamic>> propertyListDemo = [];
-    return  FutureBuilder<Map<String, dynamic>>(
+    return  Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
+      child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchCustomerRequest(url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -77,6 +80,7 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
             return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
           }
         },
-      );
+      ),
+    );
   }
 }

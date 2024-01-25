@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/StaticMethod.dart';
 
 
 class AdminProfilePage extends StatefulWidget {
@@ -18,7 +17,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return Container(
+    return RefreshIndicator(
+        child: Container(
+      color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(),
@@ -59,30 +60,30 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
 
             //------------------------------------------Name
             Text(
-                '${appState.adminDetails['admin_name'].toUpperCase()} (ADMIN)',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
-                ),
+              '${appState.adminDetails['admin_name'].toUpperCase()} (ADMIN)',
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold
               ),
+            ),
 
             //------------------------------------------Email
-             Text(
-                '${appState.adminDetails['admin_email']}',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal
-                ),
+            Text(
+              '${appState.adminDetails['admin_email']}',
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal
               ),
+            ),
 
             //------------------------------------------mobile
-             Text(
-                '${appState.adminDetails['admin_mobile']}',
-                style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal
-                ),
+            Text(
+              '${appState.adminDetails['admin_mobile']}',
+              style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.normal
               ),
+            ),
 
 
             //------------------------------------------edit btn
@@ -101,69 +102,69 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
 
             //-----------------------------------------customer visit request
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              // width: MediaQuery.of(context).size.width*0.85,
-              height: MediaQuery.of(context).size.height*0.07,
-              child: InkWell(
-                onTap: (){
-                  appState.activeWidget="CustomerVisitRequestListWidget";
-                  appState.currentState=1;
-                },
-                child: const Card(
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15,),
-                      Icon(Icons.book_outlined),
-                      SizedBox(width: 15,),
-                      Text('Customer Visit Request'),
-                    ],
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                // width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){
+                    appState.activeWidget="CustomerVisitRequestListWidget";
+                    appState.currentState=1;
+                  },
+                  child: const Card(
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.book_outlined),
+                        SizedBox(width: 15,),
+                        Text('Customer Visit Request'),
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             ),
 
             const SizedBox(height: 15,),
 
             //----------------------------------------customer payment history
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              //width: MediaQuery.of(context).size.width*0.85,
-              height: MediaQuery.of(context).size.height*0.07,
-              child: InkWell(
-                onTap: (){},
-                child:const Card(
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15,),
-                      Icon(Icons.payment),
-                      SizedBox(width: 15,),
-                      Text('Customer Payment History'),
-                    ],
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                //width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){},
+                  child:const Card(
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.payment),
+                        SizedBox(width: 15,),
+                        Text('Customer Payment History'),
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             ),
 
             const SizedBox(height: 15,),
 
             //----------------------------------------sold property list
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-             // width: MediaQuery.of(context).size.width*0.85,
-              height: MediaQuery.of(context).size.height*0.07,
-              child: InkWell(
-                onTap: (){},
-                child: const Card(
-                  child: Row(
-                    children: [
-                      SizedBox(width: 15,),
-                      Icon(Icons.business),
-                      SizedBox(width: 15,),
-                      Text('sold property list'),
-                    ],
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                // width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){},
+                  child: const Card(
+                    child: Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.business),
+                        SizedBox(width: 15,),
+                        Text('sold property list'),
+                      ],
+                    ),
                   ),
-                ),
-              )
+                )
             ),
             const SizedBox(height: 15,),
 
@@ -193,7 +194,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             //----------------------------------------logout btn
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-               // width: MediaQuery.of(context).size.width*0.85,
+                // width: MediaQuery.of(context).size.width*0.85,
                 height: MediaQuery.of(context).size.height*0.07,
                 child: InkWell(
                   onTap: ()async{
@@ -238,6 +239,10 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
           ],
         ),
       ),
+    ),
+        onRefresh: ()async{
+          appState.activeWidget = appState.activeWidget;
+        }
     );
   }
 }

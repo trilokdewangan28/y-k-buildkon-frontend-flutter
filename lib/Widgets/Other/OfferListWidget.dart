@@ -24,6 +24,8 @@ class _OfferListWidgetState extends State<OfferListWidget> {
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchOfferList);
     return Container(
+      color: Theme.of(context).primaryColor,
+      height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchOfferList(url),
         builder: (context, snapshot) {
@@ -31,15 +33,15 @@ class _OfferListWidgetState extends State<OfferListWidget> {
             // Display a circular progress indicator while waiting for data.
             return Center(
                 child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 50),
-                  child: LinearProgressIndicator(),
+                  margin: const EdgeInsets.symmetric(horizontal: 50),
+                  child: const LinearProgressIndicator(),
                 )
             );
           } else if (snapshot.hasError ) {
             // Handle error state.
             if (snapshot.error is SocketException) {
               // Handle network-related errors (internet connection loss).
-              return InternetErrorPage();
+              return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
               return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
@@ -69,9 +71,9 @@ class _OfferListWidgetState extends State<OfferListWidget> {
                 appState.propertyList = propertyListDemo;
 
 
-                propertyContent = PropertyListPage();
+                propertyContent = const PropertyListPage();
               }else{
-                propertyContent = EmptyPropertyPage(text: "empty offer list",);
+                propertyContent = const EmptyPropertyPage(text: "empty offer list",);
               }
               return propertyContent;
             }else{
