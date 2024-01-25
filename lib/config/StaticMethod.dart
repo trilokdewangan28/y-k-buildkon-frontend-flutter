@@ -446,23 +446,23 @@ class StaticMethod {
 
     appState.filteredPropertyList = appState.propertyList.length != 0
         ? appState.propertyList.where((property) {
-            final String name = property['p_name'].toLowerCase();
-            final String type = property['p_type'].toLowerCase();
-            final String garden = property['p_isGarden'].toLowerCase();
-            final String parking = property['p_isParking'].toLowerCase();
-            final String furnished = property['p_isFurnished'].toLowerCase();
-            final String available = property['p_isAvailable'].toLowerCase();
-            final String city = property['p_city'].toLowerCase();
+            final String name = property['property_name'].toLowerCase();
+            final String type = property['property_type'].toLowerCase();
+            final String garden = property['property_isGarden'].toLowerCase();
+            final String parking = property['property_isParking'].toLowerCase();
+            final String furnished = property['property_isFurnished'].toLowerCase();
+            final String available = property['property_isAvailable'].toLowerCase();
+            final String city = property['property_city'].toLowerCase();
 
             bool isTypeMatch = selectedPropertyType=="All" || type==selectedPropertyType.toLowerCase();
-            bool isBhkMatch = selectedBhk == 0 ? true : property['p_bhk'] == selectedBhk ;
-            bool isFloorMatch = selectedFloor == 0 ? true : property['p_floor'] == selectedFloor;
+            bool isBhkMatch = selectedBhk == 0 ? true : property['property_bhk'] == selectedBhk ;
+            bool isFloorMatch = selectedFloor == 0 ? true : property['property_floor'] == selectedFloor;
             bool isGardenMatch = selectedGarden=="None" || garden==selectedGarden.toLowerCase();
             bool isParkingMatch = selectedParking=="None" || parking==selectedParking.toLowerCase();
             bool isFurnishMatch = selectedFurnished=="None" || furnished==selectedFurnished.toLowerCase();
             bool isAvailabilityMatch =  selectedAvailability=="None" || available==selectedAvailability.toLowerCase();
-            bool isPriceMatch = property['p_price'] >= minPrice && property['p_price'] <= maxPrice;
-            bool isIdMatch =  propertyId != 0 ? property['p_id'] == propertyId : property['p_id'] > 0;
+            bool isPriceMatch = property['property_price'] >= minPrice && property['property_price'] <= maxPrice;
+            bool isIdMatch =  propertyId != 0 ? property['property_id'] == propertyId : property['property_id'] > 0;
             bool isCityMatch = selectedCity=="" || city.contains(selectedCity.toLowerCase());
             bool isNameMatch = propertyName=="" || name.contains(propertyName.toLowerCase());
 

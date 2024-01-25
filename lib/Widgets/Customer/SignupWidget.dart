@@ -15,7 +15,7 @@ class _SignupWidgetState extends State<SignupWidget> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _mobileController = TextEditingController();
-  final _dobController = TextEditingController();
+  //final _dobController = TextEditingController();
   final _emailController = TextEditingController();
   final _addressController = TextEditingController();
   final _localityController = TextEditingController();
@@ -24,7 +24,7 @@ class _SignupWidgetState extends State<SignupWidget> {
 
   final FocusNode _nameFocusNode = FocusNode();
   final FocusNode _mobileFocusNode = FocusNode();
-  final FocusNode _dobFocusNode = FocusNode();
+  //final FocusNode _dobFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _addressFocusNode = FocusNode();
   final FocusNode _localityFocusNode = FocusNode();
@@ -44,7 +44,7 @@ class _SignupWidgetState extends State<SignupWidget> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        _dobController.text = '${selectedDate.toLocal()}'.split(' ')[0];
+        //_dobController.text = '${selectedDate.toLocal()}'.split(' ')[0];
       });
     }
   }
@@ -53,7 +53,6 @@ class _SignupWidgetState extends State<SignupWidget> {
     var customerData = {
       "c_name": _nameController.text,
       "c_mobile": _mobileController.text,
-      "c_dob": _dobController.text,
       "c_email": _emailController.text,
       "c_address": _addressController.text,
       "c_locality": _localityController.text,
@@ -209,43 +208,43 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
 
                       //========================DOB TEXTFIELD
-                      TextFormField(
-                          focusNode: _dobFocusNode,
-                          controller: _dobController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Date Of Birth',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          onTap: () => _selectDate(context),
-                          readOnly: true,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter valid locality';
-                            }
-                            return null;
-                          }),
-
-                      const SizedBox(
-                        height: 15,
-                      ),
+                      // TextFormField(
+                      //     focusNode: _dobFocusNode,
+                      //     controller: _dobController,
+                      //     keyboardType: TextInputType.number,
+                      //     decoration: const InputDecoration(
+                      //         labelText: 'Date Of Birth',
+                      //         labelStyle: TextStyle(color: Colors.black),
+                      //         focusedBorder: OutlineInputBorder(
+                      //           borderSide: BorderSide(
+                      //             width: 1,
+                      //             // color: Theme.of(context).hintColor
+                      //           ),
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(10),
+                      //           ),
+                      //         ),
+                      //         border: OutlineInputBorder(
+                      //           borderSide: BorderSide(
+                      //             width: 1,
+                      //             color: Colors.grey,
+                      //           ),
+                      //           borderRadius: BorderRadius.all(
+                      //             Radius.circular(10),
+                      //           ),
+                      //         )),
+                      //     onTap: () => _selectDate(context),
+                      //     readOnly: true,
+                      //     validator: (value) {
+                      //       if (value!.isEmpty) {
+                      //         return 'please enter valid locality';
+                      //       }
+                      //       return null;
+                      //     }),
+                      //
+                      // const SizedBox(
+                      //   height: 15,
+                      // ),
 
                       //============================EMAIL TEXTFIELD
                       TextFormField(

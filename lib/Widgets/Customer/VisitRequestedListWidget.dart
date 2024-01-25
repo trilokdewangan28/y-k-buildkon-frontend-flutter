@@ -23,7 +23,7 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
     Widget visitRequestContent = Container();
     var url = Uri.parse(ApiLinks.fetchVisitRequestedList);
     var data = {
-      "c_id":appState.customerDetails['c_id']
+      "c_id":appState.customerDetails['customer_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
     return FutureBuilder<Map<String, dynamic>>(

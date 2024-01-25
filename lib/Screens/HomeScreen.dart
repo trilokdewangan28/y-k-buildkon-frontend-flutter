@@ -257,6 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIconTheme: const IconThemeData(
                 size: 30,
               ),
+              backgroundColor: Theme.of(context).primaryColor,
               selectedFontSize: 15,
               selectedItemColor: Theme.of(context).hintColor,
               unselectedItemColor: Colors.grey,

@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/StaticMethod.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({Key? key}) : super(key: key);
@@ -34,20 +33,22 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: Colors.grey,
-                          child: appState.customerDetails['c_profilePic'].isNotEmpty
+                          child: appState.customerDetails['customer_profilePic']
+                                  .isNotEmpty
                               ? CachedNetworkImage(
-                            imageUrl:
-                            '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['c_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                            placeholder: (context, url) => const CircularProgressIndicator(),
-                            errorWidget: (context, url, error) => const Icon(Icons.error),
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.fill,
-
-                          )
-                              : const Icon(Icons.person, size: 70, color: Colors.black),
+                                  imageUrl:
+                                      '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                  placeholder: (context, url) =>
+                                      const CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
+                                  height: 100,
+                                  width: 100,
+                                  fit: BoxFit.fill,
+                                )
+                              : const Icon(Icons.person,
+                                  size: 70, color: Colors.black),
                         ),
-
                       ),
                       Positioned(
                           bottom: 20,
@@ -61,9 +62,10 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => ImagePickerPage(
-                                            userDetails: appState.customerDetails,
-                                            forWhich: 'customerProfilePic',
-                                          )));
+                                                userDetails:
+                                                    appState.customerDetails,
+                                                forWhich: 'customerProfilePic',
+                                              )));
                                 },
                                 icon: Icon(
                                   Icons.edit,
@@ -76,22 +78,24 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
 
                   //------------------------------------------Name
                   Text(
-                    '${appState.customerDetails['c_name']}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    '${appState.customerDetails['customer_name']}',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
                   ),
 
                   //------------------------------------------Email
                   Text(
-                    '${appState.customerDetails['c_email']}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                    '${appState.customerDetails['customer_email']}',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.normal),
                   ),
 
                   //------------------------------------------mobile
                   Text(
-                    '${appState.customerDetails['c_mobile']}',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                    '${appState.customerDetails['customer_mobile']}',
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.normal),
                   ),
-
 
                   //------------------------------------------edit btn
                   Container(
@@ -101,7 +105,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           onPressed: () {},
                           child: Text(
                             'Edit Details',
-                            style: TextStyle(color: Theme.of(context).hintColor),
+                            style:
+                                TextStyle(color: Theme.of(context).hintColor),
                           ))),
                   const SizedBox(
                     height: 20,
@@ -126,7 +131,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                appState.activeWidget = "VisitRequestedListWidget";
+                                appState.activeWidget =
+                                    "VisitRequestedListWidget";
                               },
                               icon: const Icon(
                                 Icons.arrow_right,
@@ -160,7 +166,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                appState.activeWidget = "FavoritePropertyListWidget";
+                                appState.activeWidget =
+                                    "FavoritePropertyListWidget";
                               },
                               icon: const Icon(
                                 Icons.arrow_right,
@@ -181,25 +188,28 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                       width: MediaQuery.of(context).size.width * 0.85,
                       height: MediaQuery.of(context).size.height * 0.07,
                       child: InkWell(
-                        onTap: () async{
+                        onTap: () async {
                           //StaticMethod.logout(appState);
                           appState.deleteToken(appState.userType);
-                          appState.token="";
-                          await Future.delayed(
-                              const Duration(milliseconds: 100)); // Add a small delay (100 milliseconds)
+                          appState.token = "";
+                          await Future.delayed(const Duration(
+                              milliseconds:
+                                  100)); // Add a small delay (100 milliseconds)
 
                           appState.deleteUserType();
-                          appState.userType="";
-                          await Future.delayed(const Duration(milliseconds: 100));
+                          appState.userType = "";
+                          await Future.delayed(
+                              const Duration(milliseconds: 100));
 
                           appState.customerDetails = {};
                           appState.customerDetails.clear();
-                          appState.adminDetails={};
+                          appState.adminDetails = {};
                           appState.adminDetails.clear();
-                          await Future.delayed(const Duration(milliseconds: 100));
+                          await Future.delayed(
+                              const Duration(milliseconds: 100));
 
                           appState.activeWidget = "PropertyListWidget";
-                          appState.currentState=0;
+                          appState.currentState = 0;
 
                           await appState.fetchUserType();
                           Future.delayed(const Duration(milliseconds: 100));
@@ -230,10 +240,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             ],
           ),
         ),
-        onRefresh: ()async{
+        onRefresh: () async {
           appState.activeWidget = appState.activeWidget;
-        }
-    );
+        });
   }
 }
 

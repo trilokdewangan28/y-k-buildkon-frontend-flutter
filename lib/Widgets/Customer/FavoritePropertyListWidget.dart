@@ -23,7 +23,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
     Widget favoritePropertyContent = Container();
     var url = Uri.parse(ApiLinks.fetchFavoritePropertyListDetails);
     var data = {
-      "c_id":appState.customerDetails['c_id']
+      "c_id":appState.customerDetails['customer_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
     return  FutureBuilder<Map<String, dynamic>>(

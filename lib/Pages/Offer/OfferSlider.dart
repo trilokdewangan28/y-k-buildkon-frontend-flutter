@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 class OfferSlider extends StatefulWidget {
   const OfferSlider({Key? key}) : super(key: key);
@@ -21,50 +22,53 @@ class _OfferSliderState extends State<OfferSlider>                {
     final appState = Provider.of<MyProvider>(context);
     return Column(
       children: [
-        CarouselSlider.builder(
-          itemCount: appState.offerList.length ?? 0,
-          itemBuilder: (BuildContext context, int index, int realIndex) {
-            final offers = appState.offerList[index];
-            final imageUrl = '${ApiLinks.accessOfferImage}/${offers['of_image']}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5.0),
-              decoration:  BoxDecoration(
-                color: Colors.grey,
-                //borderRadius: BorderRadius.circular(8.0),
-                image: DecorationImage(
-                  image: CachedNetworkImageProvider(imageUrl),
-                  //NetworkImage(offerImages[index]),
-                  fit: BoxFit.cover,
+        Container(
+          height: MyConst.deviceHeight(context)*0.12,
+          child: CarouselSlider.builder(
+            itemCount: appState.offerList.length ?? 0,
+            itemBuilder: (BuildContext context, int index, int realIndex) {
+              final offers = appState.offerList[index];
+              final imageUrl = '${ApiLinks.accessOfferImage}/${offers['image_url']}?timestamp=${DateTime.now().millisecondsSinceEpoch}';
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration:  BoxDecoration(
+                  color: Colors.white70,
+                  //borderRadius: BorderRadius.circular(8.0),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(imageUrl),
+                    //NetworkImage(offerImages[index]),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            );
-          },
-          options: CarouselOptions(
-            height: 150.0,
-            aspectRatio: 16 / 9,
-            viewportFraction: 1.0,
-            initialPage: 0,
-            enableInfiniteScroll: true,
-            reverse: true,
-            autoPlay: _imagesLoaded,
-            autoPlayInterval: const Duration(seconds: 3),
-            autoPlayAnimationDuration: const Duration(milliseconds: 800),
-            autoPlayCurve: Curves.fastOutSlowIn,
-            enlargeCenterPage: true,
-            onPageChanged: (index, reason) {
-              if (index == appState.offerList!.length - 1) {
-                // Last page reached, all images are loaded
-                setState(() {
-                  _imagesLoaded = true;
-                });
-              }
-              setState(() {
-                _currentIndex = index;
-                _imagesLoaded = false;
-              });
+              );
             },
-            scrollDirection: Axis.horizontal,
+            options: CarouselOptions(
+              height: 150.0,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1.0,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: _imagesLoaded,
+              autoPlayInterval: const Duration(seconds: 3),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                if (index == appState.offerList!.length - 1) {
+                  // Last page reached, all images are loaded
+                  setState(() {
+                    _imagesLoaded = true;
+                  });
+                }
+                setState(() {
+                  _currentIndex = index;
+                  _imagesLoaded = false;
+                });
+              },
+              scrollDirection: Axis.horizontal,
+            ),
           ),
         ),
         CarouselIndicator(

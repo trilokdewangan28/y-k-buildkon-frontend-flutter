@@ -205,22 +205,22 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       var data;
                       if(widget.forWhich=="adminProfilePic"){
                         data = {
-                          "ad_id":widget.userDetails['ad_id'],
+                          "ad_id":widget.userDetails['admin_id'],
                           "imageFile":appState.imageFile!
                         };
                       }else if(widget.forWhich=="customerProfilePic"){
                          data={
-                          "c_id":widget.userDetails['c_id'],
+                          "c_id":widget.userDetails['customer_id'],
                           "imageFile":appState.imageFile!
                         };
                       }else if(widget.forWhich=='propertyImage'){
                         data={
-                          "p_id":widget.userDetails['p_id'],
+                          "p_id":widget.userDetails['property_id'],
                           "imageFile":appState.imageFile!
                         };
                       }else if(widget.forWhich=='offerImage'){
                         data={
-                          "p_id":widget.userDetails['p_id'],
+                          "p_id":widget.userDetails['property_id'],
                           "imageFile":appState.imageFile!
                         };
                       }

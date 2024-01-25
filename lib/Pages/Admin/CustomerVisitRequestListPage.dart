@@ -186,10 +186,10 @@ class _CustomerVisitRequestListPageState
                           child: Center(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: property['c_profilePic'].length > 0
+                              child: property['customer_profilePic'].length > 0
                                   ? CachedNetworkImage(
                                       imageUrl:
-                                          '${ApiLinks.accessCustomerProfilePic}/${property['c_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                          '${ApiLinks.accessCustomerProfilePic}/${property['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
                                       placeholder: (context, url) =>
                                       const LinearProgressIndicator(),
                                       errorWidget: (context, url, error) =>
@@ -218,7 +218,7 @@ class _CustomerVisitRequestListPageState
                             children: [
                               //=======================CUSTOMER NAME CONTAINER
                                Text(
-                                  '${property['c_name'].toUpperCase()}',
+                                  '${property['customer_name'].toUpperCase()}',
                                   style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
@@ -230,7 +230,7 @@ class _CustomerVisitRequestListPageState
 
                               //=======================AREA TEXT
                               Text(
-                                '${property['p_name']}',
+                                '${property['property_name']}',
                                 style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey,
@@ -248,7 +248,7 @@ class _CustomerVisitRequestListPageState
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Text(
-                                    '${property['p_price']}',
+                                    '${property['property_price']}',
                                     style: const TextStyle(
                                         fontSize: 14,
                                         color: Colors.grey,
@@ -267,7 +267,7 @@ class _CustomerVisitRequestListPageState
                                   ),
                                   Expanded(
                                     child: Text(
-                                      '${property['p_locality']}, ${property['p_city']}',
+                                      '${property['property_locality']}, ${property['property_city']}',
                                       style: const TextStyle(
                                         color: Colors.grey,
                                         fontSize: 14,
@@ -283,9 +283,9 @@ class _CustomerVisitRequestListPageState
                               Row(
                                 children: [
                                   RatingDisplayWidgetTwo(
-                                    rating: property['p_rating'].toDouble(),
+                                    rating: property['property_rating'].toDouble(),
                                   ),
-                                  Text('(${property['p_ratingCount']})')
+                                  Text('(${property['property_ratingCount']})')
                                 ],
                               ),
 

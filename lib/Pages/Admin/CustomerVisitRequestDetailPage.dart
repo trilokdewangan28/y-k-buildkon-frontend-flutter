@@ -125,7 +125,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     //================================NAME
                     Expanded(child: Container(
                       child: Text(
-                        '${appState.selectedCustomerRequest['p_name'].toUpperCase()}',
+                        '${appState.selectedCustomerRequest['property_name'].toUpperCase()}',
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 17,
@@ -136,10 +136,10 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     const SizedBox(width: 10,),
 
                     //================================RATINGS
-                    RatingDisplayWidgetTwo(rating: appState.selectedCustomerRequest['p_rating'].toDouble()),
+                    RatingDisplayWidgetTwo(rating: appState.selectedCustomerRequest['property_rating'].toDouble()),
                     //================================RATING USER COUNT
                     Text(
-                        '(${appState.selectedCustomerRequest['p_ratingCount']})'
+                        '(${appState.selectedCustomerRequest['property_ratingCount']})'
                     )
 
                   ],
@@ -153,7 +153,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   children: [
                     //=============================PRICE
                     Text(
-                      '${appState.selectedCustomerRequest['p_price']} ₹',
+                      '${appState.selectedCustomerRequest['property_price']} ₹',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -164,7 +164,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     const Spacer(),
                     //=============================MEASLE NO.
                     Text(
-                      'Measle No: ${appState.selectedCustomerRequest['p_un']}',
+                      'Measle No: ${appState.selectedCustomerRequest['property_un']}',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
@@ -185,7 +185,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     //============================LOCATION
                     Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
                     Expanded(child:  Text(
-                        '${appState.selectedCustomerRequest['p_address']}, ${appState.selectedCustomerRequest['p_locality']} , ${appState.selectedCustomerRequest['p_city']}',
+                        '${appState.selectedCustomerRequest['property_address']}, ${appState.selectedCustomerRequest['property_locality']} , ${appState.selectedCustomerRequest['property_city']}',
                         style: const TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.w500,
@@ -218,7 +218,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     highlightColor: Theme.of(context).primaryColorDark,
                     onTap: () {
                       //print('map url is ${appState.selectedProperty['p_locationurl']}');
-                      StaticMethod.openMap(appState.selectedProperty['p_locationurl']);
+                      StaticMethod.openMap(appState.selectedProperty['property_locationurl']);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(25),
@@ -254,7 +254,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                 margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                 child: ListTile(
                   title: const Text('Name'),
-                  subtitle: Text('${appState.selectedCustomerRequest['c_name']}'),
+                  subtitle: Text('${appState.selectedCustomerRequest['customer_name']}'),
                 )
               ),
               //==================================CUSTOMER MOBILE
@@ -262,7 +262,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
                     title: const Text('Mobile'),
-                    subtitle: Text('${appState.selectedCustomerRequest['c_mobile']}'),
+                    subtitle: Text('${appState.selectedCustomerRequest['customer_mobile']}'),
                   )
               ),
               //==================================CUSTOMER EMAIL
@@ -270,7 +270,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
                     title: const Text('Email'),
-                    subtitle: Text('${appState.selectedCustomerRequest['c_email']}'),
+                    subtitle: Text('${appState.selectedCustomerRequest['customer_email']}'),
                   )
               ),
               //==================================CUSTOMER ADDRESS
@@ -278,7 +278,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
                     title: const Text('Address'),
-                    subtitle: Text('${appState.selectedCustomerRequest['c_address']}, ${appState.selectedCustomerRequest['c_locality']}, ${appState.selectedCustomerRequest['c_city']}, ${appState.selectedCustomerRequest['c_pincode']}'),
+                    subtitle: Text('${appState.selectedCustomerRequest['customer_address']}, ${appState.selectedCustomerRequest['customer_locality']}, ${appState.selectedCustomerRequest['customer_city']}, ${appState.selectedCustomerRequest['customer_pincode']}'),
                   )
               ),
               //==================================VISITOR NAME
@@ -302,7 +302,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                   child: ListTile(
                     title: const Text('Visiting Date'),
-                    subtitle: Text('${appState.selectedCustomerRequest['v_date']}'),
+                    subtitle: Text('${appState.selectedCustomerRequest['visiting_date']}'),
                   )
               ),
               //==================================VISITING Status
@@ -333,8 +333,8 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       }
                       var data = {
                         "newStatus":newStatus,
-                        "c_id":appState.selectedCustomerRequest['c_id'],
-                        "p_id":appState.selectedCustomerRequest['p_id'],
+                        "c_id":appState.selectedCustomerRequest['customer_id'],
+                        "p_id":appState.selectedCustomerRequest['property_id'],
                       };
                       _changeVisitStatus(data, appState, context);
                     },

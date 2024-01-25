@@ -124,8 +124,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   //==================================FETCH FAVORITE PROPERTY
   fetchFavoriteProperty(appState) async {
     var data = {
-      "c_id": appState.customerDetails['c_id'],
-      "p_id": appState.selectedProperty['p_id']
+      "c_id": appState.customerDetails['customer_id'],
+      "p_id": appState.selectedProperty['property_id']
     };
     var url = Uri.parse(ApiLinks.fetchFavoriteProperty);
     final res = await StaticMethod.fetchFavoriteProperty(data, url);
@@ -305,8 +305,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ElevatedButton(
                         onPressed: () {
                           var data = {
-                            "c_id": appState.customerDetails['c_id'],
-                            "p_id": appState.selectedProperty['p_id'],
+                            "c_id": appState.customerDetails['customer_id'],
+                            "p_id": appState.selectedProperty['property_id'],
                             "feedback": feedbackController.text,
                             "rating": rateValue
                           };
@@ -438,8 +438,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             "visitor_name": _visitorNameController.text,
                             "visitor_number": _visitorNumberController.text,
                             "v_date": _visitingDateController.text,
-                            "c_id": appState.customerDetails['c_id'],
-                            "p_id": appState.selectedProperty['p_id']
+                            "c_id": appState.customerDetails['customer_id'],
+                            "p_id": appState.selectedProperty['property_id']
                           };
                           bookVisit(visitData, appState, pageContext);
                           Navigator.pop(context);
@@ -541,7 +541,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 //================================NAME
                 Expanded(
                   child: Text(
-                    '${appState.selectedProperty['p_name'].toUpperCase()}',
+                    '${appState.selectedProperty['property_name'].toUpperCase()}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 17,
@@ -561,10 +561,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           }
                         : null,
                     child: RatingDisplayWidgetTwo(
-                        rating:
-                            appState.selectedProperty['p_rating'].toDouble())),
+                        rating: appState.selectedProperty['property_rating']
+                            .toDouble())),
                 //================================RATING USER COUNT
-                Text('(${appState.selectedProperty['p_ratingCount']})')
+                Text('(${appState.selectedProperty['property_ratingCount']})')
               ],
             ),
           ),
@@ -581,7 +581,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ),
                 Expanded(
                   child: Text(
-                    '${appState.selectedProperty['p_address']}, ${appState.selectedProperty['p_locality']} , ${appState.selectedProperty['p_city']}',
+                    '${appState.selectedProperty['property_address']}, ${appState.selectedProperty['property_locality']} , ${appState.selectedProperty['property_city']}',
                     style: const TextStyle(
                         color: Colors.grey,
                         fontWeight: FontWeight.w500,
@@ -600,7 +600,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               children: [
                 //=============================PRICE
                 Text(
-                  '${appState.selectedProperty['p_price']} ₹',
+                  '${appState.selectedProperty['property_price']} ₹',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
@@ -615,8 +615,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                 if (appState.customerDetails.isNotEmpty) {
                                   //print(appState.customerDetails);
                                   var data = {
-                                    "c_id": appState.customerDetails['c_id'],
-                                    "p_id": appState.selectedProperty['p_id']
+                                    "c_id": appState.customerDetails['customer_id'],
+                                    "p_id": appState.selectedProperty['property_id']
                                   };
 
                                   appState.addedToFavorite == false
@@ -675,7 +675,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               color: Theme.of(context).hintColor,
                             ),
                             Text(
-                              '${appState.selectedProperty['p_type']}',
+                              '${appState.selectedProperty['property_type']}',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -701,7 +701,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               color: Theme.of(context).hintColor,
                             ),
                             Text(
-                              '${appState.selectedProperty['p_area']} ${appState.selectedProperty['p_areaUnit']}',
+                              '${appState.selectedProperty['property_area']} ${appState.selectedProperty['property_areaUnit']}',
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15,
@@ -718,8 +718,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   ),
 
                   //-----------------------------bhk and furnished
-                  appState.selectedProperty['p_type'] == 'House' ||
-                          appState.selectedProperty['p_type'] == 'Flat'
+                  appState.selectedProperty['property_type'] == 'House' ||
+                          appState.selectedProperty['property_type'] == 'Flat'
                       ? Row(
                           children: [
                             //==========================BHK CONTAINER
@@ -739,7 +739,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                     color: Theme.of(context).hintColor,
                                   ),
                                   Text(
-                                    '${appState.selectedProperty['p_bhk']}',
+                                    '${appState.selectedProperty['property_bhk']}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -766,7 +766,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                     color: Theme.of(context).hintColor,
                                   ),
                                   Text(
-                                    '${appState.selectedProperty['p_isFurnished']}',
+                                    '${appState.selectedProperty['property_isFurnished']}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -784,7 +784,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   ),
 
                   //---------------------------garden and parking
-                  appState.selectedProperty['p_type'] == 'House'
+                  appState.selectedProperty['property_type'] == 'House'
                       ? Row(
                           children: [
                             //==============================garden container
@@ -804,7 +804,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                     color: Theme.of(context).hintColor,
                                   ),
                                   Text(
-                                    '${appState.selectedProperty['p_isGarden']}',
+                                    '${appState.selectedProperty['property_isGarden']}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -831,7 +831,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                     color: Theme.of(context).hintColor,
                                   ),
                                   Text(
-                                    '${appState.selectedProperty['p_isParking']}',
+                                    '${appState.selectedProperty['property_isParking']}',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 15,
@@ -860,7 +860,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
             child: Text(
-              '${appState.selectedProperty['p_desc']}',
+              '${appState.selectedProperty['property_desc']}',
               style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 15,
@@ -887,7 +887,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 onTap: () {
                   //print('map url is ${appState.selectedProperty['p_locationUrl']}');
                   StaticMethod.openMap(
-                      appState.selectedProperty['p_locationUrl']);
+                      appState.selectedProperty['property_locationUrl']);
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(25),
@@ -962,18 +962,21 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
             child: Row(
               children: [
-                ElevatedButton(
+                appState.userType=='admin'
+                   ? ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => AddOfferPage(
-                                    p_id: appState.selectedProperty['p_id'],
+                                    p_id: appState
+                                        .selectedProperty['property_id'],
                                     forWhich: "offerImage",
                                   )));
                     },
-                    child: Text('Add Offers')),
-                Spacer(),
+                    child: Text('Add Offers'))
+                    : Container(),
+                appState.userType=='admin' ? Spacer() : Container(),
                 ElevatedButton(onPressed: () {}, child: Text('See Offers'))
               ],
             ),

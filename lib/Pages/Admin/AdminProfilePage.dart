@@ -33,12 +33,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey,
-                    backgroundImage: appState.adminDetails['ad_profilePic'].length > 0
+                    backgroundImage: appState.adminDetails['admin_profilePic'].length > 0
                         ? NetworkImage(
-                      '${ApiLinks.accessAdminProfilePic}/${appState.adminDetails['ad_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                      '${ApiLinks.accessAdminProfilePic}/${appState.adminDetails['admin_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
                     )
                         : null, // Set to null if there is no profile picture
-                    child: appState.adminDetails['ad_profilePic'].isEmpty
+                    child: appState.adminDetails['admin_profilePic'].isEmpty
                         ? const Icon(Icons.person, size: 70, color: Colors.black) // Centered icon when no profile picture
                         : null, // No child when there is a profile picture, since it's set as backgroundImage
                   ),
@@ -59,7 +59,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
 
             //------------------------------------------Name
             Text(
-                '${appState.adminDetails['ad_name'].toUpperCase()} (ADMIN)',
+                '${appState.adminDetails['admin_name'].toUpperCase()} (ADMIN)',
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
@@ -68,7 +68,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
 
             //------------------------------------------Email
              Text(
-                '${appState.adminDetails['ad_email']}',
+                '${appState.adminDetails['admin_email']}',
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal
@@ -77,7 +77,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
 
             //------------------------------------------mobile
              Text(
-                '${appState.adminDetails['ad_mobile']}',
+                '${appState.adminDetails['admin_mobile']}',
                 style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal
