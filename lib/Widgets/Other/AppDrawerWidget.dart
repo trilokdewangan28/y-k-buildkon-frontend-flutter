@@ -187,9 +187,10 @@ class AppDrawerWidget extends StatelessWidget {
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Admin Pannel'),
                   onTap: () {
-                    Navigator.pop(context);// Close the drawer
                     appState.activeWidget='AdminLoginWidget';
                     appState.currentState=1;
+                    Navigator.pop(context);// Close the drawer
+
                   },
                 ),
               ),

@@ -1,7 +1,7 @@
+//import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Screens/HomeScreen.dart';
 import 'package:real_state/Screens/SplashScreen.dart';
 
 void main() {

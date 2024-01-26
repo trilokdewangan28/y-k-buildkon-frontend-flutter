@@ -149,12 +149,12 @@ class _HomeScreenState extends State<HomeScreen> {
           }else{
             widgetContent = const AdminLoginWidget();
             appBarContent = "Admin Login";
-            secondBtmContent = "Login";
-            btmIcon = Icons.login;
+            appState.currentState = 1;
           }
         } else {
           widgetContent = const AdminLoginWidget();
           appBarContent = "Admin Login";
+          appState.currentState = 1;
         }
         break;
       case "CustomerVisitRequestListWidget":

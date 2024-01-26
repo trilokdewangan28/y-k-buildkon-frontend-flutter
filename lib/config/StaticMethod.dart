@@ -442,6 +442,8 @@ class StaticMethod {
     print('property parking is : ${selectedParking}');
     print('property furnish is : ${selectedFurnished}');
     print('property availbable is : ${selectedAvailability}');
+    print('property name is : ${propertyName}');
+    print('property city is : ${selectedCity}');
     print('------------------------------------------------------------');
 
     appState.filteredPropertyList = appState.propertyList.length != 0
