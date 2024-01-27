@@ -22,7 +22,6 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -91,7 +90,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 margin: const EdgeInsets.symmetric(vertical: 15),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-
+                        backgroundColor: Theme.of(context).primaryColor,
                         elevation: 4
                     ),
                     onPressed: (){},
@@ -110,8 +109,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     appState.activeWidget="CustomerVisitRequestListWidget";
                     appState.currentState=1;
                   },
-                  child: const Card(
-                    child: Row(
+                  child:  Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const Row(
                       children: [
                         SizedBox(width: 15,),
                         Icon(Icons.book_outlined),
@@ -132,8 +132,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 height: MediaQuery.of(context).size.height*0.07,
                 child: InkWell(
                   onTap: (){},
-                  child:const Card(
-                    child: Row(
+                  child:Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const Row(
                       children: [
                         SizedBox(width: 15,),
                         Icon(Icons.payment),
@@ -154,8 +155,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 height: MediaQuery.of(context).size.height*0.07,
                 child: InkWell(
                   onTap: (){},
-                  child: const Card(
-                    child: Row(
+                  child:  Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const Row(
                       children: [
                         SizedBox(width: 15,),
                         Icon(Icons.business),
@@ -177,8 +179,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   onTap: (){
                     appState.activeWidget = "AddNewPropertyWidget";
                   },
-                  child: const Card(
-                    child: Row(
+                  child: Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const Row(
                       children: [
                         SizedBox(width: 15,),
                         Icon(Icons.add_business),
@@ -223,8 +226,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     appState.fetchToken(appState.userType);
                     Future.delayed(const Duration(milliseconds: 100));
                   },
-                  child: const Card(
-                    child: Row(
+                  child: Card(
+                    color: Theme.of(context).primaryColor,
+                    child: const  Row(
                       children: [
                         SizedBox(width: 15,),
                         Icon(Icons.logout_sharp),

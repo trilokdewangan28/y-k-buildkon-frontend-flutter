@@ -10,12 +10,19 @@ class AppDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return PopScope(
-       onPopInvoked: (didPop) {
-         appState.activeWidget='HomeWidget';
-         appState.currentState=0;
-         Navigator.pop(context);
-       },
+    return WillPopScope(
+
+       // onPopInvoked: (didPop) {
+       //   appState.activeWidget='HomeWidget';
+       //   appState.currentState=0;
+       //   Navigator.pop(context);
+       // },
+        onWillPop: ()async{
+          appState.activeWidget='HomeWidget';
+          appState.currentState=0;
+          Navigator.pop(context);
+         return false;
+        },
         child:Drawer(
           backgroundColor: Theme.of(context).primaryColor,
           elevation: 0,
@@ -187,9 +194,9 @@ class AppDrawerWidget extends StatelessWidget {
                   leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Admin Pannel'),
                   onTap: () {
+                    Navigator.of(context).pop();// Close the drawer
                     appState.activeWidget='AdminLoginWidget';
                     appState.currentState=1;
-                    Navigator.pop(context);// Close the drawer
 
                   },
                 ),

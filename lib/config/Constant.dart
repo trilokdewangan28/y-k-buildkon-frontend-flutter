@@ -8,4 +8,6 @@ class MyConst {
   static double deviceHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
   }
+
+
 }

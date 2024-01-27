@@ -1,4 +1,3 @@
-//import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -25,8 +24,8 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Montserrat',
         primaryColor: Colors.white, // Set the primary color
         hintColor: Color.fromARGB(255, 13, 70, 155), // Set the accent color
-        backgroundColor: Colors.white, // Set the background color
-        useMaterial3: true,
+        //backgroundColor: Colors.white, // Set the background color
+        //useMaterial3: true,
 
       ),
         darkTheme: ThemeData.dark().copyWith(
