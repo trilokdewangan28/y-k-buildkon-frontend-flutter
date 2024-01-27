@@ -25,10 +25,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   final _visitingDateController = TextEditingController();
   final _visitorNameController = TextEditingController();
   final _visitorNumberController = TextEditingController();
+  final _employeeRefNoController = TextEditingController();
 
   final FocusNode _visitingDateFocusNode = FocusNode();
   final FocusNode _visitorNameFocusNode = FocusNode();
   final FocusNode _visitorNumberFocusNode = FocusNode();
+  final FocusNode _employeeRefNoFocusNode = FocusNode();
 
   //==================================BOOK VISIT
   bookVisit(requestData, appState, context) async {
@@ -347,6 +349,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
+                  color: Theme.of(context).primaryColor,
               padding: EdgeInsets.only(
                 top: MediaQuery.of(context).viewInsets.top + 16,
                 bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -360,70 +363,91 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   //===================================VISITOR NAME TEXTFIELD
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: TextField(
-                      controller: _visitorNameController,
-                      focusNode: _visitorNameFocusNode,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          labelText: 'Visitors Name',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
+                        horizontal: 15,),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: TextField(
+                          controller: _visitorNameController,
+                          focusNode: _visitorNameFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Name',
+                              border: InputBorder.none
+                          ),
+                        ),
+                      ),
+                    )
                   ),
 
                   //===================================VISITOR NUMBER TEXTFIELD
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: TextField(
-                      controller: _visitorNumberController,
-                      focusNode: _visitorNumberFocusNode,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                          labelText: 'Visitors Number',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
+                        horizontal: 15,),
+                    child: Card(
+                      shadowColor: Colors.black,
+                      child:Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: TextField(
+                          controller: _visitorNumberController,
+                          focusNode: _visitorNumberFocusNode,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              labelText: 'Visitors Mobile Number',
+                              border: InputBorder.none
+                          ),
+                        ),
+                      )
+                    )
                   ),
 
                   //===================================VISITING DATE TEXTFIELD
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: TextFormField(
-                        controller: _visitingDateController,
-                        focusNode: _visitingDateFocusNode,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                            labelText: 'Vising Date',
-                            labelStyle: TextStyle(color: Colors.black),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                                // color: Theme.of(context).hintColor
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                        horizontal: 15,),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: TextFormField(
+                            controller: _visitingDateController,
+                            focusNode: _visitingDateFocusNode,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                labelText: 'Vising Date',
+                                labelStyle: TextStyle(color: Colors.black),
+                                border: InputBorder.none
                             ),
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                width: 1,
-                                color: Colors.grey,
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                            )),
-                        onTap: () => _selectDate(context),
-                        readOnly: true,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'please enter valid locality';
-                          }
-                          return null;
-                        }),
+                            onTap: () => _selectDate(context),
+                            readOnly: true,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'please enter valid locality';
+                              }
+                              return null;
+                            }),
+                      )
+                    )
+                  ),
+
+
+                  //===================================EMPLOYEE REFERENCE NUMBER TEXTFIELD
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15,),
+                    child: Card(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child:TextField(
+                          controller: _employeeRefNoController,
+                          focusNode: _employeeRefNoFocusNode,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                              labelText: 'Employee Reference Number ( optional )',
+                              border: InputBorder.none
+                          ),
+                        ),
+                      )
+                    )
                   ),
 
                   //====================================SUBMIT BTN
@@ -437,6 +461,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           var visitData = {
                             "visitor_name": _visitorNameController.text,
                             "visitor_number": _visitorNumberController.text,
+                            "employee_un":_employeeRefNoController.text ?? "",
                             "v_date": _visitingDateController.text,
                             "c_id": appState.customerDetails['customer_id'],
                             "p_id": appState.selectedProperty['property_id']
@@ -458,6 +483,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       },
     );
   }
+
 
   @override
   void initState() {

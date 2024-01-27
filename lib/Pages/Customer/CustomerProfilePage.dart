@@ -100,12 +100,15 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                   Container(
                       margin: const EdgeInsets.symmetric(vertical: 15),
                       child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(elevation: 4),
+                          style: ElevatedButton.styleFrom(
+                              elevation: 4,
+                            backgroundColor: Theme.of(context).hintColor
+                          ),
                           onPressed: () {},
                           child: Text(
                             'Edit Details',
                             style:
-                                TextStyle(color: Theme.of(context).hintColor),
+                                TextStyle(color: Theme.of(context).primaryColor),
                           ))),
                   const SizedBox(
                     height: 20,
@@ -117,6 +120,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Card(
+                      color: Theme.of(context).primaryColor,
                       child: Row(
                         children: [
                           const SizedBox(
@@ -152,6 +156,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Card(
+                      color: Theme.of(context).primaryColor,
                       child: Row(
                         children: [
                           const SizedBox(
@@ -216,8 +221,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           appState.fetchToken(appState.userType);
                           Future.delayed(const Duration(milliseconds: 100));
                         },
-                        child: const Card(
-                          child: Row(
+                        child:  Card(
+                          color: Theme.of(context).primaryColor,
+                          child:const  Row(
                             children: [
                               SizedBox(
                                 width: 15,
