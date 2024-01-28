@@ -7,7 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (_) => MyProvider(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -23,21 +23,22 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montserrat',
         primaryColor: Colors.white, // Set the primary color
-        hintColor: Color.fromARGB(255, 13, 70, 155), // Set the accent color
+        hintColor: const Color.fromARGB(255, 13, 70, 155), // Set the accent color
         //backgroundColor: Colors.white, // Set the background color
         //useMaterial3: true,
 
       ),
         darkTheme: ThemeData.dark().copyWith(
           // Dark mode colors
-          primaryColor: Color.fromARGB(255, 13, 70, 155),
+          primaryColor: const Color.fromARGB(255, 13, 70, 155),
           hintColor: Colors.white,
-          secondaryHeaderColor: Colors.amber
+          secondaryHeaderColor: Colors.amber,
+
 
           // Add more dark mode colors as needed
         ),
         themeMode: Provider.of<MyProvider>(context).currentThemeMode,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

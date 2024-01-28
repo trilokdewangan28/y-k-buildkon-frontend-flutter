@@ -50,7 +50,7 @@ class _SignupWidgetState extends State<SignupWidget> {
     }
   }
 
-  _submitData(appState, context) async {
+  _sendOtpForSignup(appState, context) async {
     var customerData = {
       "c_name": _nameController.text,
       "c_mobile": _mobileController.text,
@@ -60,7 +60,7 @@ class _SignupWidgetState extends State<SignupWidget> {
       "c_city": _cityController.text,
       "c_pincode": _pincodeController.text
     };
-    var url = Uri.parse(ApiLinks.customerSignup);
+    var url = Uri.parse(ApiLinks.sendOtpForSignup);
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -68,7 +68,7 @@ class _SignupWidgetState extends State<SignupWidget> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.userSignup(customerData, url);
+    final res = await StaticMethod.sendOtpForSignup(customerData, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -77,7 +77,7 @@ class _SignupWidgetState extends State<SignupWidget> {
           '${res['message']}',
           style: const TextStyle(color: Colors.green),
         )));
-        appState.activeWidget = 'LoginWidget';
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpVerificationWidget(customerData: customerData,)));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
@@ -440,10 +440,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                         //===============================SIGNUP BTN
                         ElevatedButton(
                             onPressed: () {
-                              // if (_formKey.currentState!.validate()) {
-                              //   _submitData(appState, context);
-                              // }
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpVerificationWidget()));
+                              if (_formKey.currentState!.validate()) {
+                                _sendOtpForSignup(appState, context);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).hintColor,

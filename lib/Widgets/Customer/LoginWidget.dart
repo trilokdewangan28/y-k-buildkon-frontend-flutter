@@ -46,17 +46,19 @@ class _LoginWidgetState extends State<LoginWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (countdownDuration.inSeconds > 0) {
-          countdownDuration -= const Duration(seconds: 1);
-          remainingTime = formatDuration(countdownDuration);
-        } else {
-          countdownTimer?.cancel();
-          // Countdown has reached 0, perform any desired actions here
-        }
+    if (countdownTimer == null || !countdownTimer!.isActive) {
+      countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          if (countdownDuration.inSeconds > 0) {
+            countdownDuration -= const Duration(seconds: 1);
+            remainingTime = formatDuration(countdownDuration);
+          } else {
+            countdownTimer?.cancel();
+            // Countdown has reached 0, perform any desired actions here
+          }
+        });
       });
-    });
+    }
   }
   String formatDuration(Duration duration) {
     String minutes =
@@ -86,6 +88,9 @@ class _LoginWidgetState extends State<LoginWidget> {
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){
+        countdownTimer?.cancel();
+        countdownDuration = const Duration(minutes: 5);
+        remainingTime = formatDuration(countdownDuration);
         startCountdown();
         readOnly=true;
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
@@ -252,8 +257,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           },
                         ),
 
-                        remainingTime == ''
-                            ? TextButton(
+                        TextButton(
                             onPressed: (){
                               if (_formKey1.currentState!.validate()) {
                                 _generateOtp(context, appState);
@@ -261,7 +265,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             },
                             child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
                         )
-                            : Container(),
+
                       ],
                     ),
                   )

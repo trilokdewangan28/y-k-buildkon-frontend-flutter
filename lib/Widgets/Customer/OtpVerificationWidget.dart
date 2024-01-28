@@ -2,18 +2,31 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
+import 'package:provider/provider.dart';
+import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
+import 'package:real_state/config/StaticMethod.dart';
 class OtpVerificationWidget extends StatefulWidget {
-  const OtpVerificationWidget({super.key});
+  Map<String,dynamic> customerData;
+   OtpVerificationWidget({super.key, required this.customerData});
 
   @override
   State<OtpVerificationWidget> createState() => _OtpVerificationWidgetState();
 }
 
 class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
+  @override
+  void initState() {
+    //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('otp sent to your email...',style: TextStyle(color: Colors.green),)));
+    startCountdown();
+    super.initState();
+  }
 
   final _formKey1 = GlobalKey<FormState>();
   final _otpController = TextEditingController();
   final FocusNode _otpFocusNode = FocusNode();
+
 
   final defaultPinTheme = PinTheme(
     width: 56,
@@ -37,17 +50,21 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
-    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (countdownDuration.inSeconds > 0) {
-          countdownDuration -= const Duration(seconds: 1);
-          remainingTime = formatDuration(countdownDuration);
-        } else {
-          countdownTimer?.cancel();
-          // Countdown has reached 0, perform any desired actions here
-        }
+
+    if (countdownTimer == null || !countdownTimer!.isActive) {
+      countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          if (countdownDuration.inSeconds > 0) {
+            countdownDuration -= const Duration(seconds: 1);
+            remainingTime = formatDuration(countdownDuration);
+          } else {
+            countdownTimer?.cancel();
+            // Countdown has reached 0, perform any desired actions here
+          }
+        });
       });
-    });
+    }
+
   }
   String formatDuration(Duration duration) {
     String minutes =
@@ -56,21 +73,107 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
     duration.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
   }
+
+  _sendOtpForSignup(customerData,appState, context) async {
+    var url = Uri.parse(ApiLinks.sendOtpForSignup);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res = await StaticMethod.sendOtpForSignup(customerData, url);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        countdownTimer?.cancel();
+        countdownDuration = const Duration(minutes: 5);
+        remainingTime = formatDuration(countdownDuration);
+        startCountdown();
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              '${res['message']}',
+              style: const TextStyle(color: Colors.green),
+            )));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              '${res['message']}',
+              style: const TextStyle(color: Colors.red),
+            )));
+      }
+    }
+  }
+
+  _verifyOtpForSignup(customerData,appState, context) async {
+
+    var url = Uri.parse(ApiLinks.verifyOtpForSignup);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res = await StaticMethod.verifyOtpForSignup(customerData, url);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              '${res['message']}',
+              style: const TextStyle(color: Colors.green),
+            )));
+        appState.activeWidget = "LoginWidget";
+        appState.currentState = 1;
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              '${res['message']}',
+              style: const TextStyle(color: Colors.red),
+            )));
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<MyProvider>(context);
     return PopScope(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Verification Page'),
+            centerTitle: true,
+            title: const Text(
+                'Email Verificaiton',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 24
+              ),
+            ),
           ),
           body: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: 100,),
-                Center(
-                  child: Text('we have sent an otp in your email'),
+                SizedBox(height: MyConst.deviceHeight(context)*0.1,),
+                const Text(
+                  'verification code has been sent to : ',
+                  style: TextStyle(
+                    fontSize: 16,
+                      fontWeight: FontWeight.w500
+                  ),
                 ),
-                SizedBox(height: 50,),
+                Text(
+                  '${widget.customerData['c_email']}',
+                  style: const TextStyle(
+                    color: Colors.green,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700
+                  ),
+                ),
+                SizedBox(height: MyConst.deviceHeight(context)*0.1,),
                 //==============================FORM2 CONTAINER Login
                 Container(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -78,8 +181,14 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                       key: _formKey1,
                       child: Column(
                         children: [
-                          Text('Enter otp here'),
-                          SizedBox(height: 20,),
+                          const Text(
+                              'Enter otp here',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16
+                            ),
+                          ),
+                          const SizedBox(height: 20,),
                           //==================================OTP TEXTFIELD
                           Pinput(
                             controller: _otpController,
@@ -99,32 +208,60 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                             },
                             onCompleted: (pin) => debugPrint(pin),
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: TextButton(
-                              onPressed: (){},
-                              child: Text('resend otp',style: TextStyle(color: Theme.of(context).hintColor),),
+
+                          //=================COUNTDOWN AND RESEND CONTAINER
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              children: [
+                                //=================================COUNTDOWN TEXT
+                                Text(
+                                  remainingTime,
+                                  style: const TextStyle(fontSize: 24),
+                                ),
+                                const Spacer(),
+
+                                //==========================RESENT OTP BUTTON
+                                TextButton(
+                                  onPressed: (){
+                                    var customerData = {
+                                      "c_email":widget.customerData['c_email']
+                                    };
+                                    _sendOtpForSignup(customerData, appState, context);
+                                  },
+                                  child: Text('resend otp',style: TextStyle(color: Theme.of(context).hintColor),),
+                                )
+                              ],
                             ),
-                          ),
-                          Text(
-                            remainingTime,
-                            style: const TextStyle(fontSize: 24),
                           ),
                           const SizedBox(height: 15,),
 
 
                           //===============================LOGIN BTN
-                          ElevatedButton(
-                              onPressed: (){
-                                if (_formKey1.currentState!.validate()) {
-                                  //_submitOtp(context, appState);
-                                }
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).hintColor,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                              ),
-                              child: Text('Verify',style: TextStyle(color: Theme.of(context).primaryColor),)
+                          Container(
+                            width: 150,
+                            child: ElevatedButton(
+                                onPressed: (){
+                                  if (_formKey1.currentState!.validate()) {
+                                    var customerData = {
+                                      "c_name": widget.customerData['c_name'],
+                                      "c_mobile": widget.customerData['c_mobile'],
+                                      "c_email": widget.customerData['c_email'],
+                                      "c_address": widget.customerData['c_address'],
+                                      "c_locality": widget.customerData['c_locality'],
+                                      "c_city": widget.customerData['c_city'],
+                                      "c_pincode": widget.customerData['c_pincode'],
+                                      "c_otp":_otpController.text
+                                    };
+                                    _verifyOtpForSignup(customerData, appState, context);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).hintColor,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                ),
+                                child: Text('Verify',style: TextStyle(color: Theme.of(context).primaryColor),)
+                            ),
                           ),
                           const SizedBox(height: 15,),
                         ],
