@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Customer/OtpVerificationWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
@@ -167,7 +168,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 return 'please enter valid locality';
                               }
                               return null;
-                            }),
+                            }
+                            ),
 
                         const SizedBox(
                           height: 15,
@@ -438,16 +440,17 @@ class _SignupWidgetState extends State<SignupWidget> {
                         //===============================SIGNUP BTN
                         ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _submitData(appState, context);
-                              }
+                              // if (_formKey.currentState!.validate()) {
+                              //   _submitData(appState, context);
+                              // }
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpVerificationWidget()));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).hintColor,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                             ),
                             child: Text(
-                              'Signup',
+                              'Next',
                               style:
                               TextStyle(color: Theme.of(context).primaryColor),
                             )),

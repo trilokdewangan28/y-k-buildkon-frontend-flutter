@@ -1,8 +1,10 @@
 class ApiLinks{
-  static const baseUrl = "https://5bc4-2401-4900-51e4-3343-640d-d9fd-1328-8ebc.ngrok-free.app/";
+  static const baseUrl = "https://544f-2401-4900-36a4-54e-d896-bb0f-b686-82f.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
+  static const sendOtpForSignup = "${baseUrl}api/customer/sendOtpForSignup";
+  static const verifyOtpForSignup = "${baseUrl}api/customer/verifyOtpForSignup";
   static const customerLogin = "${baseUrl}api/customer/customerLogin";
   static const sendOtpForLogin = "${baseUrl}api/customer/sendOtpForLogin";
   static const customerProfile = "${baseUrl}api/customer/customerProfile";
@@ -11,6 +13,7 @@ class ApiLinks{
   static const accessCustomerProfilePic = "${baseUrl}api/customer/accessCustomerProfilePic";
 
   static const fetchAllProperties = "${baseUrl}api/customer/fetchAllProperties";
+  static const fetchSinglePropertyById = "${baseUrl}api/customer/fetchSinglePropertyById";
   static const accessPropertyImages = "${baseUrl}api/property/accessPropertyImages";
   static const submitPropertyRating = "${baseUrl}api/customer/submitPropertyRating";
   static const fetchOfferList = "${baseUrl}api/customer/fetchOfferList";

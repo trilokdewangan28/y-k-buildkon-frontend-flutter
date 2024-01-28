@@ -88,19 +88,19 @@ class _PropertyListPageState extends State<PropertyListPage> {
     //appState.loadSavedPropertyType();
     print('initstate called');
     // first filter call
-    StaticMethod.filterProperties(appState,
-        propertyName: selectedPropertyName,
-        selectedCity: selectedCity,
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-        propertyId: propertyId,
-        selectedPropertyType: selectedPropertyType,
-        selectedBhk: selectedBhk,
-        selectedFloor: selectedFloor,
-        selectedGarden: selectedGarden,
-        selectedParking: selectedParking,
-        selectedFurnished: selectedFurnished,
-        selectedAvailability: selectedAvailability);
+    // StaticMethod.filterProperties(appState,
+    //     propertyName: selectedPropertyName,
+    //     selectedCity: selectedCity,
+    //     minPrice: minPrice,
+    //     maxPrice: maxPrice,
+    //     propertyId: propertyId,
+    //     selectedPropertyType: selectedPropertyType,
+    //     selectedBhk: selectedBhk,
+    //     selectedFloor: selectedFloor,
+    //     selectedGarden: selectedGarden,
+    //     selectedParking: selectedParking,
+    //     selectedFurnished: selectedFurnished,
+    //     selectedAvailability: selectedAvailability);
 
     super.initState();
   }
@@ -154,7 +154,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               ),
                               //===========================SPACIFICATION CONTAINER
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                                margin: EdgeInsets.symmetric(horizontal: 15,),
                                 padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
                                 decoration: BoxDecoration(
                                     //border: Border.all(width: 1),
@@ -541,7 +541,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 ),
                               ),
 
-                              //===================================VISITOR NUMBER TEXTFIELD
+                              //===================================FILTER BY NAME
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15,),
@@ -569,7 +569,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              //===================================VISITOR NUMBER TEXTFIELD
+                              //===================================FILTER BY CITY
                               Container(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15,),
@@ -905,7 +905,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                             0.1,
                                                     fit: BoxFit.fill,
                                                   ),
-                                                )),
+                                                )
+                                      ),
                                     ),
                                   ),
 

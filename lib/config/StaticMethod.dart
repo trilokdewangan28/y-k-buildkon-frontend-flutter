@@ -35,6 +35,34 @@ class StaticMethod {
     }
   }
 
+  //---------------------------------------------------------------------------- FETCH single PROPERTY LIST
+  static Future<Map<String, dynamic>> fetchSingleProperties(data,url) async {
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(data), headers: requestHeaders);
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete fetchPropertyList api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list'
+      };
+    }
+  }
+
   //----------------------------------------------------------------------------SIGNUP CUSTOMER
   static Future<Map<String, dynamic>> userSignup(signupData, url) async {
     var response;
@@ -89,8 +117,63 @@ class StaticMethod {
     }
   }
 
+  //----------------------------------------------------------------------------GENERATE OTP for signup
+  static Future<Map<String, dynamic>> sendOtpForSignup(userData, url) async {
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(userData), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete send otp api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while sending the otp'
+      };
+    }
+  }
+
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
   static Future<Map<String, dynamic>> submitOtpAndLogin(otpModel, url) async {
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(otpModel), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete verify otp and login');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while verifying otp and login'
+      };
+    }
+  }
+
+
+  //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
+  static Future<Map<String, dynamic>> verifyOtpForSignup(otpModel, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {

@@ -7,6 +7,7 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class PropertyDetailPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class PropertyDetailPage extends StatefulWidget {
 }
 
 class _PropertyDetailPageState extends State<PropertyDetailPage> {
+  final _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   final DateTime lastSelectableDate =
       DateTime.now().add(const Duration(days: 365));
@@ -32,7 +34,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   final FocusNode _visitorNumberFocusNode = FocusNode();
   final FocusNode _employeeRefNoFocusNode = FocusNode();
 
-  //==================================BOOK VISIT
+  //==================================================================BOOK VISIT
   bookVisit(requestData, appState, context) async {
     var url = Uri.parse(ApiLinks.requestVisit);
     showDialog(
@@ -61,7 +63,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //==================================ADD TO FAVORITE
+  //=============================================================ADD TO FAVORITE
   addToFavorite(data, appState, context) async {
     var url = Uri.parse(ApiLinks.addToFavorite);
     showDialog(
@@ -92,7 +94,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //==================================REMOVE FROM FAVORITE
+  //========================================================REMOVE FROM FAVORITE
   removeFromFavorite(data, appState, context) async {
     var url = Uri.parse(ApiLinks.removeFromFavorite);
     showDialog(
@@ -123,7 +125,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //==================================FETCH FAVORITE PROPERTY
+  //=====================================================FETCH FAVORITE PROPERTY
   fetchFavoriteProperty(appState) async {
     var data = {
       "c_id": appState.customerDetails['customer_id'],
@@ -150,7 +152,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //===================================SUBMIT PROPERTY RATING
+  //======================================================SUBMIT PROPERTY RATING
   submitPropertyRating(data, appState, btmSheetContext) async {
     var url = Uri.parse(ApiLinks.submitPropertyRating);
     showDialog(
@@ -182,7 +184,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //===================================SUBMIT FEEDBACK & RATING BTMST
+  //==============================================SUBMIT FEEDBACK & RATING BTMST
   void _showBottomSheetForSubmitRating(BuildContext context, appState) {
     final feedbackController = TextEditingController();
     int rateValue = 0;
@@ -321,7 +323,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             }));
   }
 
-  //===================================DATE PICKER
+  //=================================================================DATE PICKER
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -338,7 +340,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     }
   }
 
-  //===================================SHOW VISIT DETAIL CONTAINER
+  //=================================================SHOW VISIT DETAIL CONTAINER
   void _showVisitDetailContainer(appState, pageContext) {
     showModalBottomSheet(
       context: context,
@@ -354,60 +356,62 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 top: MediaQuery.of(context).viewInsets.top + 16,
                 bottom: MediaQuery.of(context).viewInsets.bottom + 16,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  //===================================VISITOR NAME TEXTFIELD
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15,),
-                    child: Card(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
-                          controller: _visitorNameController,
-                          focusNode: _visitorNameFocusNode,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                              labelText: 'Visitors Name',
-                              border: InputBorder.none
-                          ),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    //===================================VISITOR NAME TEXTFIELD
+                     Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,),
+                        child: TextFormField(
+                            controller: _visitorNameController,
+                            focusNode: _visitorNameFocusNode,
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                                labelText: 'Visitors Name',
+                                border:OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'should not be empty';
+                              }
+                              return null;
+                            }
                         ),
-                      ),
-                    )
-                  ),
+                    ),
+                    SizedBox(height: 15,),
 
-                  //===================================VISITOR NUMBER TEXTFIELD
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15,),
-                    child: Card(
-                      shadowColor: Colors.black,
-                      child:Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
-                          controller: _visitorNumberController,
-                          focusNode: _visitorNumberFocusNode,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              labelText: 'Visitors Mobile Number',
-                              border: InputBorder.none
-                          ),
+                    //===================================VISITOR NUMBER TEXTFIELD
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,),
+                        child: TextFormField(
+                            controller: _visitorNumberController,
+                            focusNode: _visitorNumberFocusNode,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                                labelText: 'Visitors Mobile Number',
+                                border: OutlineInputBorder()
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'should not be empty';
+                              }
+                              return null;
+                            }
                         ),
-                      )
-                    )
-                  ),
+                    ),
+                    SizedBox(height: 15,),
 
-                  //===================================VISITING DATE TEXTFIELD
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15,),
-                    child: Card(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                    //===================================VISITING DATE TEXTFIELD
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,),
                         child: TextFormField(
                             controller: _visitingDateController,
                             focusNode: _visitingDateFocusNode,
@@ -415,68 +419,66 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             decoration: const InputDecoration(
                                 labelText: 'Vising Date',
                                 labelStyle: TextStyle(color: Colors.black),
-                                border: InputBorder.none
+                                border: OutlineInputBorder()
                             ),
                             onTap: () => _selectDate(context),
                             readOnly: true,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'please enter valid locality';
+                                return 'date should not be empty';
                               }
                               return null;
                             }),
-                      )
-                    )
-                  ),
+                    ),
+                    SizedBox(height: 15,),
 
 
-                  //===================================EMPLOYEE REFERENCE NUMBER TEXTFIELD
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15,),
-                    child: Card(
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child:TextField(
+                    //===================================EMPLOYEE REFERENCE NUMBER TEXTFIELD
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15,),
+                        child: TextField(
                           controller: _employeeRefNoController,
                           focusNode: _employeeRefNoFocusNode,
                           keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                               labelText: 'Employee Reference Number ( optional )',
-                              border: InputBorder.none
+                              border: OutlineInputBorder()
                           ),
                         ),
-                      )
-                    )
-                  ),
+                    ),
 
-                  //====================================SUBMIT BTN
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15, vertical: 15),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).hintColor),
-                        onPressed: () {
-                          var visitData = {
-                            "visitor_name": _visitorNameController.text,
-                            "visitor_number": _visitorNumberController.text,
-                            "employee_un":_employeeRefNoController.text ?? "",
-                            "v_date": _visitingDateController.text,
-                            "c_id": appState.customerDetails['customer_id'],
-                            "p_id": appState.selectedProperty['property_id']
-                          };
-                          bookVisit(visitData, appState, pageContext);
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          'Submit',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                        )),
-                  )
-                ],
-              ),
+                    //====================================SUBMIT BTN
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 15),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).hintColor),
+                          onPressed: () {
+
+                            if (_formKey.currentState!.validate()) {
+                              var visitData = {
+                                "visitor_name": _visitorNameController.text,
+                                "visitor_number": _visitorNumberController.text,
+                                "employee_un":_employeeRefNoController.text ?? "",
+                                "v_date": _visitingDateController.text,
+                                "c_id": appState.customerDetails['customer_id'],
+                                "p_id": appState.selectedProperty['property_id']
+                              };
+                              bookVisit(visitData, appState, pageContext);
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text(
+                            'Submit',
+                            style:
+                            TextStyle(color: Theme.of(context).primaryColor),
+                          )),
+                    )
+                  ],
+                ),
+              )
             ));
           },
         );

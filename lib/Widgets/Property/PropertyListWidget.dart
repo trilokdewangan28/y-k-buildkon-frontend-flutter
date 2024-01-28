@@ -68,7 +68,7 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
                 propertyListDemo.add(propertyData);
               }
               appState.propertyList = propertyListDemo;
-              //appState.filteredPropertyList=appState.propertyList;
+              appState.filteredPropertyList=appState.propertyList;
 
 
               propertyContent = const PropertyListPage();

@@ -157,10 +157,15 @@ class _AddOfferPageState extends State<AddOfferPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     //print('initialy image file is :');
     //print(appState.imageFile);
+
+    popThePage(){
+      Navigator.pop(context);
+    }
     return SafeArea(child: PopScope(
+      canPop: true,
         onPopInvoked: (didPop) {
           appState.imageFile = null;
-          Navigator.pop(context);
+          appState.activeWidget = "PropertyListWidget";
         },
         child: Scaffold(
           appBar: AppBar(

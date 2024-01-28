@@ -1,27 +1,25 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Offer/OfferListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
 
 
+  popNow(context){
+    Navigator.pop(context);
+  }
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    return WillPopScope(
-
-       // onPopInvoked: (didPop) {
-       //   appState.activeWidget='HomeWidget';
-       //   appState.currentState=0;
-       //   Navigator.pop(context);
-       // },
-        onWillPop: ()async{
-          appState.activeWidget='HomeWidget';
+    return PopScope(
+      canPop: true,
+        onPopInvoked: (didpop){
+          appState.activeWidget='PropertyListWidget';
           appState.currentState=0;
-          Navigator.pop(context);
-         return false;
         },
         child:Drawer(
           backgroundColor: Theme.of(context).primaryColor,
@@ -83,10 +81,8 @@ class AppDrawerWidget extends StatelessWidget {
                   leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).hintColor,),
                   title: const Text('Offers'),
                   onTap: () {
-                    // Handle the onTap action for the Home item
-                    Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='HomeWidget';
-                    appState.currentState=0;
+                    popNow(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferListPage()));
                   },
                 ),
               ),
@@ -101,8 +97,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='EmiCalculatorWidget';
-                    appState.currentState=0;
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmiCalculatorWidget()));
                   },
                 ),
               ),
@@ -117,7 +112,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='HomeWidget';
+                    appState.activeWidget='PropertyListWidget';
                     appState.currentState=0;
                   },
                 ),
@@ -133,23 +128,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='HomeWidget';
-                    appState.currentState=0;
-                  },
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
-                shadowColor: Colors.black,
-                elevation: 0.5,
-                child: ListTile(
-                  leading: Icon(Icons.landscape_outlined,color: Theme.of(context).hintColor),
-                  title: const Text('Bhuiya App'),
-                  onTap: () {
-                    // Handle the onTap action for the Home item
-                    Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='HomeWidget';
+                    appState.activeWidget='PropertyListWidget';
                     appState.currentState=0;
                   },
                 ),
@@ -165,7 +144,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='HomeWidget';
+                    appState.activeWidget='PropertyListWidget';
                     appState.currentState=0;
                   },
                 ),

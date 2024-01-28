@@ -82,7 +82,9 @@ class _ImageSliderState extends State<ImageSlider> {
                         errorWidget: (context, url, error) => const Icon(Icons.error),
                         //height: 200,
                         fit: BoxFit.fitHeight,
-                      )));
+                      )
+                  )
+              );
             },
           ),
         ),
