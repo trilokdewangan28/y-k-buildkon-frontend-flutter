@@ -44,7 +44,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.requestVisit(requestData, url);
+    final res = await StaticMethod.requestVisit(appState.token, requestData, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -73,7 +73,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.addToFavorite(data, url);
+    final res = await StaticMethod.addToFavorite(appState.token, data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -104,7 +104,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.removeFromFavorite(data, url);
+    final res = await StaticMethod.removeFromFavorite(appState.token, data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -132,7 +132,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       "p_id": appState.selectedProperty['property_id']
     };
     var url = Uri.parse(ApiLinks.fetchFavoriteProperty);
-    final res = await StaticMethod.fetchFavoriteProperty(data, url);
+    final res = await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
     if (res.isNotEmpty) {
       if (res['success'] == true) {
         print(res);
@@ -163,7 +163,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       ),
     );
 
-    final response = await StaticMethod.submitPropertyRating(data, url);
+    final response = await StaticMethod.submitPropertyRating(appState.token, data, url);
     Navigator.pop(context);
     if (response.isNotEmpty) {
       if (response['success'] == true) {

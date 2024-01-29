@@ -99,7 +99,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.insertProperty(propertyData, url);
+    final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {

@@ -29,8 +29,8 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
     return Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
-      child: FutureBuilder<Map<String, dynamic>>(
-        future: StaticMethod.fetchVisitRequestedList(data,url),
+      child:  FutureBuilder<Map<String, dynamic>>(
+        future: StaticMethod.fetchVisitRequestedList(appState.token, data,url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.

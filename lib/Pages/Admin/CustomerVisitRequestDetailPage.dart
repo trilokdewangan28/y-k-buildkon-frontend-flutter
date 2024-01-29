@@ -34,7 +34,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.changeVisitStatus(data,url);
+    final res = await StaticMethod.changeVisitStatus(appState.token,data,url);
     if(res.isNotEmpty){
       Navigator.pop(context);
       if(res['success']==true){

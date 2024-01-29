@@ -12,6 +12,7 @@ class StaticMethod {
     await Future.delayed(const Duration(milliseconds: 100));
   }
 
+  //==============================CUSTOMER RELATED METHODS======================
   //---------------------------------------------------------------------------- FETCH PROPERTY LIST
   static Future<Map<String, dynamic>> fetchAllProperties(url) async {
     var response;
@@ -264,10 +265,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------BOOK VISIT
-  static Future<Map<String, dynamic>> requestVisit(bookVisitModel, url) async {
+  static Future<Map<String, dynamic>> requestVisit(token, bookVisitModel, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -291,10 +293,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------add to favorite
-  static Future<Map<String, dynamic>> addToFavorite(data, url) async {
+  static Future<Map<String, dynamic>> addToFavorite(token, data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -318,10 +321,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------remove from favorite
-  static Future<Map<String, dynamic>> removeFromFavorite(data, url) async {
+  static Future<Map<String, dynamic>> removeFromFavorite(token, data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -346,11 +350,12 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------fetch favorite property
-  static Future<Map<String, dynamic>> fetchFavoriteProperty(data, url) async {
+  static Future<Map<String, dynamic>> fetchFavoriteProperty(token, data, url) async {
     var response;
     print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -374,12 +379,13 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String, dynamic>> fetchFavoritePropertyListDetails(
+  static Future<Map<String, dynamic>> fetchFavoritePropertyListDetails(token,
       data, url) async {
     var response;
     print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -403,11 +409,12 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String, dynamic>> fetchVisitRequestedList(data, url) async {
+  static Future<Map<String, dynamic>> fetchVisitRequestedList(token, data, url) async {
     var response;
     //print("data is: "+data.toString());
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -431,12 +438,13 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String, dynamic>> fetchVisitRequestedPropertyDetails(
+  static Future<Map<String, dynamic>> fetchVisitRequestedPropertyDetails(token,
       data, url) async {
     var response;
     print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -459,21 +467,7 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------OPEN MAP
-  static void openMap(url) async {
-    // Replace with the desired latitude and longitude
-    print('inside the open map url is $url');
-    // Use the URL format for opening a map with coordinates
-    String mapUrl = url;
-
-    // Launch the map with the provided URL
-    if (!await launchUrl(Uri.parse(mapUrl),
-        mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch the map.';
-    }
-  }
-
-  //=======================LOGOUT METHOD======================================
+  //----------------------------------------------------------------------------LOGOUT METHOD
   static void logout(appState) async {
     appState.deleteToken(appState.userType);
     appState.token = "";
@@ -566,12 +560,27 @@ class StaticMethod {
         : [];
   }
 
+  //----------------------------------------------------------------------------OPEN MAP
+  static void openMap(url) async {
+    // Replace with the desired latitude and longitude
+    print('inside the open map url is $url');
+    // Use the URL format for opening a map with coordinates
+    String mapUrl = url;
+
+    // Launch the map with the provided URL
+    if (!await launchUrl(Uri.parse(mapUrl),
+        mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch the map.';
+    }
+  }
+
   //----------------------------------------------------------------------------submit property rating
-  static Future<Map<String, dynamic>> submitPropertyRating(data, url) async {
+  static Future<Map<String, dynamic>> submitPropertyRating(token, data, url) async {
     var response;
     print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -641,10 +650,15 @@ class StaticMethod {
   }
 
   //============================================================================FETCH CUSTOMER REQUEST
-  static Future<Map<String, dynamic>> fetchCustomerRequest(url) async {
+  static Future<Map<String, dynamic>> fetchCustomerRequest(token, url) async {
     var response;
     try {
-      final res = await http.get(url);
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.get(url,headers: requestHeaders);
 
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
@@ -679,10 +693,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------Change Visit Status
-  static Future<Map<String, dynamic>> changeVisitStatus(data, url) async {
+  static Future<Map<String, dynamic>> changeVisitStatus(token,data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -706,10 +721,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------Insert property
-  static Future<Map<String, dynamic>> insertProperty(data, url) async {
+  static Future<Map<String, dynamic>> insertProperty(token, data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
@@ -733,10 +749,11 @@ class StaticMethod {
   }
 
   //----------------------------------------------------------------------------delete property image
-  static Future<Map<String, dynamic>> deletePropertyImage(data, url) async {
+  static Future<Map<String, dynamic>> deletePropertyImage(token, data, url) async {
     var response;
     try {
       Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };

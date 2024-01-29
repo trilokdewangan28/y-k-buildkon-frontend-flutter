@@ -29,7 +29,7 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
-        future: StaticMethod.fetchCustomerRequest(url),
+        future: StaticMethod.fetchCustomerRequest(appState.token, url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.

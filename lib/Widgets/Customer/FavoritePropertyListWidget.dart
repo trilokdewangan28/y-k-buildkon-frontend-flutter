@@ -30,7 +30,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
-        future: StaticMethod.fetchFavoritePropertyListDetails(data,url),
+        future: StaticMethod.fetchFavoritePropertyListDetails(appState.token, data,url),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Display a circular progress indicator while waiting for data.

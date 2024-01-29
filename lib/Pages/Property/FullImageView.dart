@@ -28,7 +28,7 @@ class FullImageView extends StatelessWidget {
          child: CircularProgressIndicator(),
        ),
      );
-     final res = await StaticMethod.deletePropertyImage(data,url);
+     final res = await StaticMethod.deletePropertyImage(appState.token, data,url);
      if(res.isNotEmpty){
        Navigator.pop(context);
        if(res['success']==true){
