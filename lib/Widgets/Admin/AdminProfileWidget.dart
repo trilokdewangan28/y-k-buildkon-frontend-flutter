@@ -8,6 +8,7 @@ import 'package:real_state/Pages/Admin/AdminProfilePage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 class AdminProfileWidget extends StatefulWidget {
   const AdminProfileWidget({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _AdminProfileWidgetState extends State<AdminProfileWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Widget profileContent = Container();
     var url = Uri.parse(ApiLinks.adminProfile);
     var token = appState.token;

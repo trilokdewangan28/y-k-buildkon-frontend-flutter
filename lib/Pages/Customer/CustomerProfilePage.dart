@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 class CustomerProfilePage extends StatefulWidget {
   const CustomerProfilePage({Key? key}) : super(key: key);
@@ -16,6 +17,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
         child: Container(
           width: MediaQuery.of(context).size.width,

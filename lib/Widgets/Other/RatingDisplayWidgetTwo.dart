@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:real_state/config/Constant.dart';
 
 class RatingDisplayWidgetTwo extends StatelessWidget {
   final double rating;
@@ -8,6 +9,7 @@ class RatingDisplayWidgetTwo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     if(rating>3.0){
       color = Colors.green;
     }else{
@@ -22,7 +24,7 @@ class RatingDisplayWidgetTwo extends StatelessWidget {
               (index) => Icon(
             index < rating.floor() ? Icons.star : Icons.star_border,
             color: index < rating.floor() ? color : Colors.grey,
-            size: 20,
+            size: MyConst.mediumTextSize*fontSizeScaleFactor,
           ),
         ),
       ),

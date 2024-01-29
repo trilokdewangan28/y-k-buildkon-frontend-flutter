@@ -497,7 +497,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    //print("proeprty data is ${appState.selectedProperty}");
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
@@ -533,7 +533,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   borderRadius: BorderRadius.circular(25)),
                               child: const Center(
                                   child: Text('no image found')),
-                            )),
+                            )
+                        ),
                       ],
                     )),
                 appState.userType == 'admin'
@@ -573,9 +574,9 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   Expanded(
                     child: Text(
                       '${appState.selectedProperty['property_name'].toUpperCase()}',
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 17,
+                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
                       ),
                       softWrap: true,
                     ),
@@ -595,7 +596,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           rating: appState.selectedProperty['property_rating']
                               .toDouble())),
                   //================================RATING USER COUNT
-                  Text('(${appState.selectedProperty['property_ratingCount']})')
+                  Text('(${appState.selectedProperty['property_ratingCount']})', style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),)
                 ],
               ),
             ),
@@ -607,16 +608,18 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 children: [
                   //============================LOCATION
                   Icon(
-                    Icons.location_on_outlined,
+                    Icons.location_pin,
                     color: Theme.of(context).hintColor,
+                    size: MyConst.mediumTextSize*fontSizeScaleFactor,
                   ),
                   Expanded(
                     child: Text(
                       '${appState.selectedProperty['property_address']}, ${appState.selectedProperty['property_locality']} , ${appState.selectedProperty['property_city']}',
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
-                          fontSize: 14),
+                          fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                      ),
                       softWrap: true,
                     ),
                   )
@@ -629,11 +632,17 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               child: Row(
                 children: [
+                  //============================PRICE ICON
+                  Icon(
+                    Icons.currency_rupee,
+                    color: Theme.of(context).hintColor,
+                    size: MyConst.mediumTextSize*fontSizeScaleFactor,
+                  ),
                   //=============================PRICE
                   Text(
-                    '${appState.selectedProperty['property_price']} ₹',
+                    '${appState.selectedProperty['property_price']}',
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).hintColor),
                   ),
@@ -684,10 +693,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                 decoration: BoxDecoration(
                     border: Border.all(width: 1),
-                    borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10)
+                ),
                 child: Column(
                   children: [
-                    //------------------------------type and area
+                    //-----------------------------type and area
                     Row(
                       children: [
                         //=========================type container
@@ -696,20 +706,21 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 'Type',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 15),
+                                    fontWeight: FontWeight.w600, fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                               ),
                               Icon(
                                 Icons.home_work_outlined,
                                 color: Theme.of(context).hintColor,
+                                size: MyConst.mediumLargeTextSize*fontSizeScaleFactor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_type']}',
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 15,
+                                    fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
                                     color: Colors.grey),
                               )
                             ],
@@ -720,22 +731,23 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.3,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Text(
+                              Text(
                                 'Area',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 15),
+                                    fontWeight: FontWeight.w600, fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                               ),
                               Icon(
                                 Icons.square_foot,
                                 color: Theme.of(context).hintColor,
+                                size: MyConst.mediumLargeTextSize*fontSizeScaleFactor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_area']} ${appState.selectedProperty['property_areaUnit']}',
-                                style: const TextStyle(
+                                style:  TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 15,
+                                    fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
                                     color: Colors.grey),
                               )
                             ],

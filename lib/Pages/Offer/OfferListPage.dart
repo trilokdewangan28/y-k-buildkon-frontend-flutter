@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Property/SinglePropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 class OfferListPage extends StatefulWidget {
   const OfferListPage({Key? key}) : super(key: key);
 
@@ -15,6 +16,7 @@ class _OfferListPageState extends State<OfferListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
           appBar: AppBar(

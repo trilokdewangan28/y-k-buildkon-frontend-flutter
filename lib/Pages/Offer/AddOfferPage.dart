@@ -10,6 +10,7 @@ import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 
 class AddOfferPage extends StatefulWidget {
@@ -152,15 +153,8 @@ class _AddOfferPageState extends State<AddOfferPage> {
   //----------------------------------------------------------------BUILD METHOD
   @override
   Widget build(BuildContext context) {
-    //print('image picker widget rebuild');
-    //print('forWhich value is ${widget.forWhich}');
     final appState = Provider.of<MyProvider>(context, listen: false);
-    //print('initialy image file is :');
-    //print(appState.imageFile);
-
-    popThePage(){
-      Navigator.pop(context);
-    }
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return SafeArea(child: PopScope(
       canPop: true,
         onPopInvoked: (didPop) {

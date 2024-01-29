@@ -4,6 +4,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class FullImageView extends StatelessWidget {
@@ -45,7 +46,7 @@ class FullImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context, listen: false);
-    //print(imageUrl);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: SafeArea(child:
         Scaffold(

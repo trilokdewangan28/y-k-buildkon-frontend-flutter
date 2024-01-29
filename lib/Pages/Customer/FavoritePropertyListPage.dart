@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 class FavoritePropertyListPage extends StatefulWidget {
   const FavoritePropertyListPage({Key? key}) : super(key: key);
@@ -17,6 +18,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     //print(appState.favoritePropertyList);
     return RefreshIndicator(
         child: Container(

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/config/Constant.dart';
 
 class SpacificErrorPage extends StatefulWidget {
   final String fromWidget;
@@ -18,6 +19,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
       child: Container(
         color: Theme.of(context).primaryColor,

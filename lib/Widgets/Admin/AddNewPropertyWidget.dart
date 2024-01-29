@@ -123,6 +123,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     final dropDownCardHeight = MyConst.deviceHeight(context) * 0.06;
     final dropDownCardWidth = MyConst.deviceWidth(context) * 0.41;
     double smallBodyText = 14;

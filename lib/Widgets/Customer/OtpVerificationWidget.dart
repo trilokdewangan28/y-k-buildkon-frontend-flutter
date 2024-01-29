@@ -142,6 +142,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
           appBar: AppBar(

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 class VisitRequestedListPage extends StatefulWidget {
   const VisitRequestedListPage({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     //print(appState.visitRequestedPropertyList);
     return RefreshIndicator(
         child: Container(

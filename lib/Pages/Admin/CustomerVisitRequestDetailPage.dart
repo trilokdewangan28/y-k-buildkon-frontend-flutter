@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class CustomerVisitRequestDetailPage extends StatefulWidget {
@@ -50,6 +51,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     if (appState.selectedCustomerRequest['v_status'] == 0) {
       requestStatus = "New Request";
       statusColor = Colors.orange;

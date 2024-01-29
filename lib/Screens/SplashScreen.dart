@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:real_state/Pages/StaticContentPage/IntroductionPageOne.dart';
 import 'package:real_state/Screens/HomeScreen.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 

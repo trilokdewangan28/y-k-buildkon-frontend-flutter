@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminContactPage extends StatelessWidget {
@@ -27,6 +28,7 @@ class AdminContactPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: SafeArea(
           child: Scaffold(

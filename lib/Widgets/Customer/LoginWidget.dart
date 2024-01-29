@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -153,6 +154,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MediaQuery.of(context).size.width/MyConst.referenceWidth;
     return Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
@@ -171,12 +173,12 @@ class _LoginWidgetState extends State<LoginWidget> {
               ),
               Container(
                 width: double.infinity,
-                child: const Center(
+                child: Center(
                     child:Text(
                       'Welcome To Y&K Buildkon',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
                       ),
                     )
                 ),

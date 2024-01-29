@@ -119,570 +119,621 @@ class _PropertyListPageState extends State<PropertyListPage> {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState) {
-            double dropDownCardWidth = MediaQuery.of(context).size.width * 0.41;
+            double dropDownCardWidth = MyConst.deviceWidth(context)*0.43;
             double dropDownCardHeight =
-                MediaQuery.of(context).size.height * 0.06;
-            double smallBodyText = 14;
+                MyConst.deviceHeight(context) * 0.06;
+            double fontSizeScaleFactor =
+                MyConst.deviceWidth(context) / MyConst.referenceWidth;
+            double smallBodyText = MyConst.smallTextSize*fontSizeScaleFactor;
             return Container(
-              color: Theme.of(context).primaryColor,
-              height: MediaQuery.of(context).size.height*0.8,
-              padding: EdgeInsets.only(top: 20),
-              child: ListView(
-                children: [
-                  Center(
-                    child: Text(
-                      'FILTER OPTION',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600
+                color: Theme.of(context).primaryColor,
+                height: MyConst.deviceHeight(context) * 0.8,
+                padding: EdgeInsets.only(top: MyConst.deviceHeight(context)*0.02),
+                child: ListView(
+                  children: [
+                    Center(
+                      child: Text(
+                        'FILTER OPTION',
+                        style: TextStyle(
+                            fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor, fontWeight: FontWeight.w600),
                       ),
                     ),
-                  ),
-                  Divider(),
-                  Container(
-                    child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).viewInsets.top + 16,
-                            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const SizedBox(
-                                height: 10,
+                    Divider(),
+                    Container(
+                      child: SingleChildScrollView(
+                          child: Container(
+                        padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).viewInsets.top + 16,
+                          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(
+                              height: MyConst.deviceHeight(context)*0.01,
+                            ),
+                            //===========================SPACIFICATION CONTAINER
+                            Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: MyConst.deviceHeight(context)*0.015,
                               ),
-                              //===========================SPACIFICATION CONTAINER
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 15,),
-                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                decoration: BoxDecoration(
-                                    //border: Border.all(width: 1),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Column(
-                                  children: [
-                                    //==========================PROPERTY TYPE
-                                    Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Select Property Type: ',
-                                            style: TextStyle(fontSize: 15),
-                                            softWrap: true,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: MyConst.deviceHeight(context)*0.010, vertical: MyConst.deviceHeight(context)*0.010),
+                              decoration: BoxDecoration(
+                                  //border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
+                                children: [
+                                  //==========================PROPERTY TYPE
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        child: Text(
+                                          'Select Property Type: ',
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                          softWrap: true,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceHeight(context)*0.01,
+                                      ),
+                                      Container(
+                                        height: dropDownCardHeight,
+                                        width: dropDownCardWidth,
+                                        child: Card(
+                                          color: Theme.of(context).primaryColor,
+                                          elevation: 1,
+                                          child: DropdownButton<String>(
+                                            value: selectedPropertyType,
+                                            alignment: Alignment.center,
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              setState(() {
+                                                selectedPropertyType = value!;
+                                              });
+                                            },
+                                            items: propertyType
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text('${value}',
+                                                    softWrap: true,
+                                                    style: TextStyle(
+                                                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                                        overflow: TextOverflow
+                                                            .ellipsis)),
+                                              );
+                                            }).toList(),
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedPropertyType,
-                                              alignment: Alignment.center,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
-
-                                                setState(() {
-                                                  selectedPropertyType = value!;
-
-                                                });
-                                              },
-
-                                              items: propertyType
-                                                  .map<DropdownMenuItem<String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text('${value}',
-                                                          softWrap: true,
-                                                          style: TextStyle(
-                                                              fontSize: smallBodyText,
-                                                              overflow:
-                                                              TextOverflow.ellipsis)),
-                                                    );
-                                                  }).toList(),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
+                                      )
+                                    ],
+                                  ),
 
 //==========================PROPERTY BHK
-                                    selectedPropertyType == 'House' ||
-                                        selectedPropertyType == "Flat"
-                                        ? Row(
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Select Property BHK: ',
-                                            softWrap: true,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          width: dropDownCardWidth,
-                                          height: dropDownCardHeight,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedBhk.toString(),
-                                              elevation: 16,
-                                              alignment: Alignment.center,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
+                                  selectedPropertyType == 'House' ||
+                                          selectedPropertyType == "Flat"
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child: Text(
+                                                'Select Property BHK: ',
+                                                softWrap: true,
+                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                              ),
+                                            ),
+                                             SizedBox(
+                                              width: MyConst.deviceWidth(context)*0.010,
+                                            ),
+                                            Container(
+                                              width: dropDownCardWidth,
+                                              height: dropDownCardHeight,
+                                              child: Card(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                elevation: 1,
+                                                child: DropdownButton<String>(
+                                                  value: selectedBhk.toString(),
+                                                  elevation: 16,
+                                                  alignment: Alignment.center,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedBhk = int.parse(value!);
+                                                    setState(() {
+                                                      selectedBhk =
+                                                          int.parse(value!);
 //print('selected bhk is : ${selectedBhk}');
-                                                });
-                                              },
-                                              items: bhk
-                                                  .map<DropdownMenuItem<String>>(
+                                                    });
+                                                  },
+                                                  items: bhk.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
                                                       (String value) {
-                                                    return DropdownMenuItem<String>(
+                                                    return DropdownMenuItem<
+                                                        String>(
                                                       value: value,
                                                       child: Text('${value}',
                                                           softWrap: true,
                                                           style: TextStyle(
-                                                              fontSize: smallBodyText,
-                                                              overflow: TextOverflow
-                                                                  .ellipsis)),
+                                                              fontSize:
+                                                                  MyConst.smallTextSize*fontSizeScaleFactor,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis)),
                                                     );
                                                   }).toList(),
-                                            ),
-                                          ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
-                                        : Container(),
+                                      : Container(),
 
 //==========================PROPERTY FLOOR
-                                    selectedPropertyType == 'House'
-                                        ? Row(
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Select No. Of Floors: ',
-                                            softWrap: true,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedFloor.toString(),
-                                              alignment: Alignment.center,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
+                                  selectedPropertyType == 'House'
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child:  Text(
+                                                'Select No. Of Floors: ',
+                                                softWrap: true,
+                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: MyConst.deviceWidth(context)*0.010,
+                                            ),
+                                            Container(
+                                              height: dropDownCardHeight,
+                                              width: dropDownCardWidth,
+                                              child: Card(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                elevation: 1,
+                                                child: DropdownButton<String>(
+                                                  value:
+                                                      selectedFloor.toString(),
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedFloor = int.parse(value!);
+                                                    setState(() {
+                                                      selectedFloor =
+                                                          int.parse(value!);
 //print('selected floor is : ${selectedFloor}');
-                                                });
-                                              },
-                                              items: floor
-                                                  .map<DropdownMenuItem<String>>(
+                                                    });
+                                                  },
+                                                  items: floor.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
                                                       (String value) {
-                                                    return DropdownMenuItem<String>(
+                                                    return DropdownMenuItem<
+                                                        String>(
                                                       value: value,
                                                       child: Text('${value}',
                                                           softWrap: true,
-                                                          textAlign: TextAlign.center,
+                                                          textAlign:
+                                                              TextAlign.center,
                                                           style: TextStyle(
-                                                              fontSize: smallBodyText,
-                                                              overflow: TextOverflow
-                                                                  .ellipsis)),
+                                                              fontSize:
+                                                                  MyConst.smallTextSize*fontSizeScaleFactor,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis)),
                                                     );
                                                   }).toList(),
-                                            ),
-                                          ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
-                                        : Container(),
+                                      : Container(),
 
 //==========================isGarden facility
-                                    selectedPropertyType == 'House'
-                                        ? Row(
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Garden Availibility?: ',
-                                            softWrap: true,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedGarden,
-                                              alignment: Alignment.center,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
+                                  selectedPropertyType == 'House'
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child: Text(
+                                                'Garden Availibility?: ',
+                                                softWrap: true,
+                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: MyConst.deviceWidth(context)*0.010,
+                                            ),
+                                            Container(
+                                              height: dropDownCardHeight,
+                                              width: dropDownCardWidth,
+                                              child: Card(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                elevation: 1,
+                                                child: DropdownButton<String>(
+                                                  value: selectedGarden,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedGarden = value!;
+                                                    setState(() {
+                                                      selectedGarden = value!;
 //print('is Garden : ${selectedGarden}');
-                                                });
-                                              },
-                                              items: garden
-                                                  .map<DropdownMenuItem<String>>(
+                                                    });
+                                                  },
+                                                  items: garden.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
                                                       (String value) {
-                                                    return DropdownMenuItem<String>(
+                                                    return DropdownMenuItem<
+                                                        String>(
                                                       value: value,
                                                       child: Text(
                                                         value,
                                                         softWrap: true,
                                                         style: TextStyle(
-                                                          fontSize: smallBodyText,
+                                                          fontSize:
+                                                          MyConst.smallTextSize*fontSizeScaleFactor,
                                                         ),
                                                       ),
                                                     );
                                                   }).toList(),
-                                            ),
-                                          ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
-                                        : Container(),
+                                      : Container(),
 
 //==========================isParking facility
-                                    selectedPropertyType == 'House'
-                                        ? Row(
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Parking Facility?: ',
-                                            softWrap: true,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedParking,
-                                              icon: const Icon(
-                                                Icons.arrow_drop_down_sharp,
-                                                size: 30,
+                                  selectedPropertyType == 'House'
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child:  Text(
+                                                'Parking Facility?: ',
+                                                softWrap: true,
+                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                               ),
-                                              elevation: 16,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
+                                            ),
+                                            SizedBox(
+                                              width: MyConst.deviceWidth(context)*0.010,
+                                            ),
+                                            Container(
+                                              height: dropDownCardHeight,
+                                              width: dropDownCardWidth,
+                                              child: Card(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                elevation: 1,
+                                                child: DropdownButton<String>(
+                                                  value: selectedParking,
+                                                  icon: const Icon(
+                                                    Icons.arrow_drop_down_sharp,
+                                                    size: 30,
+                                                  ),
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedParking = value!;
+                                                    setState(() {
+                                                      selectedParking = value!;
 //print('is Parking : ${selectedParking}');
-                                                });
-                                              },
-                                              items: parking
-                                                  .map<DropdownMenuItem<String>>(
+                                                    });
+                                                  },
+                                                  items: parking.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
                                                       (String value) {
-                                                    return DropdownMenuItem<String>(
+                                                    return DropdownMenuItem<
+                                                        String>(
                                                       value: value,
                                                       child: Text(
                                                         value,
                                                         softWrap: true,
                                                         style: TextStyle(
-                                                            fontSize: smallBodyText),
+                                                            fontSize:
+                                                            MyConst.smallTextSize*fontSizeScaleFactor),
                                                       ),
                                                     );
                                                   }).toList(),
-                                            ),
-                                          ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
-                                        : Container(),
+                                      : Container(),
 
 //==========================isFurnished facility
-                                    selectedPropertyType == 'House' ||
-                                        selectedPropertyType == 'Flat'
-                                        ? Row(
-                                      children: [
-                                        Container(
-                                          width:
-                                          MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Furnished Or Not?: ',
-                                            softWrap: true,
-                                            style: TextStyle(fontSize: 15),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedFurnished,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              alignment: Alignment.center,
-                                              onChanged: (String? value) {
+                                  selectedPropertyType == 'House' ||
+                                          selectedPropertyType == 'Flat'
+                                      ? Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.4,
+                                              child:  Text(
+                                                'Furnished Or Not?: ',
+                                                softWrap: true,
+                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                              ),
+                                            ),
+                                             SizedBox(
+                                              width: MyConst.deviceWidth(context)*0.010,
+                                            ),
+                                            Container(
+                                              height: dropDownCardHeight,
+                                              width: dropDownCardWidth,
+                                              child: Card(
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                elevation: 1,
+                                                child: DropdownButton<String>(
+                                                  value: selectedFurnished,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  alignment: Alignment.center,
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedFurnished = value!;
+                                                    setState(() {
+                                                      selectedFurnished =
+                                                          value!;
 //print('is furnished : ${selectedFurnished}');
-                                                });
-                                              },
-                                              items: furnished
-                                                  .map<DropdownMenuItem<String>>(
+                                                    });
+                                                  },
+                                                  items: furnished.map<
+                                                          DropdownMenuItem<
+                                                              String>>(
                                                       (String value) {
-                                                    return DropdownMenuItem<String>(
+                                                    return DropdownMenuItem<
+                                                        String>(
                                                       value: value,
                                                       child: Text(
                                                         value,
                                                         style: TextStyle(
-                                                            fontSize: smallBodyText),
+                                                            fontSize:
+                                                            MyConst.smallTextSize*fontSizeScaleFactor),
                                                       ),
                                                     );
                                                   }).toList(),
-                                            ),
-                                          ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
                                         )
-                                      ],
-                                    )
-                                        : Container(),
+                                      : Container(),
 
 //==========================AVAILABILITY
-                                    Row(
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context).size.width * 0.4,
-                                          child: const Text(
-                                            'Available Or Not?: ',
-                                            style: TextStyle(fontSize: 15),
-                                          ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        child:  Text(
+                                          'Available Or Not?: ',
+                                          style: TextStyle(fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                            color: Theme.of(context).primaryColor,
-                                            elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedAvailability,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              alignment: Alignment.center,
-                                              onChanged: (String? value) {
+                                      ),
+                                       SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Container(
+                                        height: dropDownCardHeight,
+                                        width: dropDownCardWidth,
+                                        child: Card(
+                                          color: Theme.of(context).primaryColor,
+                                          elevation: 1,
+                                          child: DropdownButton<String>(
+                                            value: selectedAvailability,
+                                            elevation: 16,
+                                            underline: Container(),
+                                            alignment: Alignment.center,
+                                            onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedAvailability = value!;
+                                              setState(() {
+                                                selectedAvailability = value!;
 //print('is available : ${selectedFurnished}');
-                                                });
-                                              },
-                                              items: available
-                                                  .map<DropdownMenuItem<String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text(
-                                                        value,
-                                                        style:
-                                                        TextStyle(fontSize: smallBodyText),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                            ),
+                                              });
+                                            },
+                                            items: available
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                      fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                                ),
+                                              );
+                                            }).toList(),
                                           ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
+                            ),
 
-                              //===================================FILTER BY NAME
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,),
-                                child: Card(
-                                  color: Theme.of(context).primaryColor,
-                                  shadowColor: Colors.black,
-                                  elevation: 2,
-                                  child: TextField(
-                                    onChanged: (value) {
-                                      selectedPropertyName = value;
-                                    },
-                                    controller: TextEditingController(text: selectedPropertyName),
-                                    keyboardType: TextInputType.text,
-                                    style: const TextStyle(fontSize: 15),
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(bottom: 5),
-                                      labelText: 'Filter By Name',
-                                      labelStyle: TextStyle(fontSize: 15),
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(Icons.search),
-                                    ),
-                                    cursorOpacityAnimates: false,
+                            //===================================FILTER BY NAME
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              child: Card(
+                                color: Theme.of(context).primaryColor,
+                                shadowColor: Colors.black,
+                                elevation: 2,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    selectedPropertyName = value;
+                                  },
+                                  controller: TextEditingController(
+                                      text: selectedPropertyName),
+                                  keyboardType: TextInputType.text,
+                                  style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration:  InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 5),
+                                    labelText: 'Filter By Name',
+                                    labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.search),
                                   ),
+                                  cursorOpacityAnimates: false,
                                 ),
                               ),
-                              SizedBox(height: 10,),
-                              //===================================FILTER BY CITY
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15,),
-                                child: Card(
-                                  color: Theme.of(context).primaryColor,
-                                  shadowColor: Colors.black,
-                                  elevation: 2,
-                                  child: TextField(
-                                    onChanged: (value) {
-                                      selectedCity = value;
-                                    },
-                                    controller: TextEditingController(text: selectedCity),
-                                    keyboardType: TextInputType.text,
-                                    style: const TextStyle(fontSize: 15),
-                                    textAlignVertical: TextAlignVertical.center,
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(bottom: 5),
-                                      labelText: 'Filter By City',
-                                      labelStyle: TextStyle(fontSize: 15),
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(Icons.search),
-                                    ),
-                                    cursorOpacityAnimates: false,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            //===================================FILTER BY CITY
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 15,
+                              ),
+                              child: Card(
+                                color: Theme.of(context).primaryColor,
+                                shadowColor: Colors.black,
+                                elevation: 2,
+                                child: TextField(
+                                  onChanged: (value) {
+                                    selectedCity = value;
+                                  },
+                                  controller:
+                                      TextEditingController(text: selectedCity),
+                                  keyboardType: TextInputType.text,
+                                  style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.only(bottom: 5),
+                                    labelText: 'Filter By City',
+                                    labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.search),
                                   ),
+                                  cursorOpacityAnimates: false,
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
 
-                              Container(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          minPrice = 1;
-                                          maxPrice = 100000000;
-                                          propertyId = 0;
-                                          selectedCity = "";
-                                          selectedPropertyType = "All";
-                                          selectedBhk=0;
-                                          selectedFloor=0;
-                                          selectedGarden="None";
-                                          selectedParking="None";
-                                          selectedFurnished="None";
-                                          selectedAvailability = "Yes";
-                                          selectedPropertyName = "";
-                                          StaticMethod.filterProperties(appState,
-                                              propertyName: selectedPropertyName,
-                                              selectedCity: selectedCity,
-                                              minPrice: minPrice,
-                                              maxPrice: maxPrice,
-                                              propertyId: propertyId,
-                                              selectedPropertyType: selectedPropertyType,
-                                              selectedBhk: selectedBhk,
-                                              selectedFloor: selectedFloor,
-                                              selectedGarden: selectedGarden,
-                                              selectedParking: selectedParking,
-                                              selectedFurnished: selectedFurnished,
-                                              selectedAvailability: selectedAvailability
-                                          );
-                                          filterApplied = false;
-                                          Navigator.pop(context);
-                                          setTheState();
-                                        },
-                                        child: const Text(
-                                          'Clear Filter',
-                                          style: TextStyle(color: Colors.red),
-                                        )),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          StaticMethod.filterProperties(appState,
-                                              propertyName: selectedPropertyName,
-                                              selectedCity: selectedCity,
-                                              minPrice: minPrice,
-                                              maxPrice: maxPrice,
-                                              propertyId: propertyId,
-                                              selectedPropertyType: selectedPropertyType,
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        minPrice = 1;
+                                        maxPrice = 100000000;
+                                        propertyId = 0;
+                                        selectedCity = "";
+                                        selectedPropertyType = "All";
+                                        selectedBhk = 0;
+                                        selectedFloor = 0;
+                                        selectedGarden = "None";
+                                        selectedParking = "None";
+                                        selectedFurnished = "None";
+                                        selectedAvailability = "Yes";
+                                        selectedPropertyName = "";
+                                        StaticMethod.filterProperties(appState,
+                                            propertyName: selectedPropertyName,
+                                            selectedCity: selectedCity,
+                                            minPrice: minPrice,
+                                            maxPrice: maxPrice,
+                                            propertyId: propertyId,
+                                            selectedPropertyType:
+                                                selectedPropertyType,
                                             selectedBhk: selectedBhk,
                                             selectedFloor: selectedFloor,
                                             selectedGarden: selectedGarden,
                                             selectedParking: selectedParking,
-                                            selectedFurnished: selectedFurnished,
-                                            selectedAvailability: selectedAvailability
-                                          );
-                                          filterApplied = true;
-                                          Navigator.pop(context);
-                                          setTheState();
-                                        },
-                                        child: const Text('Apply Filter'))
-                                  ],
-                                ),
+                                            selectedFurnished:
+                                                selectedFurnished,
+                                            selectedAvailability:
+                                                selectedAvailability);
+                                        filterApplied = false;
+                                        Navigator.pop(context);
+                                        setTheState();
+                                      },
+                                      child: const Text(
+                                        'Clear Filter',
+                                        style: TextStyle(color: Colors.red),
+                                      )),
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        StaticMethod.filterProperties(appState,
+                                            propertyName: selectedPropertyName,
+                                            selectedCity: selectedCity,
+                                            minPrice: minPrice,
+                                            maxPrice: maxPrice,
+                                            propertyId: propertyId,
+                                            selectedPropertyType:
+                                                selectedPropertyType,
+                                            selectedBhk: selectedBhk,
+                                            selectedFloor: selectedFloor,
+                                            selectedGarden: selectedGarden,
+                                            selectedParking: selectedParking,
+                                            selectedFurnished:
+                                                selectedFurnished,
+                                            selectedAvailability:
+                                                selectedAvailability);
+                                        filterApplied = true;
+                                        Navigator.pop(context);
+                                        setTheState();
+                                      },
+                                      child: const Text('Apply Filter'))
+                                ],
                               ),
-
-
-                            ],
-                          ),
-                        )),
-                  )
-                ],
-              )
-            );
+                            ),
+                          ],
+                        ),
+                      )),
+                    )
+                  ],
+                ));
           },
         );
       },
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor =
+        MyConst.deviceWidth(context) / MyConst.referenceWidth;
     // final height = MyConst.deviceHeight(context);
     // final width = MyConst.deviceWidth(context);
     print('build method called');
@@ -694,47 +745,50 @@ class _PropertyListPageState extends State<PropertyListPage> {
           children: [
             //===========================NAME FILTER CONTAINER
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MyConst.deviceHeight(context) * 0.015),
               child: Row(
                 children: [
                   //=====================================FILTER BY NAME TEXTFIELD
                   Flexible(
                     child: Card(
-                    color: Theme.of(context).primaryColor,
-                    shadowColor: Colors.black,
-                    elevation: 2,
-                    child: TextField(
-                      onChanged: (value) {
-                        selectedPropertyName = value;
-                        setState(() {
-                          StaticMethod.filterProperties(appState,
-                              propertyName: selectedPropertyName,
-                              selectedCity: selectedCity,
-                              minPrice: minPrice,
-                              maxPrice: maxPrice,
-                              propertyId: propertyId,
-                              selectedPropertyType: selectedPropertyType,
-                              selectedBhk: selectedBhk,
-                              selectedFloor: selectedFloor,
-                              selectedGarden: selectedGarden,
-                              selectedParking: selectedParking,
-                              selectedFurnished: selectedFurnished,
-                              selectedAvailability: selectedAvailability);
-                        });
-                      },
-                      keyboardType: TextInputType.text,
-                      style: const TextStyle(fontSize: 15),
-                      textAlignVertical: TextAlignVertical.center,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.only(bottom: 5),
-                        labelText: 'Filter By Name',
-                        labelStyle: TextStyle(fontSize: 15),
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
+                      color: Theme.of(context).primaryColor,
+                      shadowColor: Colors.black,
+                      elevation: 2,
+                      child: TextField(
+                        onChanged: (value) {
+                          selectedPropertyName = value;
+                          setState(() {
+                            StaticMethod.filterProperties(appState,
+                                propertyName: selectedPropertyName,
+                                selectedCity: selectedCity,
+                                minPrice: minPrice,
+                                maxPrice: maxPrice,
+                                propertyId: propertyId,
+                                selectedPropertyType: selectedPropertyType,
+                                selectedBhk: selectedBhk,
+                                selectedFloor: selectedFloor,
+                                selectedGarden: selectedGarden,
+                                selectedParking: selectedParking,
+                                selectedFurnished: selectedFurnished,
+                                selectedAvailability: selectedAvailability);
+                          });
+                        },
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(
+                            fontSize: MyConst.mediumSmallTextSize *
+                                fontSizeScaleFactor),
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.only(bottom: 5),
+                          labelText: 'Filter By Name',
+                          labelStyle: TextStyle(fontSize: 15),
+                          border: InputBorder.none,
+                          prefixIcon: Icon(Icons.search),
+                        ),
+                        cursorOpacityAnimates: false,
                       ),
-                      cursorOpacityAnimates: false,
                     ),
-                  ),
                   ),
                   //=====================================FILTER BTN
                   Column(
@@ -745,9 +799,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10)),
                             child: IconButton(
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.filter_list,
-                                size: 25,
+                                size: MyConst.extraLargeTextSize *
+                                    fontSizeScaleFactor,
                               ),
                               onPressed: () {
                                 //selectedPropertyType = "All";
@@ -756,23 +811,26 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             ),
                           ),
                           filterApplied
-                              ? const Positioned(
-                              bottom: 10,
-                              right: 12,
+                              ? Positioned(
+                              bottom:
+                              MyConst.deviceHeight(context) * 0.010,
+                              right:
+                              MyConst.deviceHeight(context) * 0.012,
                               child: Icon(
                                 Icons.circle,
                                 color: Colors.red,
-                                size: 10,
+                                size:
+                                MyConst.deviceHeight(context) * 0.010,
                               ))
                               : Container()
                         ],
                       ),
-                      const SizedBox(
-                        height: 1,
+                      SizedBox(
+                        height: MyConst.deviceHeight(context) * 0.001,
                       ),
-                      const Text(
+                      Text(
                         'Filters',
-                        style: TextStyle(fontSize: 10),
+                        style: TextStyle(fontSize: 10 * fontSizeScaleFactor),
                       )
                     ],
                   )
@@ -781,12 +839,14 @@ class _PropertyListPageState extends State<PropertyListPage> {
             ),
 
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
+              height: MediaQuery.of(context).size.height * 0.010,
             ),
 
             //=====================================OFFER CONTAINER
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.height * 0.015,
+              ),
               child: FutureBuilder<Map<String, dynamic>>(
                 future: StaticMethod.fetchOfferList(url),
                 builder: (context, snapshot) {
@@ -845,181 +905,212 @@ class _PropertyListPageState extends State<PropertyListPage> {
             //=====================================PROPERTY LIST CONTAINER
             appState.filteredPropertyList.isNotEmpty
                 ? Flexible(
-                    child: ListView.builder(
-                    itemCount: appState.filteredPropertyList.length,
-                    itemBuilder: (context, index) {
-                      final property = appState.filteredPropertyList[index];
-                      return InkWell(
-                        onTap: () {
-                          appState.selectedProperty = property;
-                          appState.activeWidget = "PropertyDetailPage";
-                        },
-                        child: Container(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 4),
-                            child: Card(
-                              shadowColor: Colors.black,
-                              color: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              elevation: 0.5,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  //==============================PROPERTY IMAGE CONTAINER
-                                  Container(
-                                    margin: const EdgeInsets.all(8),
-                                    child: Center(
-                                      child: ClipRRect(
+                child: ListView.builder(
+                  itemCount: appState.filteredPropertyList.length,
+                  itemBuilder: (context, index) {
+                    final property = appState.filteredPropertyList[index];
+                    return InkWell(
+                      onTap: () {
+                        appState.selectedProperty = property;
+                        appState.activeWidget = "PropertyDetailPage";
+                      },
+                      child: Container(
+                          margin: EdgeInsets.symmetric(
+                            horizontal:
+                            MediaQuery.of(context).size.height * 0.010,
+                            vertical:
+                            MediaQuery.of(context).size.height * 0.004,
+                          ),
+                          child: Card(
+                            shadowColor: Colors.black,
+                            color: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                            elevation: 0.5,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                //==============================PROPERTY IMAGE CONTAINER
+                                Container(
+                                  margin: const EdgeInsets.all(8),
+                                  child: Center(
+                                    child: ClipRRect(
+                                        borderRadius:
+                                        BorderRadius.circular(10),
+                                        child: property['pi_name'].length >
+                                            0
+                                            ? CachedNetworkImage(
+                                          imageUrl:
+                                          '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}',
+                                          placeholder: (context,
+                                              url) =>
+                                          const LinearProgressIndicator(),
+                                          errorWidget: (context, url,
+                                              error) =>
+                                          const Icon(Icons.error),
+                                          height:
+                                          MyConst.deviceHeight(
+                                              context) *
+                                              0.1,
+                                          width: MyConst.deviceWidth(
+                                              context) *
+                                              0.25,
+                                          fit: BoxFit.fill,
+                                        )
+                                            : ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: property['pi_name'].length > 0
-                                              ? CachedNetworkImage(
-                                                  imageUrl:
-                                                      '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}',
-                                                  placeholder: (context, url) =>
-                                                      const LinearProgressIndicator(),
-                                                  errorWidget: (context, url,
-                                                          error) =>
-                                                      const Icon(Icons.error),
-                                                  height: MyConst.deviceHeight(
-                                                          context) *
-                                                      0.1,
-                                                  width: MyConst.deviceWidth(
-                                                          context) *
-                                                      0.25,
-                                                  fit: BoxFit.fill,
-                                                )
-                                              : ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Image.asset(
-                                                    'assets/images/home.jpg',
-                                                    width: MyConst.deviceWidth(
-                                                            context) *
-                                                        0.25,
-                                                    height:
-                                                        MyConst.deviceHeight(
-                                                                context) *
-                                                            0.1,
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                )
-                                      ),
-                                    ),
-                                  ),
-
-                                  //==============================PROPERTY DETAIL CONTAINER
-                                  Flexible(
-                                      child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 4, vertical: 8),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        //=======================NAME CONTAINER
-                                        Text(
-                                          '${property['property_name'].toUpperCase()}',
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600,
+                                          BorderRadius.circular(
+                                              10),
+                                          child: Image.asset(
+                                            'assets/images/home.jpg',
+                                            width:
+                                            MyConst.deviceWidth(
+                                                context) *
+                                                0.25,
+                                            height:
+                                            MyConst.deviceHeight(
+                                                context) *
+                                                0.1,
+                                            fit: BoxFit.fill,
                                           ),
-                                          softWrap: true,
-                                        ),
+                                        )),
+                                  ),
+                                ),
 
-                                        //=======================AREA TEXT
-                                        Text(
-                                          '${property['property_area']}  ${property['property_areaUnit']}',
-                                          softWrap: true,
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              color: Colors.grey,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-
-                                        //=======================PRICE ROW SECTION
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.currency_rupee,
-                                              color:
-                                                  Theme.of(context).hintColor,
-                                              size: 15,
+                                //==============================PROPERTY DETAIL CONTAINER
+                                Flexible(
+                                    child: Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 4, vertical: 8),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          //=======================NAME CONTAINER
+                                          Text(
+                                            '${property['property_name'].toUpperCase()}',
+                                            style: TextStyle(
+                                              fontSize: MyConst.smallTextSize *
+                                                  fontSizeScaleFactor,
+                                              fontWeight: FontWeight.w600,
                                             ),
-                                            Flexible(
-                                              child: Text(
-                                                '${property['property_price']}',
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.grey,
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                                softWrap: true,
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                            softWrap: true,
+                                          ),
 
-                                        //=======================LOCATION ROW SECTION
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.location_pin,
-                                              color:
-                                                  Theme.of(context).hintColor,
-                                              size: 20,
-                                            ),
-                                            Flexible(
-                                                child: Text(
-                                              '${property['property_locality']}, ${property['property_city']}',
-                                              style: const TextStyle(
+                                          //=======================AREA TEXT
+                                          Text(
+                                            '${property['property_area']}  ${property['property_areaUnit']}',
+                                            softWrap: true,
+                                            style: TextStyle(
+                                                fontSize:
+                                                MyConst.smallTextSize *
+                                                    fontSizeScaleFactor,
                                                 color: Colors.grey,
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              softWrap: true,
-                                            ))
-                                          ],
-                                        ),
+                                                fontWeight: FontWeight.w500),
+                                          ),
 
-                                        //=======================RATING ROW SECTION
-                                        Row(
-                                          children: [
-                                            RatingDisplayWidgetTwo(
-                                              rating:
-                                                  property['property_rating']
-                                                      .toDouble(),
-                                            ),
-                                            Flexible(
+                                          //=======================PRICE ROW SECTION
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                Icons.currency_rupee,
+                                                color:
+                                                Theme.of(context).hintColor,
+                                                size: MyConst
+                                                    .mediumSmallTextSize *
+                                                    fontSizeScaleFactor,
+                                              ),
+                                              Flexible(
                                                 child: Text(
-                                              '(${property['property_ratingCount']})',
-                                              softWrap: true,
-                                            ))
-                                          ],
-                                        ),
-                                        //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
-                                      ],
-                                    ),
-                                  ))
-                                ],
-                              ),
-                            )),
-                      );
-                    },
-                  ))
+                                                  '${property['property_price']}',
+                                                  style: TextStyle(
+                                                      fontSize: MyConst
+                                                          .smallTextSize *
+                                                          fontSizeScaleFactor,
+                                                      color: Colors.grey,
+                                                      fontWeight:
+                                                      FontWeight.w500),
+                                                  softWrap: true,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+
+                                          //=======================LOCATION ROW SECTION
+                                          Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Icon(
+                                                Icons.location_pin,
+                                                color:
+                                                Theme.of(context).hintColor,
+                                                size: MyConst
+                                                    .mediumSmallTextSize *
+                                                    fontSizeScaleFactor,
+                                              ),
+                                              Flexible(
+                                                  child: Text(
+                                                    '${property['property_locality']}, ${property['property_city']}',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize:
+                                                      MyConst.smallTextSize *
+                                                          fontSizeScaleFactor,
+                                                      fontWeight: FontWeight.w500,
+                                                    ),
+                                                    softWrap: true,
+                                                  ))
+                                            ],
+                                          ),
+
+                                          //=======================RATING ROW SECTION
+                                          Row(
+                                            children: [
+                                              RatingDisplayWidgetTwo(
+                                                rating:
+                                                property['property_rating']
+                                                    .toDouble(),
+                                              ),
+                                              Flexible(
+                                                child: Text(
+                                                  '(${property['property_ratingCount']})',
+                                                  style: TextStyle(
+                                                    fontSize:
+                                                    MyConst.smallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  softWrap: true,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
+                                        ],
+                                      ),
+                                    ))
+                              ],
+                            ),
+                          )),
+                    );
+                  },
+                ))
                 : Container(
-                    margin: const EdgeInsets.symmetric(vertical: 100),
-                    child: const Center(
-                      child: Text(
-                        'No Such Properties',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  )
+              margin: EdgeInsets.symmetric(
+                  vertical: MyConst.deviceHeight(context) * 0.2),
+              child: const Center(
+                child: Text(
+                  'No Such Properties',
+                  style: TextStyle(
+                      fontSize: MyConst.largeTextSize,
+                      fontWeight: FontWeight.w500),
+                ),
+              ),
+            )
           ],
         ),
         onRefresh: () async {

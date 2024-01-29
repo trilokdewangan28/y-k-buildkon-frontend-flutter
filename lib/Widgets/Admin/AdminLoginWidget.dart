@@ -5,6 +5,7 @@ import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 class AdminLoginWidget extends StatefulWidget {
   const AdminLoginWidget({Key? key}) : super(key: key);
@@ -144,6 +145,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,

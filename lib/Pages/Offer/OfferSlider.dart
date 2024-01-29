@@ -20,6 +20,7 @@ class _OfferSliderState extends State<OfferSlider>                {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Column(
       children: [
         Container(

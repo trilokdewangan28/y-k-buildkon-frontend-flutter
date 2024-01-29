@@ -8,6 +8,7 @@ import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 class CustomerVisitRequestListWidget extends StatefulWidget {
   const CustomerVisitRequestListWidget({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Widget visitRequestContent = Container();
     var url = Uri.parse(ApiLinks.fetchCustomerRequest);
     List<Map<String, dynamic>> propertyListDemo = [];

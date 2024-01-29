@@ -5,6 +5,7 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
 class VisitRequestedDetailPage extends StatefulWidget {
@@ -311,6 +312,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     //print(appState.selectedProperty);
     return Container(
         color: Theme.of(context).primaryColor,

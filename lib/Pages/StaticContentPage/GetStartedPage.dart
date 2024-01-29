@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:real_state/Screens/HomeScreen.dart';
+import 'package:real_state/config/Constant.dart';
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(

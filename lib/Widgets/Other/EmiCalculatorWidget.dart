@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:real_state/config/Constant.dart';
 
 class EmiCalculatorWidget extends StatefulWidget {
   const EmiCalculatorWidget({Key? key}) : super(key: key);
@@ -46,6 +47,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
 
   @override
   Widget build(BuildContext context) {
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
           appBar: AppBar(

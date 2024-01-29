@@ -9,6 +9,7 @@ import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
+import 'package:real_state/config/Constant.dart';
 
 
 class ImagePickerPage extends StatefulWidget {
@@ -108,11 +109,8 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   //----------------------------------------------------------------BUILD METHOD
   @override
   Widget build(BuildContext context) {
-    //print('image picker widget rebuild');
-    //print('forWhich value is ${widget.forWhich}');
     final appState = Provider.of<MyProvider>(context, listen: false);
-    //print('initialy image file is :');
-    //print(appState.imageFile);
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return SafeArea(child: PopScope(
       onPopInvoked: (didPop) {
         appState.imageFile = null;

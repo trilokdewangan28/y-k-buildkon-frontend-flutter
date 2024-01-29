@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:real_state/Pages/StaticContentPage/IntroductionPageTwo.dart';
+import 'package:real_state/config/Constant.dart';
 class IntroductionPageOne extends StatelessWidget {
   const IntroductionPageOne({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
