@@ -21,7 +21,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    //print(appState.visitRequestedPropertyList);
+    print('visit requested property list is : ${appState.visitRequestedPropertyList}');
     return RefreshIndicator(
         child: Container(
           color: Theme.of(context).primaryColor,
@@ -68,7 +68,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                     child: Center(
                                       child: ClipRRect(
                                           borderRadius: BorderRadius.circular(10),
-                                          child: property['pi_name'].length > 0
+                                          child: property['pi_name'] != null && property['pi_name'].length > 0
                                               ? CachedNetworkImage(
                                             imageUrl:
                                             '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}',

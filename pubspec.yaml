@@ -50,6 +50,7 @@ dependencies:
   shared_preferences: ^2.2.2
   carousel_slider: ^4.2.1
   carousel_indicator: ^1.0.6
+  shimmer: ^3.0.0
 
 
 
@@ -81,6 +82,7 @@ flutter:
     - assets/images/map.jpg
     - assets/images/logo.png
     - assets/images/home.jpg
+    - assets/Icons/filter.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -87,19 +87,19 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             ),
 
 
-            //------------------------------------------edit btn
-            Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        elevation: 4
-                    ),
-                    onPressed: (){},
-                    child: Text('Edit Details',style: TextStyle(color: Theme.of(context).hintColor),)
-                )
-            ),
-            const SizedBox(height: 20,),
+            // //------------------------------------------edit btn
+            // Container(
+            //     margin: const EdgeInsets.symmetric(vertical: 15),
+            //     child: ElevatedButton(
+            //         style: ElevatedButton.styleFrom(
+            //             backgroundColor: Theme.of(context).hintColor,
+            //             elevation: 4
+            //         ),
+            //         onPressed: (){},
+            //         child: Text('Edit Details',style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600),)
+            //     )
+            // ),
+             const SizedBox(height: 20,),
 
             //-----------------------------------------customer visit request
             Container(
@@ -125,7 +125,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 )
             ),
 
-            const SizedBox(height: 15,),
+            //const SizedBox(height: 5,),
 
             //----------------------------------------customer payment history
             Container(
@@ -148,7 +148,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 )
             ),
 
-            const SizedBox(height: 15,),
+           // const SizedBox(height: 15,),
 
             //----------------------------------------sold property list
             Container(
@@ -170,7 +170,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   ),
                 )
             ),
-            const SizedBox(height: 15,),
+           // const SizedBox(height: 15,),
 
             //----------------------------------------LIST NEW PROPERTY
             Container(
@@ -194,12 +194,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   ),
                 )
             ),
-            const SizedBox(height: 15,),
+            //const SizedBox(height: 15,),
 
             //----------------------------------------logout btn
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                // width: MediaQuery.of(context).size.width*0.85,
+                width: MediaQuery.of(context).size.width*0.5,
                 height: MediaQuery.of(context).size.height*0.07,
                 child: InkWell(
                   onTap: ()async{
@@ -231,11 +231,9 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   child: Card(
                     color: Theme.of(context).primaryColor,
                     child: const  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(width: 15,),
-                        Icon(Icons.logout_sharp),
-                        SizedBox(width: 15,),
-                        Text('Log Out from your account', style: TextStyle(color: Colors.red),),
+                        Text('Log Out', style: TextStyle(color: Colors.red,fontWeight: FontWeight.w600),),
                       ],
                     ),
                   ),

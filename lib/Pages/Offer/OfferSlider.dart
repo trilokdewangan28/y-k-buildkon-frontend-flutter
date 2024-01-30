@@ -35,9 +35,9 @@ class _OfferSliderState extends State<OfferSlider>                {
                 margin: const EdgeInsets.symmetric(horizontal: 5.0),
                 decoration:  BoxDecoration(
                   color: Colors.white70,
-                  //borderRadius: BorderRadius.circular(8.0),
+                  borderRadius: BorderRadius.circular(10),
                   image: DecorationImage(
-                    image: CachedNetworkImageProvider(imageUrl),
+                    image: CachedNetworkImageProvider(imageUrl,),
                     //NetworkImage(offerImages[index]),
                     fit: BoxFit.cover,
                   ),

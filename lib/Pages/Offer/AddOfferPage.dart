@@ -347,7 +347,8 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                   }
                                 },
                                 child: Text('Submit', style: TextStyle(
-                                    color: Theme.of(context).primaryColor
+                                    color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.w600
                                 ),)
                             )
                           ],

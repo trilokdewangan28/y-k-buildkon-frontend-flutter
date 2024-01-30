@@ -44,7 +44,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.requestVisit(appState.token, requestData, url);
+    final res =
+        await StaticMethod.requestVisit(appState.token, requestData, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -104,7 +105,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.removeFromFavorite(appState.token, data, url);
+    final res =
+        await StaticMethod.removeFromFavorite(appState.token, data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -132,7 +134,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       "p_id": appState.selectedProperty['property_id']
     };
     var url = Uri.parse(ApiLinks.fetchFavoriteProperty);
-    final res = await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
+    final res =
+        await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
     if (res.isNotEmpty) {
       if (res['success'] == true) {
         print(res);
@@ -163,7 +166,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       ),
     );
 
-    final response = await StaticMethod.submitPropertyRating(appState.token, data, url);
+    final response =
+        await StaticMethod.submitPropertyRating(appState.token, data, url);
     Navigator.pop(context);
     if (response.isNotEmpty) {
       if (response['success'] == true) {
@@ -351,141 +355,149 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                  color: Theme.of(context).primaryColor,
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).viewInsets.top + 16,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-              ),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const SizedBox(
-                      height: 10,
+                    color: Theme.of(context).primaryColor,
+                    padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).viewInsets.top + 16,
+                      bottom: MediaQuery.of(context).viewInsets.bottom + 16,
                     ),
-                    //===================================VISITOR NAME TEXTFIELD
-                     Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,),
-                        child: TextFormField(
-                            controller: _visitorNameController,
-                            focusNode: _visitorNameFocusNode,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                                labelText: 'Visitors Name',
-                                border:OutlineInputBorder(),
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'should not be empty';
-                              }
-                              return null;
-                            }
-                        ),
-                    ),
-                    SizedBox(height: 15,),
-
-                    //===================================VISITOR NUMBER TEXTFIELD
-                    Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,),
-                        child: TextFormField(
-                            controller: _visitorNumberController,
-                            focusNode: _visitorNumberFocusNode,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                labelText: 'Visitors Mobile Number',
-                                border: OutlineInputBorder()
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'should not be empty';
-                              }
-                              return null;
-                            }
-                        ),
-                    ),
-                    SizedBox(height: 15,),
-
-                    //===================================VISITING DATE TEXTFIELD
-                    Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,),
-                        child: TextFormField(
-                            controller: _visitingDateController,
-                            focusNode: _visitingDateFocusNode,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                labelText: 'Vising Date',
-                                labelStyle: TextStyle(color: Colors.black),
-                                border: OutlineInputBorder()
-                            ),
-                            onTap: () => _selectDate(context),
-                            readOnly: true,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'date should not be empty';
-                              }
-                              return null;
-                            }),
-                    ),
-                    SizedBox(height: 15,),
-
-
-                    //===================================EMPLOYEE REFERENCE NUMBER TEXTFIELD
-                    Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,),
-                        child: TextField(
-                          controller: _employeeRefNoController,
-                          focusNode: _employeeRefNoFocusNode,
-                          keyboardType: TextInputType.text,
-                          decoration: const InputDecoration(
-                              labelText: 'Employee Reference Number ( optional )',
-                              border: OutlineInputBorder()
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(
+                            height: 10,
                           ),
-                        ),
-                    ),
+                          //===================================VISITOR NAME TEXTFIELD
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: TextFormField(
+                                controller: _visitorNameController,
+                                focusNode: _visitorNameFocusNode,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                  labelText: 'Visitors Name',
+                                  border: OutlineInputBorder(),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'should not be empty';
+                                  }
+                                  return null;
+                                }),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
 
-                    //====================================SUBMIT BTN
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 15),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).hintColor),
-                          onPressed: () {
+                          //===================================VISITOR NUMBER TEXTFIELD
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: TextFormField(
+                                controller: _visitorNumberController,
+                                focusNode: _visitorNumberFocusNode,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    labelText: 'Visitors Mobile Number',
+                                    border: OutlineInputBorder()),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'should not be empty';
+                                  }
+                                  return null;
+                                }),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
 
-                            if (_formKey.currentState!.validate()) {
-                              var visitData = {
-                                "visitor_name": _visitorNameController.text,
-                                "visitor_number": _visitorNumberController.text,
-                                "employee_un":_employeeRefNoController.text ?? "",
-                                "v_date": _visitingDateController.text,
-                                "c_id": appState.customerDetails['customer_id'],
-                                "p_id": appState.selectedProperty['property_id']
-                              };
-                              bookVisit(visitData, appState, pageContext);
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Text(
-                            'Submit',
-                            style:
-                            TextStyle(color: Theme.of(context).primaryColor),
-                          )),
-                    )
-                  ],
-                ),
-              )
-            ));
+                          //===================================VISITING DATE TEXTFIELD
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: TextFormField(
+                                controller: _visitingDateController,
+                                focusNode: _visitingDateFocusNode,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    labelText: 'Vising Date',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    border: OutlineInputBorder()),
+                                onTap: () => _selectDate(context),
+                                readOnly: true,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'date should not be empty';
+                                  }
+                                  return null;
+                                }),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+
+                          //===================================EMPLOYEE REFERENCE NUMBER TEXTFIELD
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            child: TextField(
+                              controller: _employeeRefNoController,
+                              focusNode: _employeeRefNoFocusNode,
+                              keyboardType: TextInputType.text,
+                              decoration: const InputDecoration(
+                                  labelText:
+                                      'Employee Reference Number ( optional )',
+                                  border: OutlineInputBorder()),
+                            ),
+                          ),
+
+                          //====================================SUBMIT BTN
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 15),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Theme.of(context).hintColor),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    var visitData = {
+                                      "visitor_name":
+                                          _visitorNameController.text,
+                                      "visitor_number":
+                                          _visitorNumberController.text,
+                                      "employee_un":
+                                          _employeeRefNoController.text ?? "",
+                                      "v_date": _visitingDateController.text,
+                                      "c_id": appState
+                                          .customerDetails['customer_id'],
+                                      "p_id": appState
+                                          .selectedProperty['property_id']
+                                    };
+                                    bookVisit(visitData, appState, pageContext);
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child: Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
+                                )),
+                          )
+                        ],
+                      ),
+                    )));
           },
         );
       },
     );
   }
-
 
   @override
   void initState() {
@@ -497,7 +509,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
-    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
+    double fontSizeScaleFactor =
+        MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
@@ -509,57 +522,57 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             Stack(
               children: [
                 Padding(
-                    padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
                     child: Stack(
                       children: [
                         ClipRRect(
-                            child: appState.selectedProperty['pi_name'].length !=
-                                0
-                                ? Container(
-                              width: double.infinity,
-                              decoration:
-                              const BoxDecoration(color: Colors.white),
-                              child: ImageSlider(
-                                propertyData: appState.selectedProperty,
-                                asFinder: true,
-                              ),
-                            )
-                                : Container(
-                              height: 200,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey,
-                                  borderRadius: BorderRadius.circular(25)),
-                              child: const Center(
-                                  child: Text('no image found')),
-                            )
-                        ),
+                            child:
+                                appState.selectedProperty['pi_name'].length != 0
+                                    ? Container(
+                                        width: double.infinity,
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white),
+                                        child: ImageSlider(
+                                          propertyData:
+                                              appState.selectedProperty,
+                                          asFinder: true,
+                                        ),
+                                      )
+                                    : Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Theme.of(context).primaryColor,
+                                            border: Border.all(width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Image.asset('assets/images/home.jpg', height: 150,)
+                                      )),
                       ],
                     )),
                 appState.userType == 'admin'
                     ? Positioned(
-                    bottom: 25,
-                    right: 25,
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Theme.of(context).hintColor,
-                      child: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ImagePickerPage(
-                                      userDetails:
-                                      appState.selectedProperty,
-                                      forWhich: 'propertyImage',
-                                    )));
-                          },
-                          icon: Icon(
-                            Icons.edit,
-                            color: Theme.of(context).primaryColor,
-                          )),
-                    ))
+                        bottom: 25,
+                        right: 25,
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundColor: Theme.of(context).hintColor,
+                          child: IconButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ImagePickerPage(
+                                              userDetails:
+                                                  appState.selectedProperty,
+                                              forWhich: 'propertyImage',
+                                            )));
+                              },
+                              icon: Icon(
+                                Icons.edit,
+                                color: Theme.of(context).primaryColor,
+                              )),
+                        ))
                     : Container()
               ],
             ),
@@ -574,9 +587,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   Expanded(
                     child: Text(
                       '${appState.selectedProperty['property_name'].toUpperCase()}',
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
+                        fontSize:
+                            MyConst.mediumSmallTextSize * fontSizeScaleFactor,
                       ),
                       softWrap: true,
                     ),
@@ -589,14 +603,19 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   InkWell(
                       onTap: appState.userType == 'customer'
                           ? () {
-                        _showBottomSheetForSubmitRating(context, appState);
-                      }
+                              _showBottomSheetForSubmitRating(
+                                  context, appState);
+                            }
                           : null,
                       child: RatingDisplayWidgetTwo(
                           rating: appState.selectedProperty['property_rating']
                               .toDouble())),
                   //================================RATING USER COUNT
-                  Text('(${appState.selectedProperty['property_ratingCount']})', style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),)
+                  Text(
+                    '(${appState.selectedProperty['property_ratingCount']})',
+                    style: TextStyle(
+                        fontSize: MyConst.smallTextSize * fontSizeScaleFactor),
+                  )
                 ],
               ),
             ),
@@ -610,7 +629,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   Icon(
                     Icons.location_pin,
                     color: Theme.of(context).hintColor,
-                    size: MyConst.mediumTextSize*fontSizeScaleFactor,
+                    size: MyConst.mediumTextSize * fontSizeScaleFactor,
                   ),
                   Expanded(
                     child: Text(
@@ -618,8 +637,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       style: TextStyle(
                           color: Colors.grey,
                           fontWeight: FontWeight.w500,
-                          fontSize: MyConst.smallTextSize*fontSizeScaleFactor
-                      ),
+                          fontSize:
+                              MyConst.smallTextSize * fontSizeScaleFactor),
                       softWrap: true,
                     ),
                   )
@@ -636,13 +655,13 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   Icon(
                     Icons.currency_rupee,
                     color: Theme.of(context).hintColor,
-                    size: MyConst.mediumTextSize*fontSizeScaleFactor,
+                    size: MyConst.mediumTextSize * fontSizeScaleFactor,
                   ),
                   //=============================PRICE
                   Text(
                     '${appState.selectedProperty['property_price']}',
                     style: TextStyle(
-                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                        fontSize: MyConst.smallTextSize * fontSizeScaleFactor,
                         fontWeight: FontWeight.w700,
                         color: Theme.of(context).hintColor),
                   ),
@@ -650,35 +669,37 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   //=============================FAVRITE BTN
                   appState.userType == 'customer'
                       ? IconButton(
-                      onPressed: appState.userType == 'customer'
-                          ? () {
-                        if (appState.customerDetails.isNotEmpty) {
-                          //print(appState.customerDetails);
-                          var data = {
-                            "c_id": appState.customerDetails['customer_id'],
-                            "p_id": appState.selectedProperty['property_id']
-                          };
+                          onPressed: appState.userType == 'customer'
+                              ? () {
+                                  if (appState.customerDetails.isNotEmpty) {
+                                    //print(appState.customerDetails);
+                                    var data = {
+                                      "c_id": appState
+                                          .customerDetails['customer_id'],
+                                      "p_id": appState
+                                          .selectedProperty['property_id']
+                                    };
 
-                          appState.addedToFavorite == false
-                              ? addToFavorite(data, appState, context)
-                              : removeFromFavorite(
-                              data, appState, context);
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                              content: Text(
-                                'you have to login. please login',
-                                style: TextStyle(color: Colors.red),
-                              )));
-                        }
-                      }
-                          : null,
-                      icon: appState.addedToFavorite == false
-                          ? const Icon(Icons.favorite_outline)
-                          : const Icon(
-                        Icons.favorite,
-                        color: Colors.red,
-                      ))
+                                    appState.addedToFavorite == false
+                                        ? addToFavorite(data, appState, context)
+                                        : removeFromFavorite(
+                                            data, appState, context);
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                            content: Text(
+                                      'you have to login. please login',
+                                      style: TextStyle(color: Colors.red),
+                                    )));
+                                  }
+                                }
+                              : null,
+                          icon: appState.addedToFavorite == false
+                              ? const Icon(Icons.favorite_outline)
+                              : const Icon(
+                                  Icons.favorite,
+                                  color: Colors.red,
+                                ))
                       : Container(),
                 ],
               ),
@@ -690,11 +711,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             //=================================ROW 4
             Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                 decoration: BoxDecoration(
                     border: Border.all(width: 1),
-                    borderRadius: BorderRadius.circular(10)
-                ),
+                    borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     //-----------------------------type and area
@@ -708,19 +729,25 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             children: [
                               Text(
                                 'Type',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MyConst.smallTextSize *
+                                        fontSizeScaleFactor),
                               ),
                               Icon(
                                 Icons.home_work_outlined,
                                 color: Theme.of(context).hintColor,
-                                size: MyConst.mediumLargeTextSize*fontSizeScaleFactor,
+                                size: MyConst.mediumLargeTextSize *
+                                    fontSizeScaleFactor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_type']}',
-                                style:  TextStyle(
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                    fontSize: MyConst.smallTextSize *
+                                        fontSizeScaleFactor,
                                     color: Colors.grey),
                               )
                             ],
@@ -731,23 +758,29 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         Container(
                           width: MediaQuery.of(context).size.width * 0.3,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 'Area',
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MyConst.smallTextSize *
+                                        fontSizeScaleFactor),
                               ),
                               Icon(
-                                Icons.square_foot,
+                                Icons.square_foot_outlined,
                                 color: Theme.of(context).hintColor,
-                                size: MyConst.mediumLargeTextSize*fontSizeScaleFactor,
+                                size: MyConst.mediumLargeTextSize *
+                                    fontSizeScaleFactor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_area']} ${appState.selectedProperty['property_areaUnit']}',
-                                style:  TextStyle(
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                    fontSize: MyConst.smallTextSize *
+                                        fontSizeScaleFactor,
                                     color: Colors.grey),
                               )
                             ],
@@ -762,64 +795,68 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                     //-----------------------------bhk and furnished
                     appState.selectedProperty['property_type'] == 'House' ||
-                        appState.selectedProperty['property_type'] == 'Flat'
+                            appState.selectedProperty['property_type'] == 'Flat'
                         ? Row(
-                      children: [
-                        //==========================BHK CONTAINER
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'BHK',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
+                              //==========================BHK CONTAINER
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'BHK',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15),
+                                    ),
+                                    Icon(
+                                      Icons.bedroom_parent_outlined,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                    Text(
+                                      '${appState.selectedProperty['property_bhk']}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          color: Colors.grey),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Icon(
-                                Icons.bedroom_parent_sharp,
-                                color: Theme.of(context).hintColor,
-                              ),
-                              Text(
-                                '${appState.selectedProperty['property_bhk']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: Colors.grey),
+                              const Spacer(),
+                              //==========================FURNISHED CONTAINER
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Furnished',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15),
+                                    ),
+                                    Icon(
+                                      Icons.chair_outlined,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                    Text(
+                                      '${appState.selectedProperty['property_isFurnished']}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          color: Colors.grey),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
-                          ),
-                        ),
-                        const Spacer(),
-                        //==========================FURNISHED CONTAINER
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Furnished',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                              Icon(
-                                Icons.chair,
-                                color: Theme.of(context).hintColor,
-                              ),
-                              Text(
-                                '${appState.selectedProperty['property_isFurnished']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
+                          )
                         : Container(),
 
                     const SizedBox(
@@ -829,62 +866,66 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     //---------------------------garden and parking
                     appState.selectedProperty['property_type'] == 'House'
                         ? Row(
-                      children: [
-                        //==============================garden container
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                'Garden',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
+                              //==============================garden container
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Garden',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15),
+                                    ),
+                                    Icon(
+                                      Icons.park_outlined,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                    Text(
+                                      '${appState.selectedProperty['property_isGarden']}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          color: Colors.grey),
+                                    )
+                                  ],
+                                ),
                               ),
-                              Icon(
-                                Icons.park_outlined,
-                                color: Theme.of(context).hintColor,
-                              ),
-                              Text(
-                                '${appState.selectedProperty['property_isGarden']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: Colors.grey),
+                              const Spacer(),
+                              //==============================parking container
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Parking',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15),
+                                    ),
+                                    Icon(
+                                      Icons.local_parking_outlined,
+                                      color: Theme.of(context).hintColor,
+                                    ),
+                                    Text(
+                                      '${appState.selectedProperty['property_isParking']}',
+                                      textAlign: TextAlign.center,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15,
+                                          color: Colors.grey),
+                                    )
+                                  ],
+                                ),
                               )
                             ],
-                          ),
-                        ),
-                        const Spacer(),
-                        //==============================parking container
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Parking',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                              Icon(
-                                Icons.local_parking,
-                                color: Theme.of(context).hintColor,
-                              ),
-                              Text(
-                                '${appState.selectedProperty['property_isParking']}',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15,
-                                    color: Colors.grey),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    )
+                          )
                         : Container(),
                   ],
                 )),
@@ -924,7 +965,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               ),
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                 child: InkWell(
                   highlightColor: Theme.of(context).primaryColorDark,
                   onTap: () {
@@ -946,84 +988,101 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             //===========================================BUTTONS
             appState.userType == 'customer'
                 ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).hintColor,
-                          foregroundColor: Theme.of(context).primaryColor),
-                      onPressed: () {
-                        _showVisitDetailContainer(appState, context);
-                      },
-                      child: Text(
-                        'Request Visit',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor),
-                      )),
-                ),
-                Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).hintColor,
-                            foregroundColor:
-                            Theme.of(context).primaryColor),
-                        onPressed: () {
-                          //Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                  const FetchAdminContactWidget()));
-                          appState.currentState = 0;
-                        },
-                        child: Text(
-                          'Contact Now',
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColor),
-                        ))),
-              ],
-            )
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Theme.of(context).hintColor,
+                                foregroundColor:
+                                    Theme.of(context).primaryColor),
+                            onPressed: () {
+                              _showVisitDetailContainer(appState, context);
+                            },
+                            child: Text(
+                              'Request Visit',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            )),
+                      ),
+                      Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Theme.of(context).hintColor,
+                                  foregroundColor:
+                                      Theme.of(context).primaryColor),
+                              onPressed: () {
+                                //Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const FetchAdminContactWidget()));
+                                appState.currentState = 0;
+                              },
+                              child: Text(
+                                'Contact Now',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor),
+                              ))),
+                    ],
+                  )
                 : Container(),
             appState.userType == 'customer'
                 ? Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).hintColor),
-                  onPressed: () {},
-                  child: Text(
-                    'Book Now',
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  )),
-            )
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).hintColor),
+                        onPressed: () {},
+                        child: Text(
+                          'Book Now',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                        )),
+                  )
                 : Container(),
 
             //=======================================OFFER RELATED ROW
             Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-              child: Row(
-                children: [
-                  appState.userType=='admin'
-                      ? ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AddOfferPage(
-                                  p_id: appState
-                                      .selectedProperty['property_id'],
-                                  forWhich: "offerImage",
-                                )));
-                      },
-                      child: const Text('Add Offers'))
-                      : Container(),
-                  appState.userType=='admin' ? const Spacer() : Container(),
-                  ElevatedButton(onPressed: () {}, child: const Text('See Offers'))
-                ],
+              height: MyConst.deviceHeight(context)*0.3,
+              width: MyConst.deviceWidth(context),
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(10)
               ),
-            )
+              child: Text('offer here'),
+            ),
+            Center(
+              child: appState.userType == 'admin'
+                  ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).hintColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddOfferPage(
+                              p_id: appState
+                                  .selectedProperty['property_id'],
+                              forWhich: "offerImage",
+                            )));
+                  },
+                  child: Text(
+                    'Add Offers',
+                    style:
+                    TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.w600
+                    ),
+                  )
+              )
+                  : Container(),
+            ),
           ],
         ),
       ),

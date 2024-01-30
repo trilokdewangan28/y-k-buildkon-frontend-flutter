@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -753,8 +753,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   Flexible(
                     child: Card(
                       color: Theme.of(context).primaryColor,
-                      shadowColor: Colors.black,
-                      elevation: 2,
+                      //shadowColor: Colors.black,
+                      elevation: 1,
                       child: TextField(
                         onChanged: (value) {
                           selectedPropertyName = value;
@@ -790,19 +790,23 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 5,),
                   //=====================================FILTER BTN
                   Column(
                     children: [
                       Stack(
                         children: [
                           Container(
+                            height: 45,
+                            width: 45,
                             decoration: BoxDecoration(
+                              border: Border.all(width: 1,color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
                             child: IconButton(
-                              icon: Icon(
-                                Icons.filter_list,
-                                size: MyConst.extraLargeTextSize *
-                                    fontSizeScaleFactor,
+                              icon: Image.asset(
+                                  'assets/Icons/filter.png',
+                                height: 45,
+                                width: 45,
                               ),
                               onPressed: () {
                                 //selectedPropertyType = "All";
@@ -825,13 +829,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               : Container()
                         ],
                       ),
-                      SizedBox(
-                        height: MyConst.deviceHeight(context) * 0.001,
-                      ),
-                      Text(
-                        'Filters',
-                        style: TextStyle(fontSize: 10 * fontSizeScaleFactor),
-                      )
+                      // SizedBox(
+                      //   height: MyConst.deviceHeight(context) * 0.001,
+                      // ),
+                      // Text(
+                      //   'Filters',
+                      //   style: TextStyle(fontSize: 10 * fontSizeScaleFactor),
+                      // )
                     ],
                   )
                 ],
@@ -847,13 +851,24 @@ class _PropertyListPageState extends State<PropertyListPage> {
               margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.height * 0.015,
               ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10)
+              ),
               child: FutureBuilder<Map<String, dynamic>>(
                 future: StaticMethod.fetchOfferList(url),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     // Display a circular progress indicator while waiting for data.
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Shimmer.fromColors(
+                      baseColor: Theme.of(context).hintColor,
+                      highlightColor: Colors.grey[100]!,
+                      child: Container(
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey,
+                          borderRadius: BorderRadius.circular(10)
+                        ),
+                      )
                     );
                   } else if (snapshot.hasError) {
                     // Handle error state.
@@ -875,7 +890,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       if (offerResult['result'].length != 0) {
                         appState.offerList = offerResult['result'];
                         offerContent = appState.offerList.isNotEmpty
-                            ? const OfferSlider()
+                            ?  Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: OfferSlider(),
+                        )
                             : const Text('empty offer');
                       } else {
                         offerContent = const EmptyPropertyPage(
@@ -884,10 +904,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       }
                       return offerContent;
                     } else {
-                      return SpacificErrorPage(
-                        errorString: snapshot.data!['message'],
-                        fromWidget: appState.activeWidget,
-                      );
+                      return Text(snapshot.data!['message']);
                     }
                   } else {
                     return SpacificErrorPage(
@@ -918,8 +935,6 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           margin: EdgeInsets.symmetric(
                             horizontal:
                             MediaQuery.of(context).size.height * 0.010,
-                            vertical:
-                            MediaQuery.of(context).size.height * 0.004,
                           ),
                           child: Card(
                             shadowColor: Colors.black,
@@ -933,6 +948,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               children: [
                                 //==============================PROPERTY IMAGE CONTAINER
                                 Container(
+                                  //height: MyConst.deviceHeight(context)*0.1,
+                                  //width: MyConst.deviceWidth(context)*0.25,
                                   margin: const EdgeInsets.all(8),
                                   child: Center(
                                     child: ClipRRect(
@@ -952,7 +969,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                           height:
                                           MyConst.deviceHeight(
                                               context) *
-                                              0.1,
+                                              0.12,
                                           width: MyConst.deviceWidth(
                                               context) *
                                               0.25,
@@ -971,7 +988,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             height:
                                             MyConst.deviceHeight(
                                                 context) *
-                                                0.1,
+                                                0.12,
                                             fit: BoxFit.fill,
                                           ),
                                         )),
@@ -981,9 +998,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 //==============================PROPERTY DETAIL CONTAINER
                                 Flexible(
                                     child: Container(
+                                      //height: MyConst.deviceHeight(context)*0.1,
                                       width: double.infinity,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 4, vertical: 8),
+                                      margin: EdgeInsets.all(8),
+                                      // padding: const EdgeInsets.symmetric(
+                                      //     horizontal: 4, vertical: 8),
                                       child: Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -1015,7 +1034,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                           Row(
                                             children: [
                                               Icon(
-                                                Icons.currency_rupee,
+                                                Icons.currency_rupee_sharp,
                                                 color:
                                                 Theme.of(context).hintColor,
                                                 size: MyConst
@@ -1046,7 +1065,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             CrossAxisAlignment.start,
                                             children: [
                                               Icon(
-                                                Icons.location_pin,
+                                                Icons.location_on_outlined,
                                                 color:
                                                 Theme.of(context).hintColor,
                                                 size: MyConst

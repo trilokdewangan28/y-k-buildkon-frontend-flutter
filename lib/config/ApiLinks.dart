@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "http://54.82.47.83:5000/";
+  static const baseUrl = "https://bdc8-2401-4900-36a4-54e-1009-dd21-eb10-8ba6.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";

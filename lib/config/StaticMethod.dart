@@ -297,7 +297,7 @@ class StaticMethod {
     var response;
     try {
       Map<String, String> requestHeaders = {
-        'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer ${token}kdjkj',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };

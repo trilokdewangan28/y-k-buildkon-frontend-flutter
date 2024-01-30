@@ -250,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   //topRight: Radius.circular(50)
                 ),
               ),
-              actions: [darkModeAction],
+              //actions: [darkModeAction],
               backgroundColor: Theme.of(context).hintColor,
             ),
             body: widgetContent,

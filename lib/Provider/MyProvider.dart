@@ -2,9 +2,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class MyProvider extends ChangeNotifier {
+  int currentPage = 1;
+  int pageSize = 3;
 
   //-------------------------------------------------------------Theme Manager
   ThemeMode _currentThemeMode = ThemeMode.system;

@@ -233,20 +233,20 @@ class _LoginWidgetState extends State<LoginWidget> {
                           controller: _emailController,
                           readOnly: readOnly,
                           style: const TextStyle(),
-                          decoration:  const InputDecoration(
+                          decoration:  InputDecoration(
                               labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: const TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
+                                  width: 2,
+                                    color: Theme.of(context).hintColor
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(10),),
+                                borderRadius: const BorderRadius.all(Radius.circular(10),),
                               ),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
+                                  width: 2,
+                                  color: Colors.black,
                                 ),
                                 borderRadius: BorderRadius.all(Radius.circular(10),),
                               )
@@ -321,7 +321,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 backgroundColor: Theme.of(context).hintColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                             ),
-                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColor),)
+                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),)
                         ),
                         const SizedBox(height: 15,),
 

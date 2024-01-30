@@ -144,27 +144,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                         TextFormField(
                             focusNode: _nameFocusNode,
                             controller: _nameController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Full Name',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
+                                      width: 2,
+                                      color: Theme.of(context).hintColor
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
+                                    width: 2,
+                                    color: Colors.black,
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
+                                  borderRadius: BorderRadius.all(Radius.circular(10),),
+                                )
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'please enter valid locality';
@@ -182,27 +179,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                             focusNode: _mobileFocusNode,
                             controller: _mobileController,
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Mobile Number',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
+                                      width: 2,
+                                      color: Theme.of(context).hintColor
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
+                                    width: 2,
+                                    color: Colors.black,
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
+                                  borderRadius: BorderRadius.all(Radius.circular(10),),
+                                )
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'please enter valid locality';
@@ -257,27 +251,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                         TextFormField(
                           focusNode: _emailFocusNode,
                           controller: _emailController,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                               labelText: 'Email',
                               labelStyle: TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
+                                    width: 2,
+                                    color: Theme.of(context).hintColor
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
+                                borderRadius: const BorderRadius.all(Radius.circular(10),),
                               ),
-                              border: OutlineInputBorder(
+                              border: const OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
+                                  width: 2,
+                                  color: Colors.black,
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
+                                borderRadius: BorderRadius.all(Radius.circular(10),),
+                              )
+                          ),
                           validator: (value) {
                             if (value!.isEmpty || !value.contains("@gmail.com")) {
                               return "please enter valid email";
@@ -294,27 +285,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                         TextFormField(
                             focusNode: _addressFocusNode,
                             controller: _addressController,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Address',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
+                                      width: 2,
+                                      color: Theme.of(context).hintColor
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
+                                    width: 2,
+                                    color: Colors.black,
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
+                                  borderRadius: BorderRadius.all(Radius.circular(10),),
+                                )
+                            ),
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'please enter valid address';
@@ -333,27 +321,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                               child: TextFormField(
                                   focusNode: _localityFocusNode,
                                   controller: _localityController,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                       labelText: 'Locality',
                                       labelStyle: TextStyle(color: Colors.black),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
+                                            width: 2,
+                                            color: Theme.of(context).hintColor
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10),),
                                       ),
-                                      border: OutlineInputBorder(
+                                      border: const OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
+                                          width: 2,
+                                          color: Colors.black,
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
+                                        borderRadius: BorderRadius.all(Radius.circular(10),),
+                                      )
+                                  ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'please enter valid locality';
@@ -368,27 +353,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                               child: TextFormField(
                                   focusNode: _cityFocusNode,
                                   controller: _cityController,
-                                  decoration: const InputDecoration(
+                                  decoration:  InputDecoration(
                                       labelText: 'City',
                                       labelStyle: TextStyle(color: Colors.black),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
+                                            width: 2,
+                                            color: Theme.of(context).hintColor
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+                                        borderRadius: const BorderRadius.all(Radius.circular(10),),
                                       ),
-                                      border: OutlineInputBorder(
+                                      border: const OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
+                                          width: 2,
+                                          color: Colors.black,
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
+                                        borderRadius: BorderRadius.all(Radius.circular(10),),
+                                      )
+                                  ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return 'please enter valid city name';
@@ -407,27 +389,24 @@ class _SignupWidgetState extends State<SignupWidget> {
                             focusNode: _pincodeFocusNode,
                             controller: _pincodeController,
                             keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                                 labelText: 'Pincode',
                                 labelStyle: TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
+                                      width: 2,
+                                      color: Theme.of(context).hintColor
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
+                                  borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
+                                    width: 2,
+                                    color: Colors.black,
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
+                                  borderRadius: BorderRadius.all(Radius.circular(10),),
+                                )
+                            ),
                             validator: (value) {
                               if (value!.isEmpty || value.length != 6) {
                                 return 'please enter valid pincode';
@@ -436,11 +415,14 @@ class _SignupWidgetState extends State<SignupWidget> {
                             }),
 
                         const SizedBox(
-                          height: 15,
+                          height: 20,
                         ),
 
                         //===============================SIGNUP BTN
-                        ElevatedButton(
+
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _sendOtpForSignup(appState, context);
@@ -453,8 +435,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                             child: Text(
                               'Next',
                               style:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                            )),
+                              TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600),
+                            )),),
                         const SizedBox(
                           height: 15,
                         ),
@@ -469,7 +451,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   appState.activeWidget = "LoginWidget";
                                 },
                                 child: Text(
-                                  'login',
+                                  'Login',
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Theme.of(context).hintColor),

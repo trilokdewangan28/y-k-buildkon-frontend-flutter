@@ -64,7 +64,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.home,color: Theme.of(context).hintColor,),
+                  leading: Icon(Icons.home_outlined,color: Theme.of(context).hintColor,),
                   title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -94,7 +94,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.calculate_rounded,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.calculate_outlined,color: Theme.of(context).hintColor),
                   title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -109,7 +109,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.business_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -141,7 +141,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.post_add,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.post_add_outlined,color: Theme.of(context).hintColor),
                   title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item

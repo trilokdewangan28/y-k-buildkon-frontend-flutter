@@ -41,7 +41,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             borderRadius: BorderRadius.circular(50),
                             child: CachedNetworkImage(
                               imageUrl:
-                              '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                              '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}',
                               placeholder: (context, url) => const CircularProgressIndicator(),
                               errorWidget: (context, url, error) => const Icon(Icons.error),
                               // Other CachedNetworkImage properties
@@ -98,20 +98,20 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         fontSize: 16, fontWeight: FontWeight.normal),
                   ),
 
-                  //------------------------------------------edit btn
-                  Container(
-                      margin: const EdgeInsets.symmetric(vertical: 15),
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              elevation: 4,
-                            backgroundColor: Theme.of(context).hintColor
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            'Edit Details',
-                            style:
-                                TextStyle(color: Theme.of(context).primaryColor),
-                          ))),
+                  // //------------------------------------------edit btn
+                  // Container(
+                  //     margin: const EdgeInsets.symmetric(vertical: 15),
+                  //     child: ElevatedButton(
+                  //         style: ElevatedButton.styleFrom(
+                  //             elevation: 4,
+                  //           backgroundColor: Theme.of(context).hintColor
+                  //         ),
+                  //         onPressed: () {},
+                  //         child: Text(
+                  //           'Edit Details',
+                  //           style:
+                  //               TextStyle(color: Theme.of(context).primaryColor),
+                  //         ))),
                   const SizedBox(
                     height: 20,
                   ),
@@ -136,8 +136,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           const Spacer(),
                           IconButton(
                               onPressed: () {
-                                appState.activeWidget =
-                                    "VisitRequestedListWidget";
+                                appState.activeWidget = 'VisitRequestedListWidget';
                               },
                               icon: const Icon(
                                 Icons.arrow_right,
@@ -148,9 +147,9 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
 
                   //----------------------------------------your favorite property
                   Container(
@@ -184,14 +183,14 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     ),
                   ),
 
-                  const SizedBox(
-                    height: 15,
-                  ),
+                  // const SizedBox(
+                  //   height: 15,
+                  // ),
 
                   //----------------------------------------logout btn
                   Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: MediaQuery.of(context).size.width * 0.85,
+                      width: MediaQuery.of(context).size.width * 0.4,
                       height: MediaQuery.of(context).size.height * 0.07,
                       child: InkWell(
                         onTap: () async {
@@ -226,17 +225,11 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         child:  Card(
                           color: Theme.of(context).primaryColor,
                           child:const  Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Icon(Icons.logout_sharp),
-                              SizedBox(
-                                width: 15,
-                              ),
                               Text(
-                                'Log Out from your account',
-                                style: TextStyle(color: Colors.red),
+                                'Log Out',
+                                style: TextStyle(color: Colors.red, fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),

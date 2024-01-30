@@ -1,4 +1,5 @@
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -65,6 +66,8 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       'POST',
       url,
     );
+    // Add token to the headers
+    request.headers['Authorization'] = 'Bearer ${appState.token}';
     if(forWhich == "adminProfilePic"){
       request.fields['ad_id'] = data['ad_id'].toString();
     }else if(forWhich == "customerProfilePic"){
@@ -87,15 +90,9 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
       var res = await request.send();
       if (res.statusCode == 200) {
         //print('image uploaded successful inside the upload function');
-        return {
-          'success': true,
-          'message': 'image uploaded successfully',
-        };
+        return jsonDecode(await res.stream.bytesToString());
       } else {
-        return {
-          'success': false,
-          'message': '500 server error: An error occurred while image uploading',
-        };
+        return jsonDecode(await res.stream.bytesToString());
       }
     } catch (e) {
       return {
@@ -112,9 +109,10 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return SafeArea(child: PopScope(
+      canPop: true,
       onPopInvoked: (didPop) {
         appState.imageFile = null;
-        Navigator.pop(context);
+        //Navigator.pop(context);
       },
         child: Scaffold(
           appBar: AppBar(
@@ -125,30 +123,54 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
             height: MediaQuery.of(context).size.height,
             child: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  if (appState.imageFile != null)
-                    Image.file(
-                      appState.imageFile!,
-                      height: 200,
+                  SizedBox(height: 20,),
+                  appState.imageFile != null
+                      ? Image.file(
+                    appState.imageFile!,
+                    height: 200,
+                  )
+                      : Container(
+                    height: 200,
+                    width: 300,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10)
                     ),
+                    child: const Icon(Icons.image_not_supported_outlined,size: 50,),
+                  ),
+                  const SizedBox(height: 20),
                   const SizedBox(height: 20),
                   //--------------------------------------------FROM GALARY BUTTON
-                  ElevatedButton(
-                    onPressed: () async {
-                      await _pickImageFromGallery(appState);
-                    },
-                    child: const Text('Pick Image from Gallery'),
+                  // ===========================buttons row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
+                        children: [
+                          //--------------------------------------------FROM GALARY BUTTON
+                          IconButton(onPressed: ()async{
+                            await _pickImageFromGallery(appState);
+                          },
+                              icon: Icon(Icons.photo, color: Theme.of(context).hintColor, size: 50,)
+                          ),
+                          const Text('Galary')
+                        ],
+                      ),
+                      const SizedBox(width: 100),
+                      Column(
+                        children: [
+                          //--------------------------------------------FROM CAMERA BUTTON
+                          IconButton(onPressed: ()async{
+                            await _captureImageFromCamera(appState);
+                          },
+                              icon: Icon(Icons.camera_alt, color: Theme.of(context).hintColor, size: 50,)
+                          ),
+                          const Text('Camera')
+                        ],
+                      )
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  //--------------------------------------------FROM CAMERA BUTTON
-                  ElevatedButton(
-                    onPressed: () async {
-                      await _captureImageFromCamera(appState);
-                    },
-                    child: const Text('Capture Image from Camera'),
-                  ),
-                  const SizedBox(height: 20),
                   //-----------------------------------------DELETE PROFILE BUTTON
                   // widget.forWhich=='profilePic' && appState.userDetail['result']['profilePic'] != null
                   //     ? ElevatedButton(
