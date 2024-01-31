@@ -5,8 +5,6 @@ import 'package:real_state/Screens/SplashScreen.dart';
 
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-
   runApp(
     ChangeNotifierProvider(
       create: (_) => MyProvider(),

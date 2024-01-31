@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -103,19 +104,25 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         appState.activeWidget = "PropertyListWidget";
         appState.currentState = 0;
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }
@@ -1006,7 +1013,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
                               StaticMethod.openMap(url);
                             },
-                            child: const Text('Open Map')),
+                            child: Text('Open Map',style: TextStyle(color: Theme.of(context).hintColor),)),
 
                         //============================LOCATION MAP URL TEXTFIELD
                         TextFormField(
@@ -1046,6 +1053,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
                         //===============================SIGNUP BTN
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).hintColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
+                          ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _submitData(appState, context);
@@ -1054,7 +1067,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             child: Text(
                               'Add Properties',
                               style:
-                                  TextStyle(color: Theme.of(context).hintColor),
+                                  TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
                             )),
                         const SizedBox(
                           height: 15,

@@ -18,6 +18,7 @@ class PropertyListWidget extends StatefulWidget {
 }
 
 class _PropertyListWidgetState extends State<PropertyListWidget> {
+  bool page = true;
   @override
   Widget build(BuildContext context) {
 
@@ -25,7 +26,7 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
     Widget propertyContent = Container();
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchAllProperties);
-    return FutureBuilder<Map<String, dynamic>>(
+    return page==false ? FutureBuilder<Map<String, dynamic>>(
       future: StaticMethod.fetchAllProperties(url),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -84,6 +85,6 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
           return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
         }
       },
-    );
+    ) : PropertyListPage();
   }
 }

@@ -24,8 +24,9 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Widget visitRequestContent = Container();
     var url = Uri.parse(ApiLinks.fetchCustomerRequest);
+    bool trilok = false;
     List<Map<String, dynamic>> propertyListDemo = [];
-    return  Container(
+    return trilok==true ? Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
@@ -83,6 +84,6 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
           }
         },
       ),
-    );
+    ) : CustomerVisitRequestListPage();
   }
 }

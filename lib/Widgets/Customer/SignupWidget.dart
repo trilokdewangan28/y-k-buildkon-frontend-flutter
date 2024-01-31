@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Customer/OtpVerificationWidget.dart';
@@ -73,18 +74,24 @@ class _SignupWidgetState extends State<SignupWidget> {
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpVerificationWidget(customerData: customerData,)));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }

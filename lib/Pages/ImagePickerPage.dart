@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -260,7 +261,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       if(response.isNotEmpty){
                         Navigator.pop(context);
                         if(response['success']==true){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: const TextStyle(color: Colors.green),)));
+                          Fluttertoast.showToast(
+                            msg: response['message'],
+                            toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+                            gravity: ToastGravity.TOP, // Toast position
+                            backgroundColor: Colors.black, // Background color of the toast
+                            textColor: Colors.green, // Text color of the toast message
+                            fontSize: 16.0, // Font size of the toast message
+                          );
                           if(appState.activeWidget=="PropertyDetailPage"){
                             appState.activeWidget="PropertyListWidget";
                             Navigator.pop(context);
@@ -268,7 +276,14 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             Navigator.pop(context);
                           }
                         }else{
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${response['message']}',style: const TextStyle(color: Colors.red),)));
+                          Fluttertoast.showToast(
+                            msg: response['message'],
+                            toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+                            gravity: ToastGravity.TOP, // Toast position
+                            backgroundColor: Colors.black, // Background color of the toast
+                            textColor: Colors.red, // Text color of the toast message
+                            fontSize: 16.0, // Font size of the toast message
+                          );
                         }
                       }
                   },

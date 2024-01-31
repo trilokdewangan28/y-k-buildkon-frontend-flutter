@@ -5,8 +5,6 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 
 class MyProvider extends ChangeNotifier {
-  int currentPage = 1;
-  int pageSize = 3;
 
   //-------------------------------------------------------------Theme Manager
   ThemeMode _currentThemeMode = ThemeMode.system;
@@ -25,8 +23,10 @@ class MyProvider extends ChangeNotifier {
   int _currentState = 1;
   int get currentState => _currentState;
   set currentState(int value) {
-    _currentState = value;
-    notifyListeners();
+    if (_currentState != value) {
+      _currentState = value;
+      notifyListeners();
+    }
   }
 
   //--------------------------------------------------------------IMAGE VARIABLE

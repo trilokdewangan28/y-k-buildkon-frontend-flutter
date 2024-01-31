@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -94,10 +95,24 @@ class _LoginWidgetState extends State<LoginWidget> {
         remainingTime = formatDuration(countdownDuration);
         startCountdown();
         readOnly=true;
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         appState.activeWidget='LoginWidget';
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
 
@@ -139,12 +154,26 @@ class _LoginWidgetState extends State<LoginWidget> {
         appState.fetchToken('customer');
         await Future.delayed(const Duration(milliseconds: 100));
         //--------------------------------------------------------------------
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.green),)));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         appState.activeWidget='ProfileWidget';
         setState(() {
         });
       }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: const TextStyle(color: Colors.red),)));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
 

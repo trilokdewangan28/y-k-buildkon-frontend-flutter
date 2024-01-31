@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Pages/Offer/AddOfferPage.dart';
@@ -49,17 +50,23 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }
@@ -78,19 +85,25 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         fetchFavoriteProperty(appState);
         setState(() {});
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }
@@ -110,19 +123,25 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
         fetchFavoriteProperty(appState);
         setState(() {});
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${res['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }
@@ -172,18 +191,24 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     if (response.isNotEmpty) {
       if (response['success'] == true) {
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${response['message']}',
-          style: const TextStyle(color: Colors.green),
-        )));
+        Fluttertoast.showToast(
+          msg: response['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       } else {
         Navigator.pop(btmSheetContext);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(
-          '${response['message']}',
-          style: const TextStyle(color: Colors.red),
-        )));
+        Fluttertoast.showToast(
+          msg: response['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }
@@ -685,12 +710,14 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         : removeFromFavorite(
                                             data, appState, context);
                                   } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                            content: Text(
-                                      'you have to login. please login',
-                                      style: TextStyle(color: Colors.red),
-                                    )));
+                                    Fluttertoast.showToast(
+                                      msg: 'You have to login, please login',
+                                      toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+                                      gravity: ToastGravity.TOP, // Toast position
+                                      backgroundColor: Colors.black, // Background color of the toast
+                                      textColor: Colors.red, // Text color of the toast message
+                                      fontSize: 16.0, // Font size of the toast message
+                                    );
                                   }
                                 }
                               : null,
@@ -1044,17 +1071,17 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   )
                 : Container(),
 
-            //=======================================OFFER RELATED ROW
-            Container(
-              height: MyConst.deviceHeight(context)*0.3,
-              width: MyConst.deviceWidth(context),
-              margin: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                border: Border.all(width: 1),
-                borderRadius: BorderRadius.circular(10)
-              ),
-              child: Text('offer here'),
-            ),
+            // //=======================================OFFER RELATED ROW
+            // Container(
+            //   height: MyConst.deviceHeight(context)*0.3,
+            //   width: MyConst.deviceWidth(context),
+            //   margin: EdgeInsets.symmetric(horizontal: 15),
+            //   decoration: BoxDecoration(
+            //     border: Border.all(width: 1),
+            //     borderRadius: BorderRadius.circular(10)
+            //   ),
+            //   child: Text('offer here'),
+            // ),
             Center(
               child: appState.userType == 'admin'
                   ? ElevatedButton(

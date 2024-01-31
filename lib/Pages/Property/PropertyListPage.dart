@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -82,26 +83,142 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
   List<dynamic> filteredProperties = [];
 
+
+  //======================================PAGINATION VARIABLE===================
+  int page = 1;
+  final int limit = 4;
+
+  bool _isFirstLoadRunning = false;
+  bool _isOfferLoading = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  //==========================================first load method
+  _firstLoad(appState)async{
+    setState(() {
+      _isFirstLoadRunning = true;
+    });
+    Map<String,dynamic> paginationOptions = {
+      "page":page,
+      "limit":limit
+    };
+    var url = Uri.parse(ApiLinks.fetchAllPropertiesWithPaginationAndFilter);
+    final res = await StaticMethod.filterProperties(appState,paginationOptions,url,
+        propertyName: selectedPropertyName,
+        selectedCity: selectedCity,
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        selectedPropertyType: selectedPropertyType,
+        selectedBhk: selectedBhk,
+        selectedFloor: selectedFloor,
+        selectedGarden: selectedGarden,
+        selectedParking: selectedParking,
+        selectedFurnished: selectedFurnished,
+        selectedAvailability: selectedAvailability);
+
+    if (res.isNotEmpty) {
+      if (res['success'] == true) {
+        //print('succes is true and result is ${res['result']}');
+        appState.propertyList = res['result'];
+        setState(() {
+          _isFirstLoadRunning = false;
+        });
+      } else {
+      }
+    }
+  }
+
+  //==========================================load modre method
+  void _loadMore(appState) async {
+
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300
+    ) {
+      setState(() {
+        _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+      });
+
+      page += 1; // Increase _page by 1
+      Map<String,dynamic> paginationOptions = {
+        "page":page,
+        "limit":limit
+      };
+      var url = Uri.parse(ApiLinks.fetchAllPropertiesWithPaginationAndFilter);
+      final res = await StaticMethod.filterProperties(appState,paginationOptions,url,
+          propertyName: selectedPropertyName,
+          selectedCity: selectedCity,
+          minPrice: minPrice,
+          maxPrice: maxPrice,
+          selectedPropertyType: selectedPropertyType,
+          selectedBhk: selectedBhk,
+          selectedFloor: selectedFloor,
+          selectedGarden: selectedGarden,
+          selectedParking: selectedParking,
+          selectedFurnished: selectedFurnished,
+          selectedAvailability: selectedAvailability);
+      if (res.isNotEmpty) {
+        if (res['success'] == true) {
+          if(res['result'].length>0){
+            //print('succes is true and result is ${res['result']}');
+            setState(() {
+              appState.propertyList.addAll(res['result']);
+              _isFirstLoadRunning = false;
+            });
+          }else{
+            setState(() {
+              _hasNextPage = false;
+            });
+            Fluttertoast.showToast(
+              msg: 'No More Content Available',
+              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+              gravity: ToastGravity.TOP, // Toast position
+              backgroundColor: Colors.black, // Background color of the toast
+              textColor: Colors.green, // Text color of the toast message
+              fontSize: 16.0, // Font size of the toast message
+            );
+          }
+        } else {
+          print('unable to fetch property show error page');
+        }
+      }
+      setState(() {
+        _isLoadMoreRunning=false;
+      });
+    }
+  }
+
+  _loadOffer(appState)async{
+    setState(() {
+      _isOfferLoading = true;
+    });
+    var url = Uri.parse(ApiLinks.fetchOfferList);
+    final res = await StaticMethod.fetchOfferList(url);
+    if(res.isNotEmpty){
+      if(res['success']==true){
+        appState.offerList = res['result'];
+        setState(() {
+          _isOfferLoading=false;
+        });
+      }else{
+        // display some another widget for message
+      }
+    }
+  }
+
+
+
+  late ScrollController _controller;
   @override
   void initState() {
+    print('initstate methond called');
     final appState = Provider.of<MyProvider>(context, listen: false);
-    //appState.loadSavedPropertyType();
+    _firstLoad(appState);
+    _loadOffer(appState);
+    _controller = ScrollController()..addListener(() => _loadMore(appState));
     print('initstate called');
-    // first filter call
-    // StaticMethod.filterProperties(appState,
-    //     propertyName: selectedPropertyName,
-    //     selectedCity: selectedCity,
-    //     minPrice: minPrice,
-    //     maxPrice: maxPrice,
-    //     propertyId: propertyId,
-    //     selectedPropertyType: selectedPropertyType,
-    //     selectedBhk: selectedBhk,
-    //     selectedFloor: selectedFloor,
-    //     selectedGarden: selectedGarden,
-    //     selectedParking: selectedParking,
-    //     selectedFurnished: selectedFurnished,
-    //     selectedAvailability: selectedAvailability);
-
     super.initState();
   }
 
@@ -581,6 +698,74 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 ],
                               ),
                             ),
+                            
+                            //============================PRICE RANGE CONTAINER
+                            Row(
+                              children: [
+                                //===================================FILTER BY NAME
+                                Expanded(child: Container(
+                                  padding: const EdgeInsets.only(
+                                    left: 15,
+                                  ),
+                                  child: Card(
+                                    color: Theme.of(context).primaryColor,
+                                    shadowColor: Colors.black,
+                                    elevation: 2,
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        selectedPropertyName = value;
+                                      },
+                                      controller: TextEditingController(
+                                          text: selectedPropertyName),
+                                      keyboardType: TextInputType.number,
+                                      style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                      textAlignVertical: TextAlignVertical.center,
+                                      textAlign: TextAlign.center,
+                                      decoration:  InputDecoration(
+                                        contentPadding: EdgeInsets.only(bottom: 5),
+                                        labelText: ' min price',
+                                        labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        border: InputBorder.none,
+                                      ),
+                                      cursorOpacityAnimates: false,
+                                    ),
+                                  ),
+                                ),),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                //===================================FILTER BY CITY
+                                Expanded(child: Container(
+                                  padding: const EdgeInsets.only(
+                                    right: 15,
+                                  ),
+                                  child: Card(
+                                    color: Theme.of(context).primaryColor,
+                                    shadowColor: Colors.black,
+                                    elevation: 2,
+                                    child: TextField(
+                                      onChanged: (value) {
+                                        selectedCity = value;
+                                      },
+                                      controller:
+                                      TextEditingController(text: selectedCity),
+                                      keyboardType: TextInputType.number,
+                                      style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                      textAlignVertical: TextAlignVertical.center,
+                                      textAlign: TextAlign.center,
+                                      decoration: InputDecoration(
+                                        contentPadding: EdgeInsets.only(bottom: 5),
+                                        labelText: ' max price',
+                                        labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        border: InputBorder.none,
+                                      ),
+                                      cursorOpacityAnimates: false,
+                                    ),
+                                  ),
+                                ),)
+                              ],
+                            ),
+                            SizedBox(height: 10,),
 
                             //===================================FILTER BY NAME
                             Container(
@@ -614,6 +799,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             SizedBox(
                               height: 10,
                             ),
+
                             //===================================FILTER BY CITY
                             Container(
                               padding: const EdgeInsets.symmetric(
@@ -655,6 +841,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 children: [
                                   ElevatedButton(
                                       onPressed: () {
+                                        page=1;
                                         minPrice = 1;
                                         maxPrice = 100000000;
                                         propertyId = 0;
@@ -667,22 +854,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         selectedFurnished = "None";
                                         selectedAvailability = "Yes";
                                         selectedPropertyName = "";
-                                        StaticMethod.filterProperties(appState,
-                                            propertyName: selectedPropertyName,
-                                            selectedCity: selectedCity,
-                                            minPrice: minPrice,
-                                            maxPrice: maxPrice,
-                                            propertyId: propertyId,
-                                            selectedPropertyType:
-                                                selectedPropertyType,
-                                            selectedBhk: selectedBhk,
-                                            selectedFloor: selectedFloor,
-                                            selectedGarden: selectedGarden,
-                                            selectedParking: selectedParking,
-                                            selectedFurnished:
-                                                selectedFurnished,
-                                            selectedAvailability:
-                                                selectedAvailability);
+                                        _hasNextPage=true;
+                                        _isFirstLoadRunning=false;
+                                        _firstLoad(appState);
                                         filterApplied = false;
                                         Navigator.pop(context);
                                         setTheState();
@@ -693,22 +867,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                       )),
                                   ElevatedButton(
                                       onPressed: () {
-                                        StaticMethod.filterProperties(appState,
-                                            propertyName: selectedPropertyName,
-                                            selectedCity: selectedCity,
-                                            minPrice: minPrice,
-                                            maxPrice: maxPrice,
-                                            propertyId: propertyId,
-                                            selectedPropertyType:
-                                                selectedPropertyType,
-                                            selectedBhk: selectedBhk,
-                                            selectedFloor: selectedFloor,
-                                            selectedGarden: selectedGarden,
-                                            selectedParking: selectedParking,
-                                            selectedFurnished:
-                                                selectedFurnished,
-                                            selectedAvailability:
-                                                selectedAvailability);
+                                        page=1;
+                                        _hasNextPage=true;
+                                        _isFirstLoadRunning=false;
+                                        _firstLoad(appState);
                                         filterApplied = true;
                                         Navigator.pop(context);
                                         setTheState();
@@ -734,10 +896,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    // final height = MyConst.deviceHeight(context);
-    // final width = MyConst.deviceWidth(context);
-    print('build method called');
-    print('filtered proeprty list is : ${appState.filteredPropertyList}');
+    print('buildmethond called');
+    print('length of proeprty is ${appState.propertyList.length}');
+    //print('property list is ${appState.propertyList}');
+    //print('firsloadrunning is ${_isFirstLoadRunning}');
     var url = Uri.parse(ApiLinks.fetchOfferList);
     Widget offerContent = Container();
     return RefreshIndicator(
@@ -758,21 +920,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       child: TextField(
                         onChanged: (value) {
                           selectedPropertyName = value;
-                          setState(() {
-                            StaticMethod.filterProperties(appState,
-                                propertyName: selectedPropertyName,
-                                selectedCity: selectedCity,
-                                minPrice: minPrice,
-                                maxPrice: maxPrice,
-                                propertyId: propertyId,
-                                selectedPropertyType: selectedPropertyType,
-                                selectedBhk: selectedBhk,
-                                selectedFloor: selectedFloor,
-                                selectedGarden: selectedGarden,
-                                selectedParking: selectedParking,
-                                selectedFurnished: selectedFurnished,
-                                selectedAvailability: selectedAvailability);
-                          });
+                          _hasNextPage=true;
+                          page=1;
+                          //setState(() {
+                            _isFirstLoadRunning=false;
+                            _firstLoad(appState);
+                          //});
                         },
                         keyboardType: TextInputType.text,
                         style: TextStyle(
@@ -854,78 +1007,33 @@ class _PropertyListPageState extends State<PropertyListPage> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10)
               ),
-              child: FutureBuilder<Map<String, dynamic>>(
-                future: StaticMethod.fetchOfferList(url),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    // Display a circular progress indicator while waiting for data.
-                    return Shimmer.fromColors(
-                      baseColor: Theme.of(context).hintColor,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                      )
-                    );
-                  } else if (snapshot.hasError) {
-                    // Handle error state.
-                    if (snapshot.error is SocketException) {
-                      // Handle network-related errors (internet connection loss).
-                      return const InternetErrorPage();
-                    } else {
-                      // Handle other errors (server error or unexpected error).
-                      return SpacificErrorPage(
-                        errorString: snapshot.error.toString(),
-                        fromWidget: appState.activeWidget,
-                      );
-                    }
-                  } else if (snapshot.hasData) {
-                    // Display user details when data is available.
-                    if (snapshot.data!['success'] == true) {
-                      final offerResult = snapshot.data!;
-                      //print('property list is ${propertyResult}');
-                      if (offerResult['result'].length != 0) {
-                        appState.offerList = offerResult['result'];
-                        offerContent = appState.offerList.isNotEmpty
-                            ?  Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)
-                          ),
-                          child: OfferSlider(),
-                        )
-                            : const Text('empty offer');
-                      } else {
-                        offerContent = const EmptyPropertyPage(
-                          text: "empty offers",
-                        );
-                      }
-                      return offerContent;
-                    } else {
-                      return Text(snapshot.data!['message']);
-                    }
-                  } else {
-                    return SpacificErrorPage(
-                      errorString: snapshot.error.toString(),
-                      fromWidget: appState.activeWidget,
-                    );
-                  }
-                },
-              ),
+              child: _isOfferLoading
+                  ? Shimmer.fromColors(
+                  baseColor: Theme.of(context).hintColor,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                  )
+              )
+                  : appState.offerList.isNotEmpty ? OfferSlider() : Container(child: Text('empty offer'),)
             ),
             SizedBox(
               height: MyConst.deviceHeight(context) * 0.02,
             ),
 
             //=====================================PROPERTY LIST CONTAINER
-            appState.filteredPropertyList.isNotEmpty
-                ? Flexible(
+             _isFirstLoadRunning==false
+                ? appState.propertyList.isNotEmpty
+                 ? Flexible(
                 child: ListView.builder(
-                  itemCount: appState.filteredPropertyList.length,
+                  itemCount: appState.propertyList.length,
+                  controller: _controller,
                   itemBuilder: (context, index) {
-                    final property = appState.filteredPropertyList[index];
+                    final property = appState.propertyList[index];
                     return InkWell(
                       onTap: () {
                         appState.selectedProperty = property;
@@ -1118,22 +1226,50 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     );
                   },
                 ))
+                 : const Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+                 SizedBox(height: 100,),
+                 Center(child: Text('No Such Properties'),)
+               ],
+             )
                 : Container(
               margin: EdgeInsets.symmetric(
                   vertical: MyConst.deviceHeight(context) * 0.2),
               child: const Center(
-                child: Text(
-                  'No Such Properties',
-                  style: TextStyle(
-                      fontSize: MyConst.largeTextSize,
-                      fontWeight: FontWeight.w500),
-                ),
+                child: CircularProgressIndicator(),
               ),
-            )
+            ),
+
+            //================================loading more
+            _isLoadMoreRunning == true
+                ? Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 40),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+                : Container(),
+
+            _hasNextPage == false
+              ? appState.propertyList.isNotEmpty ? Container(
+                color: Colors.amber,
+                child: const Center(
+                  child: Text('You have fetched all of the content'),
+                ),
+              ) : Container()
+             : Container()
           ],
         ),
         onRefresh: () async {
           // setState(() {
+          _hasNextPage=true;
+          page=1;
+          _isOfferLoading=false;
+          _isFirstLoadRunning=false;
+          _isLoadMoreRunning=false;
+          _firstLoad(appState);
           appState.activeWidget = "PropertyListWidget";
           //});
         });

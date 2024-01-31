@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
@@ -27,12 +28,97 @@ class _CustomerVisitRequestListPageState
   bool plotTapped = false;
   int selectedRequestStatus = 4;
 
+  //======================================PAGINATION VARIABLE===================
+  int page = 1;
+  final int limit = 5;
+
+  bool _isFirstLoadRunning = false;
+  bool _isOfferLoading = false;
+  bool _hasNextPage = true;
+
+  bool _isLoadMoreRunning = false;
+
+  //==========================================first load method
+  _firstLoad(appState)async{
+    setState(() {
+      _isFirstLoadRunning = true;
+    });
+    Map<String,dynamic> paginationOptions = {
+      "page":page,
+      "limit":limit
+    };
+    var url = Uri.parse(ApiLinks.fetchCustomerRequest);
+    final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus);
+
+    if (res.isNotEmpty) {
+      if (res['success'] == true) {
+        //print('succes is true and result is ${res['result']}');
+        appState.filteredCustomerRequestList = res['result'];
+        setState(() {
+          _isFirstLoadRunning = false;
+        });
+      } else {
+      }
+    }
+  }
+
+  //==========================================load modre method
+  void _loadMore(appState) async {
+
+    if (_hasNextPage == true &&
+        _isFirstLoadRunning == false &&
+        _isLoadMoreRunning == false &&
+        _controller.position.extentAfter < 300
+    ) {
+      setState(() {
+        _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+      });
+
+      page += 1; // Increase _page by 1
+      Map<String,dynamic> paginationOptions = {
+        "page":page,
+        "limit":limit
+      };
+      var url = Uri.parse(ApiLinks.fetchCustomerRequest);
+      final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus);
+      if (res.isNotEmpty) {
+        if (res['success'] == true) {
+          if(res['result'].length>0){
+            //print('succes is true and result is ${res['result']}');
+            setState(() {
+              appState.filteredCustomerRequestList.addAll(res['result']);
+              _isFirstLoadRunning = false;
+            });
+          }else{
+            setState(() {
+              _hasNextPage = false;
+            });
+            Fluttertoast.showToast(
+              msg: 'No More Content Available',
+              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+              gravity: ToastGravity.TOP, // Toast position
+              backgroundColor: Colors.black, // Background color of the toast
+              textColor: Colors.green, // Text color of the toast message
+              fontSize: 16.0, // Font size of the toast message
+            );
+          }
+        } else {
+          print('unable to fetch property show error page');
+        }
+      }
+      setState(() {
+        _isLoadMoreRunning=false;
+      });
+    }
+  }
+
+  late ScrollController _controller;
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
-    StaticMethod.filterCustomerRequest(appState,
-        selectedRequestStatus: selectedRequestStatus);
-
+    _firstLoad(appState);
+    _controller = ScrollController()..addListener(() => _loadMore(appState));
+    print('initstate called');
     super.initState();
   }
 
@@ -40,7 +126,8 @@ class _CustomerVisitRequestListPageState
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    return Container(
+    return RefreshIndicator(
+        child: Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       child: Column(
@@ -60,14 +147,21 @@ class _CustomerVisitRequestListPageState
                     plotTapped = false;
                     if (houseTapped == true) {
                       selectedRequestStatus = 0;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
+                      //});
                     } else {
-                      selectedRequestStatus = 4;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
+                      //});
                     }
-                    setState(() {});
+                    //setState(() {});
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -92,14 +186,20 @@ class _CustomerVisitRequestListPageState
                     plotTapped = false;
                     if (flatTapped == true) {
                       selectedRequestStatus = 1;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
                     } else {
                       selectedRequestStatus = 4;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
                     }
-                    setState(() {});
+                    //setState(() {});
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -124,14 +224,20 @@ class _CustomerVisitRequestListPageState
                     flatTapped = false;
                     if (plotTapped == true) {
                       selectedRequestStatus = 2;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
                     } else {
                       selectedRequestStatus = 4;
-                      StaticMethod.filterCustomerRequest(appState,
-                          selectedRequestStatus: selectedRequestStatus);
+                      _hasNextPage=true;
+                      page=1;
+                      //setState(() {
+                      _isFirstLoadRunning=false;
+                      _firstLoad(appState);
                     }
-                    setState(() {});
+                    //setState(() {});
                   },
                   child: Container(
                     margin: const EdgeInsets.symmetric(horizontal: 6),
@@ -153,7 +259,9 @@ class _CustomerVisitRequestListPageState
             ),
           ),
           //=====================================PROPERTY LIST CONTAINER
-          Expanded(
+          _isFirstLoadRunning==false
+              ? appState.filteredCustomerRequestList.isNotEmpty
+              ? Expanded(
               child: ListView.builder(
                 itemCount: appState.filteredCustomerRequestList.length,
                 itemBuilder: (context, index) {
@@ -310,8 +418,50 @@ class _CustomerVisitRequestListPageState
                   );
                 },
               ))
+              : Container(
+            child: Center(
+              child: Text('no such request'),
+            ),
+          )
+              : Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+
+          //================================loading more
+          _isLoadMoreRunning == true
+              ? Padding(
+            padding: EdgeInsets.only(top: 10, bottom: 40),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+              : Container(),
+
+          //==================================fetched all
+          _hasNextPage == false
+              ? appState.filteredCustomerRequestList.isNotEmpty ? Container(
+            color: Colors.amber,
+            child: const Center(
+              child: Text('You have fetched all of the content'),
+            ),
+          ) : Container()
+              : Container()
         ],
       ),
+    ),
+        onRefresh: ()async{
+          // setState(() {
+          _hasNextPage=true;
+          page=1;
+          _isOfferLoading=false;
+          _isFirstLoadRunning=false;
+          _isLoadMoreRunning=false;
+          _firstLoad(appState);
+          appState.activeWidget = "CustomerVisitRequestListWidget";
+          //});
+        }
     );
   }
 }

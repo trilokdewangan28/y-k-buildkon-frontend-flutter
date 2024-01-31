@@ -495,8 +495,9 @@ class StaticMethod {
   }
 
   //============================================================filter property method
-  static void filterProperties(
-    appState, {
+  static Future<Map<String,dynamic>> filterProperties(
+    appState, paginationOptions,url,
+      {
     String selectedCity = "",
     String selectedPropertyType = "All",
     int selectedBhk = 0,
@@ -509,55 +510,59 @@ class StaticMethod {
     int maxPrice = 100000000,
     String propertyName = "",
     int propertyId = 0,
-  }) {
+  }
+  ) async{
 
-    print('------------------------filter method called------------------');
-    print('property type is : ${selectedPropertyType}');
-    print('property bhk is : ${selectedBhk}');
-    print('property floor is : ${selectedFloor}');
-    print('property garden is : ${selectedGarden}');
-    print('property parking is : ${selectedParking}');
-    print('property furnish is : ${selectedFurnished}');
-    print('property availbable is : ${selectedAvailability}');
-    print('property name is : ${propertyName}');
-    print('property city is : ${selectedCity}');
-    print('------------------------------------------------------------');
+    Map<String,dynamic> filterOptions = {
+      "propertytype": selectedPropertyType == "All" ? "" : selectedPropertyType,
+      "propertybhk": selectedPropertyType == "All" ? 0 :selectedBhk,
+      "propertyfloor": selectedPropertyType == "All" ? 0 :selectedFloor,
+      "minPrice": minPrice,
+      "maxPrice": maxPrice,
+      "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
+      "propertyparking": selectedParking=="None" ? "" : selectedParking,
+      "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
+      "propertyavailability":selectedAvailability=="None" ? "Yes" : selectedAvailability,
+      "propertyname": propertyName,
+      "propertycity": selectedCity
+    };
 
-    appState.filteredPropertyList = appState.propertyList.length != 0
-        ? appState.propertyList.where((property) {
-            final String name = property['property_name'].toLowerCase();
-            final String type = property['property_type'].toLowerCase();
-            final String garden = property['property_isGarden'].toLowerCase();
-            final String parking = property['property_isParking'].toLowerCase();
-            final String furnished = property['property_isFurnished'].toLowerCase();
-            final String available = property['property_isAvailable'].toLowerCase();
-            final String city = property['property_city'].toLowerCase();
+    print('--------------------------fetch methond------------------------------');
+    print('filter variable is ${filterOptions}');
+    print('-----------------------------------------------------------------------');
 
-            bool isTypeMatch = selectedPropertyType=="All" || type==selectedPropertyType.toLowerCase();
-            bool isBhkMatch = selectedBhk == 0 ? true : property['property_bhk'] == selectedBhk ;
-            bool isFloorMatch = selectedFloor == 0 ? true : property['property_floor'] == selectedFloor;
-            bool isGardenMatch = selectedGarden=="None" || garden==selectedGarden.toLowerCase();
-            bool isParkingMatch = selectedParking=="None" || parking==selectedParking.toLowerCase();
-            bool isFurnishMatch = selectedFurnished=="None" || furnished==selectedFurnished.toLowerCase();
-            bool isAvailabilityMatch =  selectedAvailability=="None" || available==selectedAvailability.toLowerCase();
-            bool isPriceMatch = property['property_price'] >= minPrice && property['property_price'] <= maxPrice;
-            bool isIdMatch =  propertyId != 0 ? property['property_id'] == propertyId : property['property_id'] > 0;
-            bool isCityMatch = selectedCity=="" || city.contains(selectedCity.toLowerCase());
-            bool isNameMatch = propertyName=="" || name.contains(propertyName.toLowerCase());
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
 
-            return (isTypeMatch)
-                && (isBhkMatch)
-                && (isFloorMatch)
-                 && (isGardenMatch)
-                 && (isParkingMatch)
-                 && (isFurnishMatch)
-                 && (isAvailabilityMatch)
-                 && (isPriceMatch)
-                 && (isIdMatch)
-                 && (isCityMatch)
-                && (isNameMatch);
-          }).toList()
-        : [];
+      final res = await http.post(
+          url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete fetchPropertyList api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list'
+      };
+    }
+
   }
 
   //----------------------------------------------------------------------------OPEN MAP
@@ -678,18 +683,47 @@ class StaticMethod {
   }
 
   //============================================================filter customer request method
-  static void filterCustomerRequest(
-    appState, {
+  static Future<Map<String,dynamic>> fetchCustomerRequestWithPagination(
+    appState,url,paginationOptions,token, {
     int selectedRequestStatus = 4,
-  }) {
-    appState.filteredCustomerRequestList =
-        appState.customerRequestList.where((property) {
-      int status = property['v_status'];
+  })async {
 
-      return (selectedRequestStatus != 4
-          ? status == selectedRequestStatus
-          : status < selectedRequestStatus);
-    }).toList();
+    Map<String,dynamic> filterOptions={
+      "requestStatus":selectedRequestStatus
+    };
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete fetchPropertyList api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list'
+      };
+    }
+
   }
 
   //----------------------------------------------------------------------------Change Visit Status

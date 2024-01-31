@@ -4,6 +4,7 @@ import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
+import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Admin/AddNewPropertyWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
@@ -81,6 +82,10 @@ class _HomeScreenState extends State<HomeScreen> {
     switch (appState.activeWidget) {
       case "PropertyListWidget":
         widgetContent = const PropertyListWidget();
+        appBarContent = 'Y&K BUILDCON';
+        break;
+      case "PropertyListPage":
+        widgetContent = const PropertyListPage();
         appBarContent = 'Y&K BUILDCON';
         break;
       case "LoginWidget":
@@ -269,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 appState.currentState = index;
                 switch (index) {
                   case 0:
-                    appState.activeWidget = 'PropertyListWidget';
+                    appState.activeWidget = 'PropertyListPage';
                     break;
                   case 1:
                     appState.token.isNotEmpty && appState.userType.isNotEmpty
