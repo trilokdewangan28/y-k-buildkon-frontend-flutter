@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
+import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -175,6 +176,9 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent = const AddNewPropertyWidget();
         appBarContent = "Add New Property";
         break;
+      case "SpacificErrorPage":
+      widgetContent=SpacificErrorPage();
+      break;
     }
     return PopScope(
         canPop: false,
@@ -219,14 +223,18 @@ class _HomeScreenState extends State<HomeScreen> {
             case "AddNewPropertyWidget":
               appState.activeWidget = "ProfileWidget";
               break;
-
+            case "LoginWidget":
+              appState.activeWidget="PropertyListWidget";
+              appState.currentState=0;
+              break;
           }
 
         },
       child: SafeArea(
           child: Scaffold(
             resizeToAvoidBottomInset: false,
-            appBar: AppBar(
+             appBar:AppBar(
+               iconTheme: IconThemeData(color:Theme.of(context).primaryColor),
               elevation: 10,
               title: Row(
                 children: [
@@ -294,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            drawer: const AppDrawerWidget(),
+            drawer:AppDrawerWidget()
           )),
         );
   }

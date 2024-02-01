@@ -29,6 +29,11 @@ class MyProvider extends ChangeNotifier {
     }
   }
 
+  //--------------------------------------------------------ERROR VARIABLE
+  String fromWidget = '';
+  String errorString = '';
+  String error = '';
+
   //--------------------------------------------------------------IMAGE VARIABLE
   File? _imageFile;
   File? get imageFile => _imageFile;

@@ -29,16 +29,16 @@ class MyApp extends StatelessWidget {
         //useMaterial3: true,
 
       ),
-        darkTheme: ThemeData.dark().copyWith(
-          // Dark mode colors
-          primaryColor: const Color.fromARGB(255, 13, 70, 155),
-          hintColor: Colors.white,
-          secondaryHeaderColor: Colors.amber,
-
-
-          // Add more dark mode colors as needed
-        ),
-        themeMode: Provider.of<MyProvider>(context).currentThemeMode,
+        // darkTheme: ThemeData.dark().copyWith(
+        //   // Dark mode colors
+        //   primaryColor: const Color.fromARGB(255, 13, 70, 155),
+        //   hintColor: Colors.white,
+        //   secondaryHeaderColor: Colors.amber,
+        //
+        //
+        //   // Add more dark mode colors as needed
+        // ),
+        // themeMode: Provider.of<MyProvider>(context).currentThemeMode,
       home: const SplashScreen(),
     );
   }

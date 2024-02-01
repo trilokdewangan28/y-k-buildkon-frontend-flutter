@@ -154,6 +154,7 @@ class _CustomerVisitRequestListPageState
                       _firstLoad(appState);
                       //});
                     } else {
+                      selectedRequestStatus = 4;
                       _hasNextPage=true;
                       page=1;
                       //setState(() {
@@ -261,7 +262,7 @@ class _CustomerVisitRequestListPageState
           //=====================================PROPERTY LIST CONTAINER
           _isFirstLoadRunning==false
               ? appState.filteredCustomerRequestList.isNotEmpty
-              ? Expanded(
+                   ? Expanded(
               child: ListView.builder(
                 itemCount: appState.filteredCustomerRequestList.length,
                 itemBuilder: (context, index) {
@@ -419,11 +420,16 @@ class _CustomerVisitRequestListPageState
                 },
               ))
               : Container(
+            margin: EdgeInsets.only(top: 300),
             child: Center(
-              child: Text('no such request'),
+              child: Text('no such request',style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: MyConst.largeTextSize*fontSizeScaleFactor
+              ),),
             ),
           )
               : Container(
+            margin: EdgeInsets.only(top: 300),
             child: Center(
               child: CircularProgressIndicator(),
             ),
@@ -431,7 +437,7 @@ class _CustomerVisitRequestListPageState
 
           //================================loading more
           _isLoadMoreRunning == true
-              ? Padding(
+              ? Container(
             padding: EdgeInsets.only(top: 10, bottom: 40),
             child: Center(
               child: CircularProgressIndicator(),

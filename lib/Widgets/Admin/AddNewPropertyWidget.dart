@@ -230,14 +230,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                 (String value) {
                                           return DropdownMenuItem<String>(
                                               value: value,
-                                              child: Expanded(
-                                                child: Text('${value}',
-                                                    softWrap: true,
-                                                    style: TextStyle(
-                                                        fontSize: smallBodyText,
-                                                        overflow: TextOverflow
-                                                            .ellipsis)),
-                                              )
+                                              child: Text('${value}',
+                                                  softWrap: true,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: smallBodyText,
+                                                      overflow: TextOverflow
+                                                          .ellipsis)),
                                           );
                                         }).toList(),
                                       ),
@@ -274,8 +273,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: DropdownButton<String>(
                                               value: selectedBhk.toString(),
-                                              elevation: 16,
                                               alignment: Alignment.center,
+                                              elevation: 16,
+                                              borderRadius: BorderRadius.circular(10),
                                               underline: Container(),
                                               onChanged: (String? value) {
                                                 // This is called when the user selects an item.
@@ -290,16 +290,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                   (String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,
-                                                    child: Expanded(
-                                                      child: Text('${value}',
-                                                          softWrap: true,
-                                                          style: TextStyle(
-                                                              fontSize: smallBodyText,
-                                                              overflow: TextOverflow
-                                                                  .ellipsis)),
-                                                    )
+                                                    child: Text('${value}',
+                                                        softWrap: true,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: smallBodyText,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
                                                 );
-                                              }).toList(),
+                                              }).toList()
                                             ),
                                           ),
                                         )
@@ -353,15 +352,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                          child: Expanded(
-                                                            child: Text('${value}',
-                                                                softWrap: true,
-                                                                textAlign: TextAlign.center,
-                                                                style: TextStyle(
-                                                                    fontSize: smallBodyText,
-                                                                    overflow: TextOverflow
-                                                                        .ellipsis)),
-                                                          )
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
                                                       );
                                                     }).toList(),
                                               ),
@@ -417,11 +414,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                        child: Text(
-                                                          value,
-                                                          style: TextStyle(
-                                                              fontSize: smallBodyText),
-                                                        ),
+                                                        child: Text('${value}',
+                                                            softWrap: true,
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: smallBodyText,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis)),
                                                       );
                                                     }).toList(),
                                               ),
@@ -481,11 +480,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                        child: Text(
-                                                          value,
-                                                          style: TextStyle(
-                                                              fontSize: smallBodyText),
-                                                        ),
+                                                        child: Text('${value}',
+                                                            softWrap: true,
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: smallBodyText,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis)),
                                                       );
                                                     }).toList(),
                                               ),
@@ -541,11 +542,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       return DropdownMenuItem<
                                                           String>(
                                                         value: value,
-                                                        child: Text(
-                                                          value,
-                                                          style: TextStyle(
-                                                              fontSize: smallBodyText),
-                                                        ),
+                                                        child: Text('${value}',
+                                                            softWrap: true,
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: smallBodyText,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis)),
                                                       );
                                                     }).toList(),
                                               ),
@@ -592,11 +595,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                   (String value) {
                                                 return DropdownMenuItem<String>(
                                                   value: value,
-                                                  child: Text(
-                                                    value,
-                                                    style:
-                                                    TextStyle(fontSize: smallBodyText),
-                                                  ),
+                                                  child: Text('${value}',
+                                                      softWrap: true,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: smallBodyText,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
                                                 );
                                               }).toList(),
                                         ),

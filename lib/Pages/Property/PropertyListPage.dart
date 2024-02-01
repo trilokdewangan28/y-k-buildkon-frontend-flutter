@@ -125,6 +125,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
           _isFirstLoadRunning = false;
         });
       } else {
+        appState.error = res['error'];
+        appState.errorString=res['message'];
+        appState.fromWidget='PropertyListWidget';
+        appState.activeWidget = "SpacificErrorPage";
+        //Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage(error: res['error'],errorString: res['message'],fromWidget: appState.activeWidget,)));
       }
     }
   }

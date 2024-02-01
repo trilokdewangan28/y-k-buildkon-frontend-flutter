@@ -44,7 +44,10 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
-              return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
+              appState.error='';
+              appState.errorString= snapshot.data!['message'];
+              appState.fromWidget = appState.activeWidget;
+              return SpacificErrorPage();
             }
           }
           else if(snapshot.hasData){
@@ -75,11 +78,17 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               }
               return favoritePropertyContent;
             }else{
-              return SpacificErrorPage(errorString: snapshot.data!['message'],fromWidget: appState.activeWidget,);
+              appState.error=snapshot.data!['error'];
+              appState.errorString= snapshot.data!['message'];
+              appState.fromWidget = appState.activeWidget;
+              return SpacificErrorPage();
             }
           }
           else{
-            return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
+            appState.error='';
+            appState.errorString= snapshot.data!['message'];
+            appState.fromWidget = appState.activeWidget;
+            return SpacificErrorPage();
           }
         },
       ),

@@ -26,7 +26,7 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
       "c_id":appState.customerDetails['customer_id']
     };
     List<Map<String, dynamic>> propertyListDemo = [];
-    return Container(
+    return false ? Container(
       color: Theme.of(context).primaryColor,
       height: MediaQuery.of(context).size.height,
       child:  FutureBuilder<Map<String, dynamic>>(
@@ -44,7 +44,10 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
               return const InternetErrorPage();
             } else {
               // Handle other errors (server error or unexpected error).
-              return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
+              appState.error='';
+              appState.errorString= snapshot.data!['message'];
+              appState.fromWidget = appState.activeWidget;
+              return SpacificErrorPage();
             }
           }
           else if(snapshot.hasData){
@@ -76,14 +79,20 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
               }
               return visitRequestContent;
             }else{
-              return SpacificErrorPage(errorString: snapshot.data!['message'],fromWidget: appState.activeWidget,);
+              appState.error=snapshot.data!['error'];
+              appState.errorString= snapshot.data!['message'];
+              appState.fromWidget = appState.activeWidget;
+              return SpacificErrorPage();
             }
           }
           else{
-            return SpacificErrorPage(errorString: snapshot.error.toString(),fromWidget: appState.activeWidget,);
+            appState.error='';
+            appState.errorString= snapshot.data!['message'];
+            appState.fromWidget = appState.activeWidget;
+            return SpacificErrorPage();
           }
         },
       ),
-    );
+    ) :VisitRequestedListPage();
   }
 }

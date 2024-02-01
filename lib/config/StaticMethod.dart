@@ -31,7 +31,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting property list'
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
       };
     }
   }
@@ -59,7 +60,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting property list'
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
       };
     }
   }
@@ -86,7 +88,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while registering due to request'
+        "message": 'An error occured while registering due to request',
+        "error":e.toString()
       };
     }
   }
@@ -113,7 +116,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while sending the otp'
+        "message": 'An error occured while sending the otp',
+        "error":e.toString()
       };
     }
   }
@@ -140,7 +144,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while sending the otp'
+        "message": 'An error occured while sending the otp',
+        "error":e.toString()
       };
     }
   }
@@ -167,7 +172,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while verifying otp and login'
+        "message": 'An error occured while verifying otp and login',
+        "error":e.toString()
       };
     }
   }
@@ -195,7 +201,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while verifying otp and login'
+        "message": 'An error occured while verifying otp and login',
+        "error":e.toString()
       };
     }
   }
@@ -230,7 +237,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching user detail'
+        "message": 'An error occured while fetching user detail',
+        "error":e.toString()
       };
     }
   }
@@ -259,7 +267,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching customer detail'
+        "message": 'An error occured while fetching customer detail',
+        "error":e.toString()
       };
     }
   }
@@ -287,7 +296,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for requestVisit api'
+        "message": 'An error occured while requesting for requestVisit api',
+        "error":e.toString()
       };
     }
   }
@@ -315,7 +325,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for addToFavorite api'
+        "message": 'An error occured while requesting for addToFavorite api',
+        "error":e.toString()
       };
     }
   }
@@ -344,7 +355,8 @@ class StaticMethod {
       return {
         "success": false,
         "message":
-            'An error occured while requesting for removeFromFavorite api'
+            'An error occured while requesting for removeFromFavorite api',
+        "error":e.toString()
       };
     }
   }
@@ -373,7 +385,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching favorite property api'
+        "message": 'An error occured while fetching favorite property api',
+        "error":e.toString()
       };
     }
   }
@@ -403,7 +416,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching favorite property api'
+        "message": 'An error occured while fetching favorite property api',
+        "error":e.toString()
       };
     }
   }
@@ -432,9 +446,54 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching visit requested list api'
+        "message": 'An error occured while fetching visit requested list api',
+        "error":e.toString()
       };
     }
+  }
+
+  //----------------------------------------------------------------------------fetch favorite property List
+  static Future<Map<String, dynamic>> fetchVisitRequestedListWithPagination( appState,url,paginationOptions,token, {
+    int selectedRequestStatus = 4,
+  }) async {
+
+    Map<String,dynamic> filterOptions={
+      "requestStatus":selectedRequestStatus
+    };
+    var response;
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        response = jsonDecode(res.body);
+        return response;
+      } else {
+        response = jsonDecode(res.body);
+        return response;
+      }
+    } catch (e) {
+      print('failed to complete fetchPropertyList api');
+      print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
+      };
+    }
+
   }
 
   //----------------------------------------------------------------------------fetch favorite property List
@@ -462,7 +521,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while fetching visit requested list api'
+        "message": 'An error occured while fetching visit requested list api',
+        "error":e.toString()
       };
     }
   }
@@ -559,7 +619,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting property list'
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
       };
     }
 
@@ -603,7 +664,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while submit rating api'
+        "message": 'An error occured while submit rating api',
+        "error":e.toString()
       };
     }
   }
@@ -626,7 +688,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting admin contact'
+        "message": 'An error occured while requesting admin contact',
+        "error":e.toString()
       };
     }
   }
@@ -649,7 +712,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting offer list'
+        "message": 'An error occured while requesting offer list',
+        "error":e.toString()
       };
     }
   }
@@ -677,7 +741,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting customer Request list'
+        "message": 'An error occured while requesting customer Request list',
+        "error":e.toString()
       };
     }
   }
@@ -686,7 +751,8 @@ class StaticMethod {
   static Future<Map<String,dynamic>> fetchCustomerRequestWithPagination(
     appState,url,paginationOptions,token, {
     int selectedRequestStatus = 4,
-  })async {
+  }
+  )async {
 
     Map<String,dynamic> filterOptions={
       "requestStatus":selectedRequestStatus
@@ -720,7 +786,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting property list'
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
       };
     }
 
@@ -749,7 +816,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for changeVisitStatus api'
+        "message": 'An error occured while requesting for changeVisitStatus api',
+        "error":e.toString()
       };
     }
   }
@@ -777,7 +845,8 @@ class StaticMethod {
       print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for insertProperty api'
+        "message": 'An error occured while requesting for insertProperty api',
+        "error":e.toString()
       };
     }
   }
@@ -806,7 +875,8 @@ class StaticMethod {
       return {
         "success": false,
         "message":
-            'An error occured while requesting for deletePropertyImage api'
+            'An error occured while requesting for deletePropertyImage api',
+        "error":e.toString()
       };
     }
   }
