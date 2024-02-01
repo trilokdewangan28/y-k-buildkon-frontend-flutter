@@ -176,7 +176,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer
                     appState.activeWidget='AdminLoginWidget';
-                    //appState.currentState=1;
+                    appState.currentState=1;
 
                   },
                 ),

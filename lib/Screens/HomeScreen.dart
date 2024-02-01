@@ -153,16 +153,16 @@ class _HomeScreenState extends State<HomeScreen> {
           if(appState.userType=='admin'){
             widgetContent = const AdminProfileWidget();
             appBarContent = "Admin Profile";
-            appState.currentState = 1;
+            //appState.currentState = 1;
           }else{
             widgetContent = const AdminLoginWidget();
             appBarContent = "Admin Login";
-            appState.currentState = 1;
+            //appState.currentState = 1;
           }
         } else {
           widgetContent = const AdminLoginWidget();
           appBarContent = "Admin Login";
-          appState.currentState = 1;
+          //appState.currentState = 1;
         }
         break;
       case "CustomerVisitRequestListWidget":

@@ -290,7 +290,7 @@ class StaticMethod {
 
     try {
       Map<String, String> requestHeaders = {
-        'Authorization': 'Bearer ${token}kdjkj',
+        'Authorization': 'Bearer ${token}',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };

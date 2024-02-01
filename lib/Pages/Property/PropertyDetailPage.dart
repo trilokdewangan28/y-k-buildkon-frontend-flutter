@@ -81,7 +81,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: CircularProgressIndicator(),
       ),
     );
-    final res = await StaticMethod.addToFavorite(appState.token, data, url);
+    final res = await StaticMethod.addToFavorite(data['token'], data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -702,7 +702,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                       "c_id": appState
                                           .customerDetails['customer_id'],
                                       "p_id": appState
-                                          .selectedProperty['property_id']
+                                          .selectedProperty['property_id'],
+                                      "token":appState.token
                                     };
 
                                     appState.addedToFavorite == false

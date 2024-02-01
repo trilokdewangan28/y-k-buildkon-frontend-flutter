@@ -102,7 +102,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
         );
       } else {
         Fluttertoast.showToast(
-          msg: res['message'],
+          msg: '${res['message']} ${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
           gravity: ToastGravity.TOP, // Toast position
           backgroundColor: Colors.black, // Background color of the toast
