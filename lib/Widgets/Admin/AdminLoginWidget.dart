@@ -187,9 +187,9 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
               //   height: 60,
               // ),
               Image.asset(
-                'assets/images/logo.png',
+                'assets/images/ic_launcher.png',
                 height: 150,
-                color: Theme.of(context).hintColor,
+
               ),
               Container(
                 width: double.infinity,

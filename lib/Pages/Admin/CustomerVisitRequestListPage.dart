@@ -33,7 +33,6 @@ class _CustomerVisitRequestListPageState
   final int limit = 5;
 
   bool _isFirstLoadRunning = false;
-  bool _isOfferLoading = false;
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
@@ -103,7 +102,7 @@ class _CustomerVisitRequestListPageState
             );
           }
         } else {
-          print('unable to fetch property show error page');
+          //print('unable to fetch property show error page');
         }
       }
       setState(() {
@@ -118,7 +117,7 @@ class _CustomerVisitRequestListPageState
     final appState = Provider.of<MyProvider>(context, listen: false);
     _firstLoad(appState);
     _controller = ScrollController()..addListener(() => _loadMore(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -420,7 +419,7 @@ class _CustomerVisitRequestListPageState
                 },
               ))
               : Container(
-            margin: EdgeInsets.only(top: 300),
+            margin: const EdgeInsets.only(top: 300),
             child: Center(
               child: Text('no such request',style: TextStyle(
                 fontWeight: FontWeight.w500,
@@ -429,8 +428,8 @@ class _CustomerVisitRequestListPageState
             ),
           )
               : Container(
-            margin: EdgeInsets.only(top: 300),
-            child: Center(
+            margin: const EdgeInsets.only(top: 300),
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           ),
@@ -438,8 +437,8 @@ class _CustomerVisitRequestListPageState
           //================================loading more
           _isLoadMoreRunning == true
               ? Container(
-            padding: EdgeInsets.only(top: 10, bottom: 40),
-            child: Center(
+            padding: const EdgeInsets.only(top: 10, bottom: 40),
+            child: const Center(
               child: CircularProgressIndicator(),
             ),
           )
@@ -461,7 +460,7 @@ class _CustomerVisitRequestListPageState
           // setState(() {
           _hasNextPage=true;
           page=1;
-          _isOfferLoading=false;
+
           _isFirstLoadRunning=false;
           _isLoadMoreRunning=false;
           _firstLoad(appState);

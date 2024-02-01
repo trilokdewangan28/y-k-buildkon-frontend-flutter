@@ -270,7 +270,7 @@ class _FavoritePropertyDetailPageState
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -293,7 +293,7 @@ class _FavoritePropertyDetailPageState
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -319,7 +319,7 @@ class _FavoritePropertyDetailPageState
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 

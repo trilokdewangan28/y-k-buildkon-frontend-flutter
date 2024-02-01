@@ -26,7 +26,7 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
     Widget propertyContent = Container();
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchAllProperties);
-    return page==false ? FutureBuilder<Map<String, dynamic>>(
+    return false ? FutureBuilder<Map<String, dynamic>>(
       future: StaticMethod.fetchAllProperties(url),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -47,7 +47,7 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
             appState.error='';
             appState.errorString= snapshot.data!['message'];
             appState.fromWidget = appState.activeWidget;
-            return SpacificErrorPage();
+            return const SpacificErrorPage();
           }
         }
         else if(snapshot.hasData){
@@ -84,16 +84,16 @@ class _PropertyListWidgetState extends State<PropertyListWidget> {
             appState.error=snapshot.data!['error'];
             appState.errorString= snapshot.data!['message'];
             appState.fromWidget = appState.activeWidget;
-            return SpacificErrorPage();
+            return const SpacificErrorPage();
           }
         }
         else{
           appState.error='';
           appState.errorString= snapshot.data!['message'];
           appState.fromWidget = appState.activeWidget;
-          return SpacificErrorPage();
+          return const SpacificErrorPage();
         }
       },
-    ) : PropertyListPage();
+    ) : const PropertyListPage();
   }
 }

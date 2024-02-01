@@ -100,7 +100,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
             );
           }
         } else {
-          print('unable to fetch property show error page');
+          //print('unable to fetch property show error page');
         }
       }
       setState(() {
@@ -116,7 +116,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     _firstLoad(appState);
     _controller = ScrollController()..addListener(() => _loadMore(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -125,15 +125,14 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    print(
-        'visit requested property list is : ${appState.visitRequestedPropertyList}');
+    //print('visit requested property list is : ${appState.visitRequestedPropertyList}');
     return RefreshIndicator(
         child: Container(
           color: Theme.of(context).primaryColor,
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
@@ -450,7 +449,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           },
                         ))
                       : Container(
-                          margin: EdgeInsets.only(top: 300),
+                          margin: const EdgeInsets.only(top: 300),
                           child: Center(
                             child: Text(
                               'no such request',
@@ -462,8 +461,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           ),
                         )
                   : Container(
-                      margin: EdgeInsets.only(top: 300),
-                      child: Center(
+                      margin: const EdgeInsets.only(top: 300),
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     ),
@@ -471,8 +470,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
               //================================loading more
               _isLoadMoreRunning == true
                   ? Container(
-                      padding: EdgeInsets.only(top: 10, bottom: 40),
-                      child: Center(
+                      padding: const EdgeInsets.only(top: 10, bottom: 40),
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     )

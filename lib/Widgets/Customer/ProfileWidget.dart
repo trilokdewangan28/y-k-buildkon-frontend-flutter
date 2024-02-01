@@ -44,7 +44,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               appState.error='';
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else if(snapshot.hasData){
@@ -63,14 +63,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               appState.error=snapshot.data!['error'];
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else{
             appState.error='';
             appState.errorString= snapshot.data!['message'];
             appState.fromWidget = appState.activeWidget;
-            return SpacificErrorPage();
+            return const SpacificErrorPage();
           }
         },
       ),

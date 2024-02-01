@@ -47,7 +47,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               appState.error='';
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else if(snapshot.hasData){
@@ -81,14 +81,14 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
               appState.error=snapshot.data!['error'];
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else{
             appState.error='';
             appState.errorString= snapshot.data!['message'];
             appState.fromWidget = appState.activeWidget;
-            return SpacificErrorPage();
+            return const SpacificErrorPage();
           }
         },
       ),

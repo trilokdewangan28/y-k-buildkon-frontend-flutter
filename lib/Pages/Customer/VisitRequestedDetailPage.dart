@@ -407,7 +407,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -430,7 +430,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -456,7 +456,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 

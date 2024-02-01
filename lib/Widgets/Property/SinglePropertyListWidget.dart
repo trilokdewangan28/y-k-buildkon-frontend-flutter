@@ -7,7 +7,6 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
-import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 
@@ -31,7 +30,7 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
     return PopScope(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('property details'),
+            title: const Text('property details'),
           ),
       body: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchSingleProperties(data,url),
@@ -54,7 +53,7 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
               appState.error='';
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else if(snapshot.hasData){
@@ -90,14 +89,14 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
               appState.error=snapshot.data!['error'];
               appState.errorString= snapshot.data!['message'];
               appState.fromWidget = appState.activeWidget;
-              return SpacificErrorPage();
+              return const SpacificErrorPage();
             }
           }
           else{
             appState.error='';
             appState.errorString= snapshot.data!['message'];
             appState.fromWidget = appState.activeWidget;
-            return SpacificErrorPage();
+            return const SpacificErrorPage();
           }
         },
       ),

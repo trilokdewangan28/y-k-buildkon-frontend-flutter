@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/logo.png',color: Theme.of(context).primaryColor,),
+                    Image.asset('assets/images/ic_launcher.png'),
                     const Text(
                       'Y&K BUILCON',
                       style: TextStyle(

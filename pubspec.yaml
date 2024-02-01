@@ -81,7 +81,7 @@ flutter:
   assets:
     - assets/images/15276.jpg
     - assets/images/map.jpg
-    - assets/images/logo.png
+    - assets/images/ic_launcher.png
     - assets/images/home.jpg
     - assets/Icons/filter.png
 

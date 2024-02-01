@@ -109,9 +109,8 @@ class _SignupWidgetState extends State<SignupWidget> {
           child: Column(
             children: [
               Image.asset(
-                'assets/images/logo.png',
+                'assets/images/ic_launcher.png',
                 height: 150,
-                color: Theme.of(context).hintColor,
               ),
               Container(
                 width: double.infinity,
@@ -153,7 +152,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             controller: _nameController,
                             decoration: InputDecoration(
                                 labelText: 'Full Name',
-                                labelStyle: TextStyle(color: Colors.black),
+                                labelStyle: const TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
@@ -188,7 +187,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Mobile Number',
-                                labelStyle: TextStyle(color: Colors.black),
+                                labelStyle: const TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
@@ -260,7 +259,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                           controller: _emailController,
                           decoration: InputDecoration(
                               labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
+                              labelStyle: const TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
@@ -294,7 +293,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             controller: _addressController,
                             decoration: InputDecoration(
                                 labelText: 'Address',
-                                labelStyle: TextStyle(color: Colors.black),
+                                labelStyle: const TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
@@ -330,7 +329,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   controller: _localityController,
                                   decoration: InputDecoration(
                                       labelText: 'Locality',
-                                      labelStyle: TextStyle(color: Colors.black),
+                                      labelStyle: const TextStyle(color: Colors.black),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 2,
@@ -362,7 +361,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   controller: _cityController,
                                   decoration:  InputDecoration(
                                       labelText: 'City',
-                                      labelStyle: TextStyle(color: Colors.black),
+                                      labelStyle: const TextStyle(color: Colors.black),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 2,
@@ -398,7 +397,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                                 labelText: 'Pincode',
-                                labelStyle: TextStyle(color: Colors.black),
+                                labelStyle: const TextStyle(color: Colors.black),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,

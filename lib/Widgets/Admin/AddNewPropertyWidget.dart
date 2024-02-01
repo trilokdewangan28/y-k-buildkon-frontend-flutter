@@ -146,9 +146,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
           child: Column(
             children: [
               Image.asset(
-                'assets/images/logo.png',
+                'assets/images/ic_launcher.png',
                 height: 150,
-                color: Theme.of(context).hintColor,
+
               ),
               Container(
                 width: double.infinity,

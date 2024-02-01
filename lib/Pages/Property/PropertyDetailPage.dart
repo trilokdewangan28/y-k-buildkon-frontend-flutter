@@ -413,7 +413,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -436,7 +436,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 
@@ -462,7 +462,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   return null;
                                 }),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
 

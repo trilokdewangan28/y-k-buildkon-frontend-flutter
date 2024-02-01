@@ -52,7 +52,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColor,
-            title: Text('EMI CALCULATOR'),
+            title: const Text('EMI CALCULATOR'),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,

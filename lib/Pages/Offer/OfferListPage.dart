@@ -20,7 +20,7 @@ class _OfferListPageState extends State<OfferListPage> {
     return PopScope(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('offer list'),
+            title: const Text('offer list'),
             backgroundColor: Theme.of(context).primaryColor,
           ),
           body: Container(
@@ -36,7 +36,7 @@ class _OfferListPageState extends State<OfferListPage> {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>SinglePropertyListWidget(property_id: offer['property_id'],)));
                     },
                     child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                        margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,

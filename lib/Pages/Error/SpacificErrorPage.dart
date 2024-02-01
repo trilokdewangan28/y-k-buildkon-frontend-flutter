@@ -31,7 +31,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 //==========================500 text
-                Text(
+                const Text(
                   '500',
                   style: TextStyle(
                       fontSize: 50,
@@ -39,11 +39,11 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                       color: Colors.red
                   ),
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
                 //===========================internal server error text
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     'Internal Server Error',
                     textAlign: TextAlign.center,
@@ -54,11 +54,11 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15,),
+                const SizedBox(height: 15,),
 
                 //========================== error message text
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     appState.errorString,
                     textAlign: TextAlign.center,
@@ -71,7 +71,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
 
                 //========================== suggestion message
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     'please refresh the page and try again',
                     textAlign: TextAlign.center,
@@ -86,23 +86,23 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                 //==========================know more button text
                 appState.error.isNotEmpty
                     ? Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: TextButton(
                     onPressed: (){
                       setState(() {
                         knowMore=!knowMore;
                       });
                     },
-                    child: knowMore ==false ? Text(
+                    child: knowMore ==false ? const Text(
                       'know more'
-                    ) : Text('know less'),
+                    ) : const Text('know less'),
                   ),
                 )
                     :Container(),
 
                 knowMore==true
                     ? Center(child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     appState.error,
                     textAlign: TextAlign.center,

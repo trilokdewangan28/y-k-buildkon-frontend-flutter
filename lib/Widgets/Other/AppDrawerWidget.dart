@@ -44,9 +44,8 @@ class AppDrawerWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      'assets/images/logo.png',
+                      'assets/images/ic_launcher.png',
                       height: 100,
-                      color: Theme.of(context).hintColor,
                     ),
                     const Text(
                       'Y&K BUILDCON',
@@ -84,7 +83,7 @@ class AppDrawerWidget extends StatelessWidget {
                   title: const Text('Offers'),
                   onTap: () {
                     popNow(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>OfferListPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const OfferListPage()));
                   },
                 ),
               ),
@@ -99,7 +98,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmiCalculatorWidget()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const EmiCalculatorWidget()));
                   },
                 ),
               ),

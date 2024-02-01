@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = "Add New Property";
         break;
       case "SpacificErrorPage":
-      widgetContent=SpacificErrorPage();
+      widgetContent=const SpacificErrorPage();
       break;
     }
     return PopScope(
@@ -234,21 +234,20 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
              appBar:AppBar(
-               iconTheme: IconThemeData(color:Theme.of(context).primaryColor),
+               iconTheme: IconThemeData(color:Colors.black),
               elevation: 10,
               title: Row(
                 children: [
                   Image.asset(
-                    'assets/images/logo.png',
+                    'assets/images/ic_launcher.png',
                     width: 50,
-                    color: Theme.of(context).primaryColor,
                   ),
 
                   Expanded(
                     child: Text(
                       appBarContent,
                       style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: Colors.black,
                           fontWeight: FontWeight.w600,
                           overflow: TextOverflow.ellipsis),
                       softWrap: true,
@@ -264,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               //actions: [darkModeAction],
-              backgroundColor: Theme.of(context).hintColor,
+              backgroundColor: Theme.of(context).primaryColor,
             ),
             body: widgetContent,
             bottomNavigationBar: BottomNavigationBar(
@@ -302,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            drawer:AppDrawerWidget()
+            drawer:const AppDrawerWidget()
           )),
         );
   }

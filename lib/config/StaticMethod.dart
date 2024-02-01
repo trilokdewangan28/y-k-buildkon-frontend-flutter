@@ -15,20 +15,19 @@ class StaticMethod {
   //==============================CUSTOMER RELATED METHODS======================
   //---------------------------------------------------------------------------- FETCH PROPERTY LIST
   static Future<Map<String, dynamic>> fetchAllProperties(url) async {
-    var response;
     try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
+
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
+
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+      //print('failed to complete fetchPropertyList api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting property list',
@@ -39,7 +38,7 @@ class StaticMethod {
 
   //---------------------------------------------------------------------------- FETCH single PROPERTY LIST
   static Future<Map<String, dynamic>> fetchSingleProperties(data,url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -49,15 +48,13 @@ class StaticMethod {
           body: jsonEncode(data), headers: requestHeaders);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+      //print('failed to complete fetchPropertyList api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting property list',
@@ -68,7 +65,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------SIGNUP CUSTOMER
   static Future<Map<String, dynamic>> userSignup(signupData, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -77,15 +74,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(signupData), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete signup api');
-      print(e.toString());
+      //print('failed to complete signup api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while registering due to request',
@@ -96,7 +91,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------GENERATE OTP
   static Future<Map<String, dynamic>> generateOtp(userData, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -105,15 +100,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(userData), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete send otp api');
-      print(e.toString());
+      //print('failed to complete send otp api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while sending the otp',
@@ -124,7 +117,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------GENERATE OTP for signup
   static Future<Map<String, dynamic>> sendOtpForSignup(userData, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -133,15 +126,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(userData), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete send otp api');
-      print(e.toString());
+      //print('failed to complete send otp api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while sending the otp',
@@ -152,7 +143,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
   static Future<Map<String, dynamic>> submitOtpAndLogin(otpModel, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -161,15 +152,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(otpModel), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete verify otp and login');
-      print(e.toString());
+      //print('failed to complete verify otp and login');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while verifying otp and login',
@@ -181,7 +170,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
   static Future<Map<String, dynamic>> verifyOtpForSignup(otpModel, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -190,15 +179,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(otpModel), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete verify otp and login');
-      print(e.toString());
+      //print('failed to complete verify otp and login');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while verifying otp and login',
@@ -221,7 +208,7 @@ class StaticMethod {
       await Future.delayed(const Duration(milliseconds: 100));
       if (res.statusCode == 200) {
         response = jsonDecode(res.body);
-        print('customer data is :' + response['result'].toString());
+        //print('customer data is :' + response['result'].toString());
         if (appState.userType == "admin") {
           appState.adminDetails = response['result'];
         } else {
@@ -233,8 +220,8 @@ class StaticMethod {
         appState.customerDetail = {};
       }
     } catch (e) {
-      print('failed to complete user profile api');
-      print(e.toString());
+      //print('failed to complete user profile api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching user detail',
@@ -245,7 +232,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
   static Future<Map<String, dynamic>> userProfile(token, url) async {
-    var response;
+
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
       'Content-type': 'application/json',
@@ -256,15 +243,13 @@ class StaticMethod {
       final res = await http.get(url, headers: requestHeaders);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete customer profile api');
-      print(e.toString());
+      //print('failed to complete customer profile api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching customer detail',
@@ -275,7 +260,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------BOOK VISIT
   static Future<Map<String, dynamic>> requestVisit(token, bookVisitModel, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -285,15 +270,13 @@ class StaticMethod {
       final res = await http.post(url,
           body: jsonEncode(bookVisitModel), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete request visit api');
-      print(e.toString());
+      //print('failed to complete request visit api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting for requestVisit api',
@@ -304,7 +287,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------add to favorite
   static Future<Map<String, dynamic>> addToFavorite(token, data, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer ${token}kdjkj',
@@ -314,15 +297,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete add to favorite api');
-      print(e.toString());
+      //print('failed to complete add to favorite api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting for addToFavorite api',
@@ -333,7 +314,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------remove from favorite
   static Future<Map<String, dynamic>> removeFromFavorite(token, data, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -343,15 +324,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete remove from favorite api');
-      print(e.toString());
+      //print('failed to complete remove from favorite api');
+      //print(e.toString());
       return {
         "success": false,
         "message":
@@ -363,8 +342,8 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------fetch favorite property
   static Future<Map<String, dynamic>> fetchFavoriteProperty(token, data, url) async {
-    var response;
-    print("data is: " + data.toString());
+
+    //print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -374,15 +353,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+      //print('failed to complete fetchPropertyList api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching favorite property api',
@@ -394,8 +371,8 @@ class StaticMethod {
   //----------------------------------------------------------------------------fetch favorite property List
   static Future<Map<String, dynamic>> fetchFavoritePropertyListDetails(token,
       data, url) async {
-    var response;
-    print("data is: " + data.toString());
+
+    //print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -405,15 +382,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+      //print('failed to complete fetchPropertyList api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching favorite property api',
@@ -424,7 +399,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------fetch favorite property List
   static Future<Map<String, dynamic>> fetchVisitRequestedList(token, data, url) async {
-    var response;
+
     //print("data is: "+data.toString());
     try {
       Map<String, String> requestHeaders = {
@@ -435,15 +410,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete visit requested list api');
-      print(e.toString());
+      //print('failed to complete visit requested list api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching visit requested list api',
@@ -460,7 +433,7 @@ class StaticMethod {
     Map<String,dynamic> filterOptions={
       "requestStatus":selectedRequestStatus
     };
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -478,15 +451,13 @@ class StaticMethod {
       );
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+      //print('failed to complete fetchPropertyList api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting property list',
@@ -499,8 +470,8 @@ class StaticMethod {
   //----------------------------------------------------------------------------fetch favorite property List
   static Future<Map<String, dynamic>> fetchVisitRequestedPropertyDetails(token,
       data, url) async {
-    var response;
-    print("data is: " + data.toString());
+
+    //print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -510,15 +481,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete visit requested list api');
-      print(e.toString());
+      //print('failed to complete visit requested list api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching visit requested list api',
@@ -587,11 +556,11 @@ class StaticMethod {
       "propertycity": selectedCity
     };
 
-    print('--------------------------fetch methond------------------------------');
-    print('filter variable is ${filterOptions}');
-    print('-----------------------------------------------------------------------');
+    //print('--------------------------fetch methond------------------------------');
+    //print('filter variable is ${filterOptions}');
+    //print('-----------------------------------------------------------------------');
 
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -608,15 +577,13 @@ class StaticMethod {
       );
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+     // print('failed to complete fetchPropertyList api');
+     // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting property list',
@@ -629,7 +596,7 @@ class StaticMethod {
   //----------------------------------------------------------------------------OPEN MAP
   static void openMap(url) async {
     // Replace with the desired latitude and longitude
-    print('inside the open map url is $url');
+   // print('inside the open map url is $url');
     // Use the URL format for opening a map with coordinates
     String mapUrl = url;
 
@@ -642,8 +609,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------submit property rating
   static Future<Map<String, dynamic>> submitPropertyRating(token, data, url) async {
-    var response;
-    print("data is: " + data.toString());
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -653,15 +619,12 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete submit rating api');
-      print(e.toString());
+
       return {
         "success": false,
         "message": 'An error occured while submit rating api',
@@ -672,20 +635,18 @@ class StaticMethod {
 
   //============================================================================FETCH ADMIN CONTACT WIDGET
   static Future<Map<String, dynamic>> fetchAdminContact(url) async {
-    var response;
+
     try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchAdminContact api');
-      print(e.toString());
+     // print('failed to complete fetchAdminContact api');
+     // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting admin contact',
@@ -696,20 +657,18 @@ class StaticMethod {
 
   //============================================================================FETCH OFFER LIST
   static Future<Map<String, dynamic>> fetchOfferList(url) async {
-    var response;
+
     try {
       final res = await http.get(url);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchOfferList api');
-      print(e.toString());
+     // print('failed to complete fetchOfferList api');
+     // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting offer list',
@@ -720,7 +679,7 @@ class StaticMethod {
 
   //============================================================================FETCH CUSTOMER REQUEST
   static Future<Map<String, dynamic>> fetchCustomerRequest(token, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -730,15 +689,12 @@ class StaticMethod {
       final res = await http.get(url,headers: requestHeaders);
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchCustomerRequest api');
-      print(e.toString());
+
       return {
         "success": false,
         "message": 'An error occured while requesting customer Request list',
@@ -757,7 +713,7 @@ class StaticMethod {
     Map<String,dynamic> filterOptions={
       "requestStatus":selectedRequestStatus
     };
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -775,15 +731,13 @@ class StaticMethod {
       );
 
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete fetchPropertyList api');
-      print(e.toString());
+     // print('failed to complete fetchPropertyList api');
+     // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting property list',
@@ -795,7 +749,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------Change Visit Status
   static Future<Map<String, dynamic>> changeVisitStatus(token,data, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -805,15 +759,13 @@ class StaticMethod {
       final res =
           await http.put(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete changeVisitStatus api');
-      print(e.toString());
+      //print('failed to complete changeVisitStatus api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting for changeVisitStatus api',
@@ -824,7 +776,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------Insert property
   static Future<Map<String, dynamic>> insertProperty(token, data, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -834,15 +786,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete insertProperty api');
-      print(e.toString());
+      //print('failed to complete insertProperty api');
+      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting for insertProperty api',
@@ -853,7 +803,7 @@ class StaticMethod {
 
   //----------------------------------------------------------------------------delete property image
   static Future<Map<String, dynamic>> deletePropertyImage(token, data, url) async {
-    var response;
+
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -863,15 +813,13 @@ class StaticMethod {
       final res =
           await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       } else {
-        response = jsonDecode(res.body);
-        return response;
+        return jsonDecode(res.body);
       }
     } catch (e) {
-      print('failed to complete deletePropertyImage api');
-      print(e.toString());
+      //print('failed to complete deletePropertyImage api');
+      //print(e.toString());
       return {
         "success": false,
         "message":

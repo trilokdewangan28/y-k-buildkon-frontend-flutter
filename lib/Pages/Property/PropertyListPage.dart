@@ -1,12 +1,9 @@
-import 'dart:io';
+
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
-import 'package:real_state/Pages/Error/InternetErrorPage.dart';
-import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Offer/OfferSlider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
@@ -186,7 +183,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
             );
           }
         } else {
-          print('unable to fetch property show error page');
+          //print('unable to fetch property show error page');
         }
       }
       setState(() {
@@ -218,7 +215,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
   late ScrollController _controller;
   @override
   void initState() {
-    print('initstate methond called');
+    ///print('initstate methond called');
     final appState = Provider.of<MyProvider>(context, listen: false);
     _firstLoad(appState);
     _loadOffer(appState);
@@ -260,7 +257,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor, fontWeight: FontWeight.w600),
                       ),
                     ),
-                    Divider(),
+                    const Divider(),
                     Container(
                       child: SingleChildScrollView(
                           child: Container(
@@ -727,7 +724,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                       textAlignVertical: TextAlignVertical.center,
                                       textAlign: TextAlign.center,
                                       decoration:  InputDecoration(
-                                        contentPadding: EdgeInsets.only(bottom: 5),
+                                        contentPadding: const EdgeInsets.only(bottom: 5),
                                         labelText: ' min price',
                                         labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                         border: InputBorder.none,
@@ -736,7 +733,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     ),
                                   ),
                                 ),),
-                                SizedBox(
+                                const SizedBox(
                                   width: 5,
                                 ),
                                 //===================================FILTER BY CITY
@@ -759,7 +756,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                       textAlignVertical: TextAlignVertical.center,
                                       textAlign: TextAlign.center,
                                       decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.only(bottom: 5),
+                                        contentPadding: const EdgeInsets.only(bottom: 5),
                                         labelText: ' max price',
                                         labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                         border: InputBorder.none,
@@ -770,7 +767,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 ),)
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            const SizedBox(height: 10,),
 
                             //===================================FILTER BY NAME
                             Container(
@@ -791,17 +788,17 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration:  InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 5),
+                                    contentPadding: const EdgeInsets.only(bottom: 5),
                                     labelText: 'Filter By Name',
                                     labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                     border: InputBorder.none,
-                                    prefixIcon: Icon(Icons.search),
+                                    prefixIcon: const Icon(Icons.search),
                                   ),
                                   cursorOpacityAnimates: false,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
 
@@ -824,22 +821,22 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                   textAlignVertical: TextAlignVertical.center,
                                   decoration: InputDecoration(
-                                    contentPadding: EdgeInsets.only(bottom: 5),
+                                    contentPadding: const EdgeInsets.only(bottom: 5),
                                     labelText: 'Filter By City',
                                     labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                     border: InputBorder.none,
-                                    prefixIcon: Icon(Icons.search),
+                                    prefixIcon: const Icon(Icons.search),
                                   ),
                                   cursorOpacityAnimates: false,
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
 
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -901,8 +898,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    print('buildmethond called');
-    print('length of proeprty is ${appState.propertyList.length}');
+    //print('buildmethond called');
+    //print('length of proeprty is ${appState.propertyList.length}');
     //print('property list is ${appState.propertyList}');
     //print('firsloadrunning is ${_isFirstLoadRunning}');
     var url = Uri.parse(ApiLinks.fetchOfferList);
@@ -948,7 +945,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 5,),
+                  const SizedBox(width: 5,),
                   //=====================================FILTER BTN
                   Column(
                     children: [
@@ -1024,7 +1021,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     ),
                   )
               )
-                  : appState.offerList.isNotEmpty ? OfferSlider() : Container(child: Text('empty offer'),)
+                  : appState.offerList.isNotEmpty ? const OfferSlider() : Container(child: const Text('empty offer'),)
             ),
             SizedBox(
               height: MyConst.deviceHeight(context) * 0.02,
@@ -1113,7 +1110,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     child: Container(
                                       //height: MyConst.deviceHeight(context)*0.1,
                                       width: double.infinity,
-                                      margin: EdgeInsets.all(8),
+                                      margin: const EdgeInsets.all(8),
                                       // padding: const EdgeInsets.symmetric(
                                       //     horizontal: 4, vertical: 8),
                                       child: Column(
@@ -1249,7 +1246,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
             //================================loading more
             _isLoadMoreRunning == true
-                ? Padding(
+                ? const Padding(
                 padding: EdgeInsets.only(top: 10, bottom: 40),
                 child: Center(
                   child: CircularProgressIndicator(),

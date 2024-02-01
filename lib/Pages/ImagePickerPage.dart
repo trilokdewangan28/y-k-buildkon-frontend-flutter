@@ -58,8 +58,8 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
   Future<Map<String, dynamic>> uploadImage(data, Uri url, forWhich, appState) async {
-    print('upload profile pic method called');
-    print(url);
+    //print('upload profile pic method called');
+    //print(url);
     //print(data['email']);
     //print(data['imageFile']);
     //print(url);
@@ -125,7 +125,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   appState.imageFile != null
                       ? Image.file(
                     appState.imageFile!,
@@ -215,7 +215,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           floatingActionButton: appState.imageFile != null
               ? FloatingActionButton(
                   onPressed: () async {
-                    print('floating button acion called');
+                    //print('floating button acion called');
                       var url;
                       if(widget.forWhich=='customerProfilePic'){
                         url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
