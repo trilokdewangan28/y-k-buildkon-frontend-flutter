@@ -72,16 +72,11 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
   Future<Map<String, dynamic>> uploadImage(data, Uri url, forWhich, appState) async {
-    //print('upload profile pic method called');
-    //var response;
-    //print(url);
-    //print(data['email']);
-    //print(data['imageFile']);
-    //print(url);
     var request = http.MultipartRequest(
       'POST',
       url,
     );
+    request.headers['Authorization'] = 'Bearer ${data['token']}';
     if(forWhich == "adminProfilePic"){
       request.fields['ad_id'] = data['ad_id'].toString();
     }else if(forWhich == "customerProfilePic"){
@@ -365,6 +360,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                   if (_formKey.currentState!.validate()) {
                                     var url = Uri.parse(ApiLinks.uploadOffer);
                                     var data = {
+                                      "token":appState.token,
                                       "p_id":widget.p_id,
                                       "of_text1":_aboutOneController.text,
                                       "of_text2":_aboutTwoController.text,

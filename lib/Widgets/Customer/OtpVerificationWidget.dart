@@ -96,6 +96,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
       ),
     );
     final res = await StaticMethod.sendOtpForSignup(customerData, url);
+    //print(res);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -105,7 +106,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
         _mounted=true;
         startCountdown();
         Fluttertoast.showToast(
-          msg: res['message'],
+          msg: '${res['message']} ${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
           gravity: ToastGravity.TOP, // Toast position
           backgroundColor: Colors.black, // Background color of the toast
@@ -137,10 +138,11 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
     );
     final res = await StaticMethod.verifyOtpForSignup(customerData, url);
     if (res.isNotEmpty) {
+      //print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         Fluttertoast.showToast(
-          msg: res['message'],
+          msg: '${res['message']} ${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
           gravity: ToastGravity.TOP, // Toast position
           backgroundColor: Colors.black, // Background color of the toast
@@ -152,7 +154,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
         Navigator.pop(context);
       } else {
         Fluttertoast.showToast(
-          msg: res['message'],
+          msg: '${res['message']} ${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
           gravity: ToastGravity.TOP, // Toast position
           backgroundColor: Colors.black, // Background color of the toast

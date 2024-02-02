@@ -724,7 +724,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             //============================PRICE RANGE CONTAINER
                             Row(
                               children: [
-                                //===================================FILTER BY NAME
+                                //===================================FILTER BY MIN PRICE
                                 Expanded(child: Container(
                                   padding: const EdgeInsets.only(
                                     left: 15,
@@ -735,10 +735,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     elevation: 2,
                                     child: TextField(
                                       onChanged: (value) {
-                                        selectedPropertyName = value;
+                                        minPrice = int.parse(value);
                                       },
                                       controller: TextEditingController(
-                                          text: selectedPropertyName),
+                                          text: minPrice.toString()),
                                       keyboardType: TextInputType.number,
                                       style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                       textAlignVertical: TextAlignVertical.center,
@@ -756,7 +756,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                //===================================FILTER BY CITY
+                                //===================================FILTER BY MAX PRICE
                                 Expanded(child: Container(
                                   padding: const EdgeInsets.only(
                                     right: 15,
@@ -767,10 +767,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     elevation: 2,
                                     child: TextField(
                                       onChanged: (value) {
-                                        selectedCity = value;
+                                        maxPrice = int.parse(value);
                                       },
                                       controller:
-                                      TextEditingController(text: selectedCity),
+                                      TextEditingController(text: maxPrice.toString()),
                                       keyboardType: TextInputType.number,
                                       style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                       textAlignVertical: TextAlignVertical.center,

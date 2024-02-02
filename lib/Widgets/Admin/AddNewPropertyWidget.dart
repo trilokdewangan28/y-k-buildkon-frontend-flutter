@@ -43,7 +43,8 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final List<String> available = ['Yes', 'No'];
   String selectedAvailability = "Yes";
 
-  String areaUnit = "Squar Feet";
+  final List<String> areaUnits=['Square Feet','Acre'];
+  String areaUnit = "Square Feet";
 
   //===================================ALL THE FORM CONTROLLERS
   final _propertyNameController = TextEditingController();
@@ -102,6 +103,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     );
     final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
     if (res.isNotEmpty) {
+      print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         Fluttertoast.showToast(
@@ -134,9 +136,6 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     final dropDownCardHeight = MyConst.deviceHeight(context) * 0.06;
     final dropDownCardWidth = MyConst.deviceWidth(context) * 0.41;
     double smallBodyText = 14;
-    if (selectedPropertyType == "Plot") {
-      areaUnit = "Acre";
-    }
     return Container(
       color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
@@ -206,42 +205,42 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
-                                    height: dropDownCardHeight,
-                                    width: dropDownCardWidth,
-                                    child: Card(
+                                  Card(
                                       color: Theme.of(context).primaryColorLight,
                                       elevation: 1,
-                                      child: DropdownButton<String>(
-                                        value: selectedPropertyType,
-                                        alignment: Alignment.center,
-                                        elevation: 16,
-                                        underline: Container(),
-                                        onChanged: (String? value) {
-                                          // This is called when the user selects an item.
-                                          setState(() {
-                                            selectedPropertyType = value!;
-                                            //print('selected property type is ${selectedPropertyType}');
-                                          });
-                                        },
-                                        ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                        items: propertyType
-                                            .map<DropdownMenuItem<String>>(
-                                                (String value) {
-                                          return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text('${value}',
-                                                  softWrap: true,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: smallBodyText,
-                                                      overflow: TextOverflow
-                                                          .ellipsis)),
-                                          );
-                                        }).toList(),
-                                      ),
-                                    ),
-                                  )
+                                      child: Container(
+                                        height: dropDownCardHeight*0.9,
+                                        margin: EdgeInsets.symmetric(horizontal: 4),
+                                        child: DropdownButton<String>(
+                                          value: selectedPropertyType,
+                                          alignment: Alignment.center,
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedPropertyType = value!;
+                                              //print('selected property type is ${selectedPropertyType}');
+                                            });
+                                          },
+                                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                          items: propertyType
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text('${value}',
+                                                      softWrap: true,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: smallBodyText,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
+                                                );
+                                              }).toList(),
+                                        ),
+                                      )
+                                  ),
                                 ],
                               ),
 
@@ -264,44 +263,43 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          width: dropDownCardWidth,
-                                          height: dropDownCardHeight,
-                                          child: Card(
-                                            color:
-                                                Theme.of(context).primaryColorLight,
+                                        Card(
+                                            color: Theme.of(context).primaryColorLight,
                                             elevation: 1,
-                                            child: DropdownButton<String>(
-                                              value: selectedBhk.toString(),
-                                              alignment: Alignment.center,
-                                              elevation: 16,
-                                              borderRadius: BorderRadius.circular(10),
-                                              underline: Container(),
-                                              onChanged: (String? value) {
-                                                // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedBhk =
-                                                      int.parse(value!);
-                                                  //print('selected bhk is : ${selectedBhk}');
-                                                });
-                                              },
-                                              items: bhk.map<
-                                                      DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                    child: Text('${value}',
-                                                        softWrap: true,
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: smallBodyText,
-                                                            overflow: TextOverflow
-                                                                .ellipsis)),
-                                                );
-                                              }).toList()
-                                            ),
-                                          ),
-                                        )
+                                            child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: dropDownCardWidth*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(child: DropdownButton<String>(
+                                                value: selectedBhk.toString(),
+                                                alignment: Alignment.center,
+                                                elevation: 16,
+                                                underline: Container(),
+                                                onChanged: (String? value) {
+                                                  // This is called when the user selects an item.
+                                                  setState(() {
+                                                    selectedBhk = int.parse(value!);
+                                                    //print('selected property type is ${selectedPropertyType}');
+                                                  });
+                                                },
+                                                ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                items: bhk
+                                                    .map<DropdownMenuItem<String>>(
+                                                        (String value) {
+                                                      return DropdownMenuItem<String>(
+                                                        value: value,
+                                                        child: Text('${value}',
+                                                            softWrap: true,
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: smallBodyText,
+                                                                overflow: TextOverflow
+                                                                    .ellipsis)),
+                                                      );
+                                                    }).toList(),
+                                              ),)
+                                            )
+                                        ),
                                       ],
                                     )
                                   : Container(),
@@ -324,34 +322,32 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: DropdownButton<String>(
-                                                value: selectedFloor
-                                                    .toString(),
-                                                alignment: Alignment.center,
-                                                elevation: 16,
-                                                underline: Container(),
-                                                onChanged: (String? value) {
-                                                  // This is called when the user selects an item.
-                                                  setState(() {
-                                                    selectedFloor =
-                                                        int.parse(value!);
-                                                    //print('selected floor is : ${selectedFloor}');
-                                                  });
-                                                },
-                                                items: floor.map<
-                                                    DropdownMenuItem<
-                                                        String>>(
-                                                        (String value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
+                                        Card(
+                                            color: Theme.of(context).primaryColorLight,
+                                            elevation: 1,
+                                            child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: dropDownCardWidth*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedFloor.toString(),
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedFloor = int.parse(value!);
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: bhk
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
                                                           child: Text('${value}',
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
@@ -359,11 +355,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                                   fontSize: smallBodyText,
                                                                   overflow: TextOverflow
                                                                       .ellipsis)),
-                                                      );
-                                                    }).toList(),
-                                              ),
-                                          ),
-                                        )
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                            )
+                                        ),
                                       ],
                                     )
                                   : Container(),
@@ -386,46 +383,45 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: DropdownButton<String>(
-                                                value: selectedGarden,
-                                                alignment: Alignment.center,
-                                                elevation: 16,
-                                                underline: Container(),
-                                                onChanged:
-                                                    (String? value) {
-                                                  // This is called when the user selects an item.
-                                                  setState(() {
-                                                    selectedGarden =
-                                                    value!;
-                                                    //print('is Garden : ${selectedGarden}');
-                                                  });
-                                                },
-                                                items: garden.map<
-                                                    DropdownMenuItem<
-                                                        String>>(
-                                                        (String value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
-                                                        child: Text('${value}',
-                                                            softWrap: true,
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontSize: smallBodyText,
-                                                                overflow: TextOverflow
-                                                                    .ellipsis)),
-                                                      );
-                                                    }).toList(),
-                                              ),
-                                          ),
-                                        )
+                                        Card(
+                                            color: Theme.of(context).primaryColorLight,
+                                            elevation: 1,
+                                            child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: dropDownCardWidth*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedGarden,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedGarden = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: garden
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                            )
+                                        ),
                                       ],
                                     )
                                   : Container(),
@@ -448,50 +444,45 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: DropdownButton<String>(
-                                                value: selectedParking,
-                                                icon: const Icon(
-                                                  Icons
-                                                      .arrow_drop_down_sharp,
-                                                  size: 30,
+                                        Card(
+                                            color: Theme.of(context).primaryColorLight,
+                                            elevation: 1,
+                                            child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: dropDownCardWidth*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedParking,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedParking = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: parking
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
                                                 ),
-                                                elevation: 16,
-                                                underline: Container(),
-                                                onChanged:
-                                                    (String? value) {
-                                                  // This is called when the user selects an item.
-                                                  setState(() {
-                                                    selectedParking =
-                                                    value!;
-                                                    //print('is Parking : ${selectedParking}');
-                                                  });
-                                                },
-                                                items: parking.map<
-                                                    DropdownMenuItem<
-                                                        String>>(
-                                                        (String value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
-                                                        child: Text('${value}',
-                                                            softWrap: true,
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontSize: smallBodyText,
-                                                                overflow: TextOverflow
-                                                                    .ellipsis)),
-                                                      );
-                                                    }).toList(),
-                                              ),
-                                          ),
-                                        )
+                                              )
+                                            )
+                                        ),
                                       ],
                                     )
                                   : Container(),
@@ -515,45 +506,45 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         const SizedBox(
                                           width: 10,
                                         ),
-                                        Container(
-                                          height: dropDownCardHeight,
-                                          width: dropDownCardWidth,
-                                          child: Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: DropdownButton<String>(
-                                                value: selectedFurnished,
-                                                elevation: 16,
-                                                underline: Container(),
-                                                alignment: Alignment.center,
-                                                onChanged: (String? value) {
-                                                  // This is called when the user selects an item.
-                                                  setState(() {
-                                                    selectedFurnished =
-                                                    value!;
-                                                    //print('is furnished : ${selectedFurnished}');
-                                                  });
-                                                },
-                                                items: furnished.map<
-                                                    DropdownMenuItem<
-                                                        String>>(
-                                                        (String value) {
-                                                      return DropdownMenuItem<
-                                                          String>(
-                                                        value: value,
-                                                        child: Text('${value}',
-                                                            softWrap: true,
-                                                            textAlign: TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontSize: smallBodyText,
-                                                                overflow: TextOverflow
-                                                                    .ellipsis)),
-                                                      );
-                                                    }).toList(),
-                                              ),
-                                          ),
-                                        )
+                                        Card(
+                                            color: Theme.of(context).primaryColorLight,
+                                            elevation: 1,
+                                            child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: dropDownCardWidth*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedFurnished,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedFurnished = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: furnished
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                            )
+                                        ),
                                       ],
                                     )
                                   : Container(),
@@ -572,41 +563,45 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   const SizedBox(
                                     width: 10,
                                   ),
-                                  Container(
-                                    height: dropDownCardHeight,
-                                    width: dropDownCardWidth,
-                                    child: Card(
-                                        color: Theme.of(context).primaryColorLight,
-                                        elevation: 1,
-                                        child: DropdownButton<String>(
-                                          value: selectedAvailability,
-                                          elevation: 16,
-                                          underline: Container(),
-                                          alignment: Alignment.center,
-                                          onChanged: (String? value) {
-                                            // This is called when the user selects an item.
-                                            setState(() {
-                                              selectedAvailability = value!;
-                                              //print('is available : ${selectedFurnished}');
-                                            });
-                                          },
-                                          items: available.map<
-                                              DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text('${value}',
-                                                      softWrap: true,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: smallBodyText,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                );
-                                              }).toList(),
-                                        ),
-                                    ),
-                                  )
+                                  Card(
+                                      color: Theme.of(context).primaryColorLight,
+                                      elevation: 1,
+                                      child: Container(
+                                        height: dropDownCardHeight*0.9,
+                                        width: dropDownCardWidth*0.5,
+                                        margin: EdgeInsets.symmetric(horizontal: 4),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: selectedAvailability,
+                                            alignment: Alignment.center,
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                selectedAvailability = value!;
+                                                //print('selected property type is ${selectedPropertyType}');
+                                              });
+                                            },
+                                            ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                            items: available
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text('${value}',
+                                                        softWrap: true,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: smallBodyText,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
+                                                  );
+                                                }).toList(),
+                                          ),
+                                        )
+                                      )
+                                  ),
                                 ],
                               )
                             ],
@@ -684,43 +679,104 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               }
                               return null;
                             }),
+
                         const SizedBox(
                           height: 15,
                         ),
-
-                        //============================PROPERTY AREA
-                        TextFormField(
-                          focusNode: _propertyAreaFocusNode,
-                          controller: _propertyAreaController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              labelText: 'Property Area in $areaUnit',
-                              labelStyle: const TextStyle(color: Colors.black),
-                              focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                              border: Border.all(width: 1)
+                          ),
+                          child: Row(
+                            children: [
+                              Flexible(child:
+                              //============================PROPERTY AREA
+                              TextFormField(
+                                focusNode: _propertyAreaFocusNode,
+                                controller: _propertyAreaController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    labelText: 'Property Area',
+                                    labelStyle: const TextStyle(color: Colors.black),
+                                    focusedBorder: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return "please enter valid area";
+                                  }
+                                  return null;
+                                },
                               ),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "please enter valid area";
-                            }
-                            return null;
-                          },
+                              ),
+                              SizedBox(width: 10,),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //Text('select unit:',style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),),
+
+                                  Container(
+                                    height: dropDownCardHeight,
+                                    //width: dropDownCardWidth,
+                                    child: Card(
+                                      color: Theme.of(context).primaryColorLight,
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 4),
+                                        child: DropdownButton<String>(
+                                          value: areaUnit,
+                                          alignment: Alignment.center,
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (String? value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              areaUnit = value!;
+                                              //print('selected property type is ${selectedPropertyType}');
+                                            });
+                                          },
+                                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                          items: areaUnits
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                                return DropdownMenuItem<String>(
+                                                  value: value,
+                                                  child: Text('${value}',
+                                                      softWrap: true,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: smallBodyText,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
+                                                );
+                                              }).toList(),
+                                        ),
+                                      )
+                                    )
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
                         ),
+
 
                         const SizedBox(
                           height: 15,
@@ -1018,7 +1074,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
                               StaticMethod.openMap(url);
                             },
-                            child: Text('Open Map',style: TextStyle(color: Theme.of(context).hintColor),)),
+                            child: Text('Open Map',style: TextStyle(color: Theme.of(context).primaryColor),)),
 
                         //============================LOCATION MAP URL TEXTFIELD
                         TextFormField(
@@ -1059,7 +1115,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                         //===============================SIGNUP BTN
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).hintColor,
+                            backgroundColor: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)
                             )

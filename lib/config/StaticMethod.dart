@@ -431,7 +431,10 @@ class StaticMethod {
   }) async {
 
     Map<String,dynamic> filterOptions={
-      "requestStatus":selectedRequestStatus
+      "requestStatus":selectedRequestStatus,
+    };
+    Map<String,dynamic> data={
+      "c_id":appState.customerDetails['customer_id'],
     };
 
     try {
@@ -447,6 +450,7 @@ class StaticMethod {
         body: jsonEncode({
           'filterOptions': filterOptions,
           'paginationOptions': paginationOptions,
+          'data':data
         }),
       );
 

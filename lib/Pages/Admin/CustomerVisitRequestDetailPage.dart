@@ -353,6 +353,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                           "newStatus":newStatus,
                           "c_id":appState.selectedCustomerRequest['customer_id'],
                           "p_id":appState.selectedCustomerRequest['property_id'],
+                          "v_id":appState.selectedCustomerRequest['v_id']
                         };
                         _changeVisitStatus(data, appState, context);
                       },
