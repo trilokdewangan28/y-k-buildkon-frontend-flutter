@@ -27,7 +27,7 @@ class _FavoritePropertyListWidgetState extends State<FavoritePropertyListWidget>
     };
     List<Map<String, dynamic>> propertyListDemo = [];
     return  Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchFavoritePropertyListDetails(appState.token, data,url),

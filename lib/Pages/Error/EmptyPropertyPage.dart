@@ -8,10 +8,13 @@ class EmptyPropertyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: Center(
-        child: Text(text),
+        child: Text(
+            text,
+          style: TextStyle(fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor,fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }

@@ -16,6 +16,7 @@ class AdminLoginWidget extends StatefulWidget {
 }
 
 class _AdminLoginWidgetState extends State<AdminLoginWidget> {
+  bool _mounted = false;
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -45,16 +46,19 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
+    _mounted=true;
     countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (countdownDuration.inSeconds > 0) {
-          countdownDuration -= const Duration(seconds: 1);
-          remainingTime = formatDuration(countdownDuration);
-        } else {
-          countdownTimer?.cancel();
-          // Countdown has reached 0, perform any desired actions here
-        }
-      });
+      if(_mounted){
+        setState(() {
+          if (countdownDuration.inSeconds > 0) {
+            countdownDuration -= const Duration(seconds: 1);
+            remainingTime = formatDuration(countdownDuration);
+          } else {
+            countdownTimer?.cancel();
+            // Countdown has reached 0, perform any desired actions here
+          }
+        });
+      }
     });
   }
   String formatDuration(Duration duration) {
@@ -170,13 +174,18 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
 
   }
 
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child:  Container(
@@ -259,7 +268,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
-                                    color: Theme.of(context).hintColor
+                                    color: Theme.of(context).primaryColor
                                 ),
                                 borderRadius: const BorderRadius.all(Radius.circular(10),),
                               ),
@@ -286,7 +295,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                                 _generateOtp(context, appState);
                               }
                             },
-                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
+                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
                         )
                             : Container(),
                       ],
@@ -313,7 +322,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: defaultPinTheme.copyWith(
                             decoration: defaultPinTheme.decoration!.copyWith(
-                              border: Border.all(color: Theme.of(context).primaryColor),
+                              border: Border.all(color: Theme.of(context).primaryColorLight),
                             ),
                           ),
                           validator: (value){
@@ -339,10 +348,10 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).hintColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                             ),
-                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),)
+                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
                         ),
                         const SizedBox(height: 15,),
 

@@ -24,7 +24,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     var url = Uri.parse(ApiLinks.customerProfile);
     var token = appState.token;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.userProfile(token, url),

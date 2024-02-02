@@ -101,7 +101,7 @@ class _SignupWidgetState extends State<SignupWidget> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Container(
@@ -156,7 +156,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color: Theme.of(context).hintColor
+                                      color: Theme.of(context).primaryColorLight
                                   ),
                                   borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
@@ -191,7 +191,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color: Theme.of(context).hintColor
+                                      color: Theme.of(context).primaryColor
                                   ),
                                   borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
@@ -225,7 +225,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                         //         focusedBorder: OutlineInputBorder(
                         //           borderSide: BorderSide(
                         //             width: 1,
-                        //             // color: Theme.of(context).hintColor
+                        //             // color: Theme.of(context).primaryColor
                         //           ),
                         //           borderRadius: BorderRadius.all(
                         //             Radius.circular(10),
@@ -263,7 +263,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                     width: 2,
-                                    color: Theme.of(context).hintColor
+                                    color: Theme.of(context).primaryColor
                                 ),
                                 borderRadius: const BorderRadius.all(Radius.circular(10),),
                               ),
@@ -297,7 +297,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color: Theme.of(context).hintColor
+                                      color: Theme.of(context).primaryColor
                                   ),
                                   borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
@@ -333,7 +333,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 2,
-                                            color: Theme.of(context).hintColor
+                                            color: Theme.of(context).primaryColor
                                         ),
                                         borderRadius: const BorderRadius.all(Radius.circular(10),),
                                       ),
@@ -365,7 +365,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                             width: 2,
-                                            color: Theme.of(context).hintColor
+                                            color: Theme.of(context).primaryColor
                                         ),
                                         borderRadius: const BorderRadius.all(Radius.circular(10),),
                                       ),
@@ -401,7 +401,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 2,
-                                      color: Theme.of(context).hintColor
+                                      color: Theme.of(context).primaryColor
                                   ),
                                   borderRadius: const BorderRadius.all(Radius.circular(10),),
                                 ),
@@ -435,13 +435,13 @@ class _SignupWidgetState extends State<SignupWidget> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).hintColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                             ),
                             child: Text(
                               'Next',
                               style:
-                              TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600),
+                              TextStyle(color: Theme.of(context).primaryColorLight,fontWeight: FontWeight.w600),
                             )),),
                         const SizedBox(
                           height: 15,
@@ -460,7 +460,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   'Login',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context).hintColor),
+                                      color: Theme.of(context).primaryColor),
                                 ))
                           ],
                         )

@@ -21,10 +21,10 @@ class _OfferListPageState extends State<OfferListPage> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text('offer list'),
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).primaryColorLight,
           ),
           body: Container(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: ListView.builder(
                 itemCount: appState.offerList.length,

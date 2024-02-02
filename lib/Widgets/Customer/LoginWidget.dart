@@ -185,7 +185,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MediaQuery.of(context).size.width/MyConst.referenceWidth;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child:  Container(
@@ -268,7 +268,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   width: 2,
-                                    color: Theme.of(context).hintColor
+                                    color: Theme.of(context).primaryColor
                                 ),
                                 borderRadius: const BorderRadius.all(Radius.circular(10),),
                               ),
@@ -294,7 +294,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 _generateOtp(context, appState);
                               }
                             },
-                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).hintColor),)
+                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
                         )
 
                       ],
@@ -321,7 +321,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           defaultPinTheme: defaultPinTheme,
                           focusedPinTheme: defaultPinTheme.copyWith(
                             decoration: defaultPinTheme.decoration!.copyWith(
-                              border: Border.all(color: Theme.of(context).primaryColor),
+                              border: Border.all(color: Theme.of(context).primaryColorLight),
                             ),
                           ),
                           validator: (value){
@@ -347,10 +347,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).hintColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                             ),
-                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),)
+                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
                         ),
                         const SizedBox(height: 15,),
 
@@ -369,7 +369,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                   'Signup',
                                   style: TextStyle(
                                       fontSize: 16,
-                                      color: Theme.of(context).hintColor
+                                      color: Theme.of(context).primaryColor
                                   ),
                                 )
                             )

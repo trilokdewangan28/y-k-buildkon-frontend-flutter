@@ -20,13 +20,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         fontFamily: 'Montserrat',
-        primaryColor: Colors.white, // Set the primary color
-        hintColor: const Color.fromARGB(255, 13, 70, 155), // Set the accent color
-        //backgroundColor: Colors.white, // Set the background color
-        //useMaterial3: true,
+        //backgroundColor: Colors.white,
+        primaryColor: const Color.fromARGB(255, 13, 70, 155), // Set the primary color
+        primaryColorDark: Colors.black,
+        primaryColorLight: Colors.white,// Set the accent color
+        //splashColor: Colors.black,
+        //highlightColor: Colors.green,
+        errorColor: Colors.red,
+        useMaterial3: true,
 
       ),
         // darkTheme: ThemeData.dark().copyWith(

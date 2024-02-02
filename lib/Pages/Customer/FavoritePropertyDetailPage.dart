@@ -21,6 +21,7 @@ class FavoritePropertyDetailPage extends StatefulWidget {
 
 class _FavoritePropertyDetailPageState
     extends State<FavoritePropertyDetailPage> {
+  bool _mounted = false;
   final _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   final DateTime lastSelectableDate =
@@ -93,7 +94,9 @@ class _FavoritePropertyDetailPageState
           fontSize: 16.0, // Font size of the toast message
         );
         fetchFavoriteProperty(appState);
-        setState(() {});
+        if(_mounted){
+          setState(() {});
+        }
       } else {
         Fluttertoast.showToast(
           msg: res['message'],
@@ -157,15 +160,21 @@ class _FavoritePropertyDetailPageState
         //print(res);
         if (res['result'].length > 0) {
           appState.addedToFavorite = true;
-          setState(() {});
+          if(_mounted){
+            setState(() {});
+          }
         } else {
           appState.addedToFavorite = false;
-          setState(() {});
+          if(_mounted){
+            setState(() {});
+          }
         }
         //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
       } else {
         appState.addedToFavorite = false;
-        setState(() {});
+        if(_mounted){
+          setState(() {});
+        }
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
       }
     }
@@ -237,7 +246,7 @@ class _FavoritePropertyDetailPageState
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -346,7 +355,7 @@ class _FavoritePropertyDetailPageState
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                    Theme.of(context).hintColor),
+                                    Theme.of(context).primaryColor),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     var visitData = {
@@ -369,7 +378,7 @@ class _FavoritePropertyDetailPageState
                                 child: Text(
                                   'Submit',
                                   style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
+                                      color: Theme.of(context).primaryColorLight),
                                 )),
                           )
                         ],
@@ -523,8 +532,14 @@ class _FavoritePropertyDetailPageState
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
+    _mounted = true;
     fetchFavoriteProperty(appState);
     super.initState();
+  }
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 
   @override
@@ -533,11 +548,11 @@ class _FavoritePropertyDetailPageState
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     //print(appState.selectedProperty);
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
           child: Container(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorLight,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -565,7 +580,7 @@ class _FavoritePropertyDetailPageState
                                     : Container(
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context).primaryColorLight,
                                         border: Border.all(width: 1),
                                         borderRadius:
                                         BorderRadius.circular(25)),
@@ -579,7 +594,7 @@ class _FavoritePropertyDetailPageState
                         right: 25,
                         child: CircleAvatar(
                           radius: 20,
-                          backgroundColor: Theme.of(context).hintColor,
+                          backgroundColor: Theme.of(context).primaryColor,
                           child: IconButton(
                               onPressed: () {
                                 Navigator.push(
@@ -593,7 +608,7 @@ class _FavoritePropertyDetailPageState
                               },
                               icon: Icon(
                                 Icons.edit,
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context).primaryColorLight,
                               )),
                         ))
                         : Container()
@@ -626,6 +641,7 @@ class _FavoritePropertyDetailPageState
                       InkWell(
                           onTap: appState.userType == 'customer'
                               ? () {
+                            _mounted=true;
                             _showBottomSheetForSubmitRating(
                                 context, appState);
                           }
@@ -651,7 +667,7 @@ class _FavoritePropertyDetailPageState
                       //============================LOCATION
                       Icon(
                         Icons.location_pin,
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).primaryColor,
                         size: MyConst.mediumTextSize * fontSizeScaleFactor,
                       ),
                       Expanded(
@@ -677,7 +693,7 @@ class _FavoritePropertyDetailPageState
                       //============================PRICE ICON
                       Icon(
                         Icons.currency_rupee,
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).primaryColor,
                         size: MyConst.mediumTextSize * fontSizeScaleFactor,
                       ),
                       //=============================PRICE
@@ -686,7 +702,7 @@ class _FavoritePropertyDetailPageState
                         style: TextStyle(
                             fontSize: MyConst.smallTextSize * fontSizeScaleFactor,
                             fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor),
+                            color: Theme.of(context).primaryColor),
                       ),
                       const Spacer(),
                       //=============================FAVRITE BTN
@@ -703,6 +719,7 @@ class _FavoritePropertyDetailPageState
                                     .selectedProperty['property_id']
                               };
 
+                              _mounted=true;
                               appState.addedToFavorite == false
                                   ? addToFavorite(data, appState, context)
                                   : removeFromFavorite(
@@ -762,7 +779,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.home_work_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                     size: MyConst.mediumLargeTextSize *
                                         fontSizeScaleFactor,
                                   ),
@@ -795,7 +812,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.square_foot_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                     size: MyConst.mediumLargeTextSize *
                                         fontSizeScaleFactor,
                                   ),
@@ -838,7 +855,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.bedroom_parent_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   Text(
                                     '${appState.selectedProperty['property_bhk']}',
@@ -867,7 +884,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.chair_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   Text(
                                     '${appState.selectedProperty['property_isFurnished']}',
@@ -907,7 +924,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.park_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   Text(
                                     '${appState.selectedProperty['property_isGarden']}',
@@ -936,7 +953,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.local_parking_outlined,
-                                    color: Theme.of(context).hintColor,
+                                    color: Theme.of(context).primaryColor,
                                   ),
                                   Text(
                                     '${appState.selectedProperty['property_isParking']}',
@@ -1019,25 +1036,25 @@ class _FavoritePropertyDetailPageState
                       width: MediaQuery.of(context).size.width * 0.4,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).hintColor,
+                              backgroundColor: Theme.of(context).primaryColor,
                               foregroundColor:
-                              Theme.of(context).primaryColor),
+                              Theme.of(context).primaryColorLight),
                           onPressed: () {
                             _showVisitDetailContainer(appState, context);
                           },
                           child: Text(
                             'Request Visit',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor),
+                                color: Theme.of(context).primaryColorLight),
                           )),
                     ),
                     Container(
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).hintColor,
+                                backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor:
-                                Theme.of(context).primaryColor),
+                                Theme.of(context).primaryColorLight),
                             onPressed: () {
                               //Navigator.pop(context);
                               Navigator.push(
@@ -1050,7 +1067,7 @@ class _FavoritePropertyDetailPageState
                             child: Text(
                               'Contact Now',
                               style: TextStyle(
-                                  color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColorLight),
                             ))),
                   ],
                 )
@@ -1059,12 +1076,12 @@ class _FavoritePropertyDetailPageState
                     ? Center(
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).hintColor),
+                          backgroundColor: Theme.of(context).primaryColor),
                       onPressed: () {},
                       child: Text(
                         'Book Now',
                         style:
-                        TextStyle(color: Theme.of(context).primaryColor),
+                        TextStyle(color: Theme.of(context).primaryColorLight),
                       )),
                 )
                     : Container(),
@@ -1084,7 +1101,7 @@ class _FavoritePropertyDetailPageState
                   child: appState.userType == 'admin'
                       ? ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).hintColor,
+                          backgroundColor: Theme.of(context).primaryColor,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       onPressed: () {
@@ -1101,7 +1118,7 @@ class _FavoritePropertyDetailPageState
                         'Add Offers',
                         style:
                         TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColorLight,
                             fontWeight: FontWeight.w600
                         ),
                       )

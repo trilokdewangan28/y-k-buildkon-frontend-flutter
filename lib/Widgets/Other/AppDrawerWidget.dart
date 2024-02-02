@@ -24,7 +24,7 @@ class AppDrawerWidget extends StatelessWidget {
           appState.currentState=0;
         },
         child:Drawer(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Theme.of(context).primaryColorLight,
           elevation: 0,
           width: 270,
           shape: const RoundedRectangleBorder(
@@ -33,13 +33,13 @@ class AppDrawerWidget extends StatelessWidget {
             //   bottomRight: Radius.circular(25)
             // )
           ),
-          shadowColor: Theme.of(context).primaryColor,
+          shadowColor: Theme.of(context).primaryColorLight,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColorLight,
                 ),
                 child: Column(
                   children: [
@@ -59,11 +59,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.home_outlined,color: Theme.of(context).hintColor,),
+                  leading: Icon(Icons.home_outlined,color: Theme.of(context).primaryColor,),
                   title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -75,11 +75,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).hintColor,),
+                  leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).primaryColor,),
                   title: const Text('Offers'),
                   onTap: () {
                     popNow(context);
@@ -89,11 +89,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.calculate_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.calculate_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -104,11 +104,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.business_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -120,11 +120,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.chat_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.chat_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Customer Inquery'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -136,11 +136,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.post_add_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.post_add_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -152,11 +152,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
@@ -167,11 +167,11 @@ class AppDrawerWidget extends StatelessWidget {
               ),
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).hintColor),
+                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer

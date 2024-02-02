@@ -20,14 +20,19 @@ class _ImageSliderState extends State<ImageSlider> {
   final PageController _pageController = PageController(initialPage: 0);
   double _currentPage = 0.0;
 
+  bool _mounted = false;
+
   @override
   void initState() {
     super.initState();
+    _mounted = true;
     imageUrlList = widget.propertyData['pi_name'];
     _pageController.addListener(() {
-      setState(() {
-        _currentPage = _pageController.page!;
-      });
+      if(_mounted){
+        setState(() {
+          _currentPage = _pageController.page!;
+        });
+      }
     });
   }
 
@@ -46,6 +51,7 @@ class _ImageSliderState extends State<ImageSlider> {
 
   @override
   void dispose() {
+    _mounted = false;
     _pageController.dispose();
     super.dispose();
   }
@@ -95,7 +101,7 @@ class _ImageSliderState extends State<ImageSlider> {
                 dotsCount: imageUrlList!.length,
                 position: _currentPage.toInt(),
                 decorator: DotsDecorator(
-                  activeColor: Theme.of(context).hintColor,
+                  activeColor: Theme.of(context).primaryColor,
                   activeSize: const Size(10.0, 25.0),
                   spacing: const EdgeInsets.all(4),
                 ),

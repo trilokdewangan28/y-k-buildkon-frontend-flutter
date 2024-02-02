@@ -27,7 +27,7 @@ class _VisitRequestedListWidgetState extends State<VisitRequestedListWidget> {
     };
     List<Map<String, dynamic>> propertyListDemo = [];
     return false ? Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child:  FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchVisitRequestedList(appState.token, data,url),

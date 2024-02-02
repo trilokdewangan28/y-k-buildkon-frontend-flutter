@@ -37,7 +37,7 @@ class GetStartedPage extends StatelessWidget {
                   Text(
                     'in just one click',
                     style: TextStyle(
-                        color: Theme.of(context).hintColor,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 22,
                         fontWeight: FontWeight.w700
                     ),
@@ -53,7 +53,7 @@ class GetStartedPage extends StatelessWidget {
                   const SizedBox(height: 35,),
                   Center(child:  ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).hintColor,
+                          backgroundColor: Theme.of(context).primaryColor,
 
                           fixedSize: Size(
                               MediaQuery.of(context).size.width*0.7,
@@ -66,7 +66,7 @@ class GetStartedPage extends StatelessWidget {
                       child: Text(
                         'GET STARTED',
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor
+                            color: Theme.of(context).primaryColorLight
                         ),
                       )
                   ),),

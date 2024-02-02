@@ -20,6 +20,7 @@ class PropertyListPage extends StatefulWidget {
 
 class _PropertyListPageState extends State<PropertyListPage> {
   bool filterApplied = false;
+  bool _mounted = false;
 
   Color houseColor = Colors.white;
   Color flatColor = Colors.white;
@@ -93,9 +94,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
   //==========================================first load method
   _firstLoad(appState)async{
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    if(_mounted){
+      setState(() {
+        _isFirstLoadRunning = true;
+      });
+    }
     Map<String,dynamic> paginationOptions = {
       "page":page,
       "limit":limit
@@ -118,9 +121,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
       if (res['success'] == true) {
         //print('succes is true and result is ${res['result']}');
         appState.propertyList = res['result'];
-        setState(() {
-          _isFirstLoadRunning = false;
-        });
+        if(_mounted){
+          setState(() {
+            _isFirstLoadRunning = false;
+          });
+        }
       } else {
         appState.error = res['error'];
         appState.errorString=res['message'];
@@ -137,11 +142,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300
+        _controller.position.extentAfter < 300 && _mounted
     ) {
-      setState(() {
-        _isLoadMoreRunning = true; // Display a progress indicator at the bottom
-      });
+      if(_mounted){
+        setState(() {
+          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
+        });
+      }
 
       page += 1; // Increase _page by 1
       Map<String,dynamic> paginationOptions = {
@@ -165,14 +172,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
         if (res['success'] == true) {
           if(res['result'].length>0){
             //print('succes is true and result is ${res['result']}');
-            setState(() {
-              appState.propertyList.addAll(res['result']);
-              _isFirstLoadRunning = false;
-            });
+            if(_mounted){
+              setState(() {
+                appState.propertyList.addAll(res['result']);
+                _isFirstLoadRunning = false;
+              });
+            }
           }else{
-            setState(() {
-              _hasNextPage = false;
-            });
+            if(_mounted){
+              setState(() {
+                _hasNextPage = false;
+              });
+            }
             Fluttertoast.showToast(
               msg: 'No More Content Available',
               toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -186,24 +197,30 @@ class _PropertyListPageState extends State<PropertyListPage> {
           //print('unable to fetch property show error page');
         }
       }
-      setState(() {
-        _isLoadMoreRunning=false;
-      });
+      if (_mounted) {
+        setState(() {
+          _isLoadMoreRunning = false;
+        });
+      }
     }
   }
 
   _loadOffer(appState)async{
-    setState(() {
-      _isOfferLoading = true;
-    });
+    if(_mounted){
+      setState(() {
+        _isOfferLoading = true;
+      });
+    }
     var url = Uri.parse(ApiLinks.fetchOfferList);
     final res = await StaticMethod.fetchOfferList(url);
     if(res.isNotEmpty){
       if(res['success']==true){
         appState.offerList = res['result'];
-        setState(() {
-          _isOfferLoading=false;
-        });
+        if(_mounted){
+          setState(() {
+            _isOfferLoading=false;
+          });
+        }
       }else{
         // display some another widget for message
       }
@@ -216,9 +233,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
   @override
   void initState() {
     ///print('initstate methond called');
+    _mounted = true;
     final appState = Provider.of<MyProvider>(context, listen: false);
     _firstLoad(appState);
+    _mounted = true;
     _loadOffer(appState);
+    _mounted = true;
     _controller = ScrollController()..addListener(() => _loadMore(appState));
     print('initstate called');
     super.initState();
@@ -245,7 +265,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 MyConst.deviceWidth(context) / MyConst.referenceWidth;
             double smallBodyText = MyConst.smallTextSize*fontSizeScaleFactor;
             return Container(
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).primaryColorLight,
                 height: MyConst.deviceHeight(context) * 0.8,
                 padding: EdgeInsets.only(top: MyConst.deviceHeight(context)*0.02),
                 child: ListView(
@@ -303,7 +323,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         height: dropDownCardHeight,
                                         width: dropDownCardWidth,
                                         child: Card(
-                                          color: Theme.of(context).primaryColor,
+                                          color: Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: DropdownButton<String>(
                                             value: selectedPropertyType,
@@ -358,7 +378,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               height: dropDownCardHeight,
                                               child: Card(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColorLight,
                                                 elevation: 1,
                                                 child: DropdownButton<String>(
                                                   value: selectedBhk.toString(),
@@ -420,7 +440,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: dropDownCardWidth,
                                               child: Card(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColorLight,
                                                 elevation: 1,
                                                 child: DropdownButton<String>(
                                                   value:
@@ -485,7 +505,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: dropDownCardWidth,
                                               child: Card(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColorLight,
                                                 elevation: 1,
                                                 child: DropdownButton<String>(
                                                   value: selectedGarden,
@@ -546,7 +566,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: dropDownCardWidth,
                                               child: Card(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColorLight,
                                                 elevation: 1,
                                                 child: DropdownButton<String>(
                                                   value: selectedParking,
@@ -610,7 +630,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: dropDownCardWidth,
                                               child: Card(
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .primaryColorLight,
                                                 elevation: 1,
                                                 child: DropdownButton<String>(
                                                   value: selectedFurnished,
@@ -666,7 +686,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         height: dropDownCardHeight,
                                         width: dropDownCardWidth,
                                         child: Card(
-                                          color: Theme.of(context).primaryColor,
+                                          color: Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: DropdownButton<String>(
                                             value: selectedAvailability,
@@ -710,7 +730,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     left: 15,
                                   ),
                                   child: Card(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     shadowColor: Colors.black,
                                     elevation: 2,
                                     child: TextField(
@@ -742,7 +762,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     right: 15,
                                   ),
                                   child: Card(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     shadowColor: Colors.black,
                                     elevation: 2,
                                     child: TextField(
@@ -775,7 +795,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 horizontal: 15,
                               ),
                               child: Card(
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context).primaryColorLight,
                                 shadowColor: Colors.black,
                                 elevation: 2,
                                 child: TextField(
@@ -808,7 +828,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 horizontal: 15,
                               ),
                               child: Card(
-                                color: Theme.of(context).primaryColor,
+                                color: Theme.of(context).primaryColorLight,
                                 shadowColor: Colors.black,
                                 elevation: 2,
                                 child: TextField(
@@ -916,7 +936,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   //=====================================FILTER BY NAME TEXTFIELD
                   Flexible(
                     child: Card(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColorLight,
                       //shadowColor: Colors.black,
                       elevation: 1,
                       child: TextField(
@@ -1011,7 +1031,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               ),
               child: _isOfferLoading
                   ? Shimmer.fromColors(
-                  baseColor: Theme.of(context).hintColor,
+                  baseColor: Theme.of(context).primaryColor,
                   highlightColor: Colors.grey[100]!,
                   child: Container(
                     height: 100,
@@ -1048,7 +1068,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           ),
                           child: Card(
                             shadowColor: Colors.black,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColorLight,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             elevation: 0.5,
@@ -1146,7 +1166,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               Icon(
                                                 Icons.currency_rupee_sharp,
                                                 color:
-                                                Theme.of(context).hintColor,
+                                                Theme.of(context).primaryColor,
                                                 size: MyConst
                                                     .mediumSmallTextSize *
                                                     fontSizeScaleFactor,
@@ -1177,7 +1197,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               Icon(
                                                 Icons.location_on_outlined,
                                                 color:
-                                                Theme.of(context).hintColor,
+                                                Theme.of(context).primaryColor,
                                                 size: MyConst
                                                     .mediumSmallTextSize *
                                                     fontSizeScaleFactor,

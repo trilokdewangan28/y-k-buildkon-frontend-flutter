@@ -40,7 +40,7 @@ class AdminContactPage extends StatelessWidget {
               centerTitle: true,
             ),
             body: Container(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).primaryColorLight,
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 child: Column(
@@ -60,7 +60,7 @@ class AdminContactPage extends StatelessWidget {
                           icon: Icon(
                             Icons.email,
                             size: 100,
-                            color: Theme.of(context).hintColor,
+                            color: Theme.of(context).primaryColor,
                           )),
                     ),
                     Container(
@@ -87,7 +87,7 @@ class AdminContactPage extends StatelessWidget {
                           icon: Icon(
                             Icons.phone,
                             size: 100,
-                            color: Theme.of(context).hintColor,
+                            color: Theme.of(context).primaryColor,
                           )),
                     ),
                     Container(
@@ -112,7 +112,7 @@ class AdminContactPage extends StatelessWidget {
                           icon: Icon(
                             Icons.business,
                             size: 100,
-                            color: Theme.of(context).hintColor,
+                            color: Theme.of(context).primaryColor,
                           )),
                     ),
                     Container(

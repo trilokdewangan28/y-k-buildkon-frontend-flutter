@@ -263,7 +263,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               //actions: [darkModeAction],
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).primaryColorLight,
             ),
             body: widgetContent,
             bottomNavigationBar: BottomNavigationBar(
@@ -271,9 +271,9 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIconTheme: const IconThemeData(
                 size: 30,
               ),
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).primaryColorLight,
               selectedFontSize: 15,
-              selectedItemColor: Theme.of(context).hintColor,
+              selectedItemColor: Theme.of(context).primaryColor,
               unselectedItemColor: Colors.grey,
               currentIndex: appState.currentState,
               onTap: (index) async {

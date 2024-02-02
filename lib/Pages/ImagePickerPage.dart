@@ -26,19 +26,22 @@ class ImagePickerPage extends StatefulWidget {
 }
 
 class _ImagePickerPageState extends State<ImagePickerPage> {
+  bool _mounted = false;
   //------------------------------------------------------PICK IMAGE FROM GALARY
   Future _pickImageFromGallery(appState) async {
     //print('pick image from galary method called');
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedImage != null) {
-        appState.imageFile = File(pickedImage.path);
-      } else {
-        //print('No image selected.');
-      }
-    });
+    if(_mounted){
+      setState(() {
+        if (pickedImage != null) {
+          appState.imageFile = File(pickedImage.path);
+        } else {
+          //print('No image selected.');
+        }
+      });
+    }
   }
 
 //-----------------------------------------------------CAPTURE IMAGE FROM CAMERA
@@ -47,13 +50,15 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
     final picker = ImagePicker();
     final capturedImage = await picker.pickImage(source: ImageSource.camera);
 
-    setState(() {
-      if (capturedImage != null) {
-        appState.imageFile = File(capturedImage.path);
-      } else {
-        //print('No image captured.');
-      }
-    });
+    if(_mounted){
+      setState(() {
+        if (capturedImage != null) {
+          appState.imageFile = File(capturedImage.path);
+        } else {
+          //print('No image captured.');
+        }
+      });
+    }
   }
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
@@ -120,7 +125,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
             title: const Text('Image Picker'),
           ),
           body: Container(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: Center(
               child: Column(
@@ -151,9 +156,10 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         children: [
                           //--------------------------------------------FROM GALARY BUTTON
                           IconButton(onPressed: ()async{
+                            _mounted=true;
                             await _pickImageFromGallery(appState);
                           },
-                              icon: Icon(Icons.photo, color: Theme.of(context).hintColor, size: 50,)
+                              icon: Icon(Icons.photo, color: Theme.of(context).primaryColor, size: 50,)
                           ),
                           const Text('Galary')
                         ],
@@ -163,9 +169,10 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                         children: [
                           //--------------------------------------------FROM CAMERA BUTTON
                           IconButton(onPressed: ()async{
+                            _mounted=true;
                             await _captureImageFromCamera(appState);
                           },
-                              icon: Icon(Icons.camera_alt, color: Theme.of(context).hintColor, size: 50,)
+                              icon: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor, size: 50,)
                           ),
                           const Text('Camera')
                         ],

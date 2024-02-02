@@ -51,12 +51,12 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
     return PopScope(
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColor,
+            backgroundColor: Theme.of(context).primaryColorLight,
             title: const Text('EMI CALCULATOR'),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorLight,
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
@@ -245,7 +245,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                                       style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontSize: 20,
-                                          color: Theme.of(context).hintColor),
+                                          color: Theme.of(context).primaryColor),
                                     ))),
                           ),
                         ],
@@ -273,7 +273,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                         },
                         child: Text(
                           'Calculate EMI',
-                          style: TextStyle(color: Theme.of(context).hintColor),
+                          style: TextStyle(color: Theme.of(context).primaryColor),
                         ))
                   ],
                 ),

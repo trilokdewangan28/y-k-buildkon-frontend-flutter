@@ -44,25 +44,25 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     return SafeArea(child: Scaffold(
         body: Container(
-            decoration: BoxDecoration(color: Theme.of(context).hintColor),
+            decoration: BoxDecoration(color: Theme.of(context).primaryColorLight),
             child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset('assets/images/ic_launcher.png'),
-                    const Text(
+                    Text(
                       'Y&K BUILCON',
                       style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColorDark,
                           fontWeight: FontWeight.bold),
                     ),
-                    const Text(
+                     Text(
                       'LETS CONNECT TO YOUR DREAM',
                       style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white,
+                          color: Theme.of(context).primaryColorDark,
                           fontWeight: FontWeight.bold),
                     )
                   ],

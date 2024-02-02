@@ -22,7 +22,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
     //print(appState.favoritePropertyList);
     return RefreshIndicator(
         child: Container(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorLight,
           height: MediaQuery.of(context).size.height,
           child:Column(
             children: [
@@ -42,7 +42,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                 horizontal: 15, vertical: 4),
                             child: Card(
                               shadowColor: Colors.black,
-                              color: Theme.of(context).primaryColor,
+                              color: Theme.of(context).primaryColorLight,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               elevation: 0.5,
@@ -116,7 +116,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                                   '₹',
                                                   style: TextStyle(
                                                       fontSize: 14,
-                                                      color: Theme.of(context).hintColor,
+                                                      color: Theme.of(context).primaryColor,
                                                       fontWeight: FontWeight.w600),
                                                 ),
                                                 Text(
@@ -134,7 +134,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               children: [
                                                 Icon(
                                                   Icons.location_pin,
-                                                  color: Theme.of(context).hintColor,
+                                                  color: Theme.of(context).primaryColor,
                                                   size: 20,
                                                 ),
                                                 Expanded(

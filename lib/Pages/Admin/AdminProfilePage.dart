@@ -21,7 +21,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
         child: Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
@@ -50,11 +50,11 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     right: 10,
                     child: CircleAvatar(
                       radius: 15,
-                      backgroundColor: Theme.of(context).hintColor,
+                      backgroundColor: Theme.of(context).primaryColor,
                       child:
                       IconButton(onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ImagePickerPage(userDetails: appState.adminDetails,forWhich: 'adminProfilePic',)));
-                      }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColor,)),
+                      }, icon: Icon(Icons.edit, size: 15, color: Theme.of(context).primaryColorLight,)),
                     ))
               ],
             ),
@@ -112,7 +112,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     appState.currentState=1;
                   },
                   child:  Card(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     child: const Row(
                       children: [
                         SizedBox(width: 15,),
@@ -135,7 +135,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 child: InkWell(
                   onTap: (){},
                   child:Card(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     child: const Row(
                       children: [
                         SizedBox(width: 15,),
@@ -158,7 +158,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                 child: InkWell(
                   onTap: (){},
                   child:  Card(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     child: const Row(
                       children: [
                         SizedBox(width: 15,),
@@ -182,7 +182,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     appState.activeWidget = "AddNewPropertyWidget";
                   },
                   child: Card(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     child: const Row(
                       children: [
                         SizedBox(width: 15,),
@@ -229,7 +229,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                     Future.delayed(const Duration(milliseconds: 100));
                   },
                   child: Card(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     child: const  Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

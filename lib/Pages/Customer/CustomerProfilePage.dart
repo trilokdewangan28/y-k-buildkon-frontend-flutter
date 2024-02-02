@@ -21,7 +21,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     return RefreshIndicator(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorLight,
           height: MediaQuery.of(context).size.height,
           child: ListView(
             children: [
@@ -56,7 +56,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           right: 10,
                           child: CircleAvatar(
                             radius: 15,
-                            backgroundColor: Theme.of(context).hintColor,
+                            backgroundColor: Theme.of(context).primaryColor,
                             child: IconButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -71,7 +71,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                 icon: Icon(
                                   Icons.edit,
                                   size: 15,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).primaryColorLight,
                                 )),
                           ))
                     ],
@@ -122,7 +122,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Card(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColorLight,
                       child: Row(
                         children: [
                           const SizedBox(
@@ -157,7 +157,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height * 0.07,
                     child: Card(
-                      color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).primaryColorLight,
                       child: Row(
                         children: [
                           const SizedBox(
@@ -223,7 +223,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           Future.delayed(const Duration(milliseconds: 100));
                         },
                         child:  Card(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).primaryColorLight,
                           child:const  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

@@ -18,6 +18,7 @@ class CustomerVisitRequestListPage extends StatefulWidget {
 
 class _CustomerVisitRequestListPageState
     extends State<CustomerVisitRequestListPage> {
+  bool _mounted = false;
   String requestStatus = "";
   Color statusColor = Colors.orange;
   Color houseColor = Colors.white;
@@ -39,9 +40,11 @@ class _CustomerVisitRequestListPageState
 
   //==========================================first load method
   _firstLoad(appState)async{
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    if(_mounted){
+      setState(() {
+        _isFirstLoadRunning = true;
+      });
+    }
     Map<String,dynamic> paginationOptions = {
       "page":page,
       "limit":limit
@@ -53,9 +56,11 @@ class _CustomerVisitRequestListPageState
       if (res['success'] == true) {
         //print('succes is true and result is ${res['result']}');
         appState.filteredCustomerRequestList = res['result'];
-        setState(() {
-          _isFirstLoadRunning = false;
-        });
+        if(_mounted){
+          setState(() {
+            _isFirstLoadRunning = false;
+          });
+        }
       } else {
       }
     }
@@ -67,7 +72,7 @@ class _CustomerVisitRequestListPageState
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300
+        _controller.position.extentAfter < 300 && _mounted
     ) {
       setState(() {
         _isLoadMoreRunning = true; // Display a progress indicator at the bottom
@@ -84,14 +89,18 @@ class _CustomerVisitRequestListPageState
         if (res['success'] == true) {
           if(res['result'].length>0){
             //print('succes is true and result is ${res['result']}');
-            setState(() {
-              appState.filteredCustomerRequestList.addAll(res['result']);
-              _isFirstLoadRunning = false;
-            });
+            if(_mounted){
+              setState(() {
+                appState.filteredCustomerRequestList.addAll(res['result']);
+                _isFirstLoadRunning = false;
+              });
+            }
           }else{
-            setState(() {
-              _hasNextPage = false;
-            });
+            if(_mounted){
+              setState(() {
+                _hasNextPage = false;
+              });
+            }
             Fluttertoast.showToast(
               msg: 'No More Content Available',
               toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -105,9 +114,11 @@ class _CustomerVisitRequestListPageState
           //print('unable to fetch property show error page');
         }
       }
-      setState(() {
-        _isLoadMoreRunning=false;
-      });
+      if(_mounted){
+        setState(() {
+          _isLoadMoreRunning=false;
+        });
+      }
     }
   }
 
@@ -115,10 +126,18 @@ class _CustomerVisitRequestListPageState
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
+    _mounted=true;
     _firstLoad(appState);
+    _mounted=true;
     _controller = ScrollController()..addListener(() => _loadMore(appState));
     //print('initstate called');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 
   @override
@@ -127,7 +146,7 @@ class _CustomerVisitRequestListPageState
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
         child: Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: Column(
         children: [
@@ -150,6 +169,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                       //});
                     } else {
@@ -158,6 +178,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                       //});
                     }
@@ -168,8 +189,8 @@ class _CustomerVisitRequestListPageState
                     width: 110,
                     decoration: BoxDecoration(
                         color: houseTapped
-                            ? Theme.of(context).hintColor
-                            : Theme.of(context).primaryColor,
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorLight,
                         border: Border.all(width: 2),
                         borderRadius: BorderRadius.circular(5)),
                     child: const Center(
@@ -190,6 +211,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                     } else {
                       selectedRequestStatus = 4;
@@ -197,6 +219,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                     }
                     //setState(() {});
@@ -206,8 +229,8 @@ class _CustomerVisitRequestListPageState
                     width: 110,
                     decoration: BoxDecoration(
                         color: flatTapped
-                            ? Theme.of(context).hintColor
-                            : Theme.of(context).primaryColor,
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).primaryColorLight,
                         border: Border.all(width: 2),
                         borderRadius: BorderRadius.circular(5)),
                     child: const Center(
@@ -228,6 +251,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                     } else {
                       selectedRequestStatus = 4;
@@ -235,6 +259,7 @@ class _CustomerVisitRequestListPageState
                       page=1;
                       //setState(() {
                       _isFirstLoadRunning=false;
+                      _mounted=true;
                       _firstLoad(appState);
                     }
                     //setState(() {});
@@ -245,7 +270,7 @@ class _CustomerVisitRequestListPageState
                     decoration: BoxDecoration(
                         color: plotTapped
                             ? Theme.of(context).hintColor
-                            : Theme.of(context).primaryColor,
+                            : Theme.of(context).primaryColorLight,
                         border: Border.all(width: 2),
                         borderRadius: BorderRadius.circular(5)),
                     child: const Center(
@@ -357,7 +382,7 @@ class _CustomerVisitRequestListPageState
                                               '₹',
                                               style: TextStyle(
                                                   fontSize: 14,
-                                                  color: Theme.of(context).hintColor,
+                                                  color: Theme.of(context).primaryColor,
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
@@ -375,7 +400,7 @@ class _CustomerVisitRequestListPageState
                                           children: [
                                             Icon(
                                               Icons.location_pin,
-                                              color: Theme.of(context).hintColor,
+                                              color: Theme.of(context).primaryColor,
                                               size: 20,
                                             ),
                                             Expanded(
@@ -463,6 +488,7 @@ class _CustomerVisitRequestListPageState
 
           _isFirstLoadRunning=false;
           _isLoadMoreRunning=false;
+          _mounted=true;
           _firstLoad(appState);
           appState.activeWidget = "CustomerVisitRequestListWidget";
           //});

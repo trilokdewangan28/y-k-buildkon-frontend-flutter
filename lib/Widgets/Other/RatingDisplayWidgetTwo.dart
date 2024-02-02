@@ -16,7 +16,7 @@ class RatingDisplayWidgetTwo extends StatelessWidget {
       color = Colors.orange;
     }
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: List.generate(

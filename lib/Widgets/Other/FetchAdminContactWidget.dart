@@ -24,7 +24,7 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
     Widget propertyContent = Container();
     var url = Uri.parse(ApiLinks.fetchAdminContact);
     return  Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchAdminContact(url),

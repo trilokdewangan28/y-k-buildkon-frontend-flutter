@@ -26,7 +26,7 @@ class _AdminProfileWidgetState extends State<AdminProfileWidget> {
     var url = Uri.parse(ApiLinks.adminProfile);
     var token = appState.token;
     return  Container(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).primaryColorLight,
         height: MediaQuery.of(context).size.height,
         child:FutureBuilder<Map<String, dynamic>>(
           future: StaticMethod.userProfile(token, url),

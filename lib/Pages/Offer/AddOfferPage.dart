@@ -26,6 +26,7 @@ class AddOfferPage extends StatefulWidget {
 }
 
 class _AddOfferPageState extends State<AddOfferPage> {
+  bool _mounted = false;
   final _formKey = GlobalKey<FormState>();
   final _aboutOneController = TextEditingController();
   final FocusNode _aboutOneFocusNode = FocusNode();
@@ -41,13 +42,15 @@ class _AddOfferPageState extends State<AddOfferPage> {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      if (pickedImage != null) {
-        appState.imageFile = File(pickedImage.path);
-      } else {
-        //print('No image selected.');
-      }
-    });
+    if(_mounted){
+      setState(() {
+        if (pickedImage != null) {
+          appState.imageFile = File(pickedImage.path);
+        } else {
+          //print('No image selected.');
+        }
+      });
+    }
   }
 
 //-----------------------------------------------------CAPTURE IMAGE FROM CAMERA
@@ -56,13 +59,15 @@ class _AddOfferPageState extends State<AddOfferPage> {
     final picker = ImagePicker();
     final capturedImage = await picker.pickImage(source: ImageSource.camera);
 
-    setState(() {
-      if (capturedImage != null) {
-        appState.imageFile = File(capturedImage.path);
-      } else {
-        //print('No image captured.');
-      }
-    });
+    if(_mounted){
+      setState(() {
+        if (capturedImage != null) {
+          appState.imageFile = File(capturedImage.path);
+        } else {
+          //print('No image captured.');
+        }
+      });
+    }
   }
 
 //------------------------------------------------------------UPLOAD PROFILE PIC
@@ -165,6 +170,12 @@ class _AddOfferPageState extends State<AddOfferPage> {
    }
  }
 
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
+
   //----------------------------------------------------------------BUILD METHOD
   @override
   Widget build(BuildContext context) {
@@ -181,7 +192,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
             title: const Text('Upload Offers'),
           ),
           body: Container(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
@@ -209,9 +220,10 @@ class _AddOfferPageState extends State<AddOfferPage> {
                         children: [
                           //--------------------------------------------FROM GALARY BUTTON
                           IconButton(onPressed: ()async{
+                            _mounted=true;
                             await _pickImageFromGallery(appState);
                           },
-                              icon: Icon(Icons.photo, color: Theme.of(context).hintColor, size: 50,)
+                              icon: Icon(Icons.photo, color: Theme.of(context).primaryColor, size: 50,)
                           ),
                           const Text('Galary')
                         ],
@@ -221,9 +233,10 @@ class _AddOfferPageState extends State<AddOfferPage> {
                         children: [
                           //--------------------------------------------FROM CAMERA BUTTON
                           IconButton(onPressed: ()async{
+                            _mounted=true;
                             await _captureImageFromCamera(appState);
                           },
-                              icon: Icon(Icons.camera_alt, color: Theme.of(context).hintColor, size: 50,)
+                              icon: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor, size: 50,)
                           ),
                           const Text('Camera')
                         ],
@@ -345,7 +358,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
 
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).hintColor,
+                                    backgroundColor: Theme.of(context).primaryColor,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                 ),
                                 onPressed: (){
@@ -362,7 +375,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                   }
                                 },
                                 child: Text('Submit', style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).primaryColorLight,
                                   fontWeight: FontWeight.w600
                                 ),)
                             )

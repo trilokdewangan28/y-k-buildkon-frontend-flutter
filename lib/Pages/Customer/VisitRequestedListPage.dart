@@ -16,6 +16,7 @@ class VisitRequestedListPage extends StatefulWidget {
 }
 
 class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
+  bool _mounted=false;
   String requestStatus = "";
   Color statusColor = Colors.orange;
   Color houseColor = Colors.white;
@@ -38,9 +39,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
 
   //==========================================first load method
   _firstLoad(appState) async {
-    setState(() {
-      _isFirstLoadRunning = true;
-    });
+    if(_mounted){
+      setState(() {
+        _isFirstLoadRunning = true;
+      });
+    }
     Map<String, dynamic> paginationOptions = {"page": page, "limit": limit};
     var url = Uri.parse(ApiLinks.fetchVisitRequestedList);
     final res = await StaticMethod.fetchVisitRequestedListWithPagination(
@@ -51,9 +54,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
       if (res['success'] == true) {
         //print('succes is true and result is ${res['result']}');
         appState.visitRequestedPropertyList = res['result'];
-        setState(() {
-          _isFirstLoadRunning = false;
-        });
+        if(_mounted){
+          setState(() {
+            _isFirstLoadRunning = false;
+          });
+        }
       } else {}
     }
   }
@@ -63,7 +68,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
-        _controller.position.extentAfter < 300) {
+        _controller.position.extentAfter < 300 && _mounted) {
       setState(() {
         _isLoadMoreRunning = true; // Display a progress indicator at the bottom
       });
@@ -78,14 +83,18 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
         if (res['success'] == true) {
           if (res['result'].length > 0) {
             //print('succes is true and result is ${res['result']}');
-            setState(() {
-              appState.visitRequestedPropertyList.addAll(res['result']);
-              _isFirstLoadRunning = false;
-            });
+            if(_mounted){
+              setState(() {
+                appState.visitRequestedPropertyList.addAll(res['result']);
+                _isFirstLoadRunning = false;
+              });
+            }
           } else {
-            setState(() {
-              _hasNextPage = false;
-            });
+            if(_mounted){
+              setState(() {
+                _hasNextPage = false;
+              });
+            }
             Fluttertoast.showToast(
               msg: 'No More Content Available',
               toastLength: Toast.LENGTH_LONG,
@@ -103,9 +112,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
           //print('unable to fetch property show error page');
         }
       }
-      setState(() {
-        _isLoadMoreRunning = false;
-      });
+     if(_mounted){
+       setState(() {
+         _isLoadMoreRunning = false;
+       });
+     }
     }
   }
 
@@ -114,10 +125,17 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
+    _mounted=true;
     _firstLoad(appState);
     _controller = ScrollController()..addListener(() => _loadMore(appState));
     //print('initstate called');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 
   @override
@@ -128,7 +146,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     //print('visit requested property list is : ${appState.visitRequestedPropertyList}');
     return RefreshIndicator(
         child: Container(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorLight,
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
@@ -152,6 +170,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                           //});
                         } else {
@@ -159,6 +178,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                           //});
                         }
@@ -169,8 +189,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         width: 110,
                         decoration: BoxDecoration(
                             color: houseTapped
-                                ? Theme.of(context).hintColor
-                                : Theme.of(context).primaryColor,
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColorLight,
                             border: Border.all(width: 2),
                             borderRadius: BorderRadius.circular(5)),
                         child: const Center(
@@ -191,6 +211,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                         } else {
                           selectedRequestStatus = 4;
@@ -198,6 +219,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                         }
                         //setState(() {});
@@ -207,8 +229,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         width: 110,
                         decoration: BoxDecoration(
                             color: flatTapped
-                                ? Theme.of(context).hintColor
-                                : Theme.of(context).primaryColor,
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColorLight,
                             border: Border.all(width: 2),
                             borderRadius: BorderRadius.circular(5)),
                         child: const Center(
@@ -229,6 +251,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                         } else {
                           selectedRequestStatus = 4;
@@ -236,6 +259,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           page = 1;
                           //setState(() {
                           _isFirstLoadRunning = false;
+                          _mounted=true;
                           _firstLoad(appState);
                         }
                         //setState(() {});
@@ -245,8 +269,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         width: 110,
                         decoration: BoxDecoration(
                             color: plotTapped
-                                ? Theme.of(context).hintColor
-                                : Theme.of(context).primaryColor,
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColorLight,
                             border: Border.all(width: 2),
                             borderRadius: BorderRadius.circular(5)),
                         child: const Center(
@@ -290,7 +314,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                       horizontal: 15, vertical: 4),
                                   child: Card(
                                     shadowColor: Colors.black,
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -379,7 +403,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         color: Theme.of(context)
-                                                            .hintColor,
+                                                            .primaryColor,
                                                         fontWeight:
                                                             FontWeight.w600),
                                                   ),
@@ -400,7 +424,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                                   Icon(
                                                     Icons.location_pin,
                                                     color: Theme.of(context)
-                                                        .hintColor,
+                                                        .primaryColor,
                                                     size: 20,
                                                   ),
                                                   Expanded(
@@ -498,6 +522,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
           _isOfferLoading=false;
           _isFirstLoadRunning=false;
           _isLoadMoreRunning=false;
+          _mounted=true;
           _firstLoad(appState);
           appState.activeWidget = "VisitRequestedListWidget";
         });

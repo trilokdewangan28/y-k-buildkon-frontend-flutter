@@ -24,7 +24,7 @@ class _OfferListWidgetState extends State<OfferListWidget> {
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchOfferList);
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchOfferList(url),

@@ -22,7 +22,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
       child: Container(
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).primaryColorLight,
         height: MediaQuery.of(context).size.height,
         child: ListView(
           children: [
@@ -31,12 +31,12 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 //==========================500 text
-                const Text(
+                 Text(
                   '500',
                   style: TextStyle(
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
-                      color: Colors.red
+                      color: Theme.of(context).errorColor
                   ),
                 ),
                 const SizedBox(height: 20,),
@@ -48,7 +48,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                     'Internal Server Error',
                     textAlign: TextAlign.center,
                     style:  TextStyle(
-                      color: Colors.red,
+                      color: Theme.of(context).errorColor,
                       fontWeight: FontWeight.w600,
                       fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor
                     ),
@@ -63,7 +63,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                     appState.errorString,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: Colors.red,
+                        color: Theme.of(context).errorColor,
                         fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
                     ),
                   ),
@@ -107,7 +107,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                     appState.error,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Theme.of(context).errorColor,
                       fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                     ),
                   ),

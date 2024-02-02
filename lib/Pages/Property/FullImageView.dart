@@ -14,6 +14,7 @@ class FullImageView extends StatelessWidget {
   final imageUrl;
   final bool asFinder;
 
+
    //----------------------------------------------------------------------------SEND OTP METHODS
 
    _deletePropertyImage(BuildContext context, appState, imageUrl)async{

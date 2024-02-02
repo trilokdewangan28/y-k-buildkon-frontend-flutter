@@ -76,7 +76,7 @@ class _OfferSliderState extends State<OfferSlider>                {
           count: appState.offerList.length,
           index: _currentIndex,
           color: Colors.grey,
-          activeColor: Theme.of(context).hintColor, // Change this color to indicate the current page
+          activeColor: Theme.of(context).primaryColor, // Change this color to indicate the current page
           height: 8,
           width: 25,
           cornerRadius: 8,

@@ -17,11 +17,19 @@ class OtpVerificationWidget extends StatefulWidget {
 }
 
 class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
+  bool _mounted = false;
   @override
   void initState() {
     //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('otp sent to your email...',style: TextStyle(color: Colors.green),)));
+    _mounted=true;
     startCountdown();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
   }
 
   final _formKey1 = GlobalKey<FormState>();
@@ -51,18 +59,21 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
+    _mounted = true;
 
     if (countdownTimer == null || !countdownTimer!.isActive) {
       countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        setState(() {
-          if (countdownDuration.inSeconds > 0) {
-            countdownDuration -= const Duration(seconds: 1);
-            remainingTime = formatDuration(countdownDuration);
-          } else {
-            countdownTimer?.cancel();
-            // Countdown has reached 0, perform any desired actions here
-          }
-        });
+        if(_mounted){
+          setState(() {
+            if (countdownDuration.inSeconds > 0) {
+              countdownDuration -= const Duration(seconds: 1);
+              remainingTime = formatDuration(countdownDuration);
+            } else {
+              countdownTimer?.cancel();
+              // Countdown has reached 0, perform any desired actions here
+            }
+          });
+        }
       });
     }
 
@@ -91,6 +102,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
         countdownTimer?.cancel();
         countdownDuration = const Duration(minutes: 5);
         remainingTime = formatDuration(countdownDuration);
+        _mounted=true;
         startCountdown();
         Fluttertoast.showToast(
           msg: res['message'],
@@ -211,7 +223,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                             defaultPinTheme: defaultPinTheme,
                             focusedPinTheme: defaultPinTheme.copyWith(
                               decoration: defaultPinTheme.decoration!.copyWith(
-                                border: Border.all(color: Theme.of(context).primaryColor),
+                                border: Border.all(color: Theme.of(context).primaryColorLight),
                               ),
                             ),
                             validator: (value){
@@ -243,7 +255,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                                     };
                                     _sendOtpForSignup(customerData, appState, context);
                                   },
-                                  child: Text('resend otp',style: TextStyle(color: Theme.of(context).hintColor),),
+                                  child: Text('resend otp',style: TextStyle(color: Theme.of(context).primaryColor),),
                                 )
                               ],
                             ),
@@ -271,10 +283,10 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).hintColor,
+                                    backgroundColor: Theme.of(context).primaryColor,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                 ),
-                                child: Text('Verify',style: TextStyle(color: Theme.of(context).primaryColor),)
+                                child: Text('Verify',style: TextStyle(color: Theme.of(context).primaryColorLight),)
                             ),
                           ),
                           const SizedBox(height: 15,),

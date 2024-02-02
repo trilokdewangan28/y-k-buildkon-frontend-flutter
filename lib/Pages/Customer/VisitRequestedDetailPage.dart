@@ -20,6 +20,7 @@ class VisitRequestedDetailPage extends StatefulWidget {
 }
 
 class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
+  bool _mouted = false;
   final _formKey = GlobalKey<FormState>();
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   final DateTime lastSelectableDate =
@@ -92,7 +93,9 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
           fontSize: 16.0, // Font size of the toast message
         );
         fetchFavoriteProperty(appState);
-        setState(() {});
+        if(_mouted){
+          setState(() {});
+        }
       } else {
         Fluttertoast.showToast(
           msg: res['message'],
@@ -128,7 +131,9 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
           fontSize: 16.0, // Font size of the toast message
         );
         fetchFavoriteProperty(appState);
-        setState(() {});
+        if(_mouted){
+          setState(() {});
+        }
       } else {
         Fluttertoast.showToast(
           msg: res['message'],
@@ -154,15 +159,21 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
         //print(res);
         if (res['result'].length > 0) {
           appState.addedToFavorite = true;
-          setState(() {});
+          if(_mouted){
+            setState(() {});
+          }
         } else {
           appState.addedToFavorite = false;
-          setState(() {});
+          if(_mouted){
+            setState(() {});
+          }
         }
         //ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.green),)));
       } else {
         appState.addedToFavorite = false;
-        setState(() {});
+        if(_mouted){
+          setState(() {});
+        }
         // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${res['message']}', style: TextStyle(color: Colors.red),)));
       }
     }
@@ -336,6 +347,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                             "feedback": feedbackController.text,
                             "rating": rateValue
                           };
+                          _mouted=true;
                           submitPropertyRating(data, appState, context);
                         },
                         child: const Text('submit'))
@@ -354,11 +366,13 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
         lastDate: lastSelectableDate);
 
     if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-        _visitingDateController.text =
-        '${selectedDate.toLocal()}'.split(' ')[0];
-      });
+      if(_mouted){
+        setState(() {
+          selectedDate = picked;
+          _visitingDateController.text =
+          '${selectedDate.toLocal()}'.split(' ')[0];
+        });
+      }
     }
   }
 
@@ -374,7 +388,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorLight,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -447,7 +461,10 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                     labelText: 'Vising Date',
                                     labelStyle: TextStyle(color: Colors.black),
                                     border: OutlineInputBorder()),
-                                onTap: () => _selectDate(context),
+                                onTap: (){
+                                  _mouted=true;
+                                  _selectDate(context);
+                                },
                                 readOnly: true,
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -483,7 +500,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                    Theme.of(context).hintColor),
+                                    Theme.of(context).primaryColor),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     var visitData = {
@@ -499,6 +516,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                       "p_id": appState
                                           .selectedProperty['property_id']
                                     };
+                                    _mouted=true;
                                     bookVisit(visitData, appState, pageContext);
                                     Navigator.pop(context);
                                   }
@@ -506,7 +524,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                 child: Text(
                                   'Submit',
                                   style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
+                                      color: Theme.of(context).primaryColorLight),
                                 )),
                           )
                         ],
@@ -521,8 +539,14 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
+    _mouted=true;
     fetchFavoriteProperty(appState);
     super.initState();
+  }
+  @override
+  void dispose() {
+    _mouted = false;
+    super.dispose();
   }
 
   @override
@@ -531,7 +555,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Column(
@@ -561,7 +585,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                                 : Container(
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
+                                    color: Theme.of(context).primaryColorLight,
                                     border: Border.all(width: 1),
                                     borderRadius:
                                     BorderRadius.circular(25)),
@@ -575,7 +599,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                     right: 25,
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundColor: Theme.of(context).hintColor,
+                      backgroundColor: Theme.of(context).primaryColor,
                       child: IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -589,7 +613,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                           },
                           icon: Icon(
                             Icons.edit,
-                            color: Theme.of(context).primaryColor,
+                            color: Theme.of(context).primaryColorLight,
                           )),
                     ))
                     : Container()
@@ -647,7 +671,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                   //============================LOCATION
                   Icon(
                     Icons.location_pin,
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context).primaryColor,
                     size: MyConst.mediumTextSize * fontSizeScaleFactor,
                   ),
                   Expanded(
@@ -673,7 +697,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                   //============================PRICE ICON
                   Icon(
                     Icons.currency_rupee,
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context).primaryColor,
                     size: MyConst.mediumTextSize * fontSizeScaleFactor,
                   ),
                   //=============================PRICE
@@ -682,7 +706,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                     style: TextStyle(
                         fontSize: MyConst.smallTextSize * fontSizeScaleFactor,
                         fontWeight: FontWeight.w700,
-                        color: Theme.of(context).hintColor),
+                        color: Theme.of(context).primaryColor),
                   ),
                   const Spacer(),
                   //=============================FAVRITE BTN
@@ -758,7 +782,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.home_work_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                                 size: MyConst.mediumLargeTextSize *
                                     fontSizeScaleFactor,
                               ),
@@ -791,7 +815,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.square_foot_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                                 size: MyConst.mediumLargeTextSize *
                                     fontSizeScaleFactor,
                               ),
@@ -834,7 +858,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.bedroom_parent_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_bhk']}',
@@ -863,7 +887,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.chair_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_isFurnished']}',
@@ -903,7 +927,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.park_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_isGarden']}',
@@ -932,7 +956,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                               ),
                               Icon(
                                 Icons.local_parking_outlined,
-                                color: Theme.of(context).hintColor,
+                                color: Theme.of(context).primaryColor,
                               ),
                               Text(
                                 '${appState.selectedProperty['property_isParking']}',
@@ -1015,25 +1039,25 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                   width: MediaQuery.of(context).size.width * 0.4,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).hintColor,
+                          backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor:
-                          Theme.of(context).primaryColor),
+                          Theme.of(context).primaryColorLight),
                       onPressed: () {
                         _showVisitDetailContainer(appState, context);
                       },
                       child: Text(
                         'Request Visit',
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(context).primaryColorLight),
                       )),
                 ),
                 Container(
                     width: MediaQuery.of(context).size.width * 0.4,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).hintColor,
+                            backgroundColor: Theme.of(context).primaryColor,
                             foregroundColor:
-                            Theme.of(context).primaryColor),
+                            Theme.of(context).primaryColorLight),
                         onPressed: () {
                           //Navigator.pop(context);
                           Navigator.push(
@@ -1046,7 +1070,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                         child: Text(
                           'Contact Now',
                           style: TextStyle(
-                              color: Theme.of(context).primaryColor),
+                              color: Theme.of(context).primaryColorLight),
                         ))),
               ],
             )
@@ -1055,12 +1079,12 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                 ? Center(
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).hintColor),
+                      backgroundColor: Theme.of(context).primaryColor),
                   onPressed: () {},
                   child: Text(
                     'Book Now',
                     style:
-                    TextStyle(color: Theme.of(context).primaryColor),
+                    TextStyle(color: Theme.of(context).primaryColorLight),
                   )),
             )
                 : Container(),
@@ -1080,7 +1104,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
               child: appState.userType == 'admin'
                   ? ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).hintColor,
+                      backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10))),
                   onPressed: () {
@@ -1097,7 +1121,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                     'Add Offers',
                     style:
                     TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).primaryColorLight,
                         fontWeight: FontWeight.w600
                     ),
                   )

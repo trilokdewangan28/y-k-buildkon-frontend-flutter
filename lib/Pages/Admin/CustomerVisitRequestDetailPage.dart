@@ -82,7 +82,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
       statusColor = Colors.red;
     }
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
           child: Column(
@@ -175,7 +175,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                            color: Theme.of(context).primaryColor
                         ),
                       ),
 
@@ -186,7 +186,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
-                            color: Theme.of(context).hintColor
+                            color: Theme.of(context).primaryColor
                         ),
                       ),
                     ],
@@ -201,7 +201,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                   child: Row(
                     children: [
                       //============================LOCATION
-                      Icon(Icons.location_on_outlined, color: Theme.of(context).hintColor,),
+                      Icon(Icons.location_on_outlined, color: Theme.of(context).primaryColor,),
                       Expanded(child:  Text(
                         '${appState.selectedCustomerRequest['property_address']}, ${appState.selectedCustomerRequest['property_locality']} , ${appState.selectedCustomerRequest['property_city']}',
                         style: const TextStyle(
@@ -359,7 +359,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       child: Text(
                         reqBtnText,
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor
+                            color: Theme.of(context).primaryColorLight
                         ),
                       )
                   ),

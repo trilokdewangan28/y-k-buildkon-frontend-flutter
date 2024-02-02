@@ -27,7 +27,7 @@ class _CustomerVisitRequestListWidgetState extends State<CustomerVisitRequestLis
     bool trilok = false;
     List<Map<String, dynamic>> propertyListDemo = [];
     return trilok==true ? Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: FutureBuilder<Map<String, dynamic>>(
         future: StaticMethod.fetchCustomerRequest(appState.token, url),

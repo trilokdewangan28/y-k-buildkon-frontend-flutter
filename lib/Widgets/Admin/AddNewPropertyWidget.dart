@@ -138,7 +138,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       areaUnit = "Acre";
     }
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: SingleChildScrollView(
         child: Container(
@@ -210,7 +210,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     height: dropDownCardHeight,
                                     width: dropDownCardWidth,
                                     child: Card(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: DropdownButton<String>(
                                         value: selectedPropertyType,
@@ -269,7 +269,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           height: dropDownCardHeight,
                                           child: Card(
                                             color:
-                                                Theme.of(context).primaryColor,
+                                                Theme.of(context).primaryColorLight,
                                             elevation: 1,
                                             child: DropdownButton<String>(
                                               value: selectedBhk.toString(),
@@ -329,7 +329,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           width: dropDownCardWidth,
                                           child: Card(
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                               elevation: 1,
                                               child: DropdownButton<String>(
                                                 value: selectedFloor
@@ -391,7 +391,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           width: dropDownCardWidth,
                                           child: Card(
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                               elevation: 1,
                                               child: DropdownButton<String>(
                                                 value: selectedGarden,
@@ -453,7 +453,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           width: dropDownCardWidth,
                                           child: Card(
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                               elevation: 1,
                                               child: DropdownButton<String>(
                                                 value: selectedParking,
@@ -520,7 +520,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           width: dropDownCardWidth,
                                           child: Card(
                                               color: Theme.of(context)
-                                                  .primaryColor,
+                                                  .primaryColorLight,
                                               elevation: 1,
                                               child: DropdownButton<String>(
                                                 value: selectedFurnished,
@@ -576,7 +576,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     height: dropDownCardHeight,
                                     width: dropDownCardWidth,
                                     child: Card(
-                                        color: Theme.of(context).primaryColor,
+                                        color: Theme.of(context).primaryColorLight,
                                         elevation: 1,
                                         child: DropdownButton<String>(
                                           value: selectedAvailability,
@@ -1072,7 +1072,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             child: Text(
                               'Add Properties',
                               style:
-                                  TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+                                  TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),
                             )),
                         const SizedBox(
                           height: 15,
@@ -1105,7 +1105,7 @@ class _PropertyTypeDropDownState extends State<PropertyTypeDropDown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
       child: DropdownButton<String>(
         value: widget.selectedPropertyType,
