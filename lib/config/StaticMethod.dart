@@ -681,6 +681,59 @@ class StaticMethod {
     }
   }
 
+  //============================================================================FETCH OFFER LIST
+  static Future<Map<String, dynamic>> fetchOffer(url,data) async {
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,headers: requestHeaders,body: jsonEncode(data));
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      // print('failed to complete fetchOfferList api');
+      // print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting offer list',
+        "error":e.toString()
+      };
+    }
+  }
+
+  //============================================================================remvoe offer
+  static Future<Map<String, dynamic>> deletOffer(url,data,token) async {
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,headers: requestHeaders,body: jsonEncode(data));
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      // print('failed to complete fetchOfferList api');
+      // print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting offer list',
+        "error":e.toString()
+      };
+    }
+  }
+
   //============================================================================FETCH CUSTOMER REQUEST
   static Future<Map<String, dynamic>> fetchCustomerRequest(token, url) async {
 

@@ -37,6 +37,9 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   final FocusNode _visitorNumberFocusNode = FocusNode();
   final FocusNode _employeeRefNoFocusNode = FocusNode();
 
+  bool _isOfferLoading = false;
+  Map<String,dynamic> offer = {};
+
   //==================================================================BOOK VISIT
   bookVisit(requestData, appState, context) async {
     var url = Uri.parse(ApiLinks.requestVisit);
@@ -542,11 +545,85 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     );
   }
 
+  //==================================================LOAD OFFER
+  _loadOffer(appState)async{
+    if(_mounted){
+      setState(() {
+        _isOfferLoading = true;
+      });
+    }
+    var data = {"p_id":appState.selectedProperty['property_id']};
+    var url = Uri.parse(ApiLinks.fetchOffer);
+    final res = await StaticMethod.fetchOffer(url,data);
+    if(res.isNotEmpty){
+      if(res['success']==true){
+        if(res['result'].length!=0){
+          offer = res['result'][0];
+        }else{
+          offer = {};
+        }
+         print(offer);
+        if(_mounted){
+          setState(() {
+            _isOfferLoading=false;
+          });
+        }
+      }else{
+        // display some another widget for message
+      }
+    }
+  }
+
+  //========================================================REMOVE FROM FAVORITE
+  removeOffer(data, appState, context) async {
+    _mounted=true;
+    var url = Uri.parse(ApiLinks.deleteOffer);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res =
+    await StaticMethod.deletOffer(url, data, appState.token);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+        if(_mounted){
+          setState(() {
+            offer = {};
+          });
+        }
+        //_loadOffer(appState);
+      } else {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
     _mounted=true;
     fetchFavoriteProperty(appState);
+    _mounted=true;
+    _loadOffer(appState);
     super.initState();
   }
 
@@ -1092,45 +1169,100 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   )
                 : Container(),
 
-            // //=======================================OFFER RELATED ROW
-            // Container(
-            //   height: MyConst.deviceHeight(context)*0.3,
-            //   width: MyConst.deviceWidth(context),
-            //   margin: EdgeInsets.symmetric(horizontal: 15),
-            //   decoration: BoxDecoration(
-            //     border: Border.all(width: 1),
-            //     borderRadius: BorderRadius.circular(10)
-            //   ),
-            //   child: Text('offer here'),
-            // ),
-            Center(
-              child: appState.userType == 'admin'
-                  ? ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddOfferPage(
-                              p_id: appState
-                                  .selectedProperty['property_id'],
-                              forWhich: "offerImage",
-                            )));
-                  },
-                  child: Text(
-                    'Add Offers',
-                    style:
-                    TextStyle(
-                        color: Theme.of(context).primaryColorLight,
+            //=======================================OFFER RELATED ROW
+            _isOfferLoading==true
+                ? Center(child: CircularProgressIndicator(),)
+                : offer.isNotEmpty
+                ? Container(
+              //height: MyConst.deviceHeight(context)*0.3,
+              width: MyConst.deviceWidth(context),
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                        'OFFERS',
+                      style: TextStyle(
+                        fontSize: MyConst.mediumLargeTextSize*fontSizeScaleFactor,
                         fontWeight: FontWeight.w600
+                      ),
                     ),
+                  ),
+                  Text(
+                    '${offer['about1']}'
+                  ),
+                  Text(
+                      '${offer['about2']}'
+                  ),
+                  Text(
+                      '${offer['about3']}'
                   )
+                ],
               )
-                  : Container(),
-            ),
+            )
+                 : Container(),
+
+            SizedBox(height: 20,),
+            appState.userType == 'admin'
+                ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AddOfferPage(
+                                p_id: appState
+                                    .selectedProperty['property_id'],
+                                forWhich: "offerImage",
+                              )));
+                    },
+                    child: Text(
+                      'Add Offers',
+                      style:
+                      TextStyle(
+                          color: Theme.of(context).primaryColorLight,
+                          fontWeight: FontWeight.w600
+                      ),
+                    )
+                ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).errorColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                    onPressed: offer.isNotEmpty ? () {
+                      var data={
+                        "offerImage":offer['image_url'],
+                        "p_id":offer['property_id']
+                      };
+                      removeOffer(data, appState, context);
+                    } : null,
+                    child: Text(
+                      'Remove Offers',
+                      style:
+                      TextStyle(
+                          color: Theme.of(context).primaryColorLight,
+                          fontWeight: FontWeight.w600
+                      ),
+                    )
+                )
+
+              ],
+            )
+                : Container()
           ],
         ),
       ),

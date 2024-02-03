@@ -256,6 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               centerTitle: true,
+
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(40),

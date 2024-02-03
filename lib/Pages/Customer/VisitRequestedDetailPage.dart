@@ -536,6 +536,42 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     );
   }
 
+  //=================================================CANCEL REQUEST
+  _changeVisitStatus(data,appState,context)async{
+    var url = Uri.parse(ApiLinks.cancelVisitRequest);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res = await StaticMethod.changeVisitStatus(appState.token,data,url);
+    if(res.isNotEmpty){
+      Navigator.pop(context);
+      if(res['success']==true){
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+        appState.activeWidget = "VisitRequestedListWidget";
+      }else{
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
+
   @override
   void initState() {
     final appState = Provider.of<MyProvider>(context, listen: false);
@@ -1036,12 +1072,16 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
+                  width: MediaQuery.of(context).size.width * 0.37,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).primaryColor,
                           foregroundColor:
-                          Theme.of(context).primaryColorLight),
+                          Theme.of(context).primaryColorLight,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        )
+                      ),
                       onPressed: () {
                         _showVisitDetailContainer(appState, context);
                       },
@@ -1052,12 +1092,15 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
                       )),
                 ),
                 Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
+                    width: MediaQuery.of(context).size.width * 0.37,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Theme.of(context).primaryColor,
-                            foregroundColor:
-                            Theme.of(context).primaryColorLight),
+                            foregroundColor: Theme.of(context).primaryColorLight,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
                         onPressed: () {
                           //Navigator.pop(context);
                           Navigator.push(
@@ -1076,16 +1119,56 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
             )
                 : Container(),
             appState.userType == 'customer'
-                ? Center(
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).primaryColor),
-                  onPressed: () {},
-                  child: Text(
-                    'Book Now',
-                    style:
-                    TextStyle(color: Theme.of(context).primaryColorLight),
-                  )),
+                ? Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.37,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          foregroundColor:
+                          Theme.of(context).primaryColorLight,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                          )
+                      ),
+                      onPressed: () {
+                       // _showVisitDetailContainer(appState, context);
+                      },
+                      child: Text(
+                        'Book Now',
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColorLight),
+                      )),
+                ),
+                Container(
+                    width: MediaQuery.of(context).size.width * 0.37,
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Theme.of(context).errorColor,
+                            foregroundColor: Theme.of(context).primaryColorLight,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                            )
+                        ),
+                        onPressed: appState.selectedProperty['v_status']==0
+                          ? () {
+                          var data = {
+                            "newStatus":3,
+                            "c_id":appState.customerDetails['customer_id'],
+                            "p_id":appState.selectedProperty['property_id'],
+                            "v_id":appState.selectedProperty['v_id']
+                          };
+                          _changeVisitStatus(data, appState, context);
+                        }
+                          : null,
+                        child: Text(
+                          'Cancel',
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColorLight),
+                        ))),
+              ],
             )
                 : Container(),
 

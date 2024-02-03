@@ -77,8 +77,11 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
       statusColor = Colors.green;
       reqBtnText = "Mark Complete The Visit";
       reqBtnColor = Colors.red;
-    } else {
+    } else if(appState.selectedCustomerRequest['v_status'] == 2){
       requestStatus = "Visit Completed";
+      statusColor = Colors.red;
+    }else{
+      requestStatus = "request cancelled";
       statusColor = Colors.red;
     }
     return Container(
@@ -331,38 +334,74 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       subtitle: Text(requestStatus, style: TextStyle(color: statusColor),),
                     )
                 ),
-                //==================================STATUS CHANGE BTN
                 const SizedBox(height: 20,),
-                appState.selectedCustomerRequest['v_status']==2
-                    ? Container()
-                    : Center(
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: reqBtnColor,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                      ),
-                      onPressed: () {
-                        if(appState.selectedCustomerRequest['v_status']==0){
-                          newStatus=1;
-                        }else if(appState.selectedCustomerRequest['v_status']==1){
-                          newStatus=2;
-                        }else{
-                          newStatus=2;
-                        }
-                        var data = {
-                          "newStatus":newStatus,
-                          "c_id":appState.selectedCustomerRequest['customer_id'],
-                          "p_id":appState.selectedCustomerRequest['property_id'],
-                          "v_id":appState.selectedCustomerRequest['v_id']
-                        };
-                        _changeVisitStatus(data, appState, context);
-                      },
-                      child: Text(
-                        reqBtnText,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColorLight
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //==================================STATUS CHANGE BTN
+                      appState.selectedCustomerRequest['v_status']>=2
+                          ? Container()
+                          : Center(
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: reqBtnColor,
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                            ),
+                            onPressed: () {
+                              if(appState.selectedCustomerRequest['v_status']==0){
+                                newStatus=1;
+                              }else if(appState.selectedCustomerRequest['v_status']==1){
+                                newStatus=2;
+                              }else{
+                                newStatus=2;
+                              }
+                              var data = {
+                                "newStatus":newStatus,
+                                "c_id":appState.selectedCustomerRequest['customer_id'],
+                                "p_id":appState.selectedCustomerRequest['property_id'],
+                                "v_id":appState.selectedCustomerRequest['v_id']
+                              };
+                              _changeVisitStatus(data, appState, context);
+                            },
+                            child: Text(
+                              reqBtnText,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColorLight
+                              ),
+                            )
                         ),
+                      ),
+                      const SizedBox(width: 10,),
+                      appState.selectedCustomerRequest['v_status']==0
+                          ? ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).errorColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
+                          onPressed:(){
+                             newStatus=3;
+                            var data = {
+                              "newStatus":newStatus,
+                              "c_id":appState.selectedCustomerRequest['customer_id'],
+                              "p_id":appState.selectedCustomerRequest['property_id'],
+                              "v_id":appState.selectedCustomerRequest['v_id']
+                            };
+                            _changeVisitStatus(data, appState, context);
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).primaryColorLight
+                            ),
+                          )
                       )
+                          : Container()
+                    ],
                   ),
                 )
 

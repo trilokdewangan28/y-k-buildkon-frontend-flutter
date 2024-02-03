@@ -1,6 +1,6 @@
 class ApiLinks{
   //static const baseUrl = "http://54.82.47.83.nip.io:5000/";
-  static const baseUrl = "https://75e0-2401-4900-51e2-90d0-3971-712a-6fd6-2c82.ngrok-free.app/";
+  static const baseUrl = "https://b364-2401-4900-51dc-cd4-8471-5d9e-6629-84f4.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -19,6 +19,7 @@ class ApiLinks{
   static const accessPropertyImages = "${baseUrl}api/property/accessPropertyImages";
   static const submitPropertyRating = "${baseUrl}api/customer/submitPropertyRating";
   static const fetchOfferList = "${baseUrl}api/customer/fetchOfferList";
+  static const fetchOffer = "${baseUrl}api/customer/fetchOffer";
   static const fetchAdminContact = "${baseUrl}api/customer/fetchAdminContact";
 
   static const addToFavorite = "${baseUrl}api/customer/addToFavorite";
@@ -29,11 +30,12 @@ class ApiLinks{
   static const requestVisit = "${baseUrl}api/customer/requestVisit";
   static const fetchVisitRequestedList = "${baseUrl}api/customer/fetchVisitRequestedList";
   static const fetchVisitRequestedPropertyDetails = "${baseUrl}api/customer/fetchVisitRequestedPropertyDetails";
-
+  static const cancelVisitRequest = "${baseUrl}api/customer/cancelRequest";
 
   //==================================ADMIN API================================
   static const insertPropertyDetails = "${baseUrl}api/admin/insertPropertyDetails";
   static const uploadOffer = "${baseUrl}api/admin/uploadOffer";
+  static const deleteOffer = "${baseUrl}api/admin/deleteOffer";
   static const accessOfferImage = "${baseUrl}api/offer/accessOfferImage";
   static const uploadPropertyImage = "${baseUrl}api/admin/uploadPropertyImage";
   static const deletePropertyImage = "${baseUrl}api/admin/deletePropertyImage";

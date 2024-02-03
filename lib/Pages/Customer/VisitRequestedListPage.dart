@@ -19,12 +19,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   bool _mounted=false;
   String requestStatus = "";
   Color statusColor = Colors.orange;
-  Color houseColor = Colors.white;
-  Color flatColor = Colors.white;
-  Color plotColor = Colors.white;
-  bool houseTapped = false;
-  bool flatTapped = false;
-  bool plotTapped = false;
+
+  bool pendingTapped = false;
+  bool acceptedTapped = false;
+  bool completedTapped = false;
+  bool cancelledTapped = false;
   int selectedRequestStatus = 4;
 
   //======================================PAGINATION VARIABLE===================
@@ -32,7 +31,6 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
   final int limit = 5;
 
   bool _isFirstLoadRunning = false;
-  bool _isOfferLoading = false;
   bool _hasNextPage = true;
 
   bool _isLoadMoreRunning = false;
@@ -153,6 +151,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
               const SizedBox(
                 height: 15,
               ),
+              //=====================================FILTER USING REQUEST STATUS
               Container(
                 height: 30,
                 margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -161,23 +160,25 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        houseTapped = !houseTapped;
-                        flatTapped = false;
-                        plotTapped = false;
-                        if (houseTapped == true) {
+                        pendingTapped = !pendingTapped;
+                        acceptedTapped = false;
+                        completedTapped = false;
+                        cancelledTapped = false;
+                        if (pendingTapped == true) {
                           selectedRequestStatus = 0;
-                          _hasNextPage = true;
-                          page = 1;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                           //});
                         } else {
-                          _hasNextPage = true;
-                          page = 1;
+                          selectedRequestStatus = 4;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                           //});
@@ -188,37 +189,43 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 6),
                         width: 110,
                         decoration: BoxDecoration(
-                            color: houseTapped
+                            color: pendingTapped
                                 ? Theme.of(context).primaryColor
                                 : Theme.of(context).primaryColorLight,
-                            border: Border.all(width: 2),
+                            border: Border.all(width: 1),
                             borderRadius: BorderRadius.circular(5)),
-                        child: const Center(
+                        child: Center(
                             child: Text(
-                          'Pending',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
+                              'Pending',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: pendingTapped
+                                      ? Theme.of(context).primaryColorLight
+                                      : Theme.of(context).hintColor
+                              ),
+                            )),
                       ),
                     ),
                     GestureDetector(
                       onTap: () {
-                        flatTapped = !flatTapped;
-                        houseTapped = false;
-                        plotTapped = false;
-                        if (flatTapped == true) {
+                        acceptedTapped = !acceptedTapped;
+                        pendingTapped = false;
+                        completedTapped = false;
+                        cancelledTapped = false;
+                        if (acceptedTapped == true) {
                           selectedRequestStatus = 1;
-                          _hasNextPage = true;
-                          page = 1;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                         } else {
                           selectedRequestStatus = 4;
-                          _hasNextPage = true;
-                          page = 1;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                         }
@@ -228,37 +235,43 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 6),
                         width: 110,
                         decoration: BoxDecoration(
-                            color: flatTapped
+                            color: acceptedTapped
                                 ? Theme.of(context).primaryColor
                                 : Theme.of(context).primaryColorLight,
-                            border: Border.all(width: 2),
+                            border: Border.all(width: 1),
                             borderRadius: BorderRadius.circular(5)),
-                        child: const Center(
+                        child:  Center(
                             child: Text(
-                          'Accepted',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
+                              'Accepted',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: acceptedTapped ? Theme.of(context).primaryColorLight : Theme.of(context).hintColor
+                              ),
+                            )),
                       ),
                     ),
+
+                    //==================================COMPLETED FILTER BUTTON
                     GestureDetector(
                       onTap: () {
-                        plotTapped = !plotTapped;
-                        houseTapped = false;
-                        flatTapped = false;
-                        if (plotTapped == true) {
+                        completedTapped = !completedTapped;
+                        pendingTapped = false;
+                        acceptedTapped = false;
+                        cancelledTapped=false;
+                        if (completedTapped == true) {
                           selectedRequestStatus = 2;
-                          _hasNextPage = true;
-                          page = 1;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                         } else {
                           selectedRequestStatus = 4;
-                          _hasNextPage = true;
-                          page = 1;
+                          _hasNextPage=true;
+                          page=1;
                           //setState(() {
-                          _isFirstLoadRunning = false;
+                          _isFirstLoadRunning=false;
                           _mounted=true;
                           _firstLoad(appState);
                         }
@@ -268,16 +281,69 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                         margin: const EdgeInsets.symmetric(horizontal: 6),
                         width: 110,
                         decoration: BoxDecoration(
-                            color: plotTapped
+                            color: completedTapped
                                 ? Theme.of(context).primaryColor
                                 : Theme.of(context).primaryColorLight,
-                            border: Border.all(width: 2),
+                            border: Border.all(width: 1),
                             borderRadius: BorderRadius.circular(5)),
-                        child: const Center(
+                        child:  Center(
                             child: Text(
-                          'Completed',
-                          style: TextStyle(fontWeight: FontWeight.w500),
-                        )),
+                              'Completed',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: completedTapped
+                                    ? Theme.of(context).primaryColorLight
+                                    : Theme.of(context).hintColor,
+                              ),
+                            )),
+                      ),
+                    ),
+
+                    //==================================CANCELLED FILTER BUTTON
+                    GestureDetector(
+                      onTap: () {
+                        cancelledTapped = !cancelledTapped;
+                        pendingTapped = false;
+                        acceptedTapped = false;
+                        completedTapped=false;
+                        if (cancelledTapped == true) {
+                          selectedRequestStatus = 3;
+                          _hasNextPage=true;
+                          page=1;
+                          //setState(() {
+                          _isFirstLoadRunning=false;
+                          _mounted=true;
+                          _firstLoad(appState);
+                        } else {
+                          selectedRequestStatus = 4;
+                          _hasNextPage=true;
+                          page=1;
+                          //setState(() {
+                          _isFirstLoadRunning=false;
+                          _mounted=true;
+                          _firstLoad(appState);
+                        }
+                        //setState(() {});
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 6),
+                        width: 110,
+                        decoration: BoxDecoration(
+                            color: cancelledTapped
+                                ? Theme.of(context).primaryColor
+                                : Theme.of(context).primaryColorLight,
+                            border: Border.all(width: 1),
+                            borderRadius: BorderRadius.circular(5)),
+                        child:  Center(
+                            child: Text(
+                              'Cancelled',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                color: cancelledTapped
+                                    ? Theme.of(context).primaryColorLight
+                                    : Theme.of(context).hintColor,
+                              ),
+                            )),
                       ),
                     )
                   ],
@@ -299,8 +365,11 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                             } else if (property['v_status'] == 1) {
                               requestStatus = "Accepted";
                               statusColor = Colors.green;
-                            } else {
+                            } else if(property['v_status'] == 1){
                               requestStatus = "Completed";
+                              statusColor = Colors.red;
+                            }else{
+                              requestStatus = "Cancelled";
                               statusColor = Colors.red;
                             }
                             return InkWell(
@@ -519,7 +588,6 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
           // setState(() {
           _hasNextPage=true;
           page=1;
-          _isOfferLoading=false;
           _isFirstLoadRunning=false;
           _isLoadMoreRunning=false;
           _mounted=true;
