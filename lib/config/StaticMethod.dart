@@ -555,7 +555,7 @@ class StaticMethod {
       "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
       "propertyparking": selectedParking=="None" ? "" : selectedParking,
       "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
-      "propertyavailability":selectedAvailability=="None" ? "Yes" : selectedAvailability,
+      "propertyavailability":selectedAvailability=="None" ? "Available" : selectedAvailability,
       "propertyname": propertyName,
       "propertycity": selectedCity
     };
@@ -815,6 +815,33 @@ class StaticMethod {
       };
       final res =
           await http.put(url, body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete changeVisitStatus api');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for changeVisitStatus api',
+        "error":e.toString()
+      };
+    }
+  }
+
+  //----------------------------------------------------------------------------Change property availability
+  static Future<Map<String, dynamic>> changePropertyAvailability(token,data, url) async {
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res =
+      await http.put(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {

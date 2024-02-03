@@ -40,6 +40,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   bool _isOfferLoading = false;
   Map<String,dynamic> offer = {};
 
+  List<String> available = ['Sold','Not Available','Available'];
+  String selectedAvailability='Sold';
+  Color availabilityColor = Colors.orange;
+
   //==================================================================BOOK VISIT
   bookVisit(requestData, appState, context) async {
     var url = Uri.parse(ApiLinks.requestVisit);
@@ -63,6 +67,44 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
+      } else {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
+
+  //==================================================================CHANGE PROPERTY AVAILABILITY
+  changePropertyAvailability(data, appState, context) async {
+    _mounted=true;
+    var url = Uri.parse(ApiLinks.changePropertyAvailability);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res =
+    await StaticMethod.changePropertyAvailability(appState.token, data, url);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+        appState.activeWidget="PropertyListWidget";
       } else {
         Fluttertoast.showToast(
           msg: res['message'],
@@ -632,6 +674,13 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
+    if(appState.selectedProperty['property_isAvailable']=="Available"){
+      availabilityColor=Colors.green;
+    }else if(appState.selectedProperty['property_isAvailable']=="Not Available"){
+      availabilityColor=Colors.red;
+    }else{
+      availabilityColor=Colors.orange;
+    }
     return Container(
       color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
@@ -639,6 +688,20 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SizedBox(height: 10,),
+            Container(
+              margin:EdgeInsets.symmetric(horizontal: 20),
+              child:Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  appState.selectedProperty['property_isAvailable'],
+                  style: TextStyle(
+                      color: availabilityColor,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+            ),
             //===========================PROPERTY IMAGES
             Stack(
               children: [
@@ -1121,7 +1184,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: Theme.of(context).primaryColor,
                                 foregroundColor:
-                                    Theme.of(context).primaryColorLight),
+                                    Theme.of(context).primaryColorLight,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                              )
+                            ),
                             onPressed: () {
                               _showVisitDetailContainer(appState, context);
                             },
@@ -1137,7 +1204,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(context).primaryColor,
                                   foregroundColor:
-                                      Theme.of(context).primaryColorLight),
+                                      Theme.of(context).primaryColorLight,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)
+                                )
+                              ),
                               onPressed: () {
                                 //Navigator.pop(context);
                                 Navigator.push(
@@ -1159,7 +1230,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ? Center(
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor),
+                            backgroundColor: Theme.of(context).primaryColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
                         onPressed: () {},
                         child: Text(
                           'Book Now',
@@ -1208,8 +1283,9 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               )
             )
                  : Container(),
-
             SizedBox(height: 20,),
+
+            //======================================OFFER ADD AND REMOVAL BUTTON
             appState.userType == 'admin'
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1262,7 +1338,98 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
               ],
             )
-                : Container()
+                : Container(),
+            SizedBox(height: 20,),
+
+            //==============================CHANGE PROPERTY STATUS BUTTON
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                border: Border.all(width: 1),
+                borderRadius: BorderRadius.circular(10)
+              ),
+              child: Column(
+                children: [
+                  appState.userType=='admin'
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text('Marked As:'),
+                      SizedBox(width: 4,),
+                      //==========================================DROPDOWN CARD
+                      Card(
+                          color: Theme.of(context).primaryColorLight,
+                          elevation: 1,
+                          child: Container(
+                            height: MyConst.deviceWidth(context)*0.1,
+                              margin: EdgeInsets.symmetric(horizontal: 4),
+                              child: Center(
+                                child: DropdownButton<String>(
+                                  value: selectedAvailability,
+                                  alignment: Alignment.center,
+                                  elevation: 16,
+                                  underline: Container(),
+                                  onChanged: (String? value) {
+                                    // This is called when the user selects an item.
+                                    setState(() {
+                                      selectedAvailability = value!;
+                                      //print('selected property type is ${selectedPropertyType}');
+                                    });
+                                  },
+                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                  items: available
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text('${value}',
+                                              softWrap: true,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                                  overflow: TextOverflow
+                                                      .ellipsis)),
+                                        );
+                                      }).toList(),
+                                ),
+                              )
+                          )
+                      ),
+                      SizedBox(width: 4,),
+                      //==========================================SUBMIT BUTTON
+                      Container(
+                        child: TextButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                backgroundColor: Theme.of(context).primaryColor
+                            ),
+                            onPressed: appState.selectedProperty['property_isAvailable']==selectedAvailability
+                                ? null
+                                :  (){
+                              var data = {
+                                "newStatus":selectedAvailability,
+                                "p_id":appState.selectedProperty['property_id']
+                              };
+                              changePropertyAvailability(data, appState, context);
+                            },
+                            child:Text(
+                              'Submit',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColorLight,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            )
+                        ),
+                      )
+                    ],
+                  )
+                      : Container(),
+                ],
+              )
+            )
           ],
         ),
       ),

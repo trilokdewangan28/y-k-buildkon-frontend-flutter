@@ -1,6 +1,6 @@
 class ApiLinks{
   //static const baseUrl = "http://54.82.47.83.nip.io:5000/";
-  static const baseUrl = "https://b364-2401-4900-51dc-cd4-8471-5d9e-6629-84f4.ngrok-free.app/";
+  static const baseUrl = "https://4673-2401-4900-51d6-ebc-91d9-abdc-7087-6785.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -34,6 +34,7 @@ class ApiLinks{
 
   //==================================ADMIN API================================
   static const insertPropertyDetails = "${baseUrl}api/admin/insertPropertyDetails";
+  static const changePropertyAvailability = "${baseUrl}api/admin/changePropertyAvailability";
   static const uploadOffer = "${baseUrl}api/admin/uploadOffer";
   static const deleteOffer = "${baseUrl}api/admin/deleteOffer";
   static const accessOfferImage = "${baseUrl}api/offer/accessOfferImage";

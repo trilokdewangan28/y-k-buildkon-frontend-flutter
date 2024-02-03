@@ -40,8 +40,8 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final List<String> furnished = ['Yes', 'No'];
   String selectedFurnished = "No";
 
-  final List<String> available = ['Yes', 'No'];
-  String selectedAvailability = "Yes";
+  final List<String> available = ['None', 'Available', 'Not Available','Sold'];
+  String selectedAvailability = "Available";
 
   final List<String> areaUnits=['Square Feet','Acre'];
   String areaUnit = "Square Feet";
