@@ -104,7 +104,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
       "limit":limit
     };
     var url = Uri.parse(ApiLinks.fetchAllPropertiesWithPaginationAndFilter);
-    final res = await StaticMethod.filterProperties(appState,paginationOptions,url,
+    final res = await StaticMethod.fetchAllPropertyWithPaginationAndFilter(appState,paginationOptions,url,
         propertyName: selectedPropertyName,
         selectedCity: selectedCity,
         minPrice: minPrice,
@@ -156,7 +156,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         "limit":limit
       };
       var url = Uri.parse(ApiLinks.fetchAllPropertiesWithPaginationAndFilter);
-      final res = await StaticMethod.filterProperties(appState,paginationOptions,url,
+      final res = await StaticMethod.fetchAllPropertyWithPaginationAndFilter(appState,paginationOptions,url,
           propertyName: selectedPropertyName,
           selectedCity: selectedCity,
           minPrice: minPrice,

@@ -4,197 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
 class StaticMethod {
-  //----------------------------------------------------------------------------INITIAL FETCH TOKEN AND USERTYPE
+  //============================================INITIAL FETCH TOKEN AND USERTYPE
   static void initialFetch(appState) async {
     appState.fetchUserType();
     await Future.delayed(const Duration(milliseconds: 100));
     appState.fetchToken(appState.userType);
     await Future.delayed(const Duration(milliseconds: 100));
   }
-
-  //==============================CUSTOMER RELATED METHODS======================
-  //---------------------------------------------------------------------------- FETCH PROPERTY LIST
-  static Future<Map<String, dynamic>> fetchAllProperties(url) async {
-    try {
-      final res = await http.get(url);
-
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-
-      } else {
-        return jsonDecode(res.body);
-
-      }
-    } catch (e) {
-      //print('failed to complete fetchPropertyList api');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while requesting property list',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //---------------------------------------------------------------------------- FETCH single PROPERTY LIST
-  static Future<Map<String, dynamic>> fetchSingleProperties(data,url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(data), headers: requestHeaders);
-
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete fetchPropertyList api');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while requesting property list',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //----------------------------------------------------------------------------SIGNUP CUSTOMER
-  static Future<Map<String, dynamic>> userSignup(signupData, url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(signupData), headers: requestHeaders);
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete signup api');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while registering due to request',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //----------------------------------------------------------------------------GENERATE OTP
-  static Future<Map<String, dynamic>> generateOtp(userData, url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(userData), headers: requestHeaders);
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete send otp api');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while sending the otp',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //----------------------------------------------------------------------------GENERATE OTP for signup
-  static Future<Map<String, dynamic>> sendOtpForSignup(userData, url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(userData), headers: requestHeaders);
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete send otp api');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while sending the otp',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
-  static Future<Map<String, dynamic>> submitOtpAndLogin(otpModel, url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(otpModel), headers: requestHeaders);
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete verify otp and login');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while verifying otp and login',
-        "error":e.toString()
-      };
-    }
-  }
-
-
-  //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
-  static Future<Map<String, dynamic>> verifyOtpForSignup(otpModel, url) async {
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-      final res = await http.post(url,
-          body: jsonEncode(otpModel), headers: requestHeaders);
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-      //print('failed to complete verify otp and login');
-      //print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while verifying otp and login',
-        "error":e.toString()
-      };
-    }
-  }
-
-  //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
+  //================================================FETCH CUSTOMER DATA BY TOKEN
   static userProfileInitial(token, url, appState) async {
     var response;
     Map<String, String> requestHeaders = {
@@ -230,9 +47,197 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------FETCH CUSTOMER DATA BY TOKEN
-  static Future<Map<String, dynamic>> userProfile(token, url) async {
 
+
+  //==============================CUSTOMER RELATED METHODS======================
+
+
+  //======================================================== FETCH PROPERTY LIST
+  static Future<Map<String, dynamic>> fetchAllProperties(url) async {
+    try {
+      final res = await http.get(url);
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+
+      } else {
+        return jsonDecode(res.body);
+
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for property list',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //=================================================FETCH SINGLE PROPERTY BY ID
+  static Future<Map<String, dynamic>> fetchSingleProperties(data,url) async {
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(data), headers: requestHeaders);
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for property list',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //============================================================FETCH PROPERTIES
+  static Future<Map<String,dynamic>> fetchAllPropertyWithPaginationAndFilter(
+      appState, paginationOptions,url,
+      {
+        String selectedCity = "",
+        String selectedPropertyType = "All",
+        int selectedBhk = 0,
+        int selectedFloor = 0,
+        String selectedGarden = "None",
+        String selectedParking = "None",
+        String selectedFurnished = "None",
+        String selectedAvailability = "None",
+        int minPrice = 0,
+        int maxPrice = 100000000,
+        String propertyName = "",
+        int propertyId = 0,
+      }
+      ) async{
+
+    Map<String,dynamic> filterOptions = {
+      "propertytype": selectedPropertyType == "All" ? "" : selectedPropertyType,
+      "propertybhk": selectedPropertyType == "All" ? 0 :selectedBhk,
+      "propertyfloor": selectedPropertyType == "All" ? 0 :selectedFloor,
+      "minPrice": minPrice,
+      "maxPrice": maxPrice,
+      "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
+      "propertyparking": selectedParking=="None" ? "" : selectedParking,
+      "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
+      "propertyavailability":selectedAvailability=="None" ? "Available" : selectedAvailability,
+      "propertyname": propertyName,
+      "propertycity": selectedCity
+    };
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list',
+        "error":e.toString()
+      };
+    }
+
+  }
+
+
+  //=============================================================SIGNUP CUSTOMER
+  static Future<Map<String, dynamic>> userSignup(signupData, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(signupData), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for user signup',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //======================================================GENERATE OTP FOR LOGIN
+  static Future<Map<String, dynamic>> generateOtp(userData, url) async {
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(userData), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for generate otp',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //========================================================SUBMIT OTP AND LOGIN
+  static Future<Map<String, dynamic>> submitOtpAndLogin(otpModel, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(otpModel), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for verify otp and login',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //================================================FETCH CUSTOMER DATA BY TOKEN
+  static Future<Map<String, dynamic>> userProfile(token, url) async {
     Map<String, String> requestHeaders = {
       'Authorization': 'Bearer $token',
       'Content-type': 'application/json',
@@ -248,8 +253,6 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-      //print('failed to complete customer profile api');
-      //print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while fetching customer detail',
@@ -258,9 +261,59 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------BOOK VISIT
-  static Future<Map<String, dynamic>> requestVisit(token, bookVisitModel, url) async {
 
+  //=====================================================GENERATE OTP FOR SIGNUP
+  static Future<Map<String, dynamic>> sendOtpForSignup(userData, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(userData), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for generate signup otp',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //========================================================VERIFY OTP FOR SIGNUP
+  static Future<Map<String, dynamic>> verifyOtpForSignup(otpModel, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res = await http.post(url,
+          body: jsonEncode(otpModel), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete verify otp and login');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while verifying otp and login',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //======================================================SEND REQUEST FOR VISIT
+  static Future<Map<String, dynamic>> requestVisit(token, bookVisitModel, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -285,9 +338,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------add to favorite
-  static Future<Map<String, dynamic>> addToFavorite(token, data, url) async {
 
+  //=============================================================ADD TO FAVORITE
+  static Future<Map<String, dynamic>> addToFavorite(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer ${token}',
@@ -312,9 +365,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------remove from favorite
-  static Future<Map<String, dynamic>> removeFromFavorite(token, data, url) async {
 
+  //========================================================REMOVE FROM FAVORITE
+  static Future<Map<String, dynamic>> removeFromFavorite(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -340,10 +393,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------fetch favorite property
-  static Future<Map<String, dynamic>> fetchFavoriteProperty(token, data, url) async {
 
-    //print("data is: " + data.toString());
+  //=====================================================FETCH FAVORITE PROPERTY
+  static Future<Map<String, dynamic>> fetchFavoriteProperty(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -368,11 +420,10 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------fetch favorite property List
+
+  //================================================FETCH FAVORITE PROPERTY LIST
   static Future<Map<String, dynamic>> fetchFavoritePropertyListDetails(token,
       data, url) async {
-
-    //print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -397,10 +448,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------fetch favorite property List
-  static Future<Map<String, dynamic>> fetchVisitRequestedList(token, data, url) async {
 
-    //print("data is: "+data.toString());
+  //==================================================FETCH VISIT REQUESTED LIST
+  static Future<Map<String, dynamic>> fetchVisitRequestedList(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -425,7 +475,8 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------fetch favorite property List
+
+  //=======================FETCH VISIT REQUESTED LIST WITH PAGINATION AND FILTER
   static Future<Map<String, dynamic>> fetchVisitRequestedListWithPagination( appState,url,paginationOptions,token, {
     int selectedRequestStatus = 4,
   }) async {
@@ -471,11 +522,10 @@ class StaticMethod {
 
   }
 
-  //----------------------------------------------------------------------------fetch favorite property List
+
+  //=======================================FETCH VISIT REQUESTED PROPERTY DETAIL
   static Future<Map<String, dynamic>> fetchVisitRequestedPropertyDetails(token,
       data, url) async {
-
-    //print("data is: " + data.toString());
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -500,7 +550,8 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------LOGOUT METHOD
+
+  //===============================================================LOGOUT METHOD
   static void logout(appState) async {
     appState.deleteToken(appState.userType);
     appState.token = "";
@@ -527,91 +578,8 @@ class StaticMethod {
     Future.delayed(const Duration(milliseconds: 100));
   }
 
-  //============================================================filter property method
-  static Future<Map<String,dynamic>> filterProperties(
-    appState, paginationOptions,url,
-      {
-    String selectedCity = "",
-    String selectedPropertyType = "All",
-    int selectedBhk = 0,
-    int selectedFloor = 0,
-    String selectedGarden = "None",
-    String selectedParking = "None",
-    String selectedFurnished = "None",
-    String selectedAvailability = "None",
-    int minPrice = 0,
-    int maxPrice = 100000000,
-    String propertyName = "",
-    int propertyId = 0,
-  }
-  ) async{
 
-    Map<String,dynamic> filterOptions = {
-      "propertytype": selectedPropertyType == "All" ? "" : selectedPropertyType,
-      "propertybhk": selectedPropertyType == "All" ? 0 :selectedBhk,
-      "propertyfloor": selectedPropertyType == "All" ? 0 :selectedFloor,
-      "minPrice": minPrice,
-      "maxPrice": maxPrice,
-      "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
-      "propertyparking": selectedParking=="None" ? "" : selectedParking,
-      "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
-      "propertyavailability":selectedAvailability=="None" ? "Available" : selectedAvailability,
-      "propertyname": propertyName,
-      "propertycity": selectedCity
-    };
-
-    //print('--------------------------fetch methond------------------------------');
-    //print('filter variable is ${filterOptions}');
-    //print('-----------------------------------------------------------------------');
-
-
-    try {
-      Map<String, String> requestHeaders = {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      };
-
-      final res = await http.post(
-          url,
-        headers: requestHeaders,
-        body: jsonEncode({
-          'filterOptions': filterOptions,
-          'paginationOptions': paginationOptions,
-        }),
-      );
-
-      if (res.statusCode == 200) {
-        return jsonDecode(res.body);
-      } else {
-        return jsonDecode(res.body);
-      }
-    } catch (e) {
-     // print('failed to complete fetchPropertyList api');
-     // print(e.toString());
-      return {
-        "success": false,
-        "message": 'An error occured while requesting property list',
-        "error":e.toString()
-      };
-    }
-
-  }
-
-  //----------------------------------------------------------------------------OPEN MAP
-  static void openMap(url) async {
-    // Replace with the desired latitude and longitude
-   // print('inside the open map url is $url');
-    // Use the URL format for opening a map with coordinates
-    String mapUrl = url;
-
-    // Launch the map with the provided URL
-    if (!await launchUrl(Uri.parse(mapUrl),
-        mode: LaunchMode.externalApplication)) {
-      throw 'Could not launch the map.';
-    }
-  }
-
-  //----------------------------------------------------------------------------submit property rating
+  //======================================================SUBMIT PROPERTY RATING
   static Future<Map<String, dynamic>> submitPropertyRating(token, data, url) async {
 
     try {
@@ -621,7 +589,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -637,9 +605,19 @@ class StaticMethod {
     }
   }
 
-  //============================================================================FETCH ADMIN CONTACT WIDGET
-  static Future<Map<String, dynamic>> fetchAdminContact(url) async {
 
+  //====================================================================OPEN MAP
+  static void openMap(url) async {
+    String mapUrl = url;
+    if (!await launchUrl(Uri.parse(mapUrl),
+        mode: LaunchMode.externalApplication)) {
+      throw 'Could not launch the map.';
+    }
+  }
+
+
+  //=========================================================FETCH ADMIN CONTACT
+  static Future<Map<String, dynamic>> fetchAdminContact(url) async {
     try {
       final res = await http.get(url);
 
@@ -659,9 +637,9 @@ class StaticMethod {
     }
   }
 
-  //============================================================================FETCH OFFER LIST
-  static Future<Map<String, dynamic>> fetchOfferList(url) async {
 
+  //============================================================FETCH OFFER LIST
+  static Future<Map<String, dynamic>> fetchOfferList(url) async {
     try {
       final res = await http.get(url);
 
@@ -671,8 +649,6 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-     // print('failed to complete fetchOfferList api');
-     // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting offer list',
@@ -681,9 +657,9 @@ class StaticMethod {
     }
   }
 
-  //============================================================================FETCH OFFER LIST
-  static Future<Map<String, dynamic>> fetchOffer(url,data) async {
 
+  //=================================================================FETCH OFFER
+  static Future<Map<String, dynamic>> fetchOffer(url,data) async {
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -701,13 +677,17 @@ class StaticMethod {
       // print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting offer list',
+        "message": 'An error occured while requesting offer ',
         "error":e.toString()
       };
     }
   }
 
-  //============================================================================remvoe offer
+
+
+  //==========================ADMIN RELATED METHOD==============================
+
+  //================================================================REMOVE OFFER
   static Future<Map<String, dynamic>> deletOffer(url,data,token) async {
 
     try {
@@ -724,17 +704,15 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-      // print('failed to complete fetchOfferList api');
-      // print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting offer list',
+        "message": 'An error occured while requesting for delete offers',
         "error":e.toString()
       };
     }
   }
 
-  //============================================================================FETCH CUSTOMER REQUEST
+  //======================================================FETCH CUSTOMER REQUEST
   static Future<Map<String, dynamic>> fetchCustomerRequest(token, url) async {
 
     try {
@@ -760,13 +738,12 @@ class StaticMethod {
     }
   }
 
-  //============================================================filter customer request method
+  //======================================FETCH CUSTOMER REQUEST WITH PAGINATION
   static Future<Map<String,dynamic>> fetchCustomerRequestWithPagination(
     appState,url,paginationOptions,token, {
     int selectedRequestStatus = 4,
   }
   )async {
-
     Map<String,dynamic> filterOptions={
       "requestStatus":selectedRequestStatus
     };
@@ -793,20 +770,18 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-     // print('failed to complete fetchPropertyList api');
-     // print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting property list',
+        "message": 'An error occured while requesting property list with pagination',
         "error":e.toString()
       };
     }
 
   }
 
-  //----------------------------------------------------------------------------Change Visit Status
-  static Future<Map<String, dynamic>> changeVisitStatus(token,data, url) async {
 
+  //=========================================================CHANGE VISIT STATUS
+  static Future<Map<String, dynamic>> changeVisitStatus(token,data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -831,9 +806,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------Change property availability
-  static Future<Map<String, dynamic>> changePropertyAvailability(token,data, url) async {
 
+  //================================================CHANGE PROPERTY AVAILABILITY
+  static Future<Map<String, dynamic>> changePropertyAvailability(token,data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -852,15 +827,15 @@ class StaticMethod {
       //print(e.toString());
       return {
         "success": false,
-        "message": 'An error occured while requesting for changeVisitStatus api',
+        "message": 'An error occured while requesting for change availability',
         "error":e.toString()
       };
     }
   }
 
-  //----------------------------------------------------------------------------Insert property
-  static Future<Map<String, dynamic>> insertProperty(token, data, url) async {
 
+  //=========================================================INSERT NEW PROPERTY
+  static Future<Map<String, dynamic>> insertProperty(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -885,9 +860,9 @@ class StaticMethod {
     }
   }
 
-  //----------------------------------------------------------------------------delete property image
-  static Future<Map<String, dynamic>> deletePropertyImage(token, data, url) async {
 
+  //======================================================DELETE PROPERTY IMAGES
+  static Future<Map<String, dynamic>> deletePropertyImage(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
         'Authorization': 'Bearer $token',
@@ -902,8 +877,6 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-      //print('failed to complete deletePropertyImage api');
-      //print(e.toString());
       return {
         "success": false,
         "message":
