@@ -49,8 +49,9 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
         );
         appState.activeWidget = "CustomerVisitRequestListWidget";
       }else{
+        print(res['error']);
         Fluttertoast.showToast(
-          msg: res['message'],
+          msg: '${res['message']}${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
           gravity: ToastGravity.TOP, // Toast position
           backgroundColor: Colors.black, // Background color of the toast

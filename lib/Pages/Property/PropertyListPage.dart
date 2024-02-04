@@ -127,6 +127,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
           });
         }
       } else {
+        print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget='PropertyListWidget';

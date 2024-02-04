@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Customer/EditCustomerDetailPage.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -98,20 +99,25 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         fontSize: 16, fontWeight: FontWeight.normal),
                   ),
 
-                  // //------------------------------------------edit btn
-                  // Container(
-                  //     margin: const EdgeInsets.symmetric(vertical: 15),
-                  //     child: ElevatedButton(
-                  //         style: ElevatedButton.styleFrom(
-                  //             elevation: 4,
-                  //           backgroundColor: Theme.of(context).hintColor
-                  //         ),
-                  //         onPressed: () {},
-                  //         child: Text(
-                  //           'Edit Details',
-                  //           style:
-                  //               TextStyle(color: Theme.of(context).primaryColor),
-                  //         ))),
+                  //------------------------------------------edit btn
+                  Container(
+                      margin: const EdgeInsets.symmetric(vertical: 15),
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 4,
+                            backgroundColor: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
+                          ),
+                          onPressed: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>EditCustomerDetailPage(customerDetails: appState.customerDetails,)));
+                          },
+                          child: Text(
+                            'Edit Details',
+                            style:
+                                TextStyle(color: Theme.of(context).primaryColorLight),
+                          ))),
                   const SizedBox(
                     height: 20,
                   ),

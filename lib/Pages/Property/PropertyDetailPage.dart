@@ -612,6 +612,19 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         }
       }else{
         // display some another widget for message
+        offer = {};
+        setState(() {
+          _isOfferLoading=false;
+        });
+        print('${res['error']}');
+        Fluttertoast.showToast(
+          msg: res['error'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
       }
     }
   }

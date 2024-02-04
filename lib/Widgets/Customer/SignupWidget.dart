@@ -208,7 +208,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 return 'please enter valid locality';
                               }
                               return null;
-                            }),
+                            }
+                            ),
 
                         const SizedBox(
                           height: 15,

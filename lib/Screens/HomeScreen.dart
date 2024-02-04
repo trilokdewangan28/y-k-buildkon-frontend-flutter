@@ -159,6 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }else{
             widgetContent = const AdminLoginWidget();
             appBarContent = "Admin Login";
+            btmIcon = Icons.login;
             //appState.currentState = 1;
           }
         } else {
