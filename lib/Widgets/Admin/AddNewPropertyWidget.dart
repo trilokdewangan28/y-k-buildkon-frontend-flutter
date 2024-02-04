@@ -568,7 +568,6 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
-                                        width: dropDownCardWidth*0.5,
                                         margin: EdgeInsets.symmetric(horizontal: 4),
                                         child: Center(
                                           child: DropdownButton<String>(

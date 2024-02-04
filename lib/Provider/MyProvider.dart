@@ -78,6 +78,7 @@ class MyProvider extends ChangeNotifier {
   List<dynamic> customerRequestList = [];
   List<dynamic> filteredCustomerRequestList = [];
   Map<String,dynamic> selectedCustomerRequest = {};
+  List<dynamic> customerList=[];
 
 
   //----------------------------------------------------------------------------HANDLING USER TYPE

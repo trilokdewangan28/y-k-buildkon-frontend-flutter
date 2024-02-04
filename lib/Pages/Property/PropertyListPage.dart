@@ -936,8 +936,6 @@ class _PropertyListPageState extends State<PropertyListPage> {
     //print('length of proeprty is ${appState.propertyList.length}');
     //print('property list is ${appState.propertyList}');
     //print('firsloadrunning is ${_isFirstLoadRunning}');
-    var url = Uri.parse(ApiLinks.fetchOfferList);
-    Widget offerContent = Container();
     return RefreshIndicator(
         child: Column(
           children: [

@@ -128,7 +128,7 @@ class StaticMethod {
       "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
       "propertyparking": selectedParking=="None" ? "" : selectedParking,
       "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
-      "propertyavailability":selectedAvailability=="None" ? "Available" : selectedAvailability,
+      "propertyavailability":selectedAvailability=="None" ? "" : selectedAvailability,
       "propertyname": propertyName,
       "propertycity": selectedCity
     };
@@ -772,7 +772,7 @@ class StaticMethod {
     } catch (e) {
       return {
         "success": false,
-        "message": 'An error occured while requesting property list with pagination',
+        "message": 'An error occured while requesting customer request with pagination',
         "error":e.toString()
       };
     }
@@ -885,4 +885,49 @@ class StaticMethod {
       };
     }
   }
+
+
+  //======================================FETCH CUSTOMER LIST WITH PAGINATION
+  static Future<Map<String,dynamic>> fetchCustomerListWithPagination(
+      appState,url,paginationOptions,token, {
+        String searchItem = "",
+      }
+      )async {
+    Map<String, dynamic> filterOptions = {
+      "searchItem": searchItem
+    };
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list with pagination',
+        "error": e.toString()
+      };
+    }
+  }
+
+
+
+
 }

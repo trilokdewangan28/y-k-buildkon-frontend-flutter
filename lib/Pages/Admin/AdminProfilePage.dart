@@ -170,6 +170,30 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   ),
                 )
             ),
+
+
+            //----------------------------------------customer list
+            Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                // width: MediaQuery.of(context).size.width*0.85,
+                height: MediaQuery.of(context).size.height*0.07,
+                child: InkWell(
+                  onTap: (){
+                    appState.activeWidget = "CustomerListPage";
+                  },
+                  child:  Card(
+                    color: Theme.of(context).primaryColorLight,
+                    child: const Row(
+                      children: [
+                        SizedBox(width: 15,),
+                        Icon(Icons.business),
+                        SizedBox(width: 15,),
+                        Text('customer list'),
+                      ],
+                    ),
+                  ),
+                )
+            ),
            // const SizedBox(height: 15,),
 
             //----------------------------------------LIST NEW PROPERTY

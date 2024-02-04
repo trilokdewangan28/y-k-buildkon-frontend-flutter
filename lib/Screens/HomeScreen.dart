@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Admin/CustomerDetailPage.dart';
+import 'package:real_state/Pages/Admin/CustomerListPage.dart';
 import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
@@ -177,8 +179,16 @@ class _HomeScreenState extends State<HomeScreen> {
         appBarContent = "Add New Property";
         break;
       case "SpacificErrorPage":
-      widgetContent=const SpacificErrorPage();
-      break;
+        widgetContent=const SpacificErrorPage();
+        break;
+      case "CustomerListPage":
+        widgetContent=const CustomerListPage();
+        appBarContent="Customer List";
+        break;
+      case "CustomerDetailPage":
+        widgetContent=CustomerDetailPage();
+        appBarContent="Customer Details";
+        break;
     }
     return PopScope(
         canPop: false,
@@ -226,6 +236,14 @@ class _HomeScreenState extends State<HomeScreen> {
             case "LoginWidget":
               appState.activeWidget="PropertyListWidget";
               appState.currentState=0;
+              break;
+            case "CustomerListPage":
+              appState.activeWidget = "ProfileWidget";
+              appState.currentState=1;
+              break;
+            case "CustomerListPage":
+              appState.activeWidget = "CustomerListPage";
+              appState.currentState=1;
               break;
           }
 
