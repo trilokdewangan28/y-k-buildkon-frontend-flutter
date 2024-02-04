@@ -20,115 +20,122 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    return RefreshIndicator(
-      child: Container(
-        color: Theme.of(context).primaryColorLight,
-        height: MediaQuery.of(context).size.height,
-        child: ListView(
-          children: [
-            SizedBox(height: MediaQuery.of(context).size.height*0.2),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        appState.activeWidget = "PropertyListWidget";
+        appState.currentState=0;
+      },
+        child: RefreshIndicator(
+          child: Container(
+            color: Theme.of(context).primaryColorLight,
+            height: MediaQuery.of(context).size.height,
+            child: ListView(
               children: [
-                //==========================500 text
-                 Text(
-                  '500',
-                  style: TextStyle(
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).errorColor
-                  ),
-                ),
-                const SizedBox(height: 20,),
-
-                //===========================internal server error text
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    'Internal Server Error',
-                    textAlign: TextAlign.center,
-                    style:  TextStyle(
-                      color: Theme.of(context).errorColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor
+                SizedBox(height: MediaQuery.of(context).size.height*0.2),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    //==========================500 text
+                    Text(
+                      '500',
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).errorColor
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 15,),
+                    const SizedBox(height: 20,),
 
-                //========================== error message text
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    appState.errorString,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        color: Theme.of(context).errorColor,
-                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                    //===========================internal server error text
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'Internal Server Error',
+                        textAlign: TextAlign.center,
+                        style:  TextStyle(
+                            color: Theme.of(context).errorColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                    const SizedBox(height: 15,),
 
-                //========================== suggestion message
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    'please refresh the page and try again',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                    //========================== error message text
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        appState.errorString,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).errorColor,
+                            fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                        ),
+                      ),
                     ),
-                  ),
-                ),
 
-
-                //==========================know more button text
-                appState.error.isNotEmpty
-                    ? Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: TextButton(
-                    onPressed: (){
-                      setState(() {
-                        knowMore=!knowMore;
-                      });
-                    },
-                    child: knowMore ==false ? const Text(
-                      'know more'
-                    ) : const Text('know less'),
-                  ),
-                )
-                    :Container(),
-
-                knowMore==true
-                    ? Center(child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    appState.error,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Theme.of(context).errorColor,
-                      fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                    //========================== suggestion message
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        'please refresh the page and try again',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                        ),
+                      ),
                     ),
-                  ),
-                ),)
-                    : Container(),
 
-                const SizedBox(
-                  height: 200,
+
+                    //==========================know more button text
+                    appState.error.isNotEmpty
+                        ? Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: TextButton(
+                        onPressed: (){
+                          setState(() {
+                            knowMore=!knowMore;
+                          });
+                        },
+                        child: knowMore ==false ? const Text(
+                            'know more'
+                        ) : const Text('know less'),
+                      ),
+                    )
+                        :Container(),
+
+                    knowMore==true
+                        ? Center(child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Text(
+                        appState.error,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            color: Theme.of(context).errorColor,
+                            fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                        ),
+                      ),
+                    ),)
+                        : Container(),
+
+                    const SizedBox(
+                      height: 200,
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 20,)
               ],
             ),
-            const SizedBox(height: 20,)
-          ],
-        ),
-      ),
-      onRefresh: () async {
-        appState.activeWidget = appState.fromWidget;
-        setState(() {
+          ),
+          onRefresh: () async {
+            appState.activeWidget = appState.fromWidget;
+            setState(() {
 
-        });
-      },
+            });
+          },
+        )
     );
   }
 }

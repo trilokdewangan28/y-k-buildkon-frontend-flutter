@@ -62,6 +62,10 @@ class _CustomerVisitRequestListPageState
           });
         }
       } else {
+        appState.error = res['error'];
+        appState.errorString=res['message'];
+        appState.fromWidget='CustomerVisitRequestedListWidget';
+        appState.activeWidget = "SpacificErrorPage";
       }
     }
   }

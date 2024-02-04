@@ -57,7 +57,12 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
             _isFirstLoadRunning = false;
           });
         }
-      } else {}
+      } else {
+        appState.error = res['error'];
+        appState.errorString=res['message'];
+        appState.fromWidget='VisitRequestedListWidget';
+        appState.activeWidget = "SpacificErrorPage";
+      }
     }
   }
 
