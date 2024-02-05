@@ -187,6 +187,32 @@ class StaticMethod {
   }
 
 
+  //================================================UPDATE CUSTOMER DETAILS
+  static Future<Map<String, dynamic>> updateCustomerDetails(token, url,data) async {
+    Map<String, String> requestHeaders = {
+      'Authorization': 'Bearer $token',
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+
+    try {
+      final res = await http.post(url, headers: requestHeaders, body: jsonEncode(data));
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for update details',
+        "error":e.toString()
+      };
+    }
+  }
+
+
   //======================================================GENERATE OTP FOR LOGIN
   static Future<Map<String, dynamic>> generateOtp(userData, url) async {
 
