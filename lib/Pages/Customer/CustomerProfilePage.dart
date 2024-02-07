@@ -174,11 +174,10 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             width: 15,
                           ),
                           const Text('Your Favorite Properties'),
-                          const Spacer(),
                           IconButton(
                               onPressed: () {
                                 appState.activeWidget =
-                                    "FavoritePropertyListWidget";
+                                "FavoritePropertyListWidget";
                               },
                               icon: const Icon(
                                 Icons.arrow_right,

@@ -268,6 +268,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
             return Container(
                 color: Theme.of(context).primaryColorLight,
                 height: MyConst.deviceHeight(context) * 0.8,
+                width: MyConst.deviceWidth(context),
                 padding: EdgeInsets.only(top: MyConst.deviceHeight(context)*0.02),
                 child: ListView(
                   children: [
@@ -280,8 +281,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     ),
                     const Divider(),
                     Container(
+                      width: MyConst.deviceWidth(context),
                       child: SingleChildScrollView(
                           child: Container(
+                            width: MyConst.deviceWidth(context),
                         padding: EdgeInsets.only(
                           top: MediaQuery.of(context).viewInsets.top + 16,
                           bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -294,6 +297,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             ),
                             //===========================SPACIFICATION CONTAINER
                             Container(
+                              width: MyConst.deviceWidth(context),
                               margin: EdgeInsets.symmetric(
                                 horizontal: MyConst.deviceHeight(context)*0.015,
                               ),
@@ -309,8 +313,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     children: [
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
+                                        MediaQuery.of(context).size.width *
+                                            0.4,
                                         child: Text(
                                           'Select Property Type: ',
                                           style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
@@ -321,363 +325,362 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         width: MyConst.deviceHeight(context)*0.01,
                                       ),
                                       Card(
-                                        color: Theme.of(context).primaryColorLight,
-                                        elevation: 1,
-                                        child: Container(
-                                          height: dropDownCardHeight*0.8,
-                                          width: dropDownCardWidth,
-                                          child: Center(
-                                            child: DropdownButton<String>(
-                                              value: selectedPropertyType,
-                                              alignment: Alignment.center,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              onChanged: (String? value) {
-                                                setState(() {
-                                                  selectedPropertyType = value!;
-                                                });
-                                              },
-                                              items: propertyType
-                                                  .map<DropdownMenuItem<String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text('${value}',
-                                                          softWrap: true,
-                                                          style: TextStyle(
-                                                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
-                                                              overflow: TextOverflow
-                                                                  .ellipsis)),
-                                                    );
-                                                  }).toList(),
-                                            ),
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedPropertyType,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    setState(() {
+                                                      selectedPropertyType = value!;
+                                                    });
+                                                  },
+                                                  items: propertyType
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              style: TextStyle(
+                                                                  fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
                                           )
-                                        )
                                       ),
                                     ],
                                   ),
-
                                   //==========================PROPERTY BHK
                                   selectedPropertyType == 'House' ||
-                                          selectedPropertyType == "Flat"
+                                      selectedPropertyType == "Flat"
                                       ? Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              child: Text(
-                                                'Select Property BHK: ',
-                                                softWrap: true,
-                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                              ),
-                                            ),
-                                             SizedBox(
-                                              width: MyConst.deviceWidth(context)*0.010,
-                                            ),
-                                            Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: Container(
-                                                width: dropDownCardWidth,
-                                                height: dropDownCardHeight*0.8,
-                                                child: Center(
-                                                  child: DropdownButton<String>(
-                                                    value: selectedBhk.toString(),
-                                                    elevation: 16,
-                                                    alignment: Alignment.center,
-                                                    underline: Container(),
-                                                    onChanged: (String? value) {
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.4,
+                                        child: Text(
+                                          'Select Property BHK: ',
+                                          softWrap: true,
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              width: dropDownCardWidth,
+                                              height: dropDownCardHeight*0.8,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedBhk.toString(),
+                                                  elevation: 16,
+                                                  alignment: Alignment.center,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                      setState(() {
-                                                        selectedBhk =
-                                                            int.parse(value!);
+                                                    setState(() {
+                                                      selectedBhk =
+                                                          int.parse(value!);
 //print('selected bhk is : ${selectedBhk}');
-                                                      });
-                                                    },
-                                                    items: bhk.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                            (String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text('${value}',
-                                                                softWrap: true,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    MyConst.smallTextSize*fontSizeScaleFactor,
-                                                                    overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis)),
-                                                          );
-                                                        }).toList(),
-                                                  ),
-                                                )
+                                                    });
+                                                  },
+                                                  items: bhk.map<
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  MyConst.smallTextSize*fontSizeScaleFactor,
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
                                               )
-                                            ),
-                                          ],
-                                        )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                       : Container(),
 
 //==========================PROPERTY FLOOR
                                   selectedPropertyType == 'House'
                                       ? Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              child:  Text(
-                                                'Select No. Of Floors: ',
-                                                softWrap: true,
-                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: MyConst.deviceWidth(context)*0.010,
-                                            ),
-                                            Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: Container(
-                                                height: dropDownCardHeight*0.8,
-                                                width: dropDownCardWidth,
-                                                child: Center(
-                                                  child: DropdownButton<String>(
-                                                    value:
-                                                    selectedFloor.toString(),
-                                                    alignment: Alignment.center,
-                                                    elevation: 16,
-                                                    underline: Container(),
-                                                    onChanged: (String? value) {
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.4,
+                                        child:  Text(
+                                          'Select No. Of Floors: ',
+                                          softWrap: true,
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value:
+                                                  selectedFloor.toString(),
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                      setState(() {
-                                                        selectedFloor =
-                                                            int.parse(value!);
+                                                    setState(() {
+                                                      selectedFloor =
+                                                          int.parse(value!);
 //print('selected floor is : ${selectedFloor}');
-                                                      });
-                                                    },
-                                                    items: floor.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                            (String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text('${value}',
-                                                                softWrap: true,
-                                                                textAlign:
-                                                                TextAlign.center,
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                    MyConst.smallTextSize*fontSizeScaleFactor,
-                                                                    overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis)),
-                                                          );
-                                                        }).toList(),
-                                                  ),
-                                                )
+                                                    });
+                                                  },
+                                                  items: floor.map<
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign:
+                                                              TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  MyConst.smallTextSize*fontSizeScaleFactor,
+                                                                  overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
                                               )
-                                            ),
-                                          ],
-                                        )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                       : Container(),
 
 //==========================isGarden facility
                                   selectedPropertyType == 'House'
                                       ? Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              child: Text(
-                                                'Garden Availibility?: ',
-                                                softWrap: true,
-                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: MyConst.deviceWidth(context)*0.010,
-                                            ),
-                                            Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: Container(
-                                                height: dropDownCardHeight*0.8,
-                                                width: dropDownCardWidth,
-                                                child: Center(
-                                                  child: DropdownButton<String>(
-                                                    value: selectedGarden,
-                                                    alignment: Alignment.center,
-                                                    elevation: 16,
-                                                    underline: Container(),
-                                                    onChanged: (String? value) {
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.4,
+                                        child: Text(
+                                          'Garden Availibility?: ',
+                                          softWrap: true,
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedGarden,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                      setState(() {
-                                                        selectedGarden = value!;
+                                                    setState(() {
+                                                      selectedGarden = value!;
 //print('is Garden : ${selectedGarden}');
-                                                      });
-                                                    },
-                                                    items: garden.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                            (String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text(
-                                                              value,
-                                                              softWrap: true,
-                                                              style: TextStyle(
-                                                                fontSize:
-                                                                MyConst.smallTextSize*fontSizeScaleFactor,
-                                                              ),
+                                                    });
+                                                  },
+                                                  items: garden.map<
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text(
+                                                            value,
+                                                            softWrap: true,
+                                                            style: TextStyle(
+                                                              fontSize:
+                                                              MyConst.smallTextSize*fontSizeScaleFactor,
                                                             ),
-                                                          );
-                                                        }).toList(),
-                                                  ),
-                                                )
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                ),
                                               )
-                                            ),
-                                          ],
-                                        )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                       : Container(),
 
 //==========================isParking facility
                                   selectedPropertyType == 'House'
                                       ? Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              child:  Text(
-                                                'Parking Facility?: ',
-                                                softWrap: true,
-                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: MyConst.deviceWidth(context)*0.010,
-                                            ),
-                                            Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: Container(
-                                                height: dropDownCardHeight*0.8,
-                                                width: dropDownCardWidth,
-                                                child: Center(
-                                                  child: DropdownButton<String>(
-                                                    value: selectedParking,
-                                                    icon: const Icon(
-                                                      Icons.arrow_drop_down_sharp,
-                                                      size: 30,
-                                                    ),
-                                                    elevation: 16,
-                                                    underline: Container(),
-                                                    onChanged: (String? value) {
-// This is called when the user selects an item.
-                                                      setState(() {
-                                                        selectedParking = value!;
-//print('is Parking : ${selectedParking}');
-                                                      });
-                                                    },
-                                                    items: parking.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                            (String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text(
-                                                              value,
-                                                              softWrap: true,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                  MyConst.smallTextSize*fontSizeScaleFactor),
-                                                            ),
-                                                          );
-                                                        }).toList(),
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.4,
+                                        child:  Text(
+                                          'Parking Facility?: ',
+                                          softWrap: true,
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedParking,
+                                                  icon: const Icon(
+                                                    Icons.arrow_drop_down_sharp,
+                                                    size: 30,
                                                   ),
-                                                )
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+// This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedParking = value!;
+//print('is Parking : ${selectedParking}');
+                                                    });
+                                                  },
+                                                  items: parking.map<
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text(
+                                                            value,
+                                                            softWrap: true,
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                MyConst.smallTextSize*fontSizeScaleFactor),
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                ),
                                               )
-                                            ),
-                                          ],
-                                        )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                       : Container(),
 
 //==========================isFurnished facility
                                   selectedPropertyType == 'House' ||
-                                          selectedPropertyType == 'Flat'
+                                      selectedPropertyType == 'Flat'
                                       ? Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              child:  Text(
-                                                'Furnished Or Not?: ',
-                                                softWrap: true,
-                                                style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                              ),
-                                            ),
-                                             SizedBox(
-                                              width: MyConst.deviceWidth(context)*0.010,
-                                            ),
-                                            Card(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              elevation: 1,
-                                              child: Container(
-                                                height: dropDownCardHeight*0.8,
-                                                width: dropDownCardWidth,
-                                                child: Center(
-                                                  child: DropdownButton<String>(
-                                                    value: selectedFurnished,
-                                                    elevation: 16,
-                                                    underline: Container(),
-                                                    alignment: Alignment.center,
-                                                    onChanged: (String? value) {
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.4,
+                                        child:  Text(
+                                          'Furnished Or Not?: ',
+                                          softWrap: true,
+                                          style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MyConst.deviceWidth(context)*0.010,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context)
+                                              .primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedFurnished,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  alignment: Alignment.center,
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                      setState(() {
-                                                        selectedFurnished =
-                                                        value!;
+                                                    setState(() {
+                                                      selectedFurnished =
+                                                      value!;
 //print('is furnished : ${selectedFurnished}');
-                                                      });
-                                                    },
-                                                    items: furnished.map<
-                                                        DropdownMenuItem<
-                                                            String>>(
-                                                            (String value) {
-                                                          return DropdownMenuItem<
-                                                              String>(
-                                                            value: value,
-                                                            child: Text(
-                                                              value,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                  MyConst.smallTextSize*fontSizeScaleFactor),
-                                                            ),
-                                                          );
-                                                        }).toList(),
-                                                  ),
-                                                )
+                                                    });
+                                                  },
+                                                  items: furnished.map<
+                                                      DropdownMenuItem<
+                                                          String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<
+                                                            String>(
+                                                          value: value,
+                                                          child: Text(
+                                                            value,
+                                                            style: TextStyle(
+                                                                fontSize:
+                                                                MyConst.smallTextSize*fontSizeScaleFactor),
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                ),
                                               )
-                                            ),
-                                          ],
-                                        )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                       : Container(),
 
 //==========================AVAILABILITY
@@ -685,50 +688,50 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     children: [
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
+                                        MediaQuery.of(context).size.width *
+                                            0.4,
                                         child:  Text(
                                           'Available Or Not?: ',
                                           style: TextStyle(fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
                                       ),
-                                       SizedBox(
+                                      SizedBox(
                                         width: MyConst.deviceWidth(context)*0.010,
                                       ),
                                       Card(
-                                        color: Theme.of(context).primaryColorLight,
-                                        elevation: 1,
-                                        child: Container(
-                                          height: dropDownCardHeight*0.8,
-                                          width: dropDownCardWidth,
-                                          child: Center(
-                                            child: DropdownButton<String>(
-                                              value: selectedAvailability,
-                                              elevation: 16,
-                                              underline: Container(),
-                                              alignment: Alignment.center,
-                                              onChanged: (String? value) {
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.8,
+                                              width: dropDownCardWidth,
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedAvailability,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  alignment: Alignment.center,
+                                                  onChanged: (String? value) {
 // This is called when the user selects an item.
-                                                setState(() {
-                                                  selectedAvailability = value!;
+                                                    setState(() {
+                                                      selectedAvailability = value!;
 //print('is available : ${selectedFurnished}');
-                                                });
-                                              },
-                                              items: available
-                                                  .map<DropdownMenuItem<String>>(
-                                                      (String value) {
-                                                    return DropdownMenuItem<String>(
-                                                      value: value,
-                                                      child: Text(
-                                                        value,
-                                                        style: TextStyle(
-                                                            fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                                      ),
-                                                    );
-                                                  }).toList(),
-                                            ),
+                                                    });
+                                                  },
+                                                  items: available
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text(
+                                                            value,
+                                                            style: TextStyle(
+                                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                                          ),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
                                           )
-                                        )
                                       ),
                                     ],
                                   )
@@ -827,7 +830,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     labelText: 'Filter By Name',
                                     labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                     border: InputBorder.none,
-                                    prefixIcon: const Icon(Icons.search),
+                                    prefixIcon:  Icon(Icons.search,size: MyConst.deviceHeight(context)*0.02,),
                                   ),
                                   cursorOpacityAnimates: false,
                                 ),
@@ -967,34 +970,34 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             fontSize: MyConst.mediumSmallTextSize *
                                 fontSizeScaleFactor),
                         textAlignVertical: TextAlignVertical.center,
-                        decoration: const InputDecoration(
+                        decoration:  InputDecoration(
                           contentPadding: EdgeInsets.only(bottom: 5),
                           labelText: 'Filter By Name',
-                          labelStyle: TextStyle(fontSize: 15),
+                          labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                           border: InputBorder.none,
-                          prefixIcon: Icon(Icons.search),
+                          prefixIcon: Icon(Icons.search,size: MyConst.deviceHeight(context)*0.025,),
                         ),
                         cursorOpacityAnimates: false,
                       ),
                     ),
                   ),
-                  const SizedBox(width: 5,),
+                  SizedBox(width: MyConst.deviceWidth(context)*0.010,),
                   //=====================================FILTER BTN
                   Column(
                     children: [
                       Stack(
                         children: [
                           Container(
-                            height: 45,
-                            width: 45,
+                            height: MyConst.deviceHeight(context)*0.045,
+                            width: MyConst.deviceHeight(context)*0.045,
                             decoration: BoxDecoration(
                               border: Border.all(width: 1,color: Colors.grey),
                                 borderRadius: BorderRadius.circular(10)),
                             child: IconButton(
                               icon: Image.asset(
                                   'assets/Icons/filter.png',
-                                height: 45,
-                                width: 45,
+                                height: MyConst.deviceHeight(context)*0.045,
+                                width: MyConst.deviceHeight(context)*0.045,
                               ),
                               onPressed: () {
                                 //selectedPropertyType = "All";
@@ -1069,9 +1072,15 @@ class _PropertyListPageState extends State<PropertyListPage> {
                    controller: _controller,
                    itemBuilder: (context, index) {
                      final property = appState.propertyList[index];
+                     double propertyRating = 0.0;
+                     int totalRating = int.parse(property['total_rating']);
+                     int totalReview = property['review_count'];
+                     if(totalRating!=0){
+                      propertyRating = totalRating/totalReview;
+                     }
                      return InkWell(
                        onTap: () {
-                         appState.selectedProperty = property;
+                         appState.p_id = property['property_id'];
                          appState.activeWidget = "PropertyDetailPage";
                        },
                        child: Container(
@@ -1235,12 +1244,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                              children: [
                                                RatingDisplayWidgetTwo(
                                                  rating:
-                                                 property['property_rating']
+                                                 propertyRating
                                                      .toDouble(),
                                                ),
                                                Flexible(
                                                  child: Text(
-                                                   '(${property['property_ratingCount']})',
+                                                   '(${property['review_count']})',
                                                    style: TextStyle(
                                                      fontSize:
                                                      MyConst.smallTextSize *
@@ -1261,12 +1270,18 @@ class _PropertyListPageState extends State<PropertyListPage> {
                      );
                    },
                  )),)
-                 : const Column(
+                 :  Column(
                mainAxisAlignment: MainAxisAlignment.center,
                crossAxisAlignment: CrossAxisAlignment.center,
                children: [
-                 SizedBox(height: 100,),
-                 Center(child: Text('No Such Properties'),)
+                 SizedBox(height: 150,),
+                 Center(child: Text(
+                     'No Such Properties',
+                   style: TextStyle(
+                     fontWeight: FontWeight.w500,
+                     fontSize: MyConst.largeTextSize*fontSizeScaleFactor
+                   ),
+                 ),)
                ],
              )
                 : Container(

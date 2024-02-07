@@ -58,6 +58,7 @@ class MyProvider extends ChangeNotifier {
   List<dynamic> filteredPropertyList = [];
   List<dynamic> favoritePropertyList=[];
   Map<String,dynamic> selectedProperty={};
+  int p_id = 0;
 
   List<dynamic> visitRequestedPropertyList=[];
   Map<String,dynamic> selectedVisitRequestedProperty={};

@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Screens/SplashScreen.dart';
+import 'dart:developer' as developer;
+import 'package:device_preview/device_preview.dart';
 
 
 void main() {
+  developer.postEvent('resize_window', {'width': 600, 'height': 800});
   runApp(
     ChangeNotifierProvider(
       create: (_) => MyProvider(),
-      child: const MyApp(),
+      child:  MyApp()
     ),
   );
 }
-
+// DevicePreview(
+// builder: (context) => MyApp(), // Wrap your app
+// ),
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -20,6 +25,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // useInheritedMediaQuery: true,
+      // locale: DevicePreview.locale(context),
+      // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(

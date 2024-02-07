@@ -253,21 +253,27 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Scaffold(
             resizeToAvoidBottomInset: false,
              appBar:AppBar(
-               iconTheme: IconThemeData(color:Colors.black),
+               iconTheme: IconThemeData(
+                   color:Colors.black,
+                 size: MyConst.deviceHeight(context)*0.030
+               ),
+              toolbarHeight: MyConst.deviceHeight(context)*0.060,
+              titleSpacing: MyConst.deviceHeight(context)*0.02,
               elevation: 10,
               title: Row(
                 children: [
                   Image.asset(
                     'assets/images/ic_launcher.png',
-                    width: 50,
+                    width: MyConst.deviceHeight(context)*0.05,
                   ),
-
+                  SizedBox(width: MyConst.deviceWidth(context)*0.020,),
                   Expanded(
                     child: Text(
                       appBarContent,
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
+                          fontSize: MyConst.mediumTextSize*fontSizeScaleFactor,
                           overflow: TextOverflow.ellipsis),
                       softWrap: true,
                     ),
@@ -275,10 +281,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               centerTitle: true,
-
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(40),
+                  // bottomRight: Radius.circular(40),
+                  // topRight: Radius.circular(40),
                   //topRight: Radius.circular(50)
                 ),
               ),
@@ -287,14 +293,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             body: widgetContent,
             bottomNavigationBar: BottomNavigationBar(
-              iconSize: 20,
-              selectedIconTheme: const IconThemeData(
-                size: 30,
+              iconSize: MyConst.deviceHeight(context)*0.02,
+              selectedIconTheme: IconThemeData(
+                size: MyConst.deviceHeight(context)*0.03,
               ),
               backgroundColor: Theme.of(context).primaryColorLight,
-              selectedFontSize: 15,
+              selectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor,
               selectedItemColor: Theme.of(context).primaryColor,
               unselectedItemColor: Colors.grey,
+              unselectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor*0.9,
               currentIndex: appState.currentState,
               onTap: (index) async {
                 //setState(() {
@@ -321,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            drawer:const AppDrawerWidget()
+            drawer:const AppDrawerWidget(),
           )),
         );
   }

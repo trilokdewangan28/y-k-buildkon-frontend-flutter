@@ -24,19 +24,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
   final _otpController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _otpFocusNode = FocusNode();
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 60,
-    textStyle: const TextStyle(
-      fontSize: 22,
-      color: Colors.black,
-    ),
-    decoration: BoxDecoration(
-      color: const Color.fromARGB(150, 255, 255, 255),
-      borderRadius: BorderRadius.circular(8),
-      border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
-    ),
-  );
+
 
 
   //----------------------------------------------------------------------------COUNTDOWN VARIABLE
@@ -184,6 +172,19 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
+    final defaultPinTheme = PinTheme(
+      width: MyConst.deviceHeight(context)*0.056,
+      height: MyConst.deviceHeight(context)*0.05,
+      textStyle:  TextStyle(
+        fontSize: MyConst.mediumTextSize*fontSizeScaleFactor,
+        color: Colors.black,
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(150, 255, 255, 255),
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
+      ),
+    );
     return Container(
       color: Theme.of(context).primaryColorLight,
       height: MediaQuery.of(context).size.height,
@@ -197,44 +198,44 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
               // ),
               Image.asset(
                 'assets/images/ic_launcher.png',
-                height: 150,
+                height: MyConst.deviceHeight(context)*0.15,
 
               ),
               Container(
                 width: double.infinity,
-                child: const Center(
+                child:  Center(
                     child:Text(
                       'Welcome To Y&K Buildkon',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
                       ),
                     )
                 ),
               ),
-              const SizedBox(
-                height: 30,
+              SizedBox(
+                height: MyConst.deviceHeight(context)*0.03,
               ),
               //==============================LOGIN HEADING
               Container(
                 width: double.infinity,
-                child: const Center(
+                child:  Center(
                     child:Text(
                       'LOGIN NOW',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
-                        fontSize: 25,
+                        fontSize: MyConst.largeTextSize*fontSizeScaleFactor,
                       ),
                     )
                 ),
               ),
-              const SizedBox(
-                height: 16,
+               SizedBox(
+                height: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
               ),
 
               //==============================FORM1 CONTAINER Gen Otp
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
                   child: Form(
                     key: _formKey1,
                     child: Column(
@@ -295,21 +296,28 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                                 _generateOtp(context, appState);
                               }
                             },
-                            child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
+                            child: Text('Generate Otp',style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                            ),
+                            )
                         )
                             : Container(),
                       ],
                     ),
                   )
               ),
-              const SizedBox(height: 15,),
+              SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
-              const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
-              const SizedBox(height: 15,),
+               Text('Enter Otp Here', style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+              ),),
+              SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
               //==============================FORM2 CONTAINER Login
               Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
                   child: Form(
                     key: _formKey2,
                     child: Column(
@@ -335,9 +343,9 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                         ),
                         Text(
                           remainingTime,
-                          style: const TextStyle(fontSize: 24),
+                          style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                         ),
-                        const SizedBox(height: 15,),
+                        SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
 
                         //===============================LOGIN BTN
@@ -353,7 +361,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                             ),
                             child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
                         ),
-                        const SizedBox(height: 15,),
+                        SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
                         //================================SIGNUP BTN
                         /*

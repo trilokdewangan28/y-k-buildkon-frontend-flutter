@@ -52,6 +52,9 @@ dependencies:
   carousel_indicator: ^1.0.6
   shimmer: ^3.0.0
   fluttertoast: ^8.2.4
+  device_preview: ^1.1.0
+  webview_flutter: ^4.5.0
+  flutter_inappwebview: ^6.0.0
 
 
 
