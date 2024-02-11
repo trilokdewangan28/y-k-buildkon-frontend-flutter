@@ -5,19 +5,21 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Employee/EmployeeSignupWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key? key}) : super(key: key);
+class EmployeeLoginWidget extends StatefulWidget {
+  const EmployeeLoginWidget({Key? key}) : super(key: key);
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<EmployeeLoginWidget> createState() => _EmployeeLoginWidgetState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
+  bool _mounted = false;
   final _emailController = TextEditingController();
   bool readOnly = false;
   final _otpController = TextEditingController();
@@ -48,19 +50,24 @@ class _LoginWidgetState extends State<LoginWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
+    _mounted = true;
+
     if (countdownTimer == null || !countdownTimer!.isActive) {
       countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        setState(() {
-          if (countdownDuration.inSeconds > 0) {
-            countdownDuration -= const Duration(seconds: 1);
-            remainingTime = formatDuration(countdownDuration);
-          } else {
-            countdownTimer?.cancel();
-            // Countdown has reached 0, perform any desired actions here
-          }
-        });
+        if(_mounted){
+          setState(() {
+            if (countdownDuration.inSeconds > 0) {
+              countdownDuration -= const Duration(seconds: 1);
+              remainingTime = formatDuration(countdownDuration);
+            } else {
+              countdownTimer?.cancel();
+              // Countdown has reached 0, perform any desired actions here
+            }
+          });
+        }
       });
     }
+
   }
   String formatDuration(Duration duration) {
     String minutes =
@@ -69,116 +76,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     duration.inSeconds.remainder(60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
   }
-
-  //----------------------------------------------------------------------------SEND OTP METHODS
-  _generateOtpForCustomer(BuildContext context, appState)async{
-    remainingTime='';
-    //print('send otp called');
-    var otpModel = {
-      "c_email":_emailController.text,
-    };
-    var url = Uri.parse(ApiLinks.sendOtpForLogin);
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    final res = await StaticMethod.generateOtp(otpModel,url);
-    if(res.isNotEmpty){
-      Navigator.pop(context);
-      if(res['success']==true){
-        countdownTimer?.cancel();
-        countdownDuration = const Duration(minutes: 5);
-        remainingTime = formatDuration(countdownDuration);
-        startCountdown();
-        readOnly=true;
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
-        appState.activeWidget='LoginWidget';
-      }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
-      }
-    }
-
-  }
-
-  //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
-  _submitOtpForCustomer(BuildContext context, appState)async{
-    //print('send otp called');
-    var otpModel = {
-      "c_email":_emailController.text,
-      "c_otp":_otpController.text
-    };
-    //print('otp model is');
-    //print(otpModel);
-    var url = Uri.parse(ApiLinks.verifyOtpForLogin);
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-    final res = await StaticMethod.submitOtpAndLogin(otpModel,url);
-    if(res.isNotEmpty){
-      Navigator.pop(context);
-      if(res['success']==true){
-        startCountdown();
-        readOnly=true;
-        //print('response data is');
-        //print(res['token']);
-        final token = res['token'];
-        //-----------------------------------storing customer sensitive data
-        appState.storeUserType('customer');
-        await Future.delayed(const Duration(milliseconds: 100));
-        appState.storeToken(token,'customer');
-        await Future.delayed(const Duration(milliseconds: 100));
-        appState.fetchUserType();
-        await Future.delayed(const Duration(milliseconds: 100));
-        appState.fetchToken('customer');
-        await Future.delayed(const Duration(milliseconds: 100));
-        //--------------------------------------------------------------------
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
-        appState.activeWidget='ProfileWidget';
-        setState(() {
-        });
-      }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
-      }
-    }
-
-  }
-
-
+  
   //----------------------------------------------------------------------------SEND OTP METHODS
   _generateOtpForEmployee(BuildContext context, appState)async{
     remainingTime='';
@@ -230,12 +128,12 @@ class _LoginWidgetState extends State<LoginWidget> {
   _submitOtpForEmployee(BuildContext context, appState)async{
     //print('send otp called');
     var otpModel = {
-      "c_email":_emailController.text,
-      "c_otp":_otpController.text
+      "email":_emailController.text,
+      "otp":_otpController.text
     };
     //print('otp model is');
     //print(otpModel);
-    var url = Uri.parse(ApiLinks.verifyOtpForLogin);
+    var url = Uri.parse(ApiLinks.verifyOtpForEmployeeLogin);
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -253,14 +151,15 @@ class _LoginWidgetState extends State<LoginWidget> {
         //print(res['token']);
         final token = res['token'];
         //-----------------------------------storing customer sensitive data
-        appState.storeUserType('customer');
+        appState.storeUserType('employee');
         await Future.delayed(const Duration(milliseconds: 100));
-        appState.storeToken(token,'customer');
+        appState.storeToken(token,'employee');
         await Future.delayed(const Duration(milliseconds: 100));
         appState.fetchUserType();
         await Future.delayed(const Duration(milliseconds: 100));
-        appState.fetchToken('customer');
+        appState.fetchToken('employee');
         await Future.delayed(const Duration(milliseconds: 100));
+        print(appState.userType);
         //--------------------------------------------------------------------
         Fluttertoast.showToast(
           msg: res['message'],
@@ -270,10 +169,11 @@ class _LoginWidgetState extends State<LoginWidget> {
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
+        Navigator.pop(context);
         appState.activeWidget='ProfileWidget';
-        setState(() {
-        });
+        
       }else{
+        print(res);
         Fluttertoast.showToast(
           msg: res['message'],
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -287,6 +187,11 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   }
 
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -314,8 +219,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child:Text(
                       'Welcome To Y&K Buildkon',
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                          fontWeight: FontWeight.w600,
+                          fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
                       ),
                     )
                 ),
@@ -375,7 +280,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               labelStyle: const TextStyle(color: Colors.black),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  width: 2,
+                                    width: 2,
                                     color: Theme.of(context).primaryColor
                                 ),
                                 borderRadius: const BorderRadius.all(Radius.circular(10),),
@@ -399,7 +304,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         TextButton(
                             onPressed: (){
                               if (_formKey1.currentState!.validate()) {
-                                _generateOtpForCustomer(context, appState);
+                                _generateOtpForEmployee(context, appState);
                               }
                             },
                             child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
@@ -452,18 +357,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                           child: ElevatedButton(
                               onPressed: (){
                                 if (_formKey2.currentState!.validate()) {
-                                  _submitOtpForCustomer(context, appState);
+                                  _submitOtpForEmployee(context, appState);
                                 }
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Theme.of(context).primaryColor,
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                               ),
-                              child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
+                              child: Text('EMPLOYEE LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
                           ),
                         ),
                         const SizedBox(height: 15,),
-                        
+
                         //================================SIGNUP BTN
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -473,7 +378,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             ),
                             TextButton(
                                 onPressed: (){
-                                  appState.activeWidget = "SignupWidget";
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>EmployeeSignupWidget()));
                                 },
                                 child:  Text(
                                   'Signup',

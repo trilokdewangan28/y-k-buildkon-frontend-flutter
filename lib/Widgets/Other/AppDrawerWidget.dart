@@ -5,7 +5,8 @@ import 'package:real_state/Pages/Offer/OfferListPage.dart';
 import 'package:real_state/Pages/StaticContentPage/BlogListPage.dart';
 import 'package:real_state/Pages/StaticContentPage/WebViewPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
-import 'package:real_state/Widgets/Employee/EmployeeSignup.dart';
+import 'package:real_state/Widgets/Employee/EmployeeLoginWidget.dart';
+import 'package:real_state/Widgets/Employee/EmployeeSignupWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/config/Constant.dart';
@@ -130,7 +131,9 @@ class AppDrawerWidget extends StatelessWidget {
                   leading: Icon(Icons.person_add_alt_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Membership Join'),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmployeeSignup()));
+                    Navigator.pop(context);// Close the drawer
+                    appState.activeWidget = "EmployeeLoginWidget";
+                    appState.currentState = 1;
                   },
                 ),
               ),

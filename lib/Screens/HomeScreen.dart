@@ -18,6 +18,8 @@ import 'package:real_state/Widgets/Customer/LoginWidget.dart';
 import 'package:real_state/Widgets/Customer/ProfileWidget.dart';
 import 'package:real_state/Widgets/Customer/SignupWidget.dart';
 import 'package:real_state/Widgets/Customer/VisitRequestedListWidget.dart';
+import 'package:real_state/Widgets/Employee/EmployeeLoginWidget.dart';
+import 'package:real_state/Widgets/Employee/EmployeeProfileWidget.dart';
 import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
@@ -109,22 +111,24 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case "SignupWidget":
         widgetContent = const SignupWidget();
-        appBarContent = 'Registration';
-        secondBtmContent = 'registration';
+        appBarContent = 'Customer Registration';
+        secondBtmContent = 'Registration';
         btmIcon = Icons.person_add;
       case "ProfileWidget":
         if (appState.userType == "admin") {
           widgetContent = const AdminProfileWidget();
-        } else {
+          appBarContent = "Admin Profile";
+        }else if(appState.userType=='employee'){
+          print('employee profile section');
+          widgetContent = const EmployeeProfileWidget();
+          appBarContent = "Employee Profile";
+        }
+        else {
           widgetContent = const ProfileWidget();
+          appBarContent = "Customer Profile";
         }
         secondBtmContent = 'Profile';
         btmIcon = Icons.person;
-        if (appState.userType == "admin") {
-          appBarContent = "Admin Profile";
-        } else {
-          appBarContent = "Profile";
-        }
         break;
       case "PropertyDetailPage":
         widgetContent = const PropertyDetailPage();
@@ -168,6 +172,24 @@ class _HomeScreenState extends State<HomeScreen> {
           //appState.currentState = 1;
         }
         break;
+      case "EmployeeLoginWidget":
+        if (appState.token.isNotEmpty && appState.userType.isNotEmpty) {
+          if(appState.userType=='employee'){
+            widgetContent = const EmployeeProfileWidget();
+            appBarContent = "Employee Profile";
+            //appState.currentState = 1;
+          }else{
+            widgetContent = const EmployeeLoginWidget();
+            appBarContent = "Employee Login";
+            btmIcon = Icons.login;
+            //appState.currentState = 1;
+          }
+        } else {
+          widgetContent = const EmployeeLoginWidget();
+          appBarContent = "Employee Login";
+          //appState.currentState = 1;
+        }
+        break;  
       case "CustomerVisitRequestListWidget":
         widgetContent = const CustomerVisitRequestListWidget();
         appBarContent = "Customer Request";
@@ -190,6 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent=CustomerDetailPage();
         appBarContent="Customer Details";
         break;
+        
     }
     return PopScope(
         canPop: false,
@@ -249,87 +272,86 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
         },
-      child: SafeArea(
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-             appBar:AppBar(
-               iconTheme: IconThemeData(
-                   color:Colors.black,
-                 size: MyConst.deviceHeight(context)*0.030
-               ),
-              toolbarHeight: MyConst.deviceHeight(context)*0.060,
-              titleSpacing: MyConst.deviceHeight(context)*0.02,
-              elevation: 10,
-              title: Row(
-                children: [
-                  Image.asset(
-                    'assets/images/ic_launcher.png',
-                    width: MyConst.deviceHeight(context)*0.05,
-                  ),
-                  SizedBox(width: MyConst.deviceWidth(context)*0.020,),
-                  Expanded(
-                    child: Text(
-                      appBarContent,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                          fontSize: MyConst.mediumTextSize*fontSizeScaleFactor,
-                          overflow: TextOverflow.ellipsis),
-                      softWrap: true,
-                    ),
-                  ),
-                ],
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar:AppBar(
+          iconTheme: IconThemeData(
+              color:Colors.black,
+              size: MyConst.deviceHeight(context)*0.030
+          ),
+          toolbarHeight: MyConst.deviceHeight(context)*0.060,
+          titleSpacing: MyConst.deviceHeight(context)*0.02,
+          elevation: 10,
+          title: Row(
+            children: [
+              Image.asset(
+                'assets/images/ic_launcher.png',
+                width: MyConst.deviceHeight(context)*0.05,
               ),
-              centerTitle: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  // bottomRight: Radius.circular(40),
-                  // topRight: Radius.circular(40),
-                  //topRight: Radius.circular(50)
+              SizedBox(width: MyConst.deviceWidth(context)*0.020,),
+              Expanded(
+                child: Text(
+                  appBarContent,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600,
+                      fontSize: MyConst.mediumTextSize*fontSizeScaleFactor,
+                      overflow: TextOverflow.ellipsis),
+                  softWrap: true,
                 ),
               ),
-              //actions: [darkModeAction],
-              backgroundColor: Theme.of(context).primaryColorLight,
+            ],
+          ),
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              // bottomRight: Radius.circular(40),
+              // topRight: Radius.circular(40),
+              //topRight: Radius.circular(50)
             ),
-            body: widgetContent,
-            bottomNavigationBar: BottomNavigationBar(
-              iconSize: MyConst.deviceHeight(context)*0.02,
-              selectedIconTheme: IconThemeData(
-                size: MyConst.deviceHeight(context)*0.03,
-              ),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              selectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor,
-              selectedItemColor: Theme.of(context).primaryColor,
-              unselectedItemColor: Colors.grey,
-              unselectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor*0.9,
-              currentIndex: appState.currentState,
-              onTap: (index) async {
-                //setState(() {
-                appState.currentState = index;
-                switch (index) {
-                  case 0:
-                    appState.activeWidget = 'PropertyListPage';
-                    break;
-                  case 1:
-                    appState.token.isNotEmpty && appState.userType.isNotEmpty
-                        ? appState.activeWidget = "ProfileWidget"
-                        : appState.activeWidget = 'LoginWidget';
-                    break;
-                }
-              },
-              items: [
-                const BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(btmIcon),
-                  label: secondBtmContent,
-                ),
-              ],
+          ),
+          //actions: [darkModeAction],
+          backgroundColor: Theme.of(context).primaryColorLight,
+        ),
+        body: widgetContent,
+        bottomNavigationBar: BottomNavigationBar(
+          iconSize: MyConst.deviceHeight(context)*0.02,
+          selectedIconTheme: IconThemeData(
+            size: MyConst.deviceHeight(context)*0.03,
+          ),
+          backgroundColor: Theme.of(context).primaryColorLight,
+          selectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.grey,
+          unselectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor*0.9,
+          currentIndex: appState.currentState,
+          onTap: (index) async {
+            //setState(() {
+            appState.currentState = index;
+            switch (index) {
+              case 0:
+                appState.activeWidget = 'PropertyListPage';
+                break;
+              case 1:
+                appState.token.isNotEmpty && appState.userType.isNotEmpty
+                    ? appState.activeWidget = "ProfileWidget"
+                    : appState.activeWidget = 'LoginWidget';
+                break;
+            }
+          },
+          items: [
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
             ),
-            drawer:const AppDrawerWidget(),
-          )),
+            BottomNavigationBarItem(
+              icon: Icon(btmIcon),
+              label: secondBtmContent,
+            ),
+          ],
+        ),
+        drawer:const AppDrawerWidget(),
+      )
         );
   }
 }

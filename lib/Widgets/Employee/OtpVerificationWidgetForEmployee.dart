@@ -149,9 +149,9 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
-        // appState.activeWidget = "LoginWidget";
-        // appState.currentState = 1;
-        // Navigator.pop(context);
+        appState.activeWidget = "LoginWidget";
+        appState.currentState = 1;
+        Navigator.pop(context);
       } else {
         print(res['error']);
         Fluttertoast.showToast(
@@ -272,7 +272,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                             child: ElevatedButton(
                                 onPressed: (){
                                   if (_formKey1.currentState!.validate()) {
-                                    var customerData = {
+                                    var employeeData = {
                                       "name": widget.employeeData['name'],
                                       "mobile": widget.employeeData['mobile'],
                                       "email": widget.employeeData['email'],
@@ -290,9 +290,10 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                                       "nominee_name":widget.employeeData['nominee_name'],
                                       "nominee_dob":widget.employeeData['nominee_dob'],
                                       "relation":widget.employeeData['relation'],
+                                      "referal_code":widget.employeeData['referal_code'],
                                       "otp":_otpController.text
                                     };
-                                    _verifyOtpForSignup(customerData, appState, context);
+                                    _verifyOtpForSignup(employeeData, appState, context);
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
