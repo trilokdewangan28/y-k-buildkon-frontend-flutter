@@ -709,6 +709,38 @@ class StaticMethod {
     }
   }
 
+  //============================================================FETCH PROPERTIES
+  static Future<Map<String,dynamic>> fetchBlog(appState, paginationOptions,url,) async{
+    
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for blog list',
+        "error":e.toString()
+      };
+    }
+
+  }
+
 
 
   //==========================ADMIN RELATED METHOD==============================
@@ -952,6 +984,34 @@ class StaticMethod {
       };
     }
   }
+  
+  
+  //=========================================BLOG POST
+//======================================================DELETE PROPERTY IMAGES
+  static Future<Map<String, dynamic>> postBlog(token, data, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res =
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message":
+        'An error occured while requesting for posting a blog',
+        "error":e.toString()
+      };
+    }
+  }
+  
 
 
 

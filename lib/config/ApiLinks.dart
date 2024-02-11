@@ -1,6 +1,6 @@
 class ApiLinks{
   //static const baseUrl = "http://54.82.47.83.nip.io:5000/";
-  static const baseUrl = "https://4412-2401-4900-51d6-fd07-a0ad-339a-c83-6efb.ngrok-free.app/";
+  static const baseUrl = "https://0d4b-2401-4900-51e7-ed9-4d49-4609-7768-8c8.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -32,6 +32,8 @@ class ApiLinks{
   static const fetchVisitRequestedList = "${baseUrl}api/customer/fetchVisitRequestedList";
   static const fetchVisitRequestedPropertyDetails = "${baseUrl}api/customer/fetchVisitRequestedPropertyDetails";
   static const cancelVisitRequest = "${baseUrl}api/customer/cancelRequest";
+  
+  static const fetchBlog = "${baseUrl}api/customer/fetchBlog";
 
   //==================================ADMIN API================================
   static const insertPropertyDetails = "${baseUrl}api/admin/insertPropertyDetails";
@@ -48,7 +50,16 @@ class ApiLinks{
   static const changeVisitStatus = "${baseUrl}api/admin/changeVisitStatus";
   static const uploadAdminProfilePic = "${baseUrl}api/admin/uploadAdminProfilePic";
   static const fetchCustomerList = "${baseUrl}api/admin/fetchAllCustomerList";
+  static const postBlog ="${baseUrl}api/admin/postBlog";
   static const accessAdminProfilePic = "";
+  
+  
+  //===========================EMPLOYEE API====================================
+  static const sendOtpForEmployeeSignup = "${baseUrl}api/employee/sendOtpForEmployeeSignup";
+  static const verifyOtpForEmployeeSignup = "${baseUrl}api/employee/verifyOtpForEmployeeSignup";
+  static const sendOtpForEmployeeLogin = "${baseUrl}api/employee/sendOtpForEmployeeLogin";
+  static const verifyOtpForEmployeeLogin = "${baseUrl}api/employee/verifyOtpForEmployeeLogin";
+  static const employeeProfile = "${baseUrl}api/employee/employeeProfile";
 
 
 

@@ -60,9 +60,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
               }
               return profileContent;
             }else{
-              appState.error=snapshot.data!['error'];
-              appState.errorString= snapshot.data!['message'];
-              appState.fromWidget = appState.activeWidget;
+              // appState.error=snapshot.data!['error'];
+              // appState.errorString= snapshot.data!['message'];
+              // appState.fromWidget = appState.activeWidget;
               return const SpacificErrorPage();
             }
           }

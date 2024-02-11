@@ -23,11 +23,15 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
   bool _mounted = false;
   final _formKey = GlobalKey<FormState>();
+  
+  //===========================================DATE VARIABLE
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   final DateTime lastSelectableDate =
       DateTime.now().add(const Duration(days: 365));
   final DateTime firstSelectableDate =
       DateTime.now().add(const Duration(days: 1));
+  
+  
   final _visitingDateController = TextEditingController();
   final _visitorNameController = TextEditingController();
   final _visitorNumberController = TextEditingController();

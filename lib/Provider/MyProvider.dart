@@ -50,6 +50,9 @@ class MyProvider extends ChangeNotifier {
     _activeWidget = value;
     notifyListeners();
   }
+  
+  //===================BLOG URL =======================
+  String url='';
 
 
   //----------------------SERVICE LIST VARIABLE---------------------------------

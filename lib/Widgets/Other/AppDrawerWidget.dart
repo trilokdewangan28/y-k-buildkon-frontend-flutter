@@ -2,8 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Offer/OfferListPage.dart';
+import 'package:real_state/Pages/StaticContentPage/BlogListPage.dart';
 import 'package:real_state/Pages/StaticContentPage/WebViewPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Employee/EmployeeSignup.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/config/Constant.dart';
@@ -125,13 +127,10 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.chat_outlined,color: Theme.of(context).primaryColor),
-                  title: const Text('Customer Inquery'),
+                  leading: Icon(Icons.person_add_alt_outlined,color: Theme.of(context).primaryColor),
+                  title: const Text('Membership Join'),
                   onTap: () {
-                    // Handle the onTap action for the Home item
-                    Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='PropertyListWidget';
-                    appState.currentState=0;
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>EmployeeSignup()));
                   },
                 ),
               ),
@@ -146,7 +145,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>WebViewPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>BlogListPage()));
                   },
                 ),
               ),
@@ -171,7 +170,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.admin_panel_settings_outlined,color: Theme.of(context).primaryColor),
                   title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer
