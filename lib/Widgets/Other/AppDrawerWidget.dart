@@ -9,6 +9,7 @@ import 'package:real_state/Widgets/Employee/EmployeeLoginWidget.dart';
 import 'package:real_state/Widgets/Employee/EmployeeSignupWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
+import 'package:real_state/Widgets/Property/ProjectLisWidget.dart';
 import 'package:real_state/config/Constant.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
@@ -61,6 +62,8 @@ class AppDrawerWidget extends StatelessWidget {
                   ],
                 )
               ),
+              
+              //==========================================HOME TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
@@ -77,6 +80,25 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+
+              //==========================================PROJECTS TILE
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                color: Theme.of(context).primaryColorLight,
+                shadowColor: Colors.black,
+                elevation: 0.5,
+                child: ListTile(
+                  leading: Icon(Icons.apartment_outlined,color: Theme.of(context).primaryColor,),
+                  title: const Text('Project'),
+                  onTap: () {
+                    // Handle the onTap action for the Home item
+                    Navigator.pop(context);// Close the drawer
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectListWidget()));
+                  },
+                ),
+              ),
+              
+              //==========================================OFFER TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
@@ -91,6 +113,8 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+              
+              //==========================================EMI CALCULATOR TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
@@ -106,13 +130,15 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+              
+              //==========================================FUTURE OF COLONY
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.business_sharp,color: Theme.of(context).primaryColor),
                   title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -122,21 +148,8 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
-              Card(
-                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
-                shadowColor: Colors.black,
-                elevation: 0.5,
-                child: ListTile(
-                  leading: Icon(Icons.person_add_alt_outlined,color: Theme.of(context).primaryColor),
-                  title: const Text('Membership Join'),
-                  onTap: () {
-                    Navigator.pop(context);// Close the drawer
-                    appState.activeWidget = "EmployeeLoginWidget";
-                    appState.currentState = 1;
-                  },
-                ),
-              ),
+              
+              //==========================================BLOG POST
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
@@ -152,6 +165,8 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+              
+              //==========================================CONTACT SUPPORT
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,
@@ -167,6 +182,25 @@ class AppDrawerWidget extends StatelessWidget {
                   },
                 ),
               ),
+
+              //==========================================EMPLOYEE JOIN
+              Card(
+                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                color: Theme.of(context).primaryColorLight,
+                shadowColor: Colors.black,
+                elevation: 0.5,
+                child: ListTile(
+                  leading: Icon(Icons.person_add_alt_outlined,color: Theme.of(context).primaryColor),
+                  title: const Text('Membership Join'),
+                  onTap: () {
+                    Navigator.pop(context);// Close the drawer
+                    appState.activeWidget = "EmployeeLoginWidget";
+                    appState.currentState = 1;
+                  },
+                ),
+              ),
+              
+              //==========================================ADMIN PANEL
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
                 color: Theme.of(context).primaryColorLight,

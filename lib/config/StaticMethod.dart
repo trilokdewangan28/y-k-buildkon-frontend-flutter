@@ -106,6 +106,7 @@ class StaticMethod {
       {
         String selectedCity = "",
         String selectedPropertyType = "All",
+        int propertyUn = 0,
         int selectedBhk = 0,
         int selectedFloor = 0,
         String selectedGarden = "None",
@@ -116,11 +117,13 @@ class StaticMethod {
         int maxPrice = 100000000,
         String propertyName = "",
         int propertyId = 0,
+        int projectId = 0
       }
       ) async{
 
     Map<String,dynamic> filterOptions = {
       "propertytype": selectedPropertyType == "All" ? "" : selectedPropertyType,
+      "propertyUn":propertyUn,
       "propertybhk": selectedPropertyType == "All" ? 0 :selectedBhk,
       "propertyfloor": selectedPropertyType == "All" ? 0 :selectedFloor,
       "minPrice": minPrice,
@@ -128,9 +131,10 @@ class StaticMethod {
       "propertygarden": selectedGarden == "None" ? "" : selectedGarden,
       "propertyparking": selectedParking=="None" ? "" : selectedParking,
       "propertyfurnished": selectedFurnished=="None" ? "" : selectedFurnished,
-      "propertyavailability":selectedAvailability=="None" ? "" : selectedAvailability,
+      "propertyavailability":selectedAvailability=="None" || selectedAvailability=="All" ? "" : selectedAvailability,
       "propertyname": propertyName,
-      "propertycity": selectedCity
+      "propertycity": selectedCity,
+      "projectId":projectId
     };
     try {
       Map<String, String> requestHeaders = {
@@ -886,6 +890,66 @@ class StaticMethod {
       return {
         "success": false,
         "message": 'An error occured while requesting for change availability',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //================================================FETCH PROJECT
+  static Future<Map<String, dynamic>> fetchProject(url) async {
+    try {
+      final res =
+      await http.get(url);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete changeVisitStatus api');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for project fetching',
+        "error":e.toString()
+      };
+    }
+  }
+
+
+  //================================================FETCH PROJECT WITH PAGINATION
+  static Future<Map<String, dynamic>> fetchProjectWithPagination(url,paginationOption,{
+    String searchItem = "",
+  }) async {
+    Map<String, dynamic> filterOptions = {
+      "searchItem": searchItem
+    };
+    try {
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOption,
+        }),
+      );
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete changeVisitStatus api');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for project fetching',
         "error":e.toString()
       };
     }

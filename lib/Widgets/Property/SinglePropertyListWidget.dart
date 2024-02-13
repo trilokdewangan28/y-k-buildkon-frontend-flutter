@@ -27,6 +27,7 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchSinglePropertyById);
     var data = {"p_id":widget.property_id};
+    print('proeprty id is the ${widget.property_id}');
     return PopScope(
         child: Scaffold(
           appBar: AppBar(

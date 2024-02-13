@@ -15,6 +15,46 @@ class AddNewPropertyWidget extends StatefulWidget {
 
 class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final _formKey = GlobalKey<FormState>();
+  bool _mounted = false;
+  bool _isProjectLoading = false;
+  int? selectedId;
+  String selectedName='';
+  List<dynamic> projectList = [];
+
+  //==========================================first load method
+  _fetchProject(appState)async{
+    if(_mounted){
+      setState(() {
+        _isProjectLoading= true;
+      });
+    }
+    var url = Uri.parse(ApiLinks.fetchProject);
+    final res = await StaticMethod.fetchProject(url);
+
+    if (res.isNotEmpty) {
+      if (res['success'] == true) {
+        //print('succes is true and result is ${res['result']}');
+        projectList = res['result'];
+        if(_mounted){
+          setState(() {
+            _isProjectLoading = false;
+          });
+        }
+      } else {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
+
+
+
   final List<String> propertyType = [
     'House',
     'Flat',
@@ -128,6 +168,20 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       }
     }
   }
+  
+  @override
+  void initState() {
+    _mounted = true;
+    final appState = Provider.of<MyProvider>(context, listen: false);
+    _fetchProject(appState);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +237,57 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                     key: _formKey,
                     child: Column(
                       children: [
+                        Container(
+                          child: _isProjectLoading
+                              ? Center(child:CircularProgressIndicator()) 
+                              : projectList.length!=0 
+                              ? Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text('under the project'),
+                              Card(
+                                  color: Theme.of(context).primaryColorLight,
+                                  elevation: 1,
+                                  child: Container(
+                                    height: dropDownCardHeight*0.9,
+                                    margin: EdgeInsets.symmetric(horizontal: 4),
+                                    child: DropdownButton<String>(
+                                      value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
+                                      alignment: Alignment.center,
+                                      elevation: 16,
+                                      underline: Container(),
+                                      onChanged: (value) {
+                                        // This is called when the user selects an item.
+                                        setState(() {
+                                          selectedName = value!;
+                                          selectedId= projectList.firstWhere((element) => element['project_name'] == value)['project_id'].toInt();
+                                          print(selectedId);
+                                          //print('selected property type is ${selectedPropertyType}');
+                                        });
+                                      },
+                                      ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                      items: projectList
+                                          .map<DropdownMenuItem<String>>(
+                                              (dynamic project) {
+                                            return DropdownMenuItem<String>(
+                                              value: project['project_name'],
+                                              child: Text('${project['project_name']}',
+                                                  softWrap: true,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: smallBodyText,
+                                                      overflow: TextOverflow
+                                                          .ellipsis)),
+                                            );
+                                          }).toList(),
+                                    ),
+                                  )
+                              ),
+                            ],
+                          ) 
+                              : Container(),
+                        ),
                         //===========================SPACIFICATION CONTAINER
                         Container(
                           padding: const EdgeInsets.only(left: 10),
@@ -1121,7 +1226,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                           ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                _submitData(appState, context);
+                                if(selectedId!=0){
+                                  _submitData(appState, context); 
+                                }else{
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please select or create a project...',style: TextStyle(color: Colors.red),)));
+                                }
                               }
                             },
                             child: Text(
@@ -1143,47 +1252,3 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   }
 }
 
-class PropertyTypeDropDown extends StatefulWidget {
-  final List<String> propertyType;
-  String selectedPropertyType;
-
-  PropertyTypeDropDown(
-      {super.key,
-      required this.propertyType,
-      required this.selectedPropertyType});
-
-  @override
-  State<PropertyTypeDropDown> createState() => _PropertyTypeDropDownState();
-}
-
-class _PropertyTypeDropDownState extends State<PropertyTypeDropDown> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).primaryColorLight,
-      height: MediaQuery.of(context).size.height,
-      child: DropdownButton<String>(
-        value: widget.selectedPropertyType,
-        icon: const Icon(
-          Icons.arrow_drop_down_sharp,
-          size: 30,
-        ),
-        elevation: 16,
-        underline: Container(),
-        onChanged: (String? value) {
-          // This is called when the user selects an item.
-          setState(() {
-            // handle the onSelect method
-          });
-        },
-        items:
-            widget.propertyType.map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
-      ),
-    );
-  }
-}

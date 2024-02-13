@@ -160,6 +160,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         appState.fetchToken('employee');
         await Future.delayed(const Duration(milliseconds: 100));
         print(appState.userType);
+        print(appState.token);
         //--------------------------------------------------------------------
         Fluttertoast.showToast(
           msg: res['message'],

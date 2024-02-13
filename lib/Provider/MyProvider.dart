@@ -149,10 +149,13 @@ class MyProvider extends ChangeNotifier {
       await storage.write(key: 'customerToken', value: token);
       await storage.write(key: 'customerTokenExpiration', value: expirationString);
       //print('guest token stored');
-    } else {
+    } else if(userType=='admin'){
       await storage.write(key: 'adminToken', value: token);
       await storage.write(key: 'adminTokenExpiration', value: expirationString);
       //print('owner token stored');
+    }else if(userType=='employee'){
+      await storage.write(key: 'employeeToken', value: token);
+      await storage.write(key: 'employeeTokenExpiration', value: expirationString);
     }
 
     notifyListeners();
@@ -167,6 +170,8 @@ class MyProvider extends ChangeNotifier {
     } else if(userType=='admin'){
       token = await storage.read(key: 'adminToken');
       //print('owner token called');
+    }else if(userType=='employee'){
+      token = await storage.read(key: 'employeeToken');
     }
     return token ?? "";
 
@@ -178,10 +183,13 @@ class MyProvider extends ChangeNotifier {
       await storage.delete(key: 'customerToken');
       await storage.delete(key: 'customerTokenExpiration');
       //print('guest token deleted');
-    } else {
+    } else if(userType=='admin'){
       await storage.delete(key: 'adminToken');
       await storage.delete(key: 'adminTokenExpiration');
       //print('owner token deleted');
+    }else if(userType=='employee'){
+      await storage.delete(key: 'employeeToken');
+      await storage.delete(key: 'employeeTokenExpiration');
     }
 
     token = "";

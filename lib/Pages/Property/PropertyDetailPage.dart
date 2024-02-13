@@ -746,7 +746,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       availabilityColor=Colors.green;
     }else if(selectedProperty['property_isAvailable']=="Not Available"){
       availabilityColor=Colors.red;
-    }else{
+    }else if(selectedProperty['property_isAvailable']=="Sold"){
       availabilityColor=Colors.orange;
     }
     return RefreshIndicator(
@@ -1503,7 +1503,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                   )
                 ],
               )
-                  : CircularProgressIndicator()
+                  : LinearProgressIndicator()
               )
           ),
         onRefresh: ()async{

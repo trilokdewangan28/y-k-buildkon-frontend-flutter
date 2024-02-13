@@ -9,6 +9,7 @@ import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Admin/AddNewProjectWidget.dart';
 import 'package:real_state/Widgets/Admin/AddNewPropertyWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminProfileWidget.dart';
@@ -201,6 +202,10 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent = const AddNewPropertyWidget();
         appBarContent = "Add New Property";
         break;
+      case "AddNewProjectWidget":
+        widgetContent = const AddNewProjectWidget();
+        appBarContent="Add New Project";
+        break;
       case "SpacificErrorPage":
         widgetContent=const SpacificErrorPage();
         break;
@@ -269,6 +274,8 @@ class _HomeScreenState extends State<HomeScreen> {
               appState.activeWidget = "CustomerListPage";
               appState.currentState=1;
               break;
+            case "AddNewProjectWidget":
+              appState.activeWidget="ProfileWidget";
           }
 
         },

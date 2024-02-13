@@ -34,6 +34,43 @@ class _PropertyListPageState extends State<PropertyListPage> {
   int propertyId = 0;
   String selectedCity = "";
   String selectedPropertyName = "";
+  
+  //===================================project related variable
+  bool _isProjectLoading = false;
+  int projectId = 1;
+  String selectedName='';
+  List<dynamic> projectList = [];
+  //==========================================first load method
+  _fetchProject(appState)async{
+    if(_mounted){
+      setState(() {
+        _isProjectLoading= true;
+      });
+    }
+    var url = Uri.parse(ApiLinks.fetchProject);
+    final res = await StaticMethod.fetchProject(url);
+
+    if (res.isNotEmpty) {
+      if (res['success'] == true) {
+        //print('succes is true and result is ${res['result']}');
+        projectList = res['result'];
+        if(_mounted){
+          setState(() {
+            _isProjectLoading = false;
+          });
+        }
+      } else {
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
 
   //============================================================================FILTER VARIABLE
   final List<String> propertyType = [
@@ -115,7 +152,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
         selectedGarden: selectedGarden,
         selectedParking: selectedParking,
         selectedFurnished: selectedFurnished,
-        selectedAvailability: selectedAvailability);
+        selectedAvailability: selectedAvailability,
+      projectId: projectId
+    );
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
@@ -137,7 +176,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     }
   }
 
-  //==========================================load modre method
+  //==========================================LOAD MORE METHOD
   void _loadMore(appState) async {
 
     if (_hasNextPage == true &&
@@ -168,7 +207,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
           selectedGarden: selectedGarden,
           selectedParking: selectedParking,
           selectedFurnished: selectedFurnished,
-          selectedAvailability: selectedAvailability);
+          selectedAvailability: selectedAvailability,
+        projectId: projectId
+      );
       if (res.isNotEmpty) {
         if (res['success'] == true) {
           if(res['result'].length>0){
@@ -205,7 +246,9 @@ class _PropertyListPageState extends State<PropertyListPage> {
       }
     }
   }
-
+  
+  
+  //=================================================FETCH OFFER LIST
   _loadOffer(appState)async{
     if(_mounted){
       setState(() {
@@ -236,6 +279,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
     ///print('initstate methond called');
     _mounted = true;
     final appState = Provider.of<MyProvider>(context, listen: false);
+    _fetchProject(appState);
+    _mounted=true;
     _firstLoad(appState);
     _mounted = true;
     _loadOffer(appState);
@@ -1004,6 +1049,69 @@ class _PropertyListPageState extends State<PropertyListPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.010,
             ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 15),
+              child: _isProjectLoading
+                  ? Center(child:LinearProgressIndicator())
+                  : projectList.length!=0
+                  ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Under The Project',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600
+                  ),
+                  ),
+                  Spacer(),
+                  Card(
+                      color: Theme.of(context).primaryColorLight,
+                      elevation: 1,
+                      child: Container(
+                        height: 40,
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        child: DropdownButton<String>(
+                          value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
+                          alignment: Alignment.center,
+                          elevation: 16,
+                          underline: Container(),
+                          onChanged: (value) {
+                            // This is called when the user selects an item.
+                            setState(() {
+                              selectedName = value!;
+                              projectId= projectList.firstWhere((element) => element['project_name'] == value)['project_id'].toInt();
+                              print(projectId);
+                              _mounted=true;
+                              _hasNextPage=true;
+                              page=1;
+                              _isFirstLoadRunning=false;
+                              _isLoadMoreRunning=false;
+                              _firstLoad(appState);
+                              //print('selected property type is ${selectedPropertyType}');
+                            });
+                          },
+                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                          items: projectList
+                              .map<DropdownMenuItem<String>>(
+                                  (dynamic project) {
+                                return DropdownMenuItem<String>(
+                                  value: project['project_name'],
+                                  child: Text('${project['project_name']}',
+                                      softWrap: true,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                          overflow: TextOverflow
+                                              .ellipsis)),
+                                );
+                              }).toList(),
+                        ),
+                      )
+                  ),
+                ],
+              )
+                  : Container(),
+            ),
 
             //=====================================OFFER CONTAINER
             Container(
@@ -1025,7 +1133,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     ),
                   )
               )
-                  : appState.offerList.isNotEmpty ? const OfferSlider() : Container(child: const Text('empty offer'),)
+                  : appState.offerList.isNotEmpty ? const OfferSlider() : Container()
             ),
             SizedBox(
               height: MyConst.deviceHeight(context) * 0.02,
@@ -1282,9 +1390,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
         ),
         onRefresh: () async {
           // setState(() {
+          _isOfferLoading=false;
           _hasNextPage=true;
           page=1;
-          _isOfferLoading=false;
+          projectId=1;
           _isFirstLoadRunning=false;
           _isLoadMoreRunning=false;
           _firstLoad(appState);
