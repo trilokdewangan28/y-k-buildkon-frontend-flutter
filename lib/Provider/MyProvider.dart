@@ -83,6 +83,7 @@ class MyProvider extends ChangeNotifier {
   List<dynamic> filteredCustomerRequestList = [];
   Map<String,dynamic> selectedCustomerRequest = {};
   List<dynamic> customerList=[];
+  List<dynamic> employeeList=[];
   
   //===========================================EMPLOYEE DATA
   Map<String,dynamic> employeeDetails = {};

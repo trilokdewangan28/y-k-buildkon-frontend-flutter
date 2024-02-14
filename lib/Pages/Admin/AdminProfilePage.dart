@@ -125,12 +125,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child:  Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.book_outlined),
+                            Icon(Icons.book_outlined,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),
@@ -151,12 +151,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       onTap: () {},
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child:  Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.payment),
+                            Icon(Icons.payment,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),
@@ -177,12 +177,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       onTap: () {},
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child:  Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.business),
+                            Icon(Icons.business,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),
@@ -203,16 +203,43 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child: Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.business),
+                            Icon(Icons.list_alt_outlined,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),
                             Text('customer list'),
+                          ],
+                        ),
+                      ),
+                    )),
+                // const SizedBox(height: 15,),
+
+                //----------------------------------------employee list
+                Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    // width: MediaQuery.of(context).size.width*0.85,
+                    height: MediaQuery.of(context).size.height * 0.07,
+                    child: InkWell(
+                      onTap: () {
+                        appState.activeWidget = "EmployeeListPage";
+                      },
+                      child: Card(
+                        color: Theme.of(context).primaryColorLight,
+                        child:  Row(
+                          children: [
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Icon(Icons.real_estate_agent_outlined,color: Theme.of(context).primaryColor,),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Text('Employee List'),
                           ],
                         ),
                       ),
@@ -230,12 +257,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child:  Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.add_business),
+                            Icon(Icons.add_business,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),
@@ -257,12 +284,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                       },
                       child: Card(
                         color: Theme.of(context).primaryColorLight,
-                        child: const Row(
+                        child:  Row(
                           children: [
                             SizedBox(
                               width: 15,
                             ),
-                            Icon(Icons.add_business),
+                            Icon(Icons.add_business_outlined,color: Theme.of(context).primaryColor,),
                             SizedBox(
                               width: 15,
                             ),

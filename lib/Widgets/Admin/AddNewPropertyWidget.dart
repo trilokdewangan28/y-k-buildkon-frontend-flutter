@@ -239,19 +239,27 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                       children: [
                         Container(
                           child: _isProjectLoading
-                              ? Center(child:CircularProgressIndicator()) 
+                              ? Center(child:LinearProgressIndicator()) 
                               : projectList.length!=0 
                               ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('under the project'),
+                              Text(
+                                  'Under The Project',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                                ),
+                              ),
+                              SizedBox(width: 20,),
                               Card(
                                   color: Theme.of(context).primaryColorLight,
                                   elevation: 1,
                                   child: Container(
                                     height: dropDownCardHeight*0.9,
-                                    margin: EdgeInsets.symmetric(horizontal: 4),
+                                    width: dropDownCardWidth,
+                                    margin: EdgeInsets.symmetric(horizontal: 8),
                                     child: DropdownButton<String>(
                                       value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
                                       alignment: Alignment.center,
@@ -290,21 +298,26 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                         ),
                         //===========================SPACIFICATION CONTAINER
                         Container(
-                          padding: const EdgeInsets.only(left: 10),
+                          padding: const EdgeInsets.all(10),
+                          width: MyConst.deviceWidth(context),
                           decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //==========================PROPERTY TYPE
-                              Row(
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: const Text(
-                                      'Select Property Type: ',
-                                      style: TextStyle(fontSize: 15),
+                                    child: Text(
+                                      'Select Property Type',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                     ),
                                   ),
                                   const SizedBox(
@@ -315,35 +328,39 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
+                                        width: MyConst.deviceWidth(context)*0.5,
                                         margin: EdgeInsets.symmetric(horizontal: 4),
-                                        child: DropdownButton<String>(
-                                          value: selectedPropertyType,
-                                          alignment: Alignment.center,
-                                          elevation: 16,
-                                          underline: Container(),
-                                          onChanged: (String? value) {
-                                            // This is called when the user selects an item.
-                                            setState(() {
-                                              selectedPropertyType = value!;
-                                              //print('selected property type is ${selectedPropertyType}');
-                                            });
-                                          },
-                                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                          items: propertyType
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text('${value}',
-                                                      softWrap: true,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: smallBodyText,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                );
-                                              }).toList(),
-                                        ),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: selectedPropertyType,
+                                            borderRadius: BorderRadius.circular(10),
+                                            alignment: Alignment.center,
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                selectedPropertyType = value!;
+                                                //print('selected property type is ${selectedPropertyType}');
+                                              });
+                                            },
+                                            ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                            items: propertyType
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text('${value}',
+                                                        softWrap: true,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: smallBodyText,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
+                                                  );
+                                                }).toList(),
+                                          ),
+                                        )
                                       )
                                   ),
                                 ],
@@ -352,17 +369,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               //==========================PROPERTY BHK
                               selectedPropertyType == 'House' ||
                                       selectedPropertyType == "Flat"
-                                  ? Row(
+                                  ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: const Text(
-                                            'Select Property BHK: ',
+                                          child: Text(
+                                            'Select Property BHK',
                                             softWrap: true,
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                           ),
                                         ),
                                         const SizedBox(
@@ -373,12 +390,13 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: dropDownCardWidth*0.5,
+                                                width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(child: DropdownButton<String>(
                                                 value: selectedBhk.toString(),
-                                                alignment: Alignment.center,
                                                 elevation: 16,
+                                                alignment: Alignment.center,
+                                                borderRadius: BorderRadius.circular(10),
                                                 underline: Container(),
                                                 onChanged: (String? value) {
                                                   // This is called when the user selects an item.
@@ -411,17 +429,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
                               //==========================PROPERTY FLOOR
                               selectedPropertyType == 'House'
-                                  ? Row(
+                                  ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: const Text(
-                                            'Select No. Of Floors: ',
+                                          child: Text(
+                                            'Select No. Of Floors',
                                             softWrap: true,
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                           ),
                                         ),
                                         const SizedBox(
@@ -432,11 +450,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: dropDownCardWidth*0.5,
+                                                width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   value: selectedFloor.toString(),
+                                                  borderRadius: BorderRadius.circular(10),
                                                   alignment: Alignment.center,
                                                   elevation: 16,
                                                   underline: Container(),
@@ -472,17 +491,18 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
                               //==========================isGarden facility
                               selectedPropertyType == 'House'
-                                  ? Row(
-                                      children: [
+                                  ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: const Text(
-                                            'Garden Availibility?: ',
+                                          child: Text(
+                                            'Garden Availibility',
                                             softWrap: true,
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize:MyConst.smallTextSize*fontSizeScaleFactor
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -493,10 +513,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: dropDownCardWidth*0.5,
+                                                width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
+                                                  borderRadius: BorderRadius.circular(10),
                                                   value: selectedGarden,
                                                   alignment: Alignment.center,
                                                   elevation: 16,
@@ -533,17 +554,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
                               //==========================isParking facility
                               selectedPropertyType == 'House'
-                                  ? Row(
+                                  ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: const Text(
-                                            'Parking Facility?: ',
+                                          child:  Text(
+                                            'Parking Facility',
                                             softWrap: true,
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                           ),
                                         ),
                                         const SizedBox(
@@ -554,10 +575,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: dropDownCardWidth*0.5,
+                                                width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
+                                                  borderRadius: BorderRadius.circular(10),
                                                   value: selectedParking,
                                                   alignment: Alignment.center,
                                                   elevation: 16,
@@ -595,17 +617,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               //==========================isFurnished facility
                               selectedPropertyType == 'House' ||
                                       selectedPropertyType == 'Flat'
-                                  ? Row(
-                                      children: [
+                                  ? Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
                                         Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.4,
-                                          child: const Text(
-                                            'Furnished Or Not?: ',
+                                          child: Text(
+                                            'Furnished Or Not',
                                             softWrap: true,
-                                            style: TextStyle(fontSize: 15),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                           ),
                                         ),
                                         const SizedBox(
@@ -616,11 +638,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             elevation: 1,
                                             child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: dropDownCardWidth*0.5,
+                                                width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   value: selectedFurnished,
+                                                  borderRadius: BorderRadius.circular(10),
                                                   alignment: Alignment.center,
                                                   elevation: 16,
                                                   underline: Container(),
@@ -655,14 +678,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   : Container(),
 
                               //==========================AVAILABILITY
-                              Row(
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.4,
-                                    child: const Text(
-                                      'Available Or Not?: ',
-                                      style: TextStyle(fontSize: 15),
+                                    child: Text(
+                                      'Available Or Not',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize:MyConst.smallTextSize*fontSizeScaleFactor
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(
@@ -673,9 +699,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
+                                          width: MyConst.deviceWidth(context)*0.5,
                                         margin: EdgeInsets.symmetric(horizontal: 4),
                                         child: Center(
                                           child: DropdownButton<String>(
+                                            borderRadius: BorderRadius.circular(10),
                                             value: selectedAvailability,
                                             alignment: Alignment.center,
                                             elevation: 16,

@@ -1048,6 +1048,50 @@ class StaticMethod {
       };
     }
   }
+
+
+
+  //======================================FETCH EMPLOYEE LIST WITH PAGINATION
+  static Future<Map<String,dynamic>> fetchEmployeeListWithPagination(
+      appState,url,paginationOptions,token, {
+        String searchItem = "",
+      }
+      )async {
+    Map<String, dynamic> filterOptions = {
+      "searchItem": searchItem
+    };
+
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+
+      final res = await http.post(
+        url,
+        headers: requestHeaders,
+        body: jsonEncode({
+          'filterOptions': filterOptions,
+          'paginationOptions': paginationOptions,
+        }),
+      );
+
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      return {
+        "success": false,
+        "message": 'An error occured while requesting property list with pagination',
+        "error": e.toString()
+      };
+    }
+  }
+  
+  
   
   
   //=========================================BLOG POST

@@ -217,10 +217,17 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                                 child: Container(
                                   child: ListTile(
                                     title: Text(
-                                        '${project['project_name']} - ${project['project_un']}'
+                                        '${project['project_name'].toUpperCase()} - ${project['project_un']}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600
+                                      ),
                                     ),
                                     subtitle: Text(
-                                        '${project['project_locality']}, ${project['project_city']}, ${project['project_state']}, ${project['project_pincode']}'
+                                        '${project['project_locality']}, ${project['project_city']}, ${project['project_state']}, ${project['project_pincode']}',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -255,7 +262,12 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
             ),
           ),
         ),
-        onRefresh: ()async{}
+        onRefresh: ()async{
+          _isProjectLoading=false;
+          page=1;
+          _mounted=true;
+          _fetchProject(appState);
+        }
     );
   }
 }
