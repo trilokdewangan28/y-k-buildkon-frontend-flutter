@@ -185,63 +185,69 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
         border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
       ),
     );
-    return Container(
-      color: Theme.of(context).primaryColorLight,
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
-        child:  Container(
-          padding: const EdgeInsets.only(bottom: 250),
-          child: Column(
-            children: [
-              // const SizedBox(
-              //   height: 60,
-              // ),
-              Image.asset(
-                'assets/images/ic_launcher.png',
-                height: MyConst.deviceHeight(context)*0.15,
+    return PopScope(
+      canPop: false,
+        onPopInvoked: (didPop) {
+          appState.activeWidget = "PropertyListPage";
+          appState.currentState = 0;
+        },
+        child: Container(
+          color: Theme.of(context).primaryColorLight,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child:  Container(
+              padding: const EdgeInsets.only(bottom: 250),
+              child: Column(
+                children: [
+                  // const SizedBox(
+                  //   height: 60,
+                  // ),
+                  Image.asset(
+                    'assets/images/ic_launcher.png',
+                    height: MyConst.deviceHeight(context)*0.15,
 
-              ),
-              Container(
-                width: double.infinity,
-                child:  Center(
-                    child:Text(
-                      'Welcome To Y&K Buildkon',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
-                      ),
-                    )
-                ),
-              ),
-              SizedBox(
-                height: MyConst.deviceHeight(context)*0.03,
-              ),
-              //==============================LOGIN HEADING
-              Container(
-                width: double.infinity,
-                child:  Center(
-                    child:Text(
-                      'LOGIN NOW',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: MyConst.largeTextSize*fontSizeScaleFactor,
-                      ),
-                    )
-                ),
-              ),
-               SizedBox(
-                height: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
-              ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child:  Center(
+                        child:Text(
+                          'Welcome To Y&K Buildkon',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
+                          ),
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    height: MyConst.deviceHeight(context)*0.03,
+                  ),
+                  //==============================LOGIN HEADING
+                  Container(
+                    width: double.infinity,
+                    child:  Center(
+                        child:Text(
+                          'LOGIN NOW',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: MyConst.largeTextSize*fontSizeScaleFactor,
+                          ),
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    height: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
+                  ),
 
-              //==============================FORM1 CONTAINER Gen Otp
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
-                  child: Form(
-                    key: _formKey1,
-                    child: Column(
-                      children: [
-                        //========================MOBILE TEXTFIELD
-                        /*
+                  //==============================FORM1 CONTAINER Gen Otp
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
+                      child: Form(
+                        key: _formKey1,
+                        child: Column(
+                          children: [
+                            //========================MOBILE TEXTFIELD
+                            /*
                           Card(
                             elevation: 5,
                             child:TextFormField(
@@ -257,114 +263,114 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                           const SizedBox(height: 15,),
                           */
 
-                        //============================EMAIL TEXTFIELD
-                        TextFormField(
-                          focusNode: _emailFocusNode,
-                          controller: _emailController,
-                          readOnly: readOnly,
-                          style: const TextStyle(color: Colors.black),
-                          decoration:  InputDecoration(
-                              labelText: 'Email',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 2,
-                                    color: Theme.of(context).primaryColor
-                                ),
-                                borderRadius: const BorderRadius.all(Radius.circular(10),),
+                            //============================EMAIL TEXTFIELD
+                            TextFormField(
+                              focusNode: _emailFocusNode,
+                              controller: _emailController,
+                              readOnly: readOnly,
+                              style: const TextStyle(color: Colors.black),
+                              decoration:  InputDecoration(
+                                  labelText: 'Email',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: Theme.of(context).primaryColor
+                                    ),
+                                    borderRadius: const BorderRadius.all(Radius.circular(10),),
+                                  ),
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 2,
+                                      color: Colors.black,
+                                    ),
+                                    borderRadius: BorderRadius.all(Radius.circular(10),),
+                                  )
                               ),
-                              border: const OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color: Colors.black,
+                              validator: (value){
+                                if(value!.isEmpty || !value.contains("@gmail.com")){
+                                  return "please enter valid email";
+                                }
+                                return null;
+                              },
+                            ),
+
+                            remainingTime==''
+                                ? TextButton(
+                                onPressed: (){
+                                  if (_formKey1.currentState!.validate()) {
+                                    _generateOtp(context, appState);
+                                  }
+                                },
+                                child: Text('Generate Otp',style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                                 ),
-                                borderRadius: BorderRadius.all(Radius.circular(10),),
-                              )
-                          ),
-                          validator: (value){
-                            if(value!.isEmpty || !value.contains("@gmail.com")){
-                              return "please enter valid email";
-                            }
-                            return null;
-                          },
-                        ),
-
-                        remainingTime==''
-                            ? TextButton(
-                            onPressed: (){
-                              if (_formKey1.currentState!.validate()) {
-                                _generateOtp(context, appState);
-                              }
-                            },
-                            child: Text('Generate Otp',style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor
-                            ),
+                                )
                             )
-                        )
-                            : Container(),
-                      ],
-                    ),
-                  )
-              ),
-              SizedBox(height: MyConst.deviceHeight(context)*0.015,),
+                                : Container(),
+                          ],
+                        ),
+                      )
+                  ),
+                  SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
-               Text('Enter Otp Here', style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                fontSize: MyConst.smallTextSize*fontSizeScaleFactor
-              ),),
-              SizedBox(height: MyConst.deviceHeight(context)*0.015,),
+                  Text('Enter Otp Here', style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: MyConst.smallTextSize*fontSizeScaleFactor
+                  ),),
+                  SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
-              //==============================FORM2 CONTAINER Login
-              Container(
-                  padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
-                  child: Form(
-                    key: _formKey2,
-                    child: Column(
-                      children: [
-                        //==================================OTP TEXTFIELD
-                        Pinput(
-                          controller: _otpController,
-                          focusNode: _otpFocusNode,
-                          length: 6,
-                          defaultPinTheme: defaultPinTheme,
-                          focusedPinTheme: defaultPinTheme.copyWith(
-                            decoration: defaultPinTheme.decoration!.copyWith(
-                              border: Border.all(color: Theme.of(context).primaryColorLight),
+                  //==============================FORM2 CONTAINER Login
+                  Container(
+                      padding: EdgeInsets.symmetric(horizontal: MyConst.deviceHeight(context)*0.02),
+                      child: Form(
+                        key: _formKey2,
+                        child: Column(
+                          children: [
+                            //==================================OTP TEXTFIELD
+                            Pinput(
+                              controller: _otpController,
+                              focusNode: _otpFocusNode,
+                              length: 6,
+                              defaultPinTheme: defaultPinTheme,
+                              focusedPinTheme: defaultPinTheme.copyWith(
+                                decoration: defaultPinTheme.decoration!.copyWith(
+                                  border: Border.all(color: Theme.of(context).primaryColorLight),
+                                ),
+                              ),
+                              validator: (value){
+                                if(value!.isEmpty || value.length!=6){
+                                  return "please enter correct otp";
+                                }
+                                return null;
+                              },
+                              onCompleted: (pin) => debugPrint(pin),
                             ),
-                          ),
-                          validator: (value){
-                            if(value!.isEmpty || value.length!=6){
-                              return "please enter correct otp";
-                            }
-                            return null;
-                          },
-                          onCompleted: (pin) => debugPrint(pin),
-                        ),
-                        Text(
-                          remainingTime,
-                          style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                        ),
-                        SizedBox(height: MyConst.deviceHeight(context)*0.015,),
-
-
-                        //===============================LOGIN BTN
-                        ElevatedButton(
-                            onPressed: (){
-                              if (_formKey2.currentState!.validate()) {
-                                _submitOtp(context, appState);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                            Text(
+                              remainingTime,
+                              style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                             ),
-                            child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
-                        ),
-                        SizedBox(height: MyConst.deviceHeight(context)*0.015,),
+                            SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
-                        //================================SIGNUP BTN
-                        /*
+
+                            //===============================LOGIN BTN
+                            ElevatedButton(
+                                onPressed: (){
+                                  if (_formKey2.currentState!.validate()) {
+                                    _submitOtp(context, appState);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).primaryColor,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                ),
+                                child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
+                            ),
+                            SizedBox(height: MyConst.deviceHeight(context)*0.015,),
+
+                            //================================SIGNUP BTN
+                            /*
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -388,15 +394,16 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
 
                        */
 
-                      ],
-                    ),
-                  )
-              ),
+                          ],
+                        ),
+                      )
+                  ),
 
-            ],
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        )
     );
 
 

@@ -42,7 +42,7 @@ class FullImageView extends StatelessWidget {
            textColor: Colors.green, // Text color of the toast message
            fontSize: 16.0, // Font size of the toast message
          );
-         appState.activeWidget='PropertyListWidget';
+         appState.activeWidget='PropertyListPage';
          Navigator.pop(context);
        }else{
          Fluttertoast.showToast(

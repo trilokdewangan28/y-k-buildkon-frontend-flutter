@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
+import 'package:real_state/Widgets/Property/ProjectPropertyDetail.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/Pages/Error/InternetErrorPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
@@ -29,62 +30,14 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
     var data = {"p_id":widget.property_id};
     print('proeprty id is the ${widget.property_id}');
     return PopScope(
+      onPopInvoked: (didPop) {
+        
+      },
         child: Scaffold(
           appBar: AppBar(
             title: const Text('property details'),
           ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: StaticMethod.fetchSingleProperties(data,url),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Display a circular progress indicator while waiting for data.
-            return Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 50),
-                  child: const LinearProgressIndicator(),
-                )
-            );
-          } else if (snapshot.hasError ) {
-            // Handle error state.
-            if (snapshot.error is SocketException) {
-              // Handle network-related errors (internet connection loss).
-              return const InternetErrorPage();
-            } else {
-              // Handle other errors (server error or unexpected error).
-              appState.error='';
-              appState.errorString= snapshot.data!['message'];
-              appState.fromWidget = appState.activeWidget;
-              return const SpacificErrorPage();
-            }
-          }
-          else if(snapshot.hasData){
-
-            // Display user details when data is available.
-            if(snapshot.data!['success']==true){
-              final propertyResult = snapshot.data!;
-              //print('property list is ${propertyResult}');
-              if(propertyResult['result'].length!=0){
-                appState.selectedProperty = propertyResult['result'][0];
-                propertyContent = const PropertyDetailPage();
-              }else{
-                propertyContent = const EmptyPropertyPage(text: "empty property list",);
-              }
-              return propertyContent;
-            }else{
-              appState.error=snapshot.data!['error'];
-              appState.errorString= snapshot.data!['message'];
-              appState.fromWidget = appState.activeWidget;
-              return const SpacificErrorPage();
-            }
-          }
-          else{
-            appState.error='';
-            appState.errorString= snapshot.data!['message'];
-            appState.fromWidget = appState.activeWidget;
-            return const SpacificErrorPage();
-          }
-        },
-      ),
+      body: ProjectPropertyDetail()
     )
     );
   }

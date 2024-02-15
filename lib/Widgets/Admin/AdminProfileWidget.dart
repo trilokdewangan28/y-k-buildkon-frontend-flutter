@@ -58,7 +58,7 @@ class _AdminProfileWidgetState extends State<AdminProfileWidget> {
                   appState.adminDetails= adminResult['result'][0];
                   profileContent = const AdminProfilePage();
                 }else{
-                  profileContent = const EmptyPropertyPage(text: "empty admin details",);
+                  profileContent = const EmptyPropertyPage(text: "empty admin details",backWidget: 'PropertyListPage',);
                 }
                 return profileContent;
               }else{

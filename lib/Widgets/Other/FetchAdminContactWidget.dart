@@ -57,7 +57,7 @@ class _FetchAdminContactWidgetState extends State<FetchAdminContactWidget> {
                 appState.adminContact= adminContactResult['result'][0];
                 propertyContent = const AdminContactPage();
               }else{
-                propertyContent = const EmptyPropertyPage(text: "empty contact",);
+                propertyContent =  EmptyPropertyPage(text: "empty contact",backWidget: appState.activeWidget,);
               }
               return propertyContent;
             }else{

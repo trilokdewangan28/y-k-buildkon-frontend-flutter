@@ -76,7 +76,7 @@ class _OfferListWidgetState extends State<OfferListWidget> {
 
                 propertyContent = const PropertyListPage();
               }else{
-                propertyContent = const EmptyPropertyPage(text: "empty offer list",);
+                propertyContent =  EmptyPropertyPage(text: "empty offer list",backWidget: appState.activeWidget,);
               }
               return propertyContent;
             }else{

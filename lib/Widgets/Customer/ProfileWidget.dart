@@ -56,7 +56,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 appState.customerDetails= customerResult['result'];
                 profileContent = const CustomerProfilePage();
               }else{
-                profileContent = const EmptyPropertyPage(text: "empty customer details",);
+                profileContent = const EmptyPropertyPage(text: "empty customer details",backWidget: "PropertyListPage",);
               }
               return profileContent;
             }else{

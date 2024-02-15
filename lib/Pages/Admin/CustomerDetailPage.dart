@@ -20,6 +20,7 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
     return PopScope(
       canPop: false,
       onPopInvoked: (didPop) {
+        appState.customerDetails={};
           appState.activeWidget="CustomerListPage";
         },
       child: Container(

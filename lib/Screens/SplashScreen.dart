@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:real_state/Pages/StaticContentPage/IntroductionPageOne.dart';
+import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Screens/HomeScreen.dart';
+import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
+import 'package:real_state/config/StaticMethod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -15,8 +19,29 @@ class _SplashScreenState extends State<SplashScreen> {
   //final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    final appState = Provider.of<MyProvider>(context, listen: false);
+    StaticMethod.initialFetch(appState);
+    if (appState.token != "" && appState.userType != "") {
+      var url=Uri.parse("");
+      if (appState.userType == "admin") {
+        url = Uri.parse(ApiLinks.adminProfile);
+      } else if(appState.userType == "customer"){
+        url = Uri.parse(ApiLinks.customerProfile);
+      }else if(appState.userType == "employee"){
+        url = Uri.parse(ApiLinks.employeeProfile);
+      }
+      StaticMethod.userProfileInitial(appState.token, url, appState);
+    }
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+    final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
+    appState.activeWidget = appState.token.length!=0 && appState.userType.length!=0 ? "PropertyListPage" : "LoginWidget";
+    appState.currentState = appState.token.length!=0 && appState.userType.length!=0 ? 0 : 1;
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 

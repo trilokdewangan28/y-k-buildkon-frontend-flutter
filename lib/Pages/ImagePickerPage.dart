@@ -277,7 +277,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             fontSize: 16.0, // Font size of the toast message
                           );
                           if(appState.activeWidget=="PropertyDetailPage"){
-                            appState.activeWidget="PropertyListWidget";
+                            appState.activeWidget="PropertyListPage";
                             Navigator.pop(context);
                           }else {
                             Navigator.pop(context);

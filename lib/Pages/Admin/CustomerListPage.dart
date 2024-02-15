@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
@@ -50,8 +51,11 @@ class _CustomerListPageState extends State<CustomerListPage> {
       } else {
         appState.error = res['error'];
         appState.errorString=res['message'];
-        appState.fromWidget='CustomerListPage';
-        appState.activeWidget = "SpacificErrorPage";
+        appState.fromWidget=appState.activeWidget;
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          _mounted=true;
+          _firstLoadCustomerList(appState);
+        });
       }
     }
   }
@@ -103,7 +107,13 @@ class _CustomerListPageState extends State<CustomerListPage> {
             );
           }
         } else {
-          //print('unable to fetch property show error page');
+          appState.error = res['error'];
+          appState.errorString=res['message'];
+          appState.fromWidget=appState.activeWidget;
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _firstLoadCustomerList(appState);
+          });
         }
       }
       if (_mounted) {
@@ -137,281 +147,291 @@ class _CustomerListPageState extends State<CustomerListPage> {
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
 
     return RefreshIndicator(
-        child: Column(
-          children: [
-            //=============================================FILTER CONTAINER
-            Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: MyConst.deviceHeight(context) * 0.015),
-              child: Row(
-                children: [
-                  //=====================================FILTER BY NAME TEXTFIELD
-                  Flexible(
-                    child: Card(
-                      color: Theme.of(context).primaryColorLight,
-                      //shadowColor: Colors.black,
-                      elevation: 1,
-                      child: TextField(
-                        onChanged: (value) {
-                          searchItem = value;
-                          _hasNextPage=true;
-                          page=1;
-                          //setState(() {
-                          _isFirstLoadRunning=false;
-                          _firstLoadCustomerList(appState);
-                          //});
-                        },
-                        keyboardType: TextInputType.text,
-                        style: TextStyle(
-                            fontSize: MyConst.mediumSmallTextSize *
-                                fontSizeScaleFactor),
-                        textAlignVertical: TextAlignVertical.center,
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 5),
-                          labelText: 'Filter By Name, Email, Mobile, City',
-                          labelStyle: TextStyle(fontSize: 15),
-                          border: InputBorder.none,
-                          prefixIcon: Icon(Icons.search),
-                        ),
-                        cursorOpacityAnimates: false,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(
-              height: MyConst.deviceHeight(context) * 0.02,
-            ),
-
-            //===========================================CUSTOMER LIST CONTAINER
-            _isFirstLoadRunning==false
-                ? appState.customerList.isNotEmpty
-                ? Container(child: Flexible(
-                child: ListView.builder(
-                  itemCount: appState.customerList.length,
-                  controller: _controller,
-                  itemBuilder: (context, index) {
-                    final customer = appState.customerList[index];
-                    return InkWell(
-                      onTap: () {
-                        appState.customerDetails = customer;
-                        appState.activeWidget = "CustomerDetailPage";
-                      },
-                      child: Container(
-                          margin: EdgeInsets.symmetric(
-                            horizontal:
-                            MediaQuery.of(context).size.height * 0.010,
+        child: PopScope(
+          canPop: false,
+          onPopInvoked: (didPop) {
+            appState.customerList = [];
+            appState.activeWidget = "ProfileWidget";
+            appState.currentState=1;
+          },
+          child: Container(
+            child: Column(
+              children: [
+                //=============================================FILTER CONTAINER
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MyConst.deviceHeight(context) * 0.015),
+                  child: Row(
+                    children: [
+                      //=====================================FILTER BY NAME TEXTFIELD
+                      Flexible(
+                        child: Card(
+                          color: Theme.of(context).primaryColorLight,
+                          //shadowColor: Colors.black,
+                          elevation: 1,
+                          child: TextField(
+                            onChanged: (value) {
+                              searchItem = value;
+                              _hasNextPage=true;
+                              page=1;
+                              //setState(() {
+                              _isFirstLoadRunning=false;
+                              _firstLoadCustomerList(appState);
+                              //});
+                            },
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontSize: MyConst.mediumSmallTextSize *
+                                    fontSizeScaleFactor),
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(bottom: 5),
+                              labelText: 'Filter By Name, Email, Mobile, City',
+                              labelStyle: TextStyle(fontSize: 15),
+                              border: InputBorder.none,
+                              prefixIcon: Icon(Icons.search),
+                            ),
+                            cursorOpacityAnimates: false,
                           ),
-                          child: Card(
-                            shadowColor: Colors.black,
-                            color: Theme.of(context).primaryColorLight,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            elevation: 0.5,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                //==============================PROPERTY IMAGE CONTAINER
-                                Container(
-                                  margin: const EdgeInsets.all(8),
-                                  child: Center(
-                                    child: ClipRRect(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
-                                        child: customer['customer_profilePic'].length >
-                                            0
-                                            ? CachedNetworkImage(
-                                          imageUrl:
-                                          '${ApiLinks.accessCustomerProfilePic}/${customer['customer_ProfilePic']}',
-                                          placeholder: (context,
-                                              url) =>
-                                          const LinearProgressIndicator(),
-                                          errorWidget: (context, url,
-                                              error) =>
-                                          const Icon(Icons.error),
-                                          height:
-                                          MyConst.deviceHeight(
-                                              context) *
-                                              0.1,
-                                          width: MyConst.deviceWidth(
-                                              context) *
-                                              0.25,
-                                          fit: BoxFit.fill,
-                                        )
-                                            : ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(
-                                              10),
-                                          child: Container(
-                                            height:
-                                            MyConst.deviceHeight(
-                                                context) *
-                                                0.12,
-                                            width: MyConst.deviceWidth(
-                                                context) *
-                                                0.25,
-                                            child: Icon(Icons.person,size: 70,),
-                                          )
-                                        )),
-                                  ),
-                                ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-                                //==============================PROPERTY DETAIL CONTAINER
-                                Flexible(
-                                    child: Container(
-                                      //height: MyConst.deviceHeight(context)*0.1,
-                                      width: double.infinity,
+                SizedBox(
+                  height: MyConst.deviceHeight(context) * 0.02,
+                ),
+
+                //===========================================CUSTOMER LIST CONTAINER
+                _isFirstLoadRunning==false
+                    ? appState.customerList.isNotEmpty
+                    ? Container(child: Flexible(
+                    child: ListView.builder(
+                      itemCount: appState.customerList.length,
+                      controller: _controller,
+                      itemBuilder: (context, index) {
+                        final customer = appState.customerList[index];
+                        return InkWell(
+                          onTap: () {
+                            appState.customerDetails = customer;
+                            appState.activeWidget = "CustomerDetailPage";
+                          },
+                          child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                MediaQuery.of(context).size.height * 0.010,
+                              ),
+                              child: Card(
+                                shadowColor: Colors.black,
+                                color: Theme.of(context).primaryColorLight,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 0.5,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    //==============================PROPERTY IMAGE CONTAINER
+                                    Container(
                                       margin: const EdgeInsets.all(8),
-                                      // padding: const EdgeInsets.symmetric(
-                                      //     horizontal: 4, vertical: 8),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          //=======================NAME CONTAINER
-                                          Text(
-                                            '${customer['customer_name'].toUpperCase()}',
-                                            style: TextStyle(
-                                              fontSize: MyConst.smallTextSize *
-                                                  fontSizeScaleFactor,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            softWrap: true,
-                                          ),
+                                      child: Center(
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: customer['customer_profilePic'].length >
+                                                0
+                                                ? CachedNetworkImage(
+                                              imageUrl:
+                                              '${ApiLinks.accessCustomerProfilePic}/${customer['customer_ProfilePic']}',
+                                              placeholder: (context,
+                                                  url) =>
+                                              const LinearProgressIndicator(),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
+                                              height:
+                                              MyConst.deviceHeight(
+                                                  context) *
+                                                  0.1,
+                                              width: MyConst.deviceWidth(
+                                                  context) *
+                                                  0.25,
+                                              fit: BoxFit.fill,
+                                            )
+                                                : ClipRRect(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                child: Container(
+                                                  height:
+                                                  MyConst.deviceHeight(
+                                                      context) *
+                                                      0.12,
+                                                  width: MyConst.deviceWidth(
+                                                      context) *
+                                                      0.25,
+                                                  child: Icon(Icons.person,size: 70,),
+                                                )
+                                            )),
+                                      ),
+                                    ),
 
-                                          //=======================MOBILE ROW SECTION
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.email_outlined,
-                                                color:
-                                                Theme.of(context).primaryColor,
-                                                size: MyConst
-                                                    .mediumSmallTextSize *
-                                                    fontSizeScaleFactor,
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  '${customer['customer_email']}',
-                                                  style: TextStyle(
-                                                      fontSize: MyConst
-                                                          .smallTextSize *
-                                                          fontSizeScaleFactor,
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                      FontWeight.w500,
-                                                    overflow: TextOverflow.ellipsis
-                                                  ),
-                                                  softWrap: true,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-
-                                          //=======================MOBILE ROW SECTION
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.phone,
-                                                color:
-                                                Theme.of(context).primaryColor,
-                                                size: MyConst
-                                                    .mediumSmallTextSize *
-                                                    fontSizeScaleFactor,
-                                              ),
-                                              Flexible(
-                                                child: Text(
-                                                  '${customer['customer_mobile']}',
-                                                  style: TextStyle(
-                                                      fontSize: MyConst
-                                                          .smallTextSize *
-                                                          fontSizeScaleFactor,
-                                                      color: Colors.grey,
-                                                      fontWeight:
-                                                      FontWeight.w500),
-                                                  softWrap: true,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-
-                                          //=======================LOCATION ROW SECTION
-                                          Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                    //==============================PROPERTY DETAIL CONTAINER
+                                    Flexible(
+                                        child: Container(
+                                          //height: MyConst.deviceHeight(context)*0.1,
+                                          width: double.infinity,
+                                          margin: const EdgeInsets.all(8),
+                                          // padding: const EdgeInsets.symmetric(
+                                          //     horizontal: 4, vertical: 8),
+                                          child: Column(
                                             crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                             children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                color:
-                                                Theme.of(context).primaryColor,
-                                                size: MyConst
-                                                    .mediumSmallTextSize *
-                                                    fontSizeScaleFactor,
+                                              //=======================NAME CONTAINER
+                                              Text(
+                                                '${customer['customer_name'].toUpperCase()}',
+                                                style: TextStyle(
+                                                  fontSize: MyConst.smallTextSize *
+                                                      fontSizeScaleFactor,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                softWrap: true,
                                               ),
-                                              Flexible(
-                                                  child: Text(
-                                                    '${customer['customer_locality']}, ${customer['customer_city']} ${customer['customer_pincode']}',
-                                                    style: TextStyle(
-                                                      color: Colors.grey,
-                                                      fontSize:
-                                                      MyConst.smallTextSize *
-                                                          fontSizeScaleFactor,
-                                                      fontWeight: FontWeight.w500,
-                                                      overflow: TextOverflow.ellipsis
+
+                                              //=======================MOBILE ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.email_outlined,
+                                                    color:
+                                                    Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${customer['customer_email']}',
+                                                      style: TextStyle(
+                                                          fontSize: MyConst
+                                                              .smallTextSize *
+                                                              fontSizeScaleFactor,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                          FontWeight.w500,
+                                                          overflow: TextOverflow.ellipsis
+                                                      ),
+                                                      softWrap: true,
                                                     ),
-                                                    softWrap: true,
-                                                  ))
+                                                  )
+                                                ],
+                                              ),
+
+                                              //=======================MOBILE ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.phone,
+                                                    color:
+                                                    Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${customer['customer_mobile']}',
+                                                      style: TextStyle(
+                                                          fontSize: MyConst
+                                                              .smallTextSize *
+                                                              fontSizeScaleFactor,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                          FontWeight.w500),
+                                                      softWrap: true,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+
+                                              //=======================LOCATION ROW SECTION
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on_outlined,
+                                                    color:
+                                                    Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  Flexible(
+                                                      child: Text(
+                                                        '${customer['customer_locality']}, ${customer['customer_city']} ${customer['customer_pincode']}',
+                                                        style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize:
+                                                            MyConst.smallTextSize *
+                                                                fontSizeScaleFactor,
+                                                            fontWeight: FontWeight.w500,
+                                                            overflow: TextOverflow.ellipsis
+                                                        ),
+                                                        softWrap: true,
+                                                      ))
+                                                ],
+                                              ),
                                             ],
                                           ),
-                                        ],
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          )),
-                    );
-                  },
-                )),)
-                : const Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 100,),
-                Center(child: Text('No Such Properties'),)
+                                        ))
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                    )),)
+                    : const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 100,),
+                    Center(child: Text('No Such Properties'),)
+                  ],
+                )
+                    : Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: MyConst.deviceHeight(context) * 0.2),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+
+                //================================loading more
+                _isLoadMoreRunning == true
+                    ? const Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 40),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+                    : Container(),
+
+                _hasNextPage == false
+                    ? appState.propertyList.isNotEmpty ? Container(
+                  color: Colors.amber,
+                  child: const Center(
+                    child: Text('You have fetched all of the content'),
+                  ),
+                ) : Container()
+                    : Container()
               ],
-            )
-                : Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: MyConst.deviceHeight(context) * 0.2),
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
             ),
-
-            //================================loading more
-            _isLoadMoreRunning == true
-                ? const Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 40),
-              child: Center(
-                child: CircularProgressIndicator(),
-              ),
-            )
-                : Container(),
-
-            _hasNextPage == false
-                ? appState.propertyList.isNotEmpty ? Container(
-              color: Colors.amber,
-              child: const Center(
-                child: Text('You have fetched all of the content'),
-              ),
-            ) : Container()
-                : Container()
-          ],
+          ),
         ),
         onRefresh: () async {
           // setState(() {

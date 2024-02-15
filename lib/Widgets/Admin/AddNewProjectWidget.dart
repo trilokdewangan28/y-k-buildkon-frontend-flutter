@@ -82,309 +82,315 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
     final dropDownCardHeight = MyConst.deviceHeight(context) * 0.06;
     final dropDownCardWidth = MyConst.deviceWidth(context) * 0.41;
     double smallBodyText = 14;
-    return Container(
-      color: Theme.of(context).primaryColorLight,
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
+    return PopScope(
+      canPop: false,
+        onPopInvoked: (didPop) {
+          appState.activeWidget="ProfileWidget";
+        },
         child: Container(
-          padding: const EdgeInsets.only(bottom: 250),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/ic_launcher.png',
-                height: 150,
+          color: Theme.of(context).primaryColorLight,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 250),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/ic_launcher.png',
+                    height: 150,
 
-              ),
-              Container(
-                width: double.infinity,
-                child: const Center(
-                    child: Text(
-                      'Welcome To Y&K Buildkon',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              //==============================SIGNUP HEADING
-              Container(
-                width: double.infinity,
-                child: const Center(
-                    child: Text(
-                      'New Prject',
-                      style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
-                    )),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    child: const Center(
+                        child: Text(
+                          'Welcome To Y&K Buildkon',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //==============================SIGNUP HEADING
+                  Container(
+                    width: double.infinity,
+                    child: const Center(
+                        child: Text(
+                          'New Prject',
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
-              //==============================FORM CONTAINER
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        //=============================PROPERTY NAME TEXTFIELD
-                        TextFormField(
-                            focusNode: _projectNameFocusNode,
-                            controller: _projectNameController,
-                            decoration: const InputDecoration(
-                                labelText: 'Project Name',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid project name';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //========================PROJECT UNIQUE NUMBER TEXTFIELD
-                        TextFormField(
-                            focusNode: _projectUnFocusNode,
-                            controller: _projectUnController,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                                labelText: 'Project Unique Number',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid unique number';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        
-                        //===============================LOCALITY AND CITY
-                        Row(
+                  //==============================FORM CONTAINER
+                  Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
                           children: [
-                            Expanded(
-                              child: TextFormField(
-                                  focusNode: _projectLocalityFocusNode,
-                                  controller: _projectLocalityController,
-                                  decoration: const InputDecoration(
-                                      labelText: 'Locality',
-                                      labelStyle:
-                                      TextStyle(color: Colors.black),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+                            //=============================PROPERTY NAME TEXTFIELD
+                            TextFormField(
+                                focusNode: _projectNameFocusNode,
+                                controller: _projectNameController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Project Name',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter valid locality';
-                                    }
-                                    return null;
-                                  }),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid project name';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //========================PROJECT UNIQUE NUMBER TEXTFIELD
+                            TextFormField(
+                                focusNode: _projectUnFocusNode,
+                                controller: _projectUnController,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'Project Unique Number',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid unique number';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===============================LOCALITY AND CITY
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                      focusNode: _projectLocalityFocusNode,
+                                      controller: _projectLocalityController,
+                                      decoration: const InputDecoration(
+                                          labelText: 'Locality',
+                                          labelStyle:
+                                          TextStyle(color: Colors.black),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              // color: Theme.of(context).hintColor
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          )),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter valid locality';
+                                        }
+                                        return null;
+                                      }),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                      focusNode: _projectCityFocusNode,
+                                      controller: _projectCityController,
+                                      decoration: const InputDecoration(
+                                          labelText: 'City',
+                                          labelStyle:
+                                          TextStyle(color: Colors.black),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              // color: Theme.of(context).hintColor
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          )),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter valid city name';
+                                        }
+                                        return null;
+                                      }),
+                                ),
+                              ],
                             ),
                             const SizedBox(
-                              width: 10,
+                              height: 15,
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                  focusNode: _projectCityFocusNode,
-                                  controller: _projectCityController,
-                                  decoration: const InputDecoration(
-                                      labelText: 'City',
-                                      labelStyle:
-                                      TextStyle(color: Colors.black),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+
+                            //===========================PINCODE TEXTFIELD
+                            TextFormField(
+                                focusNode: _projectPincodeFocusNode,
+                                controller: _projectPincodeController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    labelText: 'Pincode',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter valid city name';
-                                    }
-                                    return null;
-                                  }),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length != 6) {
+                                    return 'please enter valid pincode';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===========================STATE TEXTFIELD
+                            TextFormField(
+                                focusNode: _projectStateFocusNode,
+                                controller: _projectStateController,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'State',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid State';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===============================ADD PROJECT BUTTON
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).primaryColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    _submitData(appState, context);
+                                  }
+                                },
+                                child: Text(
+                                  'Add Project',
+                                  style:
+                                  TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),
+                                )),
+                            const SizedBox(
+                              height: 15,
                             ),
                           ],
                         ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //===========================PINCODE TEXTFIELD
-                        TextFormField(
-                            focusNode: _projectPincodeFocusNode,
-                            controller: _projectPincodeController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                labelText: 'Pincode',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length != 6) {
-                                return 'please enter valid pincode';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        
-                        //===========================STATE TEXTFIELD
-                        TextFormField(
-                            focusNode: _projectStateFocusNode,
-                            controller: _projectStateController,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                                labelText: 'State',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid State';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //===============================ADD PROJECT BUTTON
-                        ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)
-                                )
-                            ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                _submitData(appState, context);
-                              }
-                            },
-                            child: Text(
-                              'Add Properties',
-                              style:
-                              TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),
-                            )),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                      ],
-                    ),
-                  ))
-            ],
+                      ))
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        )
     );
   }
 }

@@ -147,7 +147,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
          fontSize: 16.0, // Font size of the toast message
        );
        if(appState.activeWidget=="PropertyDetailPage"){
-         appState.activeWidget="PropertyListWidget";
+         appState.activeWidget="PropertyListPage";
          Navigator.pop(context);
        }else {
          Navigator.pop(context);
@@ -180,7 +180,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
       canPop: true,
         onPopInvoked: (didPop) {
           appState.imageFile = null;
-          appState.activeWidget = "PropertyListWidget";
+          appState.activeWidget = "PropertyListPage";
         },
         child: Scaffold(
           appBar: AppBar(

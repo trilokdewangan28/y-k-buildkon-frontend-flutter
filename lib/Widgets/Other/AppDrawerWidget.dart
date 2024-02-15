@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Offer/OfferListPage.dart';
+import 'package:real_state/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/Pages/StaticContentPage/BlogListPage.dart';
 import 'package:real_state/Pages/StaticContentPage/WebViewPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -10,6 +11,7 @@ import 'package:real_state/Widgets/Employee/EmployeeSignupWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/Widgets/Property/ProjectLisWidget.dart';
+
 import 'package:real_state/config/Constant.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
@@ -25,7 +27,7 @@ class AppDrawerWidget extends StatelessWidget {
     return PopScope(
       canPop: true,
         onPopInvoked: (didpop){
-          appState.activeWidget='PropertyListWidget';
+          appState.activeWidget='PropertyListPage';
           appState.currentState=0;
         },
         child:Drawer(
@@ -75,7 +77,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='PropertyListWidget';
+                    appState.activeWidget='PropertyListPage';
                     appState.currentState=0;
                   },
                 ),
@@ -108,8 +110,9 @@ class AppDrawerWidget extends StatelessWidget {
                   leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).primaryColor,),
                   title: const Text('Offers'),
                   onTap: () {
-                    popNow(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const OfferListPage()));
+                    //popNow(context);
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> OfferListPage(fromWidget: appState.activeWidget,)));
                   },
                 ),
               ),
@@ -143,7 +146,7 @@ class AppDrawerWidget extends StatelessWidget {
                   onTap: () {
                     // Handle the onTap action for the Home item
                     Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='PropertyListWidget';
+                    appState.activeWidget='PropertyListPage';
                     appState.currentState=0;
                   },
                 ),

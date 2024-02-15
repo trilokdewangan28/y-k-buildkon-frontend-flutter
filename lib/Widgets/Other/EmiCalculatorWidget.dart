@@ -49,6 +49,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
   Widget build(BuildContext context) {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
+      
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Theme.of(context).primaryColorLight,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
+import 'package:real_state/Widgets/Property/ProjectPropertyDetail.dart';
 import 'package:real_state/Widgets/Property/SinglePropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
@@ -335,32 +336,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                   SizedBox(height: 20,),
                   //========================PROJECT PROPERTY LIST
                   _isFirstLoadRunning
-                      ? Shimmer.fromColors(
-                      baseColor: Colors.grey,
-                      highlightColor: Colors.grey[100]!,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.grey,
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3, // Set the number of columns in the grid
-                            crossAxisSpacing: 10, // Set the spacing between columns
-                            mainAxisSpacing: 10, // Set the spacing between rows
-                            childAspectRatio: 2, // Set the aspect ratio of each grid item
-                          ),
-                          itemCount: 8,
-                          itemBuilder: (context, index) {
-                            return GridTile(
-                                child: Card(
-                                  color: Theme.of(context).primaryColorDark,
-                                )
-                            );
-                          },
-                        ),
-                      )
-                  )
+                      ? LinearProgressIndicator()
                       : Container(
                       child: Flexible(
                         child:GridView.builder(
@@ -385,7 +361,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                               onTap: (){
                                 print(property);
                                 appState.p_id = property['property_id'];
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>SinglePropertyListWidget(property_id: property['property_id'])));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectPropertyDetail()));
                               },
                               child: GridTile(
                                   child: Card(

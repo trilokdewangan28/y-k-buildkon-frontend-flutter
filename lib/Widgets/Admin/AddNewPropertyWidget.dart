@@ -154,7 +154,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
-        appState.activeWidget = "PropertyListWidget";
+        appState.activeWidget = "PropertyListPage";
         appState.currentState = 0;
       } else {
         Fluttertoast.showToast(
@@ -190,207 +190,212 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     final dropDownCardHeight = MyConst.deviceHeight(context) * 0.06;
     final dropDownCardWidth = MyConst.deviceWidth(context) * 0.41;
     double smallBodyText = 14;
-    return Container(
-      color: Theme.of(context).primaryColorLight,
-      height: MediaQuery.of(context).size.height,
-      child: SingleChildScrollView(
+    return PopScope(
+      canPop: false,
+        onPopInvoked: (didPop) {
+          appState.activeWidget = "ProfileWidget";
+        },
         child: Container(
-          padding: const EdgeInsets.only(bottom: 250),
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/images/ic_launcher.png',
-                height: 150,
+          color: Theme.of(context).primaryColorLight,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 250),
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/ic_launcher.png',
+                    height: 150,
 
-              ),
-              Container(
-                width: double.infinity,
-                child: const Center(
-                    child: Text(
-                  'Welcome To Y&K Buildkon',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
                   ),
-                )),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              //==============================SIGNUP HEADING
-              Container(
-                width: double.infinity,
-                child: const Center(
-                    child: Text(
-                  'New Property Listing',
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
-                )),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+                  Container(
+                    width: double.infinity,
+                    child: const Center(
+                        child: Text(
+                          'Welcome To Y&K Buildkon',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  //==============================SIGNUP HEADING
+                  Container(
+                    width: double.infinity,
+                    child: const Center(
+                        child: Text(
+                          'New Property Listing',
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
 
-              //==============================FORM CONTAINER
-              Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        Container(
-                          child: _isProjectLoading
-                              ? Center(child:LinearProgressIndicator()) 
-                              : projectList.length!=0 
-                              ? Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                  'Under The Project',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: MyConst.smallTextSize*fontSizeScaleFactor
-                                ),
-                              ),
-                              SizedBox(width: 20,),
-                              Card(
-                                  color: Theme.of(context).primaryColorLight,
-                                  elevation: 1,
-                                  child: Container(
-                                    height: dropDownCardHeight*0.9,
-                                    width: dropDownCardWidth,
-                                    margin: EdgeInsets.symmetric(horizontal: 8),
-                                    child: DropdownButton<String>(
-                                      value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
-                                      alignment: Alignment.center,
-                                      elevation: 16,
-                                      underline: Container(),
-                                      onChanged: (value) {
-                                        // This is called when the user selects an item.
-                                        setState(() {
-                                          selectedName = value!;
-                                          selectedId= projectList.firstWhere((element) => element['project_name'] == value)['project_id'].toInt();
-                                          print(selectedId);
-                                          //print('selected property type is ${selectedPropertyType}');
-                                        });
-                                      },
-                                      ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                      items: projectList
-                                          .map<DropdownMenuItem<String>>(
-                                              (dynamic project) {
-                                            return DropdownMenuItem<String>(
-                                              value: project['project_name'],
-                                              child: Text('${project['project_name']}',
-                                                  softWrap: true,
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: smallBodyText,
-                                                      overflow: TextOverflow
-                                                          .ellipsis)),
-                                            );
-                                          }).toList(),
-                                    ),
-                                  )
-                              ),
-                            ],
-                          ) 
-                              : Container(),
-                        ),
-                        //===========================SPACIFICATION CONTAINER
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          width: MyConst.deviceWidth(context),
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 1),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //==========================PROPERTY TYPE
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                  //==============================FORM CONTAINER
+                  Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Container(
+                              child: _isProjectLoading
+                                  ? Center(child:LinearProgressIndicator())
+                                  : projectList.length!=0
+                                  ? Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    child: Text(
-                                      'Select Property Type',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
+                                  Text(
+                                    'Under The Project',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
+                                  SizedBox(width: 20,),
                                   Card(
                                       color: Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
-                                        width: MyConst.deviceWidth(context)*0.5,
-                                        margin: EdgeInsets.symmetric(horizontal: 4),
-                                        child: Center(
-                                          child: DropdownButton<String>(
-                                            value: selectedPropertyType,
-                                            borderRadius: BorderRadius.circular(10),
-                                            alignment: Alignment.center,
-                                            elevation: 16,
-                                            underline: Container(),
-                                            onChanged: (String? value) {
-                                              // This is called when the user selects an item.
-                                              setState(() {
-                                                selectedPropertyType = value!;
-                                                //print('selected property type is ${selectedPropertyType}');
-                                              });
-                                            },
-                                            ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                            items: propertyType
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text('${value}',
-                                                        softWrap: true,
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: smallBodyText,
-                                                            overflow: TextOverflow
-                                                                .ellipsis)),
-                                                  );
-                                                }).toList(),
-                                          ),
-                                        )
+                                        width: dropDownCardWidth,
+                                        margin: EdgeInsets.symmetric(horizontal: 8),
+                                        child: DropdownButton<String>(
+                                          value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
+                                          alignment: Alignment.center,
+                                          elevation: 16,
+                                          underline: Container(),
+                                          onChanged: (value) {
+                                            // This is called when the user selects an item.
+                                            setState(() {
+                                              selectedName = value!;
+                                              selectedId= projectList.firstWhere((element) => element['project_name'] == value)['project_id'].toInt();
+                                              print(selectedId);
+                                              //print('selected property type is ${selectedPropertyType}');
+                                            });
+                                          },
+                                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                          items: projectList
+                                              .map<DropdownMenuItem<String>>(
+                                                  (dynamic project) {
+                                                return DropdownMenuItem<String>(
+                                                  value: project['project_name'],
+                                                  child: Text('${project['project_name']}',
+                                                      softWrap: true,
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                          fontSize: smallBodyText,
+                                                          overflow: TextOverflow
+                                                              .ellipsis)),
+                                                );
+                                              }).toList(),
+                                        ),
                                       )
                                   ),
                                 ],
-                              ),
-
-                              //==========================PROPERTY BHK
-                              selectedPropertyType == 'House' ||
-                                      selectedPropertyType == "Flat"
-                                  ? Column(
+                              )
+                                  : Container(),
+                            ),
+                            //===========================SPACIFICATION CONTAINER
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              width: MyConst.deviceWidth(context),
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            'Select Property BHK',
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                          ),
+                                children: [
+                                  //==========================PROPERTY TYPE
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Select Property Type',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Card(
-                                            color: Theme.of(context).primaryColorLight,
-                                            elevation: 1,
-                                            child: Container(
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
                                               height: dropDownCardHeight*0.9,
-                                                width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  value: selectedPropertyType,
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedPropertyType = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: propertyType
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                          )
+                                      ),
+                                    ],
+                                  ),
+
+                                  //==========================PROPERTY BHK
+                                  selectedPropertyType == 'House' ||
+                                      selectedPropertyType == "Flat"
+                                      ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Select Property BHK',
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(child: DropdownButton<String>(
                                                 value: selectedBhk.toString(),
@@ -421,36 +426,36 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       );
                                                     }).toList(),
                                               ),)
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                      : Container(),
 
-                              //==========================PROPERTY FLOOR
-                              selectedPropertyType == 'House'
-                                  ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: Text(
-                                            'Select No. Of Floors',
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                          ),
+                                  //==========================PROPERTY FLOOR
+                                  selectedPropertyType == 'House'
+                                      ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Select No. Of Floors',
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Card(
-                                            color: Theme.of(context).primaryColorLight,
-                                            elevation: 1,
-                                            child: Container(
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
                                               height: dropDownCardHeight*0.9,
-                                                width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -483,37 +488,37 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       }).toList(),
                                                 ),
                                               )
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                      : Container(),
 
-                              //==========================isGarden facility
-                              selectedPropertyType == 'House'
-                                  ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                        Container(
-                                          child: Text(
-                                            'Garden Availibility',
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize:MyConst.smallTextSize*fontSizeScaleFactor
-                                            ),
+                                  //==========================isGarden facility
+                                  selectedPropertyType == 'House'
+                                      ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Garden Availibility',
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:MyConst.smallTextSize*fontSizeScaleFactor
                                           ),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Card(
-                                            color: Theme.of(context).primaryColorLight,
-                                            elevation: 1,
-                                            child: Container(
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
                                               height: dropDownCardHeight*0.9,
-                                                width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -546,36 +551,36 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       }).toList(),
                                                 ),
                                               )
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                      : Container(),
 
-                              //==========================isParking facility
-                              selectedPropertyType == 'House'
-                                  ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child:  Text(
-                                            'Parking Facility',
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
-                                          ),
+                                  //==========================isParking facility
+                                  selectedPropertyType == 'House'
+                                      ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child:  Text(
+                                          'Parking Facility',
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Card(
-                                            color: Theme.of(context).primaryColorLight,
-                                            elevation: 1,
-                                            child: Container(
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
                                               height: dropDownCardHeight*0.9,
-                                                width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -608,37 +613,37 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       }).toList(),
                                                 ),
                                               )
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
+                                          )
+                                      ),
+                                    ],
+                                  )
+                                      : Container(),
 
-                              //==========================isFurnished facility
-                              selectedPropertyType == 'House' ||
+                                  //==========================isFurnished facility
+                                  selectedPropertyType == 'House' ||
                                       selectedPropertyType == 'Flat'
-                                  ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                        Container(
-                                          child: Text(
-                                            'Furnished Or Not',
-                                            softWrap: true,
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
-                                          ),
+                                      ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Furnished Or Not',
+                                          softWrap: true,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:MyConst.smallTextSize*fontSizeScaleFactor),
                                         ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        Card(
-                                            color: Theme.of(context).primaryColorLight,
-                                            elevation: 1,
-                                            child: Container(
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
                                               height: dropDownCardHeight*0.9,
-                                                width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.5,
                                               margin: EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -671,168 +676,86 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                       }).toList(),
                                                 ),
                                               )
-                                            )
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
-
-                              //==========================AVAILABILITY
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Available Or Not',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize:MyConst.smallTextSize*fontSizeScaleFactor
+                                          )
                                       ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Card(
-                                      color: Theme.of(context).primaryColorLight,
-                                      elevation: 1,
-                                      child: Container(
-                                        height: dropDownCardHeight*0.9,
-                                          width: MyConst.deviceWidth(context)*0.5,
-                                        margin: EdgeInsets.symmetric(horizontal: 4),
-                                        child: Center(
-                                          child: DropdownButton<String>(
-                                            borderRadius: BorderRadius.circular(10),
-                                            value: selectedAvailability,
-                                            alignment: Alignment.center,
-                                            elevation: 16,
-                                            underline: Container(),
-                                            onChanged: (String? value) {
-                                              // This is called when the user selects an item.
-                                              setState(() {
-                                                selectedAvailability = value!;
-                                                //print('selected property type is ${selectedPropertyType}');
-                                              });
-                                            },
-                                            ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                            items: available
-                                                .map<DropdownMenuItem<String>>(
-                                                    (String value) {
-                                                  return DropdownMenuItem<String>(
-                                                    value: value,
-                                                    child: Text('${value}',
-                                                        softWrap: true,
-                                                        textAlign: TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: smallBodyText,
-                                                            overflow: TextOverflow
-                                                                .ellipsis)),
-                                                  );
-                                                }).toList(),
+                                    ],
+                                  )
+                                      : Container(),
+
+                                  //==========================AVAILABILITY
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          'Available Or Not',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize:MyConst.smallTextSize*fontSizeScaleFactor
                                           ),
-                                        )
-                                      )
-                                  ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Card(
+                                          color: Theme.of(context).primaryColorLight,
+                                          elevation: 1,
+                                          child: Container(
+                                              height: dropDownCardHeight*0.9,
+                                              width: MyConst.deviceWidth(context)*0.5,
+                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              child: Center(
+                                                child: DropdownButton<String>(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  value: selectedAvailability,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      selectedAvailability = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: available
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                          )
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
 
-                        //=============================PROPERTY NAME TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyNameFocusNode,
-                            controller: _propertyNameController,
-                            decoration: const InputDecoration(
-                                labelText: 'Property Name',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid property name';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //========================PROPETY UNIQUE NUMBER TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyUnFocusNode,
-                            controller: _propertyUnController,
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                                labelText: 'Property Unique Number',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid unique number';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                              border: Border.all(width: 1)
-                          ),
-                          child: Row(
-                            children: [
-                              Flexible(child:
-                              //============================PROPERTY AREA
-                              TextFormField(
-                                focusNode: _propertyAreaFocusNode,
-                                controller: _propertyAreaController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    labelText: 'Property Area',
-                                    labelStyle: const TextStyle(color: Colors.black),
-                                    focusedBorder: const OutlineInputBorder(
+                            //=============================PROPERTY NAME TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyNameFocusNode,
+                                controller: _propertyNameController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Property Name',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1,
                                         // color: Theme.of(context).hintColor
@@ -841,7 +764,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         Radius.circular(10),
                                       ),
                                     ),
-                                    border: const OutlineInputBorder(
+                                    border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         width: 1,
                                         color: Colors.grey,
@@ -852,430 +775,513 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     )),
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return "please enter valid area";
+                                    return 'please enter valid property name';
                                   }
                                   return null;
-                                },
-                              ),
-                              ),
-                              SizedBox(width: 10,),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  //Text('select unit:',style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),),
+                                }),
 
-                                  Container(
-                                    height: dropDownCardHeight,
-                                    //width: dropDownCardWidth,
-                                    child: Card(
-                                      color: Theme.of(context).primaryColorLight,
-                                      child: Container(
-                                        margin: EdgeInsets.symmetric(horizontal: 4),
-                                        child: DropdownButton<String>(
-                                          value: areaUnit,
-                                          alignment: Alignment.center,
-                                          elevation: 16,
-                                          underline: Container(),
-                                          onChanged: (String? value) {
-                                            // This is called when the user selects an item.
-                                            setState(() {
-                                              areaUnit = value!;
-                                              //print('selected property type is ${selectedPropertyType}');
-                                            });
-                                          },
-                                          ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                                          items: areaUnits
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text('${value}',
-                                                      softWrap: true,
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: smallBodyText,
-                                                          overflow: TextOverflow
-                                                              .ellipsis)),
-                                                );
-                                              }).toList(),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //========================PROPETY UNIQUE NUMBER TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyUnFocusNode,
+                                controller: _propertyUnController,
+                                keyboardType: TextInputType.text,
+                                decoration: const InputDecoration(
+                                    labelText: 'Property Unique Number',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid unique number';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(width: 1)
+                              ),
+                              child: Row(
+                                children: [
+                                  Flexible(child:
+                                  //============================PROPERTY AREA
+                                  TextFormField(
+                                    focusNode: _propertyAreaFocusNode,
+                                    controller: _propertyAreaController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        labelText: 'Property Area',
+                                        labelStyle: const TextStyle(color: Colors.black),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            // color: Theme.of(context).hintColor
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
                                         ),
+                                        border: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 1,
+                                            color: Colors.grey,
+                                          ),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                        )),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "please enter valid area";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                  ),
+                                  SizedBox(width: 10,),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      //Text('select unit:',style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),),
+
+                                      Container(
+                                          height: dropDownCardHeight,
+                                          //width: dropDownCardWidth,
+                                          child: Card(
+                                              color: Theme.of(context).primaryColorLight,
+                                              child: Container(
+                                                margin: EdgeInsets.symmetric(horizontal: 4),
+                                                child: DropdownButton<String>(
+                                                  value: areaUnit,
+                                                  alignment: Alignment.center,
+                                                  elevation: 16,
+                                                  underline: Container(),
+                                                  onChanged: (String? value) {
+                                                    // This is called when the user selects an item.
+                                                    setState(() {
+                                                      areaUnit = value!;
+                                                      //print('selected property type is ${selectedPropertyType}');
+                                                    });
+                                                  },
+                                                  ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                                  items: areaUnits
+                                                      .map<DropdownMenuItem<String>>(
+                                                          (String value) {
+                                                        return DropdownMenuItem<String>(
+                                                          value: value,
+                                                          child: Text('${value}',
+                                                              softWrap: true,
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: smallBodyText,
+                                                                  overflow: TextOverflow
+                                                                      .ellipsis)),
+                                                        );
+                                                      }).toList(),
+                                                ),
+                                              )
+                                          )
                                       )
-                                    )
+                                    ],
                                   )
                                 ],
-                              )
-                            ],
-                          ),
-                        ),
-
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //============================PROPERTY PRICE
-                        TextFormField(
-                          focusNode: _propertyPriceFocusNode,
-                          controller: _propertyPriceController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Property Price',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
                               ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "please enter valid price";
-                            }
-                            return null;
-                          },
-                        ),
+                            ),
 
-                        const SizedBox(
-                          height: 15,
-                        ),
 
-                        //============================PROPERTY BOOKING AMMOUNT
-                        TextFormField(
-                          focusNode: _propertyBookingAmountFocusNode,
-                          controller: _propertyBookingAmountController,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Property Booking Ammount',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return "please enter valid booking ammount";
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                            const SizedBox(
+                              height: 15,
+                            ),
 
-                        //============================DESCRIPTION TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyDescriptionFocusNode,
-                            controller: _propertyDescriptionController,
-                            maxLines: 5,
-                            decoration: const InputDecoration(
-                                labelText: 'Property Description',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
+                            //============================PROPERTY PRICE
+                            TextFormField(
+                              focusNode: _propertyPriceFocusNode,
+                              controller: _propertyPriceController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Property Price',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      // color: Theme.of(context).hintColor
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid description';
-                              }
-                              return null;
-                            }),
-                        const SizedBox(
-                          height: 15,
-                        ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: Colors.grey,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  )),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "please enter valid price";
+                                }
+                                return null;
+                              },
+                            ),
 
-                        //============================ADDRESS TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyAddressFocusNode,
-                            controller: _propertyAddressController,
-                            decoration: const InputDecoration(
-                                labelText: 'Address',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid address';
-                              }
-                              return null;
-                            }),
+                            const SizedBox(
+                              height: 15,
+                            ),
 
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //===============================LOCALITY AND CITY
-                        Row(
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                  focusNode: _propertyLocalityFocusNode,
-                                  controller: _propertyLocalityController,
-                                  decoration: const InputDecoration(
-                                      labelText: 'Locality',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter valid locality';
-                                    }
-                                    return null;
-                                  }),
+                            //============================PROPERTY BOOKING AMMOUNT
+                            TextFormField(
+                              focusNode: _propertyBookingAmountFocusNode,
+                              controller: _propertyBookingAmountController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                  labelText: 'Property Booking Ammount',
+                                  labelStyle: TextStyle(color: Colors.black),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      // color: Theme.of(context).hintColor
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1,
+                                      color: Colors.grey,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  )),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return "please enter valid booking ammount";
+                                }
+                                return null;
+                              },
                             ),
                             const SizedBox(
-                              width: 10,
+                              height: 15,
                             ),
-                            Expanded(
-                              child: TextFormField(
-                                  focusNode: _propertyCityFocusNode,
-                                  controller: _propertyCityController,
-                                  decoration: const InputDecoration(
-                                      labelText: 'City',
-                                      labelStyle:
-                                          TextStyle(color: Colors.black),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          // color: Theme.of(context).hintColor
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
+
+                            //============================DESCRIPTION TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyDescriptionFocusNode,
+                                controller: _propertyDescriptionController,
+                                maxLines: 5,
+                                decoration: const InputDecoration(
+                                    labelText: 'Property Description',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
                                       ),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 1,
-                                          color: Colors.grey,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10),
-                                        ),
-                                      )),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'please enter valid city name';
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid description';
+                                  }
+                                  return null;
+                                }),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //============================ADDRESS TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyAddressFocusNode,
+                                controller: _propertyAddressController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Address',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid address';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===============================LOCALITY AND CITY
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                      focusNode: _propertyLocalityFocusNode,
+                                      controller: _propertyLocalityController,
+                                      decoration: const InputDecoration(
+                                          labelText: 'Locality',
+                                          labelStyle:
+                                          TextStyle(color: Colors.black),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              // color: Theme.of(context).hintColor
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          )),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter valid locality';
+                                        }
+                                        return null;
+                                      }),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                      focusNode: _propertyCityFocusNode,
+                                      controller: _propertyCityController,
+                                      decoration: const InputDecoration(
+                                          labelText: 'City',
+                                          labelStyle:
+                                          TextStyle(color: Colors.black),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              // color: Theme.of(context).hintColor
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          ),
+                                          border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                              width: 1,
+                                              color: Colors.grey,
+                                            ),
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(10),
+                                            ),
+                                          )),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter valid city name';
+                                        }
+                                        return null;
+                                      }),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===========================PINCODE TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyPincodeFocusNode,
+                                controller: _propertyPincodeController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                    labelText: 'Pincode',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length != 6) {
+                                    return 'please enter valid pincode';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //=============================url note
+                            const Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Note:',
+                                  style: TextStyle(fontWeight: FontWeight.w600),
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    'please click on open map button and point you address, copy the address link and paste below',
+                                    textAlign: TextAlign.justify,
+                                    style: TextStyle(
+                                      color: Colors.orange,
+                                    ),
+                                    softWrap: true,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  var url =
+                                      'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
+                                  StaticMethod.openMap(url);
+                                },
+                                child: Text('Open Map',style: TextStyle(color: Theme.of(context).primaryColor),)),
+
+                            //============================LOCATION MAP URL TEXTFIELD
+                            TextFormField(
+                                focusNode: _propertyLocationUrlFocusNode,
+                                controller: _propertyLocationUrlController,
+                                decoration: const InputDecoration(
+                                    labelText: 'Google Map Address Url',
+                                    labelStyle: TextStyle(color: Colors.black),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        // color: Theme.of(context).hintColor
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    )),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid address';
+                                  }
+                                  return null;
+                                }),
+
+                            const SizedBox(
+                              height: 15,
+                            ),
+
+                            //===============================SIGNUP BTN
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Theme.of(context).primaryColor,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    )
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    if(selectedId!=0){
+                                      _submitData(appState, context);
+                                    }else{
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please select or create a project...',style: TextStyle(color: Colors.red),)));
                                     }
-                                    return null;
-                                  }),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //===========================PINCODE TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyPincodeFocusNode,
-                            controller: _propertyPincodeController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                                labelText: 'Pincode',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty || value.length != 6) {
-                                return 'please enter valid pincode';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //=============================url note
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Note:',
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                            Expanded(
-                              child: Text(
-                                'please click on open map button and point you address, copy the address link and paste below',
-                                textAlign: TextAlign.justify,
-                                style: TextStyle(
-                                  color: Colors.orange,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                          ],
-                        ),
-                        TextButton(
-                            onPressed: () {
-                              var url =
-                                  'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
-                              StaticMethod.openMap(url);
-                            },
-                            child: Text('Open Map',style: TextStyle(color: Theme.of(context).primaryColor),)),
-
-                        //============================LOCATION MAP URL TEXTFIELD
-                        TextFormField(
-                            focusNode: _propertyLocationUrlFocusNode,
-                            controller: _propertyLocationUrlController,
-                            decoration: const InputDecoration(
-                                labelText: 'Google Map Address Url',
-                                labelStyle: TextStyle(color: Colors.black),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    // color: Theme.of(context).hintColor
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1,
-                                    color: Colors.grey,
-                                  ),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
-                                  ),
-                                )),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'please enter valid address';
-                              }
-                              return null;
-                            }),
-
-                        const SizedBox(
-                          height: 15,
-                        ),
-
-                        //===============================SIGNUP BTN
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Theme.of(context).primaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)
-                            )
-                          ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                if(selectedId!=0){
-                                  _submitData(appState, context); 
-                                }else{
-                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please select or create a project...',style: TextStyle(color: Colors.red),)));
-                                }
-                              }
-                            },
-                            child: Text(
-                              'Add Properties',
-                              style:
+                                  }
+                                },
+                                child: Text(
+                                  'Add Properties',
+                                  style:
                                   TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),
-                            )),
-                        const SizedBox(
-                          height: 15,
+                                )),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ))
-            ],
+                      ))
+                ],
+              ),
+            ),
           ),
-        ),
-      ),
+        )
     );
   }
 }

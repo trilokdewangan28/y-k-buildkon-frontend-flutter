@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Admin/AdminProfilePage.dart';
 import 'package:real_state/Pages/Admin/CustomerDetailPage.dart';
 import 'package:real_state/Pages/Admin/CustomerListPage.dart';
 import 'package:real_state/Pages/Admin/CustomerVisitRequestDetailPage.dart';
+import 'package:real_state/Pages/Admin/CustomerVisitRequestListPage.dart';
+import 'package:real_state/Pages/Admin/EmployeeDetailPage.dart';
+import 'package:real_state/Pages/Admin/EmployeeListPage.dart';
+import 'package:real_state/Pages/Customer/CustomerProfilePage.dart';
 import 'package:real_state/Pages/Customer/FavoritePropertyDetailPage.dart';
 import 'package:real_state/Pages/Customer/VisitRequestedDetailPage.dart';
+import 'package:real_state/Pages/Customer/VisitRequestedListPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Pages/Property/PropertyListPage.dart';
@@ -13,20 +19,22 @@ import 'package:real_state/Widgets/Admin/AddNewProjectWidget.dart';
 import 'package:real_state/Widgets/Admin/AddNewPropertyWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminLoginWidget.dart';
 import 'package:real_state/Widgets/Admin/AdminProfileWidget.dart';
-import 'package:real_state/Widgets/Admin/CustomerVisitRequestListWidget.dart';
-import 'package:real_state/Widgets/Customer/FavoritePropertyListWidget.dart';
+
+
 import 'package:real_state/Widgets/Customer/LoginWidget.dart';
 import 'package:real_state/Widgets/Customer/ProfileWidget.dart';
 import 'package:real_state/Widgets/Customer/SignupWidget.dart';
-import 'package:real_state/Widgets/Customer/VisitRequestedListWidget.dart';
+
 import 'package:real_state/Widgets/Employee/EmployeeLoginWidget.dart';
 import 'package:real_state/Widgets/Employee/EmployeeProfileWidget.dart';
 import 'package:real_state/Widgets/Other/AppDrawerWidget.dart';
 import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
-import 'package:real_state/Widgets/Property/PropertyListWidget.dart';
+
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../Pages/Customer/FavoritePropertyListPage.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -46,8 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
       var url=Uri.parse("");
       if (appState.userType == "admin") {
         url = Uri.parse(ApiLinks.adminProfile);
-      } else {
+      } else if(appState.userType == "customer"){
         url = Uri.parse(ApiLinks.customerProfile);
+      }else if(appState.userType == "employee"){
+        url = Uri.parse(ApiLinks.employeeProfile);
       }
       StaticMethod.userProfileInitial(appState.token, url, appState);
     }
@@ -83,13 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
         : Icons.login;
 
     //================== CONDITIONALLY PAGE NAVIGATION==========================
-    Widget widgetContent = const LoginWidget();
+    Widget widgetContent = appState.token.length!=0 && appState.userType.length!=0 ? PropertyListPage() : LoginWidget();
     String appBarContent = 'Y&K BUILDCON';
     switch (appState.activeWidget) {
-      case "PropertyListWidget":
-        widgetContent = const PropertyListWidget();
-        appBarContent = 'Y&K BUILDCON';
-        break;
       case "PropertyListPage":
         widgetContent = const PropertyListPage();
         appBarContent = 'Y&K BUILDCON';
@@ -99,9 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
           if (appState.userType == "admin") {
             widgetContent = const AdminProfileWidget();
             appBarContent = "Admin Profile";
-          } else {
+          } else if(appState.userType == "customer") {
             widgetContent = const ProfileWidget();
             appBarContent = "Customer Profile";
+          }else{
+            widgetContent = const EmployeeProfileWidget();
+            appBarContent = "Employee Profile";
           }
           secondBtmContent = "Profile";
         } else {
@@ -117,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
         btmIcon = Icons.person_add;
       case "ProfileWidget":
         if (appState.userType == "admin") {
-          widgetContent = const AdminProfileWidget();
+          widgetContent = const AdminProfilePage();
           appBarContent = "Admin Profile";
         }else if(appState.userType=='employee'){
           print('employee profile section');
@@ -125,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
           appBarContent = "Employee Profile";
         }
         else {
-          widgetContent = const ProfileWidget();
+          widgetContent = const CustomerProfilePage();
           appBarContent = "Customer Profile";
         }
         secondBtmContent = 'Profile';
@@ -139,12 +148,12 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent = const FavoritePropertyDetailPage();
         appBarContent = 'Your Favorite Property';
         break;
-      case "FavoritePropertyListWidget":
-        widgetContent = const FavoritePropertyListWidget();
+      case "FavoritePropertyListPage":
+        widgetContent = const FavoritePropertyListPage();
         appBarContent = "Favorite List";
         break;
-      case "VisitRequestedListWidget":
-        widgetContent = const VisitRequestedListWidget();
+      case "VisitRequestedListPage":
+        widgetContent = const VisitRequestedListPage();
         appBarContent = "Your Request List";
         break;
       case "VisitRequestedDetailPage":
@@ -191,8 +200,8 @@ class _HomeScreenState extends State<HomeScreen> {
           //appState.currentState = 1;
         }
         break;  
-      case "CustomerVisitRequestListWidget":
-        widgetContent = const CustomerVisitRequestListWidget();
+      case "CustomerVisitRequestListPage":
+        widgetContent = const CustomerVisitRequestListPage();
         appBarContent = "Customer Request";
         break;
       case "CustomerVisitRequestDetailPage":
@@ -217,68 +226,20 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent=CustomerDetailPage();
         appBarContent="Customer Details";
         break;
+      case "EmployeeListPage":
+        widgetContent = EmployeeListPage();
+        appBarContent = "Employee List";
+        break;
+      case "EmployeeDetailPage":
+        widgetContent=EmployeeDetailPage();
+        appBarContent = "Employee Details";
         
     }
     return PopScope(
-        canPop: false,
+        canPop: true,
         onPopInvoked:(didPop) {
-
-          switch (appState.activeWidget) {
-            case "PropertyDetailPage":
-              appState.selectedProperty.clear();
-              appState.activeWidget = "PropertyListWidget";
-              appState.addedToFavorite = false;
-              break;
-            case "FavoritePropertyDetailPage":
-              appState.selectedProperty.clear();
-              appState.activeWidget = "FavoritePropertyListWidget";
-              appState.addedToFavorite = false;
-              break;
-            case "FavoritePropertyListWidget":
-              appState.favoritePropertyList.clear();
-              appState.activeWidget = "ProfileWidget";
-              break;
-            case "VisitRequestedDetailPage":
-              appState.selectedProperty.clear();
-              appState.activeWidget = "VisitRequestedListWidget";
-              appState.addedToFavorite = false;
-              break;
-            case "VisitRequestedListWidget":
-              appState.visitRequestedPropertyList.clear();
-              appState.activeWidget = "ProfileWidget";
-              break;
-            case "EmiCalculatorWidget":
-              appState.activeWidget = "PropertyListWidget";
-              break;
-            case "CustomerVisitRequestDetailPage":
-              appState.selectedCustomerRequest.clear();
-              appState.activeWidget = "CustomerVisitRequestListWidget";
-              appState.addedToFavorite=false;
-              break;
-            case "CustomerVisitRequestListWidget":
-              appState.customerRequestList.clear();
-              appState.activeWidget = "ProfileWidget";
-              break;
-            case "AddNewPropertyWidget":
-              appState.activeWidget = "ProfileWidget";
-              break;
-            case "LoginWidget":
-              appState.activeWidget="PropertyListWidget";
-              appState.currentState=0;
-              break;
-            case "CustomerListPage":
-              appState.activeWidget = "ProfileWidget";
-              appState.currentState=1;
-              break;
-            case "CustomerListPage":
-              appState.activeWidget = "CustomerListPage";
-              appState.currentState=1;
-              break;
-            case "AddNewProjectWidget":
-              appState.activeWidget="ProfileWidget";
-          }
-
-        },
+          //appState.propertyList = [];
+          },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar:AppBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Property/ProjectDetailWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -53,9 +54,11 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
         print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
-        appState.fromWidget='PropertyListWidget';
-        appState.activeWidget = "SpacificErrorPage";
-        //Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage(error: res['error'],errorString: res['message'],fromWidget: appState.activeWidget,)));
+        appState.fromWidget=appState.activeWidget;
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          _mounted=true;
+          _fetchProject(appState);
+        });
       }
     }
   }
@@ -107,7 +110,13 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
             );
           }
         } else {
-          //print('unable to fetch property show error page');
+          appState.error = res['error'];
+          appState.errorString=res['message'];
+          appState.fromWidget=appState.activeWidget;
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _fetchProject(appState);
+          });
         }
       }
       if (_mounted) {

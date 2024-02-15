@@ -28,8 +28,10 @@ class StaticMethod {
         //print('customer data is :' + response['result'].toString());
         if (appState.userType == "admin") {
           appState.adminDetails = response['result'];
-        } else {
+        } else if(appState.userType == "customer") {
           appState.customerDetails = response['result'];
+        }else if(appState.userType == "employee"){
+          appState.employeeDetails = response['result'];
         }
         return response;
       } else {
@@ -598,7 +600,7 @@ class StaticMethod {
     appState.adminDetails.clear();
     await Future.delayed(const Duration(milliseconds: 100));
 
-    appState.activeWidget = "PropertyListWidget";
+    appState.activeWidget = "PropertyListPage";
     appState.currentState = 0;
 
     await appState.fetchUserType();
