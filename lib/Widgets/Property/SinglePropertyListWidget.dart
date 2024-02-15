@@ -1,14 +1,9 @@
 
-import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/Widgets/Property/ProjectPropertyDetail.dart';
 import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/Pages/Error/InternetErrorPage.dart';
-import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/Pages/Error/EmptyPropertyPage.dart';
-import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 
 class SinglePropertyListWidget extends StatefulWidget {
@@ -28,7 +23,7 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
     List<Map<String, dynamic>> propertyListDemo = [];
     var url = Uri.parse(ApiLinks.fetchSinglePropertyById);
     var data = {"p_id":widget.property_id};
-    print('proeprty id is the ${widget.property_id}');
+    //print('proeprty id is the ${widget.property_id}');
     return PopScope(
       onPopInvoked: (didPop) {
         
@@ -37,7 +32,7 @@ class _SinglePropertyListWidgetState extends State<SinglePropertyListWidget> {
           appBar: AppBar(
             title: const Text('property details'),
           ),
-      body: ProjectPropertyDetail()
+      body: const ProjectPropertyDetail()
     )
     );
   }

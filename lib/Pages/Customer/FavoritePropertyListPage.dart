@@ -57,7 +57,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _firstLoad(appState);
         });
@@ -115,7 +115,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _firstLoad(appState);
           });
@@ -168,7 +168,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
               children: [
                 //=====================================PROPERTY LIST CONTAINER
                 _isFirstLoadRunning==true 
-                    ? Center(child: CircularProgressIndicator(),)   
+                    ? const Center(child: CircularProgressIndicator(),)   
                     : favoritePropertyList.isNotEmpty 
                     ? Expanded(
                     child: ListView.builder(
@@ -314,7 +314,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                         );
                       },
                     )) 
-                    : Center(
+                    : const Center(
                   child: Text('Empty Favorite Property'),
                 ),
 

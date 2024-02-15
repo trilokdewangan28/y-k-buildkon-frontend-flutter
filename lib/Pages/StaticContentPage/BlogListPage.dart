@@ -51,11 +51,11 @@ class _BlogListPageState extends State<BlogListPage> {
           });
         }
       } else {
-        print(res['error']);
+        //print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _fetchBlog(appState);
         });
@@ -110,11 +110,11 @@ class _BlogListPageState extends State<BlogListPage> {
             );
           }
         } else {
-          print(res['error']);
+          //print(res['error']);
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _hasNextPage = true;
             _fetchBlog(appState);
@@ -138,7 +138,7 @@ class _BlogListPageState extends State<BlogListPage> {
     _fetchBlog(appState);
     _mounted = true;
     _controller = ScrollController()..addListener(() => _loadMore(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
   
@@ -152,15 +152,15 @@ class _BlogListPageState extends State<BlogListPage> {
           child: SafeArea(
             child: Scaffold(
                 appBar: AppBar(
-                  title: Text('Blog list'),
+                  title: const Text('Blog list'),
                   backgroundColor: Theme.of(context).primaryColorLight,
                   centerTitle: true,
                 ),
                 body: _isFirstLoadRunning==true
-                    ? Container(child: Center(child:CircularProgressIndicator(),))
+                    ? Container(child: const Center(child:CircularProgressIndicator(),))
                     : blogList.isNotEmpty
                     ? Container(
-                  margin: EdgeInsets.symmetric(horizontal: 15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorLight
                   ),
@@ -182,14 +182,14 @@ class _BlogListPageState extends State<BlogListPage> {
                       )
                   ),
                 )
-                    : Container(child: Center(child: Text('empty blog'),),),
+                    : Container(child: const Center(child: Text('empty blog'),),),
 
                 floatingActionButton: appState.userType=='admin' ? CircleAvatar(
                   backgroundColor: Theme.of(context).primaryColor,
                   radius: 30,
                   child: IconButton(
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>PostNewBlog()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>const PostNewBlog()));
                       },
                       icon: Icon(Icons.add,color: Theme.of(context).primaryColorLight,)
                   ),

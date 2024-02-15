@@ -62,7 +62,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _firstLoad(appState);
         });
@@ -119,7 +119,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _firstLoad(appState);
           });

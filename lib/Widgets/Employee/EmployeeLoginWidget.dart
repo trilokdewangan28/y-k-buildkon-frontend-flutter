@@ -159,8 +159,8 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         await Future.delayed(const Duration(milliseconds: 100));
         appState.fetchToken('employee');
         await Future.delayed(const Duration(milliseconds: 100));
-        print(appState.userType);
-        print(appState.token);
+        //print(appState.userType);
+        //print(appState.token);
         //--------------------------------------------------------------------
         Fluttertoast.showToast(
           msg: res['message'],
@@ -170,11 +170,13 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
-        Navigator.pop(context);
+        if(mounted){
+          Navigator.pop(context); 
+        }
         appState.activeWidget='ProfileWidget';
         
       }else{
-        print(res);
+        //print(res);
         Fluttertoast.showToast(
           msg: res['message'],
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -385,7 +387,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                 ),
                                 TextButton(
                                     onPressed: (){
-                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>EmployeeSignupWidget()));
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const EmployeeSignupWidget()));
                                     },
                                     child:  Text(
                                       'Signup',

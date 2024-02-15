@@ -49,7 +49,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
     );
     final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
     if (res.isNotEmpty) {
-      print(res);
+      //print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         Fluttertoast.showToast(

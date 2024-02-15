@@ -51,11 +51,11 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
           });
         }
       } else {
-        print(res['error']);
+        //print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _fetchProject(appState);
         });
@@ -113,7 +113,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _fetchProject(appState);
           });
@@ -137,7 +137,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
     _fetchProject(appState);
     _mounted = true;
     _controller = ScrollController()..addListener(() => _fetchMoreProject(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -153,12 +153,12 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    print(projectList);
+    //print(projectList);
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Project List'),
+              title: const Text('Project List'),
               centerTitle: true,
             ),
             body: Container(
@@ -205,11 +205,11 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                       ],
                     ),
                   ),
-                  Divider(color: Colors.black,),
+                  const Divider(color: Colors.black,),
                   
                   //=======================PROJECT LIST
                   _isProjectLoading
-                      ? Container(child: Center(child: LinearProgressIndicator(),),)
+                      ? Container(child: const Center(child: LinearProgressIndicator(),),)
                       : Container(
                     child: Flexible(
                       child: ListView.builder(
@@ -221,13 +221,13 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectDetailWidget(projectData: project)));
                               },
                               child: Card(
-                                margin: EdgeInsets.symmetric(horizontal: 15,vertical: 7),
+                                margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 7),
                                 color: Theme.of(context).primaryColorLight,
                                 child: Container(
                                   child: ListTile(
                                     title: Text(
                                         '${project['project_name'].toUpperCase()} - ${project['project_un']}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontWeight: FontWeight.w600
                                       ),
                                     ),

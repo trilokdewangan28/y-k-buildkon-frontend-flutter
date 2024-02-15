@@ -621,7 +621,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         }else{
           offer = {};
         }
-         print(offer);
+         //print(offer);
         if(_mounted){
           setState(() {
             _isOfferLoading=false;
@@ -633,7 +633,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         setState(() {
           _isOfferLoading=false;
         });
-        print('${res['error']}');
+        ///print('${res['error']}');
         Fluttertoast.showToast(
           msg: res['error'],
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -704,7 +704,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         if(res['result'].length!=0){
           selectedProperty = res['result'][0];
           appState.selectedProperty = res['result'][0];
-          print(selectedProperty);
+          //print(selectedProperty);
           totalRating = int.parse(selectedProperty['property_rating']);
           totalReview = selectedProperty['total_review'];
           if(totalRating>0){
@@ -725,7 +725,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _fetchSingleProperty(appState);
         });
@@ -771,9 +771,9 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10,),
+                      const SizedBox(height: 10,),
                       Container(
-                        margin:EdgeInsets.symmetric(horizontal: 20),
+                        margin:const EdgeInsets.symmetric(horizontal: 20),
                         child:Align(
                           alignment: Alignment.topRight,
                           child: Text(
@@ -1330,13 +1330,13 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
                       //=======================================OFFER RELATED ROW
                       _isOfferLoading==true
-                          ? Center(child: CircularProgressIndicator(),)
+                          ? const Center(child: CircularProgressIndicator(),)
                           : offer.isNotEmpty
                           ? Container(
                         //height: MyConst.deviceHeight(context)*0.3,
                           width: MyConst.deviceWidth(context),
-                          margin: EdgeInsets.symmetric(horizontal: 15),
-                          padding: EdgeInsets.symmetric(horizontal: 15),
+                          margin: const EdgeInsets.symmetric(horizontal: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
                           decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10)
@@ -1367,7 +1367,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           )
                       )
                           : Container(),
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
 
                       //======================================OFFER ADD AND REMOVAL BUTTON
                       appState.userType == 'admin'
@@ -1422,12 +1422,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         ],
                       )
                           : Container(),
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
 
                       //==============================CHANGE PROPERTY STATUS BUTTON
                       Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(10)
@@ -1438,15 +1438,15 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   ? Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text('Marked As:'),
-                                  SizedBox(width: 4,),
+                                  const Text('Marked As:'),
+                                  const SizedBox(width: 4,),
                                   //==========================================DROPDOWN CARD
                                   Card(
                                       color: Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: Container(
                                           height: MyConst.deviceWidth(context)*0.1,
-                                          margin: EdgeInsets.symmetric(horizontal: 4),
+                                          margin: const EdgeInsets.symmetric(horizontal: 4),
                                           child: Center(
                                             child: DropdownButton<String>(
                                               value: selectedAvailability,
@@ -1479,7 +1479,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                           )
                                       )
                                   ),
-                                  SizedBox(width: 4,),
+                                  const SizedBox(width: 4,),
                                   //==========================================SUBMIT BUTTON
                                   Container(
                                     child: TextButton(
@@ -1515,7 +1515,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       )
                     ],
                   )
-                      : LinearProgressIndicator()
+                      : const LinearProgressIndicator()
               )
           ),
         ),

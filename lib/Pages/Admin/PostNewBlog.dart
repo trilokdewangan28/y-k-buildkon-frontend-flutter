@@ -33,7 +33,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
     );
     final res = await StaticMethod.postBlog(appState.token, data, url);
     if (res.isNotEmpty) {
-      print(res);
+      //print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         Fluttertoast.showToast(
@@ -65,17 +65,17 @@ class _PostNewBlogState extends State<PostNewBlog> {
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Theme.of(context).primaryColorLight,
-                title: Text('Post New Blog'),
+                title: const Text('Post New Blog'),
                 centerTitle: true,
               ),
               backgroundColor: Theme.of(context).primaryColorLight,
               body: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child:Form(
                   key:_formKey,
                   child:Column(
                     children: [
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       TextFormField(
                         controller: _blogTitleController,
                         focusNode: _blogTitleFocusNode,
@@ -93,7 +93,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
                         },
                       ),
 
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       TextFormField(
                         controller: _blogSubTitleController,
                         focusNode: _blogSubTitleFocusNode,
@@ -111,7 +111,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
                         },
                       ),
 
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -136,12 +136,12 @@ class _PostNewBlogState extends State<PostNewBlog> {
                               onPressed: (){
                                 StaticMethod.openMap('googlechrome://www.google.com');
                               },
-                              child: Text('Open Browser')
+                              child: const Text('Open Browser')
                           )
                         ],
                       ),
 
-                      SizedBox(height: 20,),
+                      const SizedBox(height: 20,),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,

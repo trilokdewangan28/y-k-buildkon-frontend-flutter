@@ -271,7 +271,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                               style: const TextStyle(color: Colors.black),
                               decoration:  InputDecoration(
                                   labelText: 'Email',
-                                  labelStyle: TextStyle(color: Colors.black),
+                                  labelStyle: const TextStyle(color: Colors.black),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 2,

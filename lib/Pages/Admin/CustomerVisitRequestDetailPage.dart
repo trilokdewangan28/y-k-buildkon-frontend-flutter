@@ -47,9 +47,9 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
           textColor: Colors.green, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
-        appState.activeWidget = "CustomerVisitRequestListWidget";
+        appState.activeWidget = "CustomerVisitRequestListPage";
       }else{
-        print(res['error']);
+        //print(res['error']);
         Fluttertoast.showToast(
           msg: '${res['message']}${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible

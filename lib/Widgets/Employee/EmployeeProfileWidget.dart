@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Customer/EditCustomerDetailPage.dart';
+import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -26,12 +27,12 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
       });
     }
     var url = Uri.parse(ApiLinks.employeeProfile);
-    print(appState.token);
+    //print(appState.token);
     final res = await StaticMethod.userProfile(appState.token, url);
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        print('succes is true and result is ${res['result']}');
+        //print('succes is true and result is ${res['result']}');
         appState.employeeDetails = res['result'];
         if(_mounted){
           setState(() {
@@ -39,14 +40,16 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
           });
         }
       } else {
-        print(res);
         appState.error = res['error'];
         appState.errorString=res['message'];
-        appState.fromWidget='EmployeeProfileWidget';
-        appState.activeWidget = "SpacificErrorPage";
+        appState.fromWidget=appState.activeWidget;
         if(_mounted){
           setState(() {
             _isFirstLoadRunning=false;
+          });
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _fetchEmployeeDetails(appState);
           });
         }
         //Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage(error: res['error'],errorString: res['message'],fromWidget: appState.activeWidget,)));
@@ -83,7 +86,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
           },
           child: Container(
             child: _isFirstLoadRunning==true
-                ? Center(child: CircularProgressIndicator(),)
+                ? const Center(child: CircularProgressIndicator(),)
                 : Container(
               width: MediaQuery.of(context).size.width,
               color: Theme.of(context).primaryColorLight,
@@ -280,15 +283,16 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                               appState.adminDetails.clear();
                               await Future.delayed(
                                   const Duration(milliseconds: 100));
-
-                              appState.activeWidget = "PropertyListPage";
-                              appState.currentState = 0;
+                              
 
                               await appState.fetchUserType();
                               Future.delayed(const Duration(milliseconds: 100));
 
                               appState.fetchToken(appState.userType);
                               Future.delayed(const Duration(milliseconds: 100));
+
+                              appState.activeWidget = "PropertyListPage";
+                              appState.currentState = 0;
                             },
                             child:  Card(
                               color: Theme.of(context).primaryColorLight,

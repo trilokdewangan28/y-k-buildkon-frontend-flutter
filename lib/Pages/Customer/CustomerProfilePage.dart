@@ -28,20 +28,20 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
       });
     }
     var url = Uri.parse(ApiLinks.customerProfile);
-    print(appState.token);
+    //print(appState.token);
     final res = await StaticMethod.userProfile(appState.token, url);
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        print('succes is true and result is ${res['result']}');
-        appState.employeeDetails = res['result'];
+        //print('succes is true and result is ${res['result']}');
+        appState.customerDetails = res['result'];
         if(_mounted){
           setState(() {
             _isFirstLoadRunning = false;
           });
         }
       } else {
-        print(res);
+        //print(res);
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
@@ -49,11 +49,11 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
           setState(() {
             _isFirstLoadRunning=false;
           });
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _fetchCustomerDetails(appState);
+          });
         }
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
-          _mounted=true;
-          _fetchCustomerDetails(appState);
-        });
       }
     }
   }
@@ -82,7 +82,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             appState.activeWidget = "PropertyListPage";
             appState.currentState = 0;
           },
-          child: _isFirstLoadRunning == true? Center(child: CircularProgressIndicator(),) :Container(
+          child: _isFirstLoadRunning == true? const Center(child: CircularProgressIndicator(),) :Container(
             width: MediaQuery.of(context).size.width,
             color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
@@ -279,15 +279,15 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             appState.adminDetails.clear();
                             await Future.delayed(
                                 const Duration(milliseconds: 100));
-
-                            appState.activeWidget = "PropertyListWidget";
-                            appState.currentState = 0;
-
+                            
                             await appState.fetchUserType();
                             Future.delayed(const Duration(milliseconds: 100));
 
                             appState.fetchToken(appState.userType);
                             Future.delayed(const Duration(milliseconds: 100));
+
+                            appState.activeWidget = "PropertyListPage";
+                            appState.currentState = 0;
                           },
                           child:  Card(
                             color: Theme.of(context).primaryColorLight,

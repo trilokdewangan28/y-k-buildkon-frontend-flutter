@@ -26,12 +26,12 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
       });
     }
     var url = Uri.parse(ApiLinks.adminProfile);
-    print(appState.token);
+    //print(appState.token);
     final res = await StaticMethod.userProfile(appState.token, url);
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        print('succes is true and result is ${res['result']}');
+        //print('succes is true and result is ${res['result']}');
         appState.adminDetails = res['result'][0];
         _mounted=true;
         if(_mounted){
@@ -49,11 +49,11 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
           setState(() {
             _isFirstLoadRunning=false;
           });
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _fetchAdminDetails(appState);
+          });
         }
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
-          _mounted=true;
-          _fetchAdminDetails(appState);
-        });
       }
     }
   }
@@ -85,7 +85,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             appState.activeWidget = "PropertyListPage";
             appState.currentState = 0;
           },
-          child: _isFirstLoadRunning == true ? Center(child: CircularProgressIndicator(),) :Container(
+          child: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
             color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
@@ -193,14 +193,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           color: Theme.of(context).primaryColorLight,
                           child:  Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Icon(Icons.book_outlined,color: Theme.of(context).primaryColor,),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Text('Customer Visit Request'),
+                              const Text('Customer Visit Request'),
                             ],
                           ),
                         ),
@@ -209,54 +209,54 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                   //const SizedBox(height: 5,),
 
                   //----------------------------------------customer payment history
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      //width: MediaQuery.of(context).size.width*0.85,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Card(
-                          color: Theme.of(context).primaryColorLight,
-                          child:  Row(
-                            children: [
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Icon(Icons.payment,color: Theme.of(context).primaryColor,),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text('Customer Payment History'),
-                            ],
-                          ),
-                        ),
-                      )),
+                  // Container(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //     //width: MediaQuery.of(context).size.width*0.85,
+                  //     height: MediaQuery.of(context).size.height * 0.07,
+                  //     child: InkWell(
+                  //       onTap: () {},
+                  //       child: Card(
+                  //         color: Theme.of(context).primaryColorLight,
+                  //         child:  Row(
+                  //           children: [
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Icon(Icons.payment,color: Theme.of(context).primaryColor,),
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             const Text('Customer Payment History'),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     )),
 
                   // const SizedBox(height: 15,),
 
                   //----------------------------------------sold property list
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      // width: MediaQuery.of(context).size.width*0.85,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: InkWell(
-                        onTap: () {},
-                        child: Card(
-                          color: Theme.of(context).primaryColorLight,
-                          child:  Row(
-                            children: [
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Icon(Icons.business,color: Theme.of(context).primaryColor,),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text('sold property list'),
-                            ],
-                          ),
-                        ),
-                      )),
+                  // Container(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //     // width: MediaQuery.of(context).size.width*0.85,
+                  //     height: MediaQuery.of(context).size.height * 0.07,
+                  //     child: InkWell(
+                  //       onTap: () {},
+                  //       child: Card(
+                  //         color: Theme.of(context).primaryColorLight,
+                  //         child:  Row(
+                  //           children: [
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             Icon(Icons.business,color: Theme.of(context).primaryColor,),
+                  //             const SizedBox(
+                  //               width: 15,
+                  //             ),
+                  //             const Text('sold property list'),
+                  //           ],
+                  //         ),
+                  //       ),
+                  //     )),
 
                   //----------------------------------------customer list
                   Container(
@@ -271,14 +271,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           color: Theme.of(context).primaryColorLight,
                           child: Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Icon(Icons.list_alt_outlined,color: Theme.of(context).primaryColor,),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Text('customer list'),
+                              const Text('customer list'),
                             ],
                           ),
                         ),
@@ -298,14 +298,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           color: Theme.of(context).primaryColorLight,
                           child:  Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Icon(Icons.real_estate_agent_outlined,color: Theme.of(context).primaryColor,),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Text('Employee List'),
+                              const Text('Employee List'),
                             ],
                           ),
                         ),
@@ -325,14 +325,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           color: Theme.of(context).primaryColorLight,
                           child:  Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Icon(Icons.add_business,color: Theme.of(context).primaryColor,),
-                              SizedBox(
+                              Icon(Icons.add_business_outlined,color: Theme.of(context).primaryColor,),
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Text('Add New Property'),
+                              const Text('Add New Property'),
                             ],
                           ),
                         ),
@@ -352,14 +352,14 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           color: Theme.of(context).primaryColorLight,
                           child:  Row(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
                               Icon(Icons.add_business_outlined,color: Theme.of(context).primaryColor,),
-                              SizedBox(
+                              const SizedBox(
                                 width: 15,
                               ),
-                              Text('Add New Project'),
+                              const Text('Add New Project'),
                             ],
                           ),
                         ),
@@ -389,7 +389,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                           appState.adminDetails.clear();
                           await Future.delayed(const Duration(milliseconds: 100));
 
-                          appState.activeWidget = "PropertyListWidget";
+                          appState.activeWidget = "PropertyListPage";
                           appState.currentState = 0;
 
                           await appState.fetchUserType();

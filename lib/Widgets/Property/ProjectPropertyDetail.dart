@@ -224,7 +224,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
     await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        print(res);
+        //print(res);
         if (res['result'].length > 0) {
           appState.addedToFavorite = true;
           if(_mounted){
@@ -621,7 +621,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
         }else{
           offer = {};
         }
-        print(offer);
+        //print(offer);
         if(_mounted){
           setState(() {
             _isOfferLoading=false;
@@ -633,7 +633,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
         setState(() {
           _isOfferLoading=false;
         });
-        print('${res['error']}');
+        //print('${res['error']}');
         Fluttertoast.showToast(
           msg: res['error'],
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -704,7 +704,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
         if(res['result'].length!=0){
           selectedProperty = res['result'][0];
           appState.selectedProperty = res['result'][0];
-          print(selectedProperty);
+          //print(selectedProperty);
           totalRating = int.parse(selectedProperty['property_rating']);
           totalReview = selectedProperty['total_review'];
           if(totalRating>0){
@@ -725,7 +725,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _fetchSingleProperty(appState);
         });
@@ -764,7 +764,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
           child: Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text('Property Detail'),
+              title: const Text('Property Detail'),
             ),
             body: Container(
                 color: Theme.of(context).primaryColorLight,
@@ -774,9 +774,9 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                         ? Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10,),
+                        const SizedBox(height: 10,),
                         Container(
-                          margin:EdgeInsets.symmetric(horizontal: 20),
+                          margin:const EdgeInsets.symmetric(horizontal: 20),
                           child:Align(
                             alignment: Alignment.topRight,
                             child: Text(

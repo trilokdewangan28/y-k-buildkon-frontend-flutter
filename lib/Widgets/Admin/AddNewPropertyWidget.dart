@@ -143,7 +143,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     );
     final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
     if (res.isNotEmpty) {
-      print(res);
+      //print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         Fluttertoast.showToast(
@@ -244,7 +244,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                           children: [
                             Container(
                               child: _isProjectLoading
-                                  ? Center(child:LinearProgressIndicator())
+                                  ? const Center(child:LinearProgressIndicator())
                                   : projectList.length!=0
                                   ? Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -257,14 +257,14 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                                     ),
                                   ),
-                                  SizedBox(width: 20,),
+                                  const SizedBox(width: 20,),
                                   Card(
                                       color: Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
                                         width: dropDownCardWidth,
-                                        margin: EdgeInsets.symmetric(horizontal: 8),
+                                        margin: const EdgeInsets.symmetric(horizontal: 8),
                                         child: DropdownButton<String>(
                                           value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
                                           alignment: Alignment.center,
@@ -334,7 +334,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   value: selectedPropertyType,
@@ -396,7 +396,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(child: DropdownButton<String>(
                                                 value: selectedBhk.toString(),
                                                 elevation: 16,
@@ -456,7 +456,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   value: selectedFloor.toString(),
@@ -519,7 +519,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   borderRadius: BorderRadius.circular(10),
@@ -581,7 +581,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   borderRadius: BorderRadius.circular(10),
@@ -644,7 +644,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   value: selectedFurnished,
@@ -705,7 +705,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
                                               width: MyConst.deviceWidth(context)*0.5,
-                                              margin: EdgeInsets.symmetric(horizontal: 4),
+                                              margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
                                                   borderRadius: BorderRadius.circular(10),
@@ -821,7 +821,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               height: 15,
                             ),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 5,vertical: 5),
+                              padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(width: 1)
@@ -834,10 +834,10 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     focusNode: _propertyAreaFocusNode,
                                     controller: _propertyAreaController,
                                     keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
+                                    decoration:const  InputDecoration(
                                         labelText: 'Property Area',
-                                        labelStyle: const TextStyle(color: Colors.black),
-                                        focusedBorder: const OutlineInputBorder(
+                                        labelStyle:  TextStyle(color: Colors.black),
+                                        focusedBorder:  OutlineInputBorder(
                                           borderSide: BorderSide(
                                             width: 1,
                                             // color: Theme.of(context).hintColor
@@ -846,7 +846,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                             Radius.circular(10),
                                           ),
                                         ),
-                                        border: const OutlineInputBorder(
+                                        border:  OutlineInputBorder(
                                           borderSide: BorderSide(
                                             width: 1,
                                             color: Colors.grey,
@@ -863,7 +863,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     },
                                   ),
                                   ),
-                                  SizedBox(width: 10,),
+                                  const SizedBox(width: 10,),
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -876,7 +876,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           child: Card(
                                               color: Theme.of(context).primaryColorLight,
                                               child: Container(
-                                                margin: EdgeInsets.symmetric(horizontal: 4),
+                                                margin: const EdgeInsets.symmetric(horizontal: 4),
                                                 child: DropdownButton<String>(
                                                   value: areaUnit,
                                                   alignment: Alignment.center,
@@ -1262,7 +1262,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     if(selectedId!=0){
                                       _submitData(appState, context);
                                     }else{
-                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('please select or create a project...',style: TextStyle(color: Colors.red),)));
+                                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('please select or create a project...',style: TextStyle(color: Colors.red),)));
                                     }
                                   }
                                 },

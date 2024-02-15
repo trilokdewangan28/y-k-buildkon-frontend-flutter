@@ -61,7 +61,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
           });
         }
       } else {
-        print(res['error']);
+        //print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
         //appState.fromWidget='ProjectDetailWidget';
@@ -144,7 +144,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
     _firstLoad(appState);
     _mounted = true;
     _controller = ScrollController()..addListener(() => _loadMore(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -161,17 +161,17 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    print(propertyList);
+    //print(propertyList);
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Project Details'),
+              title: const Text('Project Details'),
               centerTitle: true,
             ),
             body: Container(
               color: Theme.of(context).primaryColorLight,
-              padding: EdgeInsets.symmetric(horizontal: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
                   //========================PROJECT DETAILS CARD
@@ -179,13 +179,13 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                     child: Card(
                       color: Theme.of(context).primaryColorLight,
                       child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 15,vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                           child: Column(
                             children: [
                               ListTile(
                                 title: Text(
                                   '${widget.projectData['project_name'].toUpperCase()} - ${widget.projectData['project_un']}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w600
                                   ),
                                 ),
@@ -198,49 +198,49 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 15),
+                                margin: const EdgeInsets.symmetric(horizontal: 15),
                                 child: Row(
                                   children: [
                                     Container(
                                       height:20,
                                       width:20,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: Colors.green
                                       ),
                                     ),
-                                    Text('Available')
+                                    const Text('Available')
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Container(
-                                margin: EdgeInsets.symmetric(horizontal: 15),
+                                margin: const EdgeInsets.symmetric(horizontal: 15),
                                 child:Row(
                                   children: [
                                     Container(
                                       height:20,
                                       width:20,
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                           color: Colors.red
                                       ),
                                     ),
-                                    Text('Not Available')
+                                    const Text('Not Available')
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 10,),
+                              const SizedBox(height: 10,),
                               Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 15),
+                                  margin: const EdgeInsets.symmetric(horizontal: 15),
                                   child:Row(
                                     children: [
                                       Container(
                                         height:20,
                                         width:20,
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             color: Colors.orange
                                         ),
                                       ),
-                                      Text('Sold')
+                                      const Text('Sold')
                                     ],
                                   )
                               )
@@ -271,7 +271,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                                 fontSizeScaleFactor),
                         textAlignVertical: TextAlignVertical.center,
                         decoration:  InputDecoration(
-                          contentPadding: EdgeInsets.only(bottom: 5),
+                          contentPadding: const EdgeInsets.only(bottom: 5),
                           labelText: 'Filter By Unique Id',
                           labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                           border: InputBorder.none,
@@ -333,14 +333,14 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                       )
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   //========================PROJECT PROPERTY LIST
                   _isFirstLoadRunning
-                      ? LinearProgressIndicator()
+                      ? const LinearProgressIndicator()
                       : Container(
                       child: Flexible(
                         child:GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3, // Set the number of columns in the grid
                             crossAxisSpacing: 10, // Set the spacing between columns
                             mainAxisSpacing: 10, // Set the spacing between rows
@@ -359,9 +359,9 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                             }
                             return InkWell(
                               onTap: (){
-                                print(property);
+                                //print(property);
                                 appState.p_id = property['property_id'];
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>ProjectPropertyDetail()));
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProjectPropertyDetail()));
                               },
                               child: GridTile(
                                   child: Card(

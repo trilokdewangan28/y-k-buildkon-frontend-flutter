@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
+import 'package:real_state/config/StaticMethod.dart';
 class EmployeeDetailPage extends StatefulWidget {
   const EmployeeDetailPage({super.key});
 
@@ -12,10 +14,61 @@ class EmployeeDetailPage extends StatefulWidget {
 }
 
 class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
+  Color statusColor = Colors.orange;
+  List<String> employeeStatus = ['Newly Applied','Rejected','Joined','Leaved'];
+  String selectedEmployeeStatus = "Newly Applied";
+
+  _changeEmployeeStatus(data,appState,context)async{
+    var url = Uri.parse(ApiLinks.changeEmployeeStatus);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res = await StaticMethod.changeEmployeeStatus(appState.token, data, url);
+    if(res.isNotEmpty){
+      Navigator.pop(context);
+      if(res['success']==true){
+        Fluttertoast.showToast(
+          msg: res['message'],
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.green, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+        appState.activeWidget = "EmployeeListPage";
+      }else{
+        print(res['error']);
+        Fluttertoast.showToast(
+          msg: '${res['message']}${res['error']}',
+          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+          gravity: ToastGravity.TOP, // Toast position
+          backgroundColor: Colors.black, // Background color of the toast
+          textColor: Colors.red, // Text color of the toast message
+          fontSize: 16.0, // Font size of the toast message
+        );
+      }
+    }
+  }
+  
+  
+  
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
+    if(appState.employeeDetails['status']=="Newly Applied"){
+      statusColor = Colors.orange;
+    }else if(appState.employeeDetails['status']=='Rejected'){
+      statusColor=Colors.red;
+    }else if(appState.employeeDetails['status']=='Joined'){
+      statusColor = Colors.green;
+    }else if(appState.employeeDetails['status']=='Leaved'){
+      statusColor = Colors.red;
+    }
 
     return PopScope(
       canPop: false,
@@ -324,6 +377,119 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                             '${appState.employeeDetails['address']}, ${appState.employeeDetails['city']}, ${appState.employeeDetails['state']}, ${appState.employeeDetails['pincode']}'
                         ),
                       ),
+                    ),
+
+                    //==================================EMPLOYEE STATUS
+                    Card(
+                      color: Theme.of(context).primaryColorLight,
+                      child: ListTile(
+                        title: const Row(
+                          children: [
+                             Text(
+                              'Status',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ],),
+                        subtitle: Text(
+                            '${appState.employeeDetails['status']}',
+                          style: TextStyle(
+                            color: statusColor,
+                            fontWeight: FontWeight.w500
+                          ),
+                          
+                        ),
+                      ),
+                    ),
+
+
+                    //==============================CHANGE PROPERTY STATUS BUTTON
+                    Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 1),
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Column(
+                          children: [
+                            appState.userType=='admin'
+                                ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const Text('Marked As:'),
+                                const SizedBox(width: 4,),
+                                //==========================================DROPDOWN CARD
+                                Card(
+                                    color: Theme.of(context).primaryColorLight,
+                                    elevation: 1,
+                                    child: Container(
+                                        height: MyConst.deviceWidth(context)*0.1,
+                                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                                        child: Center(
+                                          child: DropdownButton<String>(
+                                            value: selectedEmployeeStatus,
+                                            alignment: Alignment.center,
+                                            elevation: 16,
+                                            underline: Container(),
+                                            onChanged: (String? value) {
+                                              // This is called when the user selects an item.
+                                              setState(() {
+                                                selectedEmployeeStatus = value!;
+                                                //print('selected property type is ${selectedPropertyType}');
+                                              });
+                                            },
+                                            ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                                            items: employeeStatus
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                                  return DropdownMenuItem<String>(
+                                                    value: value,
+                                                    child: Text('${value}',
+                                                        softWrap: true,
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                                            overflow: TextOverflow
+                                                                .ellipsis)),
+                                                  );
+                                                }).toList(),
+                                          ),
+                                        )
+                                    )
+                                ),
+                                const SizedBox(width: 4,),
+                              ],
+                            )
+                                : Container(),
+                            //==========================================SUBMIT BUTTON
+                            Container(
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10)
+                                      ),
+                                      backgroundColor: Theme.of(context).primaryColor
+                                  ),
+                                  onPressed: appState.employeeDetails['status']==selectedEmployeeStatus
+                                      ? null
+                                      :  (){
+                                    var data = {
+                                      "newStatus":selectedEmployeeStatus,
+                                      "employee_id":appState.employeeDetails['employee_id']
+                                    };
+                                    _changeEmployeeStatus(data, appState, context);
+                                  },
+                                  child:Text(
+                                    'Submit',
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColorLight,
+                                        fontWeight: FontWeight.w600
+                                    ),
+                                  )
+                              ),
+                            )
+                          ],
+                        )
                     )
                   ],
                 ),

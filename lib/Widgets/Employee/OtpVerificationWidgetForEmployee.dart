@@ -153,7 +153,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
         appState.currentState = 1;
         Navigator.pop(context);
       } else {
-        print(res['error']);
+        //print(res['error']);
         Fluttertoast.showToast(
           msg: '${res['message']} ${res['error']}',
           toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible

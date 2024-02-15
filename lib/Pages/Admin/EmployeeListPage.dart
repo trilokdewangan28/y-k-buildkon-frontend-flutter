@@ -15,6 +15,7 @@ class EmployeeListPage extends StatefulWidget {
 }
 
 class _EmployeeListPageState extends State<EmployeeListPage> {
+  Color statusColor = Colors.orange;
   //======================================PAGINATION VARIABLE===================
   int page = 1;
   final int limit = 6;
@@ -52,7 +53,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _firstLoadEmployeeList(appState);
         });
@@ -110,7 +111,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _firstLoadEmployeeList(appState);
           });
@@ -210,6 +211,15 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                     controller: _controller,
                     itemBuilder: (context, index) {
                       final employee = appState.employeeList[index];
+                      if(employee['status']=="Newly Applied"){
+                        statusColor = Colors.orange;
+                      }else if(employee['status']=='Rejected'){
+                        statusColor=Colors.red;
+                      }else if(employee['status']=='Joined'){
+                        statusColor = Colors.green;
+                      }else if(employee['status']=='Leaved'){
+                        statusColor = Colors.red;
+                      }
                       return InkWell(
                         onTap: () {
                           appState.employeeDetails = employee;
@@ -269,7 +279,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                                 width: MyConst.deviceWidth(
                                                     context) *
                                                     0.25,
-                                                child: Icon(Icons.person,size: 70,),
+                                                child: const Icon(Icons.person,size: 70,),
                                               )
                                           )),
                                     ),
@@ -383,6 +393,18 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                                       softWrap: true,
                                                     ))
                                               ],
+                                            ),
+
+                                            //===============================STATUS
+                                            Text(
+                                              '${employee['status']}',
+                                              style: TextStyle(
+                                                fontSize: MyConst.smallTextSize *
+                                                    fontSizeScaleFactor,
+                                                fontWeight: FontWeight.w500,
+                                                color: statusColor
+                                              ),
+                                              softWrap: true,
                                             ),
                                           ],
                                         ),

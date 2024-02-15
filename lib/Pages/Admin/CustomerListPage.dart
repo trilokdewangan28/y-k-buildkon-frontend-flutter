@@ -52,7 +52,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _firstLoadCustomerList(appState);
         });
@@ -110,7 +110,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _firstLoadCustomerList(appState);
           });
@@ -134,7 +134,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
     _firstLoadCustomerList(appState);
     _mounted = true;
     _controller = ScrollController()..addListener(() => _loadMoreCustomerList(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -271,7 +271,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
                                                   width: MyConst.deviceWidth(
                                                       context) *
                                                       0.25,
-                                                  child: Icon(Icons.person,size: 70,),
+                                                  child: const Icon(Icons.person,size: 70,),
                                                 )
                                             )),
                                       ),

@@ -167,11 +167,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
           });
         }
       } else {
-        print(res['error']);
+        //print(res['error']);
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
           _mounted=true;
           _firstLoad(appState);
         });
@@ -239,11 +239,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
             );
           }
         } else {
-          print(res['error']);
+          //print(res['error']);
           appState.error = res['error'];
           appState.errorString=res['message'];
           appState.fromWidget=appState.activeWidget;
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>SpacificErrorPage())).then((_) {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
             _mounted=true;
             _hasNextPage=true;
             _firstLoad(appState);
@@ -297,7 +297,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     _loadOffer(appState);
     _mounted = true;
     _controller = ScrollController()..addListener(() => _loadMore(appState));
-    print('initstate called');
+    //print('initstate called');
     super.initState();
   }
 
@@ -375,7 +375,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     children: [
                                       //==========================PROPERTY TYPE
                                       Container(
-                                        margin: EdgeInsets.symmetric(vertical: 10),
+                                        margin: const EdgeInsets.symmetric(vertical: 10),
                                         child: Column(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -1026,7 +1026,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   fontSizeScaleFactor),
                           textAlignVertical: TextAlignVertical.center,
                           decoration:  InputDecoration(
-                            contentPadding: EdgeInsets.only(bottom: 5),
+                            contentPadding: const EdgeInsets.only(bottom: 5),
                             labelText: 'Filter By Name',
                             labelStyle: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
                             border: InputBorder.none,
@@ -1092,26 +1092,26 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 height: MediaQuery.of(context).size.height * 0.010,
               ),
               Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: _isProjectLoading
-                    ? Center(child:LinearProgressIndicator())
+                    ? const Center(child:LinearProgressIndicator())
                     : projectList.length!=0
                     ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Under The Project',
+                    const Text('Under The Project',
                       style: TextStyle(
                           fontWeight: FontWeight.w600
                       ),
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Card(
                         color: Theme.of(context).primaryColorLight,
                         elevation: 1,
                         child: Container(
                           height: 40,
-                          margin: EdgeInsets.symmetric(horizontal: 4),
+                          margin: const EdgeInsets.symmetric(horizontal: 4),
                           child: DropdownButton<String>(
                             value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
                             alignment: Alignment.center,
@@ -1122,7 +1122,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               setState(() {
                                 selectedName = value!;
                                 projectId= projectList.firstWhere((element) => element['project_name'] == value)['project_id'].toInt();
-                                print(projectId);
+                                //print(projectId);
                                 _mounted=true;
                                 _hasNextPage=true;
                                 page=1;
@@ -1198,7 +1198,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                       }
                       return InkWell(
                         onTap: () {
-                          print(property['property_id']);
+                          //print(property['property_id']);
                           appState.p_id = property['property_id'];
                           appState.activeWidget = "PropertyDetailPage";
                         },
@@ -1393,7 +1393,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 150,),
+                  const SizedBox(height: 150,),
                   Center(child: Text(
                     'No Such Properties',
                     style: TextStyle(

@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black,
               ));
     String secondBtmContent =
-        appState.userType != "" && appState.token != "" ? 'profile' : 'login';
+        appState.userType != "" && appState.token != "" ? 'Profile' : 'Login';
     IconData btmIcon = appState.userType != "" && appState.token != ""
         ? Icons.person
         : Icons.login;

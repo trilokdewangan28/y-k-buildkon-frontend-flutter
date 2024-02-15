@@ -160,14 +160,14 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
     return PopScope(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Employee Joining'),
+            title: const Text('Employee Joining'),
             centerTitle: true,
           ),
           body: Container(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   //====================================HEADING
@@ -179,7 +179,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                           fontSize: MyConst.largeTextSize * fontSizeScaleFactor),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
 
@@ -190,17 +190,17 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                         //border: Border.all(width: 1),
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(10)),
-                      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                      padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: [
-                            Text(
+                            const Text(
                               'Joiner Details',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
 
@@ -327,7 +327,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
 
                             //=============================BLOOD GROUP DROPDOWN
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
                               width: MyConst.deviceWidth(context) * 0.85,
                               height: 65,
                               decoration: BoxDecoration(
@@ -336,8 +336,8 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 children: [
-                                  Text('Blood Group:'),
-                                  Spacer(),
+                                  const Text('Blood Group:'),
+                                  const Spacer(),
                                   Card(
                                       color: Theme.of(context).primaryColorLight,
                                       elevation: 0.5,
@@ -346,7 +346,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                           height:
                                           MyConst.deviceHeight(context) * 0.06,
                                           margin:
-                                          EdgeInsets.symmetric(horizontal: 4),
+                                          const EdgeInsets.symmetric(horizontal: 4),
                                           child: Center(
                                             child: DropdownButton<String>(
                                               value: selectedBloodGroup,
@@ -642,11 +642,11 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                               height: 10,
                             ),
 
-                            Text(
+                            const Text(
                               'Nominee Details',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
 
@@ -781,7 +781,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                       });
                                     } else {
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                           content: Text(
                                             'please fill all the details',
                                             style: TextStyle(color: Colors.red),
@@ -798,7 +798,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                       });
                                     }else{
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                           content: Text(
                                             'firstly check the declaration',
                                             style: TextStyle(color: Colors.red),
@@ -820,7 +820,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                 ? Container(
                               child: Column(
                                 children: [
-                                  Text(
+                                  const Text(
                                     'Declaration',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500
@@ -833,7 +833,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                         'of belief and personal knowledge that the following matters. facts and things set forth'
                                         'are true and correct to the best of his/her knowledge.',
                                     textAlign: TextAlign.justify,
-                                    style: TextStyle(
+                                    style: const TextStyle(
 
                                     ),
 
@@ -858,7 +858,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                       _sendOtpForEmployeeSignup(appState, context);
                                     }else{
                                       ScaffoldMessenger.of(context)
-                                          .showSnackBar(SnackBar(
+                                          .showSnackBar(const SnackBar(
                                           content: Text(
                                             'please check the declaration',
                                             style: TextStyle(color: Colors.red),
@@ -875,7 +875,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                 )
                             ),
 
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             )
                           ],

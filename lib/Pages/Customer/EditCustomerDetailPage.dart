@@ -56,7 +56,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
           textColor: Colors.red, // Text color of the toast message
           fontSize: 16.0, // Font size of the toast message
         );
-        print(res['error']);
+        //print(res['error']);
       }
     }
   }
@@ -80,7 +80,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
         child: SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: Text(
+                title: const Text(
                     'Edit Details',
                   style: TextStyle(
                     fontWeight: FontWeight.w600
@@ -90,7 +90,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                 backgroundColor: Theme.of(context).primaryColorLight,
               ),
               body: Container(
-                margin: EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: Form(
                   key: _formKey,
                   child: SingleChildScrollView(
@@ -99,7 +99,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================NAME TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Name',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -107,7 +107,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             ),
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_name']),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                                 onChanged: (value){
@@ -126,7 +126,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================MOBILE TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Mobile',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -135,7 +135,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_mobile'].toString()),
                                 keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                                 onChanged: (value){
@@ -154,7 +154,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================EMAIL TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Email',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -162,7 +162,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             ),
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_email']),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                               onChanged: (value){
@@ -181,7 +181,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================ADDRESS TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Address',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -189,7 +189,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             ),
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_address']),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                               onChanged: (value){
@@ -208,7 +208,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================LOCALITY TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Locality',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -216,7 +216,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             ),
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_locality']),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                               onChanged: (value){
@@ -235,7 +235,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================CITY TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'City',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -243,7 +243,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             ),
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_city']),
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                               onChanged: (value){
@@ -262,7 +262,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                         //==================================PINCODE TILE
                         Card(
                           child: ListTile(
-                            title: Text(
+                            title: const Text(
                               'Pincode',
                               style: TextStyle(
                                   fontWeight: FontWeight.w500
@@ -271,7 +271,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                             subtitle: TextFormField(
                               controller: TextEditingController(text: widget.customerDetails['customer_pincode'].toString()),
                               keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: InputBorder.none, // Remove underline here
                               ),
                               onChanged: (value){

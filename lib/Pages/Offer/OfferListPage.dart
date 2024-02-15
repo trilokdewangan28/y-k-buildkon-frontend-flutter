@@ -58,7 +58,7 @@ class _OfferListPageState extends State<OfferListPage> {
         appState.fromWidget=appState.activeWidget;
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SpacificErrorPage()),
+          MaterialPageRoute(builder: (context) => const SpacificErrorPage()),
         ).then((_) {
           _mounted=true;
           _firstLoad(appState);
@@ -119,7 +119,7 @@ class _OfferListPageState extends State<OfferListPage> {
           appState.fromWidget=appState.activeWidget;
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SpacificErrorPage()),
+            MaterialPageRoute(builder: (context) => const SpacificErrorPage()),
           ).then((_) {
             _mounted=true;
             _firstLoad(appState);
@@ -168,7 +168,7 @@ class _OfferListPageState extends State<OfferListPage> {
             title: const Text('offer list'),
             backgroundColor: Theme.of(context).primaryColorLight,
           ),
-          body: _isFirstLoadRunning == true ? Center(child: CircularProgressIndicator(),) :Container(
+          body: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
             color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: appState.offerList.isNotEmpty
@@ -220,7 +220,7 @@ class _OfferListPageState extends State<OfferListPage> {
                   );
                 }
             )
-                : Center(child: Text('No Any Offers'),),
+                : const Center(child: Text('No Any Offers'),),
           )
         )
     );
