@@ -138,6 +138,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
    if(response.isNotEmpty){
      Navigator.pop(context);
      if(response['success']==true){
+       print(response);
        Fluttertoast.showToast(
          msg: response['message'],
          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
@@ -153,6 +154,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
          Navigator.pop(context);
        }
      }else{
+       print(response);
        Fluttertoast.showToast(
          msg: response['message'],
          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible

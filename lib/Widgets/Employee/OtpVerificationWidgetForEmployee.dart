@@ -291,6 +291,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                                       "nominee_dob":widget.employeeData['nominee_dob'],
                                       "relation":widget.employeeData['relation'],
                                       "referal_code":widget.employeeData['referal_code'],
+                                      "employee_code":widget.employeeData['employee_code'],
                                       "otp":_otpController.text
                                     };
                                     _verifyOtpForSignup(employeeData, appState, context);

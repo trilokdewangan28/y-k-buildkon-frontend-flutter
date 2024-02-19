@@ -27,8 +27,10 @@ class _CustomerVisitRequestListPageState
   bool acceptedTapped = false;
   bool completedTapped = false;
   bool cancelledTapped = false;
+  bool referalCodeTapped = false;
 
   int selectedRequestStatus = 4;
+  String employee_un="";
 
   //======================================PAGINATION VARIABLE===================
   int page = 1;
@@ -51,7 +53,7 @@ class _CustomerVisitRequestListPageState
       "limit":limit
     };
     var url = Uri.parse(ApiLinks.fetchCustomerRequest);
-    final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus);
+    final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus, employee_un: employee_un);
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
@@ -92,7 +94,7 @@ class _CustomerVisitRequestListPageState
         "limit":limit
       };
       var url = Uri.parse(ApiLinks.fetchCustomerRequest);
-      final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus);
+      final res = await StaticMethod.fetchCustomerRequestWithPagination(appState, url, paginationOptions,appState.token,selectedRequestStatus: selectedRequestStatus, employee_un: employee_un);
       if (res.isNotEmpty) {
         if (res['success'] == true) {
           if(res['result'].length>0){
@@ -369,7 +371,56 @@ class _CustomerVisitRequestListPageState
                     ],
                   ),
                 ),
-                //=====================================PROPERTY LIST CONTAINER
+                SizedBox(height: 10,),
+                appState.userType=="employee" 
+                    ? Container(
+                  height: 30,
+                  child:  //==================================COMPLETED FILTER BUTTON
+                  GestureDetector(
+                    onTap: () {
+                      referalCodeTapped = !referalCodeTapped;
+                      if (referalCodeTapped == true) {
+                        employee_un = appState.employeeDetails['employee_code'];
+                        _hasNextPage=true;
+                        page=1;
+                        //setState(() {
+                        _isFirstLoadRunning=false;
+                        _mounted=true;
+                        _firstLoad(appState);
+                      } else {
+                        employee_un = "";
+                        _hasNextPage=true;
+                        page=1;
+                        //setState(() {
+                        _isFirstLoadRunning=false;
+                        _mounted=true;
+                        _firstLoad(appState);
+                      }
+                      //setState(() {});
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                          color: referalCodeTapped
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).primaryColorLight,
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(5)),
+                      child:  Center(
+                          child: Text(
+                            'Refered Customer',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: referalCodeTapped
+                                  ? Theme.of(context).primaryColorLight
+                                  : Theme.of(context).hintColor,
+                            ),
+                          )),
+                    ),
+                  ),
+                )
+                    : Container(),
+                //=====================================CUSTOMER LIST CONTAINER
                 _isFirstLoadRunning==false
                     ? appState.filteredCustomerRequestList.isNotEmpty
                     ? Expanded(

@@ -46,6 +46,8 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
   final _stateController = TextEditingController();
   final _pincodeController = TextEditingController();
   final _referalCodeController = TextEditingController();
+  String employeeCodeTemp = "YKE";
+  String employeeCode = "";
 
   //===========================================NOMINEE CONTROLLER
   final _nomineeNameController = TextEditingController();
@@ -98,6 +100,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
 
   //================================================SEND OTP
   _sendOtpForEmployeeSignup(appState, context) async {
+    generateEmployeeCode(_nameController.text, _contactController.text);
     var employeeData = {
       "name": _nameController.text,
       "mobile": _contactController.text,
@@ -116,8 +119,10 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
       "nominee_name":_nomineeNameController.text,
       "nominee_dob":_nomineeDobController.text,
       "relation":_nomineeRelationController.text,
-      "referal_code":_referalCodeController.text
+      "referal_code":_referalCodeController.text,
+      "employee_code":employeeCode
     };
+    
     var url = Uri.parse(ApiLinks.sendOtpForEmployeeSignup);
     showDialog(
       context: context,
@@ -150,6 +155,19 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         );
       }
     }
+  }
+
+  //==================================================GENERATE EMPLOYEE CODE
+  void generateEmployeeCode(fullName, mobileNumber) {
+    String firstInitial = fullName.split(' ').first[0];
+    String lastInitial = fullName.split(' ').last[0];
+
+    String initials = firstInitial.toUpperCase() + lastInitial.toUpperCase();
+
+    String mobileString = mobileNumber.toString();
+    String lastFive = mobileString.substring(mobileString.length - 5);
+
+    employeeCode = employeeCodeTemp + initials + lastFive;
   }
 
   @override

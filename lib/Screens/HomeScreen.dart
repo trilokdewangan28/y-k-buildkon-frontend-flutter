@@ -93,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
         : Icons.login;
 
     //================== CONDITIONALLY PAGE NAVIGATION==========================
-    Widget widgetContent = appState.token.length!=0 && appState.userType.length!=0 ? PropertyListPage() : LoginWidget();
+    Widget widgetContent = LoginWidget();
     String appBarContent = 'Y&K BUILDCON';
     switch (appState.activeWidget) {
       case "PropertyListPage":

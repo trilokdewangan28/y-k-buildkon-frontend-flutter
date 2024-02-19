@@ -40,8 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    appState.activeWidget = appState.token.length!=0 && appState.userType.length!=0 ? "PropertyListPage" : "LoginWidget";
-    appState.currentState = appState.token.length!=0 && appState.userType.length!=0 ? 0 : 1;
+    
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 

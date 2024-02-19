@@ -16,6 +16,7 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  bool _mounted = false;
   final _formKey1 = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   final _emailController = TextEditingController();
@@ -48,8 +49,9 @@ class _LoginWidgetState extends State<LoginWidget> {
   String remainingTime = '';
   //----------------------------------------------------------------------------COUNTDOWN METHODS
   void startCountdown() {
-    if (countdownTimer == null || !countdownTimer!.isActive) {
-      countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _mounted=true;
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if(_mounted){
         setState(() {
           if (countdownDuration.inSeconds > 0) {
             countdownDuration -= const Duration(seconds: 1);
@@ -59,8 +61,8 @@ class _LoginWidgetState extends State<LoginWidget> {
             // Countdown has reached 0, perform any desired actions here
           }
         });
-      });
-    }
+      }
+    });
   }
   String formatDuration(Duration duration) {
     String minutes =
@@ -119,6 +121,7 @@ class _LoginWidgetState extends State<LoginWidget> {
 
   //----------------------------------------------------------------------------SUBMIT OTP AND LOGIN
   _submitOtpForCustomer(BuildContext context, appState)async{
+    _mounted = true;
     //print('send otp called');
     var otpModel = {
       "c_email":_emailController.text,
@@ -162,8 +165,6 @@ class _LoginWidgetState extends State<LoginWidget> {
           fontSize: 16.0, // Font size of the toast message
         );
         appState.activeWidget='ProfileWidget';
-        setState(() {
-        });
       }else{
         Fluttertoast.showToast(
           msg: res['message'],
@@ -286,6 +287,14 @@ class _LoginWidgetState extends State<LoginWidget> {
     }
 
   }
+
+
+  @override
+  void dispose() {
+    _mounted = false;
+    super.dispose();
+  }
+
 
 
   @override

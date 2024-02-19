@@ -166,6 +166,13 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                             fontSize: 16, fontWeight: FontWeight.normal),
                       ),
 
+                      //------------------------------------------employee code
+                      Text(
+                        '${appState.employeeDetails['employee_code']}( Employee Code )',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.normal),
+                      ),
+
                       //------------------------------------------edit btn
                       Container(
                           margin: const EdgeInsets.symmetric(vertical: 15),
@@ -189,74 +196,34 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                         height: 20,
                       ),
 
-                      //-----------------------------------------your visit request
+                      //-----------------------------------------customer visit request
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        child: Card(
-                          color: Theme.of(context).primaryColorLight,
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 15,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          // width: MediaQuery.of(context).size.width*0.85,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          child: InkWell(
+                            onTap: () {
+                              appState.activeWidget =
+                              "CustomerVisitRequestListPage";
+                              appState.currentState = 1;
+                            },
+                            child: Card(
+                              color: Theme.of(context).primaryColorLight,
+                              child:  Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  Icon(Icons.book_outlined,color: Theme.of(context).primaryColor,),
+                                  const SizedBox(
+                                    width: 15,
+                                  ),
+                                  const Text('Customer Visit Request'),
+                                ],
                               ),
-                              const Icon(Icons.book_outlined),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              const Text('Your Visit Request'),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () {
-                                    //appState.activeWidget = 'VisitRequestedListWidget';
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_right,
-                                    size: 40,
-                                  ))
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
-
-                      //----------------------------------------your favorite property
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: MediaQuery.of(context).size.height * 0.07,
-                        child: Card(
-                          color: Theme.of(context).primaryColorLight,
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              const Icon(Icons.favorite_outline),
-                              const SizedBox(
-                                width: 15,
-                              ),
-                              const Text('Your Favorite Properties'),
-                              IconButton(
-                                  onPressed: () {
-                                    //appState.activeWidget = "FavoritePropertyListWidget";
-                                  },
-                                  icon: const Icon(
-                                    Icons.arrow_right,
-                                    size: 40,
-                                  ))
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      // const SizedBox(
-                      //   height: 15,
-                      // ),
+                            ),
+                          )),
+                      
 
                       //----------------------------------------logout btn
                       Container(
