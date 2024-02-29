@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Pages/Offer/AddOfferPage.dart';
@@ -52,31 +51,9 @@ class _FavoritePropertyDetailPageState
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.green,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
       } else {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.red,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
   }
@@ -94,35 +71,13 @@ class _FavoritePropertyDetailPageState
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.green,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         fetchFavoriteProperty(appState);
         if (_mounted) {
           setState(() {});
         }
       } else {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.red,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
   }
@@ -141,35 +96,13 @@ class _FavoritePropertyDetailPageState
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.green,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget = "FavoritePropertyListWidget";
         //fetchFavoriteProperty(appState);
         // setState(() {
         // });
       } else {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.red,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
   }
@@ -241,32 +174,10 @@ class _FavoritePropertyDetailPageState
       Navigator.pop(context);
       if (response['success'] == true) {
         Navigator.pop(btmSheetContext);
-        Fluttertoast.showToast(
-          msg: response['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.green,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(response['message'], Colors.green);
       } else {
         Navigator.pop(btmSheetContext);
-        Fluttertoast.showToast(
-          msg: response['message'],
-          toastLength: Toast.LENGTH_LONG,
-          // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP,
-          // Toast position
-          backgroundColor: Colors.black,
-          // Background color of the toast
-          textColor: Colors.red,
-          // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(response['message'], Colors.green);
       }
     }
   }
@@ -783,20 +694,7 @@ class _FavoritePropertyDetailPageState
                                             : removeFromFavorite(
                                                 data, appState, context);
                                       } else {
-                                        Fluttertoast.showToast(
-                                          msg:
-                                              'You have to login, please login',
-                                          toastLength: Toast.LENGTH_LONG,
-                                          // Duration for which the toast should be visible
-                                          gravity: ToastGravity.TOP,
-                                          // Toast position
-                                          backgroundColor: Colors.black,
-                                          // Background color of the toast
-                                          textColor: Colors.red,
-                                          // Text color of the toast message
-                                          fontSize:
-                                              16.0, // Font size of the toast message
-                                        );
+                                        StaticMethod.showDialogBar('You have to login, please login', Colors.black);
                                       }
                                     }
                                   : null,

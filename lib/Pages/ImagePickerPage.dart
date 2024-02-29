@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
+import 'package:real_state/config/StaticMethod.dart';
 
 
 class ImagePickerPage extends StatefulWidget {
@@ -268,14 +269,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                       if(response.isNotEmpty){
                         Navigator.pop(context);
                         if(response['success']==true){
-                          Fluttertoast.showToast(
-                            msg: response['message'],
-                            toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-                            gravity: ToastGravity.TOP, // Toast position
-                            backgroundColor: Colors.black, // Background color of the toast
-                            textColor: Colors.green, // Text color of the toast message
-                            fontSize: 16.0, // Font size of the toast message
-                          );
+                          StaticMethod.showDialogBar(response['message'], Colors.green);
                           if(appState.activeWidget=="PropertyDetailPage"){
                             appState.activeWidget="PropertyListPage";
                             Navigator.pop(context);
@@ -283,14 +277,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             Navigator.pop(context);
                           }
                         }else{
-                          Fluttertoast.showToast(
-                            msg: response['message'],
-                            toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-                            gravity: ToastGravity.TOP, // Toast position
-                            backgroundColor: Colors.black, // Background color of the toast
-                            textColor: Colors.red, // Text color of the toast message
-                            fontSize: 16.0, // Font size of the toast message
-                          );
+                          StaticMethod.showDialogBar(response['message'], Colors.red);
                         }
                       }
                   },

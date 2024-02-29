@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/material.dart';
 
 class StaticMethod {
   //============================================INITIAL FETCH TOKEN AND USERTYPE
@@ -1149,6 +1151,24 @@ class StaticMethod {
         "error":e.toString()
       };
     }
+  }
+  
+  
+  
+  
+  
+  
+  //===================================SHOW TOAST MESSAGE=======================
+
+  static void showDialogBar(String msg, Color textColor){
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+      gravity: ToastGravity.TOP, // Toast position
+      backgroundColor: Colors.white, // Background color of the toast
+      textColor: textColor, // Text color of the toast message
+      fontSize: 16.0, // Font size of the toast message
+    );
   }
   
 

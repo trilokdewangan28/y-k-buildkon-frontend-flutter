@@ -97,14 +97,7 @@ class _CustomerListPageState extends State<CustomerListPage> {
                 _hasNextPage = false;
               });
             }
-            Fluttertoast.showToast(
-              msg: 'No More Content Available',
-              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-              gravity: ToastGravity.TOP, // Toast position
-              backgroundColor: Colors.black, // Background color of the toast
-              textColor: Colors.green, // Text color of the toast message
-              fontSize: 16.0, // Font size of the toast message
-            );
+            StaticMethod.showDialogBar('no more content available', Colors.black);
           }
         } else {
           appState.error = res['error'];

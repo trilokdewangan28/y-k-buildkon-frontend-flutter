@@ -98,7 +98,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                           child: CircleAvatar(
                             radius: 50,
                             backgroundColor: Colors.white70,
-                            child: appState.customerDetails['customer_profilePic']
+                            child: appState.customerDetails.isNotEmpty ? appState.customerDetails['customer_profilePic']
                                 .isNotEmpty
                                 ? ClipRRect(
                                 borderRadius: BorderRadius.circular(50),
@@ -111,7 +111,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                                 )
                             )
                                 :const Icon(Icons.person,
-                                size: 70, color: Colors.black) ,
+                                size: 70, color: Colors.black)
+                                : Container(),
                           ),
                         ),
                         Positioned(

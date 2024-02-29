@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -101,24 +99,10 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         remainingTime = formatDuration(countdownDuration);
         startCountdown();
         readOnly=true;
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         //appState.activeWidget='LoginWidget';
       }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
 
@@ -162,14 +146,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         //print(appState.userType);
         //print(appState.token);
         //--------------------------------------------------------------------
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         if(mounted){
           Navigator.pop(context); 
         }
@@ -177,14 +154,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         
       }else{
         //print(res);
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
 

@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -102,18 +101,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                 _hasNextPage = false;
               });
             }
-            Fluttertoast.showToast(
-              msg: 'No More Content Available',
-              toastLength: Toast.LENGTH_LONG,
-              // Duration for which the toast should be visible
-              gravity: ToastGravity.TOP,
-              // Toast position
-              backgroundColor: Colors.black,
-              // Background color of the toast
-              textColor: Colors.green,
-              // Text color of the toast message
-              fontSize: 16.0, // Font size of the toast message
-            );
+            StaticMethod.showDialogBar('No more content available', Colors.green);
           }
         } else {
           appState.error = res['error'];
@@ -398,6 +386,9 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                             appState.selectedProperty = property;
                             appState.activeWidget =
                             "VisitRequestedDetailPage";
+                            // // //print(property['property_id']);
+                            // appState.p_id = property['property_id'];
+                            // appState.activeWidget = "VisitRequestedDetailPage";
                           },
                           child: Container(
                               margin: const EdgeInsets.symmetric(
@@ -575,10 +566,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                   ),
                 )
                     : Container(
-                  margin: const EdgeInsets.only(top: 300),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  margin: const EdgeInsets.only(top: 5),
+                  child: const LinearProgressIndicator(),
                 ),
 
                 //================================loading more

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -96,24 +95,10 @@ class _LoginWidgetState extends State<LoginWidget> {
         remainingTime = formatDuration(countdownDuration);
         startCountdown();
         readOnly=true;
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget='LoginWidget';
       }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
       }
     }
 
@@ -156,24 +141,10 @@ class _LoginWidgetState extends State<LoginWidget> {
         appState.fetchToken('customer');
         await Future.delayed(const Duration(milliseconds: 100));
         //--------------------------------------------------------------------
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget='ProfileWidget';
       }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
 
@@ -204,24 +175,10 @@ class _LoginWidgetState extends State<LoginWidget> {
         remainingTime = formatDuration(countdownDuration);
         startCountdown();
         readOnly=true;
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         //appState.activeWidget='LoginWidget';
       }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
 
@@ -263,26 +220,12 @@ class _LoginWidgetState extends State<LoginWidget> {
         appState.fetchToken('customer');
         await Future.delayed(const Duration(milliseconds: 100));
         //--------------------------------------------------------------------
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget='ProfileWidget';
         setState(() {
         });
       }else{
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
 
@@ -309,61 +252,84 @@ class _LoginWidgetState extends State<LoginWidget> {
         },
         child: Container(
           color: Theme.of(context).primaryColorLight,
-          height: MediaQuery.of(context).size.height,
-          child: SingleChildScrollView(
-            child:  Container(
-              padding: const EdgeInsets.only(bottom: 250),
-              child: Column(
-                children: [
-                  // const SizedBox(
-                  //   height: 60,
-                  // ),
-                  Image.asset(
-                    'assets/images/ic_launcher.png',
-                    height: 150,
+          child: Stack(
+            children: [
+              Container(
+                // margin: EdgeInsets.only(bottom: MyConst.deviceHeight(context)*0.25),
+                // decoration: BoxDecoration(
+                //     color: Colors.white,
+                //     borderRadius: BorderRadius.only(
+                //       bottomRight: Radius.circular(70),
+                //       //bottomLeft: Radius.circular(70),
+                //     )
+                // ),
+              ),
+              Container(
+                // margin: EdgeInsets.only(top: MyConst.deviceHeight(context)*0.58),
+                // decoration: BoxDecoration(
+                //     color: Theme.of(context).primaryColor.withOpacity(1.0),
+                //     borderRadius: BorderRadius.only(
+                //       topLeft: Radius.circular(70),
+                //     )
+                // ),
+              ),
+              Container(
+                color: Colors.transparent,
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                  child:  Container(
+                    padding: const EdgeInsets.only(bottom: 250),
+                    child: Column(
+                      children: [
+                        // const SizedBox(
+                        //   height: 60,
+                        // ),
+                        Image.asset(
+                          'assets/images/ic_launcher.png',
+                          height: 100,
 
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: Center(
-                        child:Text(
-                          'Welcome To Y&K Buildkon',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: Center(
+                              child:Text(
+                                'Welcome To Y&K Buildkon',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
+                                ),
+                              )
                           ),
-                        )
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  //==============================LOGIN HEADING
-                  Container(
-                    width: double.infinity,
-                    child: const Center(
-                        child:Text(
-                          'LOGIN NOW',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 25,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        //==============================LOGIN HEADING
+                        Container(
+                          width: double.infinity,
+                          child: const Center(
+                              child:Text(
+                                'LOGIN NOW',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 25,
+                                ),
+                              )
                           ),
-                        )
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
 
-                  //==============================FORM1 CONTAINER Gen Otp
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Form(
-                        key: _formKey1,
-                        child: Column(
-                          children: [
-                            //========================MOBILE TEXTFIELD
-                            /*
+                        //==============================FORM1 CONTAINER Gen Otp
+                        Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Form(
+                              key: _formKey1,
+                              child: Column(
+                                children: [
+                                  //========================MOBILE TEXTFIELD
+                                  /*
                           Card(
                             elevation: 5,
                             child:TextFormField(
@@ -379,136 +345,139 @@ class _LoginWidgetState extends State<LoginWidget> {
                           const SizedBox(height: 15,),
                           */
 
-                            //============================EMAIL TEXTFIELD
-                            TextFormField(
-                              focusNode: _emailFocusNode,
-                              controller: _emailController,
-                              readOnly: readOnly,
-                              style: const TextStyle(),
-                              decoration:  InputDecoration(
-                                  labelText: 'Email',
-                                  labelStyle: const TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Theme.of(context).primaryColor
+                                  //============================EMAIL TEXTFIELD
+                                  TextFormField(
+                                    focusNode: _emailFocusNode,
+                                    controller: _emailController,
+                                    readOnly: readOnly,
+                                    style: const TextStyle(),
+                                    decoration:  InputDecoration(
+                                        labelText: 'Email',
+                                        labelStyle: const TextStyle(color: Colors.black),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 2,
+                                              color: Theme.of(context).primaryColor
+                                          ),
+                                          borderRadius: const BorderRadius.all(Radius.circular(10),),
+                                        ),
+                                        border: const OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            width: 2,
+                                            color: Colors.black,
+                                          ),
+                                          borderRadius: BorderRadius.all(Radius.circular(10),),
+                                        )
                                     ),
-                                    borderRadius: const BorderRadius.all(Radius.circular(10),),
-                                  ),
-                                  border: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(10),),
-                                  )
-                              ),
-                              validator: (value){
-                                if(value!.isEmpty || !value.contains("@gmail.com")){
-                                  return "please enter valid email";
-                                }
-                                return null;
-                              },
-                            ),
-
-                            TextButton(
-                                onPressed: (){
-                                  if (_formKey1.currentState!.validate()) {
-                                    _generateOtpForCustomer(context, appState);
-                                  }
-                                },
-                                child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
-                            )
-
-                          ],
-                        ),
-                      )
-                  ),
-                  const SizedBox(height: 15,),
-
-                  const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
-                  const SizedBox(height: 15,),
-
-                  //==============================FORM2 CONTAINER Login
-                  Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Form(
-                        key: _formKey2,
-                        child: Column(
-                          children: [
-                            //==================================OTP TEXTFIELD
-                            Pinput(
-                              controller: _otpController,
-                              focusNode: _otpFocusNode,
-                              length: 6,
-                              defaultPinTheme: defaultPinTheme,
-                              focusedPinTheme: defaultPinTheme.copyWith(
-                                decoration: defaultPinTheme.decoration!.copyWith(
-                                  border: Border.all(color: Theme.of(context).primaryColorLight),
-                                ),
-                              ),
-                              validator: (value){
-                                if(value!.isEmpty || value.length!=6){
-                                  return "please enter correct otp";
-                                }
-                                return null;
-                              },
-                              onCompleted: (pin) => debugPrint(pin),
-                            ),
-                            Text(
-                              remainingTime,
-                              style: const TextStyle(fontSize: 24),
-                            ),
-                            const SizedBox(height: 15,),
-
-
-                            //===============================CUSTOMER LOGIN BTN
-                            Container(
-                              child: ElevatedButton(
-                                  onPressed: (){
-                                    if (_formKey2.currentState!.validate()) {
-                                      _submitOtpForCustomer(context, appState);
-                                    }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColor,
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                                  ),
-                                  child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
-                              ),
-                            ),
-                            const SizedBox(height: 15,),
-
-                            //================================SIGNUP BTN
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                    'dont have an account ?'
-                                ),
-                                TextButton(
-                                    onPressed: (){
-                                      appState.activeWidget = "SignupWidget";
+                                    validator: (value){
+                                      if(value!.isEmpty || !value.contains("@gmail.com")){
+                                        return "please enter valid email";
+                                      }
+                                      return null;
                                     },
-                                    child:  Text(
-                                      'Signup',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Theme.of(context).primaryColor
-                                      ),
-                                    )
-                                )
-                              ],
+                                  ),
+
+                                  TextButton(
+                                      onPressed: (){
+                                        if (_formKey1.currentState!.validate()) {
+                                          _generateOtpForCustomer(context, appState);
+                                        }
+                                      },
+                                      child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
+                                  )
+
+                                ],
+                              ),
                             )
-
-                          ],
                         ),
-                      )
-                  ),
+                        const SizedBox(height: 15,),
 
-                ],
-              ),
-            ),
+                        const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
+                        const SizedBox(height: 15,),
+
+                        //==============================FORM2 CONTAINER Login
+                        Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Form(
+                              key: _formKey2,
+                              child: Column(
+                                children: [
+                                  //==================================OTP TEXTFIELD
+                                  Pinput(
+                                    controller: _otpController,
+                                    focusNode: _otpFocusNode,
+                                    length: 6,
+                                    defaultPinTheme: defaultPinTheme,
+                                    focusedPinTheme: defaultPinTheme.copyWith(
+                                      decoration: defaultPinTheme.decoration!.copyWith(
+                                        border: Border.all(color: Theme.of(context).primaryColorLight),
+                                      ),
+                                    ),
+                                    validator: (value){
+                                      if(value!.isEmpty || value.length!=6){
+                                        return "please enter correct otp";
+                                      }
+                                      return null;
+                                    },
+                                    onCompleted: (pin) => debugPrint(pin),
+                                  ),
+                                  Text(
+                                    remainingTime,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
+                                  const SizedBox(height: 15,),
+
+
+                                  //===============================CUSTOMER LOGIN BTN
+                                  Container(
+                                    child: ElevatedButton(
+                                        onPressed: (){
+                                          if (_formKey2.currentState!.validate()) {
+                                            _submitOtpForCustomer(context, appState);
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            backgroundColor: Theme.of(context).primaryColor,
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                                        ),
+                                        child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
+                                    ),
+                                  ),
+                                  const SizedBox(height: 15,),
+
+                                  //================================SIGNUP BTN
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                          'dont have an account ?'
+                                      ),
+                                      TextButton(
+                                          onPressed: (){
+                                            appState.activeWidget = "SignupWidget";
+                                          },
+                                          child:  Text(
+                                            'Signup',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Theme.of(context).primaryColor
+                                            ),
+                                          )
+                                      )
+                                    ],
+                                  )
+
+                                ],
+                              ),
+                            )
+                        ),
+
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
         )
     );

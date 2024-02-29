@@ -1,5 +1,4 @@
 
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -61,14 +60,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
           });
         }
       } else {
-        Fluttertoast.showToast(
-          msg: res['message'],
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
       }
     }
   }
@@ -171,10 +163,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
         appState.error = res['error'];
         appState.errorString=res['message'];
         appState.fromWidget=appState.activeWidget;
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
-          _mounted=true;
-          _firstLoad(appState);
-        });
+        if(_mounted){
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>const SpacificErrorPage())).then((_) {
+            _mounted=true;
+            _firstLoad(appState);
+          });
+        }
       }
     }
   }
@@ -229,14 +223,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 _hasNextPage = false;
               });
             }
-            Fluttertoast.showToast(
-              msg: 'No More Content Available',
-              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-              gravity: ToastGravity.TOP, // Toast position
-              backgroundColor: Colors.black, // Background color of the toast
-              textColor: Colors.green, // Text color of the toast message
-              fontSize: 16.0, // Font size of the toast message
-            );
+            StaticMethod.showDialogBar('no more content available', Colors.green);
           }
         } else {
           //print(res['error']);

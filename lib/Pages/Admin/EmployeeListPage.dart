@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -98,14 +97,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                 _hasNextPage = false;
               });
             }
-            Fluttertoast.showToast(
-              msg: 'No More Content Available',
-              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-              gravity: ToastGravity.TOP, // Toast position
-              backgroundColor: Colors.black, // Background color of the toast
-              textColor: Colors.green, // Text color of the toast message
-              fontSize: 16.0, // Font size of the toast message
-            );
+            StaticMethod.showDialogBar('No more content available', Colors.green);
           }
         } else {
           appState.error = res['error'];

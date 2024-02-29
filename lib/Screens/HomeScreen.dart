@@ -241,15 +241,17 @@ class _HomeScreenState extends State<HomeScreen> {
           //appState.propertyList = [];
           },
       child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColorLight,
         resizeToAvoidBottomInset: false,
         appBar:AppBar(
           iconTheme: IconThemeData(
               color:Colors.black,
-              size: MyConst.deviceHeight(context)*0.030
+              size: MyConst.deviceHeight(context)*0.030,
           ),
           toolbarHeight: MyConst.deviceHeight(context)*0.060,
           titleSpacing: MyConst.deviceHeight(context)*0.02,
-          elevation: 10,
+          
+          elevation: 0,
           title: Row(
             children: [
               Image.asset(
@@ -270,12 +272,24 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
+          flexibleSpace: Container(
+            margin: EdgeInsets.only(top: 35,right: 15,),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(bottomRight: Radius.circular(40),topRight: Radius.circular(40)),
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: <Color>[
+                      Theme.of(context).primaryColorLight,
+                      Theme.of(context).primaryColor,
+                    ])
+            ),
+          ),
           centerTitle: true,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
               // bottomRight: Radius.circular(40),
               // topRight: Radius.circular(40),
-              //topRight: Radius.circular(50)
             ),
           ),
           //actions: [darkModeAction],

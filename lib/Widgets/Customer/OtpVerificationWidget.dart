@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -105,23 +103,9 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
         remainingTime = formatDuration(countdownDuration);
         _mounted=true;
         startCountdown();
-        Fluttertoast.showToast(
-          msg: '${res['message']} ${res['error']}',
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
       } else {
-        Fluttertoast.showToast(
-          msg: '${res['message']} ${res['error']}',
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
   }
@@ -141,26 +125,12 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
       //print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
-        Fluttertoast.showToast(
-          msg: '${res['message']} ${res['error']}',
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.green, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget = "LoginWidget";
         appState.currentState = 1;
         Navigator.pop(context);
       } else {
-        Fluttertoast.showToast(
-          msg: '${res['message']} ${res['error']}',
-          toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-          gravity: ToastGravity.TOP, // Toast position
-          backgroundColor: Colors.black, // Background color of the toast
-          textColor: Colors.red, // Text color of the toast message
-          fontSize: 16.0, // Font size of the toast message
-        );
+        StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }
   }

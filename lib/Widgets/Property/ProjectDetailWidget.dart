@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Property/ProjectPropertyDetail.dart';
-import 'package:real_state/Widgets/Property/SinglePropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
@@ -112,14 +110,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                 _hasNextPage = false;
               });
             }
-            Fluttertoast.showToast(
-              msg: 'No More Content Available',
-              toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-              gravity: ToastGravity.TOP, // Toast position
-              backgroundColor: Colors.black, // Background color of the toast
-              textColor: Colors.green, // Text color of the toast message
-              fontSize: 16.0, // Font size of the toast message
-            );
+            StaticMethod.showDialogBar('no more content available', Colors.green);
           }
         } else {
           //print('unable to fetch property show error page');
