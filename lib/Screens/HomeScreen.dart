@@ -278,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         IconButton(
             onPressed: (){ThemeServices().switchTheme();}, 
-            icon: Icon(Icons.dark_mode_outlined)
+            icon: Icon(Get.isDarkMode? Icons.light_mode_outlined:Icons.dark_mode_outlined, color: Get.isDarkMode?Colors.grey:Colors.black,size: 24,)
         )
       ],
       backgroundColor: Get.isDarkMode 

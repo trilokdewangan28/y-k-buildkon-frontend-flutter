@@ -180,7 +180,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
           appState.currentState = 0;
         },
         child: Container(
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:  Container(
@@ -234,10 +234,10 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                     _generateOtpForEmployee(context, appState);
                                   }
                                 },
-                                child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
+                                child: Text('Generate Otp',style: TextStyle(color: bluishClr,)
                             )
 
-                          ],
+                            )],
                         ),
                       )
                   ),
@@ -271,7 +271,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColor,
+                                      backgroundColor: bluishClr,
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                   ),
                                   child: Text('EMPLOYEE LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
@@ -294,7 +294,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                       'Signup',
                                       style: TextStyle(
                                           fontSize: 16,
-                                          color: Theme.of(context).primaryColor
+                                          color: bluishClr
                                       ),
                                     )
                                 )
@@ -323,7 +323,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
       defaultPinTheme: _pinTheme(),
       focusedPinTheme: _pinTheme().copyWith(
         decoration: _pinTheme().decoration!.copyWith(
-          border: Border.all(color: Theme.of(context).primaryColor,width: 2),
+          border: Border.all(color: bluishClr,width: 2),
         ),
       ),
       validator: (value){
@@ -362,7 +362,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         keyboardType: inputType,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.black),
+          labelStyle:  TextStyle(color: Get.isDarkMode? Colors.white70: Colors.black),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: primaryColor),
             borderRadius: const BorderRadius.all(

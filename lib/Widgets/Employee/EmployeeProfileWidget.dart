@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Customer/EditCustomerDetailPage.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
@@ -8,6 +9,7 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 class EmployeeProfileWidget extends StatefulWidget {
   const EmployeeProfileWidget({super.key});
 
@@ -89,7 +91,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                 ? const Center(child: CircularProgressIndicator(),)
                 : Container(
               width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).primaryColorLight,
+              color: Theme.of(context).backgroundColor,
               height: MediaQuery.of(context).size.height,
               child: ListView(
                 children: [
@@ -179,7 +181,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   elevation: 4,
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor: bluishClr,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)
                                   )
@@ -208,7 +210,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                               appState.currentState = 1;
                             },
                             child: Card(
-                              color: Theme.of(context).primaryColorLight,
+                              color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                               child:  Row(
                                 children: [
                                   const SizedBox(
@@ -262,7 +264,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                               appState.currentState = 0;
                             },
                             child:  Card(
-                              color: Theme.of(context).primaryColorLight,
+                              color: Get.isDarkMode?Colors.white12: Theme.of(context).primaryColorLight,
                               child:const  Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

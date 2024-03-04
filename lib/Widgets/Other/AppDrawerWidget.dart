@@ -13,6 +13,7 @@ import 'package:real_state/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/Widgets/Property/ProjectLisWidget.dart';
 
 import 'package:real_state/config/Constant.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
 
@@ -72,7 +73,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.home_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.home_outlined,color:bluishClr,),
                   title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -90,7 +91,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.apartment_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.apartment_outlined,color:bluishClr,),
                   title: const Text('Project'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -107,7 +108,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.local_offer_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.local_offer_outlined, color:bluishClr,),
                   title: const Text('Offers'),
                   onTap: () {
                     //popNow(context);
@@ -124,7 +125,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.calculate_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.calculate_outlined,color:bluishClr),
                   title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -141,7 +142,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business_sharp,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.business_sharp,color:bluishClr),
                   title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -159,7 +160,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.post_add_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.post_add_outlined,color:bluishClr),
                   title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -176,7 +177,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color:Get.isDarkMode?Colors.white70:  Theme.of(context).primaryColor),
+                  leading: Icon(Icons.support_agent_outlined,color:bluishClr),
                   title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
@@ -193,7 +194,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.person_add_alt_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.person_add_alt_outlined,color:bluishClr),
                   title: const Text('Membership Join'),
                   onTap: () {
                     Navigator.pop(context);// Close the drawer
@@ -210,7 +211,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.admin_panel_settings_outlined,color:Get.isDarkMode?Colors.white70:  Theme.of(context).primaryColor),
+                  leading: Icon(Icons.admin_panel_settings_outlined,color:bluishClr),
                   title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer

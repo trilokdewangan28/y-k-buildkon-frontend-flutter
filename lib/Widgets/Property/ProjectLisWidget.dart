@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -6,6 +7,8 @@ import 'package:real_state/Widgets/Property/ProjectDetailWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class ProjectListWidget extends StatefulWidget {
   const ProjectListWidget({super.key});
 
@@ -149,10 +152,8 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text('Project List'),
-              centerTitle: true,
-            ),
+            backgroundColor: context.theme.backgroundColor,
+            appBar: _appBar('Project List'),
             body: Container(
               child: Column(
                 children: [
@@ -165,7 +166,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                         //=====================================FILTER BY NAME TEXTFIELD
                         Flexible(
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode?Colors.white12:Theme.of(context).primaryColorLight,
                             //shadowColor: Colors.black,
                             elevation: 1,
                             child: TextField(
@@ -214,7 +215,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                               },
                               child: Card(
                                 margin: const EdgeInsets.symmetric(horizontal: 15,vertical: 7),
-                                color: Theme.of(context).primaryColorLight,
+                                color: Get.isDarkMode? darkGreyClr: Theme.of(context).primaryColorLight,
                                 child: Container(
                                   child: ListTile(
                                     title: Text(
@@ -269,6 +270,36 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
           _mounted=true;
           _fetchProject(appState);
         }
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

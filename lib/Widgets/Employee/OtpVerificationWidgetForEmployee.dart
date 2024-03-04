@@ -8,6 +8,7 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
+import '../../services/ThemeService/ThemeServices.dart';
 import '../../services/ThemeService/theme.dart';
 class OtpVerificationWidgetForEmployee extends StatefulWidget {
   Map<String,dynamic> employeeData;
@@ -194,7 +195,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                                     };
                                     _sendOtpForEmployeeSignup(employeeData, appState, context);
                                   },
-                                  child: Text('resend otp',style: TextStyle(color: Theme.of(context).primaryColor),),
+                                  child: Text('resend otp',style: TextStyle(color:bluishClr),),
                                 )
                               ],
                             ),
@@ -234,7 +235,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                 ),
                                 child: Text('Verify',style: TextStyle(color: Theme.of(context).primaryColorLight),)
@@ -259,7 +260,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
       defaultPinTheme: _pinTheme(),
       focusedPinTheme: _pinTheme().copyWith(
         decoration: _pinTheme().decoration!.copyWith(
-          border: Border.all(color: Theme.of(context).primaryColor,width: 2),
+          border: Border.all(color: bluishClr,width: 2),
         ),
       ),
       validator: (value){
@@ -288,9 +289,8 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
   }
   _appBar(appBarContent){
     return AppBar(
-      foregroundColor: Colors.transparent,
       iconTheme: IconThemeData(
-        color:Colors.black,
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
       ),
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
@@ -298,24 +298,23 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: appbartitlestyle,
         softWrap: true,
       ),
       actions: [
         Container(
           margin: EdgeInsets.only(right: 20),
           child: CircleAvatar(
-            backgroundImage: AssetImage(
-                'assets/images/ic_launcher.png'
-            ),
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
           ),
-        )
+        ),
       ],
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

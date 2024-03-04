@@ -8,6 +8,8 @@ import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 
+import '../../services/ThemeService/ThemeServices.dart';
+
 
 class EmployeeSignupWidget extends StatefulWidget {
   const EmployeeSignupWidget({super.key});
@@ -296,14 +298,14 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                               height: 65,
                               decoration: BoxDecoration(
                                   border:
-                                  Border.all(width: 1, color: Colors.black54),
+                                  Border.all(width: 1, color: Get.isDarkMode?Colors.grey: Colors.black54),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 children: [
                                   const Text('Blood Group:'),
                                   const Spacer(),
                                   Card(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color: Get.isDarkMode?Colors.white12: Theme.of(context).primaryColorLight,
                                       elevation: 0.5,
                                       child: Container(
                                           width: MyConst.deviceWidth(context) * 0.3,
@@ -588,7 +590,9 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                             Row(
                               children: [
                                 Checkbox(
-                                  activeColor: Theme.of(context).primaryColor,
+                                  activeColor: Colors.grey,
+                                  focusColor: bluishClr,
+                                  checkColor: bluishClr,
                                   value: isDeclarationChecked,
                                   onChanged: (bool? value) {
                                     if (_formKey.currentState!.validate()) {
@@ -625,7 +629,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                     'Self Declaration',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
-                                        color: Theme.of(context).primaryColor
+                                        color: bluishClr
                                     ),
                                   ),
                                 ),
@@ -662,7 +666,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
 
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor:bluishClr,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10)
                                     )
@@ -716,7 +720,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         keyboardType: inputType,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.black),
+          labelStyle:  TextStyle(color: Get.isDarkMode?Colors.grey: Colors.black),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: primaryColor),
             borderRadius: const BorderRadius.all(
@@ -735,11 +739,11 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         ),
         validator: validator);
   }
+ 
   _appBar(appBarContent){
     return AppBar(
-      foregroundColor: Colors.transparent,
       iconTheme: IconThemeData(
-        color:Colors.black,
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
       ),
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
@@ -747,24 +751,27 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: appbartitlestyle,
         softWrap: true,
       ),
       actions: [
         Container(
           margin: EdgeInsets.only(right: 20),
           child: CircleAvatar(
-            backgroundImage: AssetImage(
-                'assets/images/ic_launcher.png'
-            ),
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
           ),
+        ),
+        IconButton(
+            onPressed: (){ThemeServices().switchTheme();},
+            icon: Icon(Icons.dark_mode_outlined)
         )
       ],
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

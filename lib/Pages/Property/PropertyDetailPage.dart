@@ -721,7 +721,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                           : Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                              color: Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColorLight,
+                                              color: Get.isDarkMode?Colors.white30 : Theme.of(context).primaryColorLight,
                                               border: Border.all(width: 1),
                                               borderRadius:
                                               BorderRadius.circular(25)),
@@ -1244,7 +1244,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           margin: const EdgeInsets.symmetric(horizontal: 15),
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
                               borderRadius: BorderRadius.circular(10)
                           ),
                           child: Column(
@@ -1282,7 +1282,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                         children: [
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor: bluishClr,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
                               onPressed: () {
@@ -1305,7 +1305,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           ),
                           ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).errorColor,
+                                  backgroundColor: Colors.red,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10))),
                               onPressed: offer.isNotEmpty ? () {
@@ -1335,7 +1335,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           margin: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
                               borderRadius: BorderRadius.circular(10)
                           ),
                           child: Column(
@@ -1348,7 +1348,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                   const SizedBox(width: 4,),
                                   //==========================================DROPDOWN CARD
                                   Card(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: Container(
                                           height: MyConst.deviceWidth(context)*0.1,
@@ -1393,7 +1393,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                             shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(10)
                                             ),
-                                            backgroundColor: Theme.of(context).primaryColor
+                                            backgroundColor: bluishClr
                                         ),
                                         onPressed: selectedProperty['property_isAvailable']==selectedAvailability
                                             ? null

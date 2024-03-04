@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class AddNewPropertyWidget extends StatefulWidget {
   const AddNewPropertyWidget({Key? key}) : super(key: key);
@@ -174,7 +176,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
           appState.activeWidget = "ProfileWidget";
         },
         child: Container(
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Container(
@@ -221,7 +223,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   ),
                                   const SizedBox(width: 20,),
                                   Card(
-                                      color: Theme.of(context).primaryColorLight,
+                                      color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                       elevation: 1,
                                       child: Container(
                                         height: dropDownCardHeight*0.9,
@@ -268,7 +270,6 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               padding: const EdgeInsets.all(10),
                               width: MyConst.deviceWidth(context),
                               decoration: BoxDecoration(
-                                  border: Border.all(width: 1),
                                   borderRadius: BorderRadius.circular(10)),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -291,11 +292,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -353,11 +354,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(child: DropdownButton<String>(
                                                 value: selectedBhk.toString(),
@@ -413,11 +414,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -476,11 +477,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -538,11 +539,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -601,11 +602,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -662,11 +663,11 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: 10,
                                       ),
                                       Card(
-                                          color: Theme.of(context).primaryColorLight,
+                                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                                           elevation: 1,
                                           child: Container(
                                               height: dropDownCardHeight*0.9,
-                                              width: MyConst.deviceWidth(context)*0.5,
+                                              width: MyConst.deviceWidth(context)*0.9,
                                               margin: const EdgeInsets.symmetric(horizontal: 4),
                                               child: Center(
                                                 child: DropdownButton<String>(
@@ -711,73 +712,36 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             ),
 
                             //=============================PROPERTY NAME TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyNameFocusNode,
-                                controller: _propertyNameController,
-                                decoration: const InputDecoration(
-                                    labelText: 'Property Name',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'please enter valid property name';
-                                  }
-                                  return null;
-                                }),
+                            _textField(
+                                controller: _propertyNameController, 
+                                focusNode: _propertyNameFocusNode, 
+                                label: 'Property Name', 
+                                inputType: TextInputType.text,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'please enter valid input';
+                                }
+                                return null;
+                              }
+                            ),
 
                             const SizedBox(
                               height: 15,
                             ),
 
                             //========================PROPETY UNIQUE NUMBER TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyUnFocusNode,
+                            _textField(
                                 controller: _propertyUnController,
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                    labelText: 'Property Unique Number',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                focusNode: _propertyUnFocusNode,
+                                label: 'Property Unique Number',
+                                inputType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid unique number';
+                                    return 'please enter valid input';
                                   }
                                   return null;
-                                }),
+                                }
+                            ),
 
                             const SizedBox(
                               height: 15,
@@ -786,43 +750,23 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                               padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(width: 1)
+                                  border: Border.all(width: 1,color: Colors.grey)
                               ),
                               child: Row(
                                 children: [
                                   Flexible(child:
                                   //============================PROPERTY AREA
-                                  TextFormField(
-                                    focusNode: _propertyAreaFocusNode,
-                                    controller: _propertyAreaController,
-                                    keyboardType: TextInputType.number,
-                                    decoration:const  InputDecoration(
-                                        labelText: 'Property Area',
-                                        labelStyle:  TextStyle(color: Colors.black),
-                                        focusedBorder:  OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            // color: Theme.of(context).hintColor
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                        ),
-                                        border:  OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                            width: 1,
-                                            color: Colors.grey,
-                                          ),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(10),
-                                          ),
-                                        )),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return "please enter valid area";
+                                  _textField(
+                                      controller: _propertyAreaController,
+                                      focusNode: _propertyAreaFocusNode,
+                                      label: 'Property Area',
+                                      inputType: TextInputType.number,
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'please enter valid input';
+                                        }
+                                        return null;
                                       }
-                                      return null;
-                                    },
                                   ),
                                   ),
                                   const SizedBox(width: 10,),
@@ -836,7 +780,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                           height: dropDownCardHeight,
                                           //width: dropDownCardWidth,
                                           child: Card(
-                                              color: Theme.of(context).primaryColorLight,
+                                              color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                                               child: Container(
                                                 margin: const EdgeInsets.symmetric(horizontal: 4),
                                                 child: DropdownButton<String>(
@@ -882,37 +826,17 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             ),
 
                             //============================PROPERTY PRICE
-                            TextFormField(
-                              focusNode: _propertyPriceFocusNode,
-                              controller: _propertyPriceController,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                  labelText: 'Property Price',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      // color: Theme.of(context).hintColor
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.grey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  )),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "please enter valid price";
+                            _textField(
+                                controller: _propertyPriceController,
+                                focusNode: _propertyPriceFocusNode,
+                                label: 'Property Price',
+                                inputType: TextInputType.number,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
                                 }
-                                return null;
-                              },
                             ),
 
                             const SizedBox(
@@ -920,109 +844,53 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             ),
 
                             //============================PROPERTY BOOKING AMMOUNT
-                            TextFormField(
-                              focusNode: _propertyBookingAmountFocusNode,
-                              controller: _propertyBookingAmountController,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                  labelText: 'Property Booking Ammount',
-                                  labelStyle: TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      // color: Theme.of(context).hintColor
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 1,
-                                      color: Colors.grey,
-                                    ),
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                  )),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "please enter valid booking ammount";
+                            _textField(
+                                controller: _propertyBookingAmountController,
+                                focusNode: _propertyBookingAmountFocusNode,
+                                label: 'Property Booking Amount',
+                                inputType: TextInputType.number,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
                                 }
-                                return null;
-                              },
                             ),
                             const SizedBox(
                               height: 15,
                             ),
 
                             //============================DESCRIPTION TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyDescriptionFocusNode,
+                            _textField(
                                 controller: _propertyDescriptionController,
-                                maxLines: 5,
-                                decoration: const InputDecoration(
-                                    labelText: 'Property Description',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                focusNode: _propertyDescriptionFocusNode,
+                                label: 'Property Description',
+                                inputType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid description';
+                                    return 'please enter valid input';
                                   }
                                   return null;
-                                }),
+                                },
+                              maxline: 4
+                            ),
                             const SizedBox(
                               height: 15,
                             ),
 
                             //============================ADDRESS TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyAddressFocusNode,
+                            _textField(
                                 controller: _propertyAddressController,
-                                decoration: const InputDecoration(
-                                    labelText: 'Address',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                focusNode: _propertyAddressFocusNode,
+                                label: 'Property Address',
+                                inputType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid address';
+                                    return 'please enter valid input';
                                   }
                                   return null;
-                                }),
+                                }
+                            ),
 
                             const SizedBox(
                               height: 15,
@@ -1032,73 +900,35 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             Row(
                               children: [
                                 Expanded(
-                                  child: TextFormField(
-                                      focusNode: _propertyLocalityFocusNode,
+                                  child: _textField(
                                       controller: _propertyLocalityController,
-                                      decoration: const InputDecoration(
-                                          labelText: 'Locality',
-                                          labelStyle:
-                                          TextStyle(color: Colors.black),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              // color: Theme.of(context).hintColor
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: Colors.grey,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                          )),
+                                      focusNode: _propertyLocalityFocusNode,
+                                      label: 'Locality',
+                                      inputType: TextInputType.text,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return 'please enter valid locality';
+                                          return 'please enter valid input';
                                         }
                                         return null;
-                                      }),
+                                      }
+                                  ),
                                 ),
                                 const SizedBox(
                                   width: 10,
                                 ),
                                 Expanded(
-                                  child: TextFormField(
-                                      focusNode: _propertyCityFocusNode,
+                                  child: _textField(
                                       controller: _propertyCityController,
-                                      decoration: const InputDecoration(
-                                          labelText: 'City',
-                                          labelStyle:
-                                          TextStyle(color: Colors.black),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              // color: Theme.of(context).hintColor
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                          ),
-                                          border: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              width: 1,
-                                              color: Colors.grey,
-                                            ),
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(10),
-                                            ),
-                                          )),
+                                      focusNode: _propertyCityFocusNode,
+                                      label: 'City',
+                                      inputType: TextInputType.text,
                                       validator: (value) {
                                         if (value!.isEmpty) {
-                                          return 'please enter valid city name';
+                                          return 'please enter valid input';
                                         }
                                         return null;
-                                      }),
+                                      }
+                                  ),
                                 ),
                               ],
                             ),
@@ -1107,37 +937,18 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             ),
 
                             //===========================PINCODE TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyPincodeFocusNode,
+                            _textField(
                                 controller: _propertyPincodeController,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                    labelText: 'Pincode',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                focusNode: _propertyPincodeFocusNode,
+                                label: 'Pincode',
+                                inputType: TextInputType.number,
                                 validator: (value) {
-                                  if (value!.isEmpty || value.length != 6) {
-                                    return 'please enter valid pincode';
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
                                   }
                                   return null;
-                                }),
+                                }
+                            ),
 
                             const SizedBox(
                               height: 15,
@@ -1173,39 +984,21 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                       'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
                                   StaticMethod.openMap(url);
                                 },
-                                child: Text('Open Map',style: TextStyle(color: Theme.of(context).primaryColor),)),
+                                child: Text('Open Map',style: TextStyle(color: bluishClr),)),
 
                             //============================LOCATION MAP URL TEXTFIELD
-                            TextFormField(
-                                focusNode: _propertyLocationUrlFocusNode,
+                            _textField(
                                 controller: _propertyLocationUrlController,
-                                decoration: const InputDecoration(
-                                    labelText: 'Google Map Address Url',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                focusNode: _propertyLocationUrlFocusNode,
+                                label: 'Location Url',
+                                inputType: TextInputType.text,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid address';
+                                    return 'please enter valid input';
                                   }
                                   return null;
-                                }),
+                                }
+                            ),
 
                             const SizedBox(
                               height: 15,
@@ -1214,7 +1007,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             //===============================SIGNUP BTN
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10)
                                     )
@@ -1246,5 +1039,42 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
         )
     );
   }
+  _textField({
+    required TextEditingController? controller,
+    required FocusNode? focusNode,
+    required String? label,
+    required TextInputType? inputType, 
+    validator,
+    maxline=1
+}){
+   return TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        keyboardType: inputType,
+        maxLines: maxline,
+        decoration:  InputDecoration(
+            labelText: label,
+            labelStyle: TextStyle(color: Get.isDarkMode?Colors.white70:Colors.black),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2,
+                color:bluishClr
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: Colors.grey,
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            )),
+        validator:validator
+        );
+}
 }
 

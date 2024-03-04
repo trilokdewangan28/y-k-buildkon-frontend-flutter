@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Property/ProjectPropertyDetail.dart';
@@ -6,6 +7,8 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../../services/ThemeService/theme.dart';
 class ProjectDetailWidget extends StatefulWidget {
   final Map<String,dynamic> projectData;
   const ProjectDetailWidget({super.key, required this.projectData});
@@ -156,19 +159,16 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text('Project Details'),
-              centerTitle: true,
-            ),
+            backgroundColor: context.theme.backgroundColor,
+            appBar: _appBar('Project Details'),
             body: Container(
-              color: Theme.of(context).primaryColorLight,
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
                   //========================PROJECT DETAILS CARD
                   Container(
                     child: Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12: Theme.of(context).primaryColorLight,
                       child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
                           child: Column(
@@ -243,7 +243,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                   //========================PROPERTY LIST FILTER
                   Container(
                     child: Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12: Theme.of(context).primaryColorLight,
                       //shadowColor: Colors.black,
                       elevation: 1,
                       child: TextField(
@@ -286,7 +286,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                       ),
 
                       Card(
-                          color: Theme.of(context).primaryColorLight,
+                          color: Get.isDarkMode?Colors.white12:Theme.of(context).primaryColorLight,
                           child: Container(
                             height: 45,
                             width: MyConst.deviceWidth(context)*0.4,
@@ -377,6 +377,36 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
           page=1;
           _firstLoad(appState);
         }
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

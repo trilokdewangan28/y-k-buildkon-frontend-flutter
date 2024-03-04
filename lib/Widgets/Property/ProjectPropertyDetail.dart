@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
@@ -10,6 +11,8 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 
 class ProjectPropertyDetail extends StatefulWidget {
   const ProjectPropertyDetail({Key? key}) : super(key: key);
@@ -670,12 +673,9 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
             appState.activeWidget = "PropertyListPage";
           },
           child: Scaffold(
-            appBar: AppBar(
-              centerTitle: true,
-              title: const Text('Property Detail'),
-            ),
+            backgroundColor: context.theme.backgroundColor,
+            appBar: _appBar('Property Details'),
             body: Container(
-                color: Theme.of(context).primaryColorLight,
                 height: MediaQuery.of(context).size.height,
                 child: SingleChildScrollView(
                     child: _isPropertyLoading==false
@@ -720,7 +720,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                             : Container(
                                             width: double.infinity,
                                             decoration: BoxDecoration(
-                                                color: Theme.of(context).primaryColorLight,
+                                                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                                                 border: Border.all(width: 1),
                                                 borderRadius:
                                                 BorderRadius.circular(25)),
@@ -806,7 +806,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                               //============================LOCATION
                               Icon(
                                 Icons.location_pin,
-                                color: Theme.of(context).primaryColor,
+                                color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
                                 size: MyConst.mediumTextSize * fontSizeScaleFactor,
                               ),
                               Expanded(
@@ -832,7 +832,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                               //============================PRICE ICON
                               Icon(
                                 Icons.currency_rupee,
-                                color: Theme.of(context).primaryColor,
+                                color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
                                 size: MyConst.mediumTextSize * fontSizeScaleFactor,
                               ),
                               //=============================PRICE
@@ -841,7 +841,8 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                 style: TextStyle(
                                     fontSize: MyConst.smallTextSize * fontSizeScaleFactor,
                                     fontWeight: FontWeight.w700,
-                                    color: Theme.of(context).primaryColor),
+                                    color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor
+                                ),
                               ),
                               const Spacer(),
                               //=============================FAVRITE BTN
@@ -911,7 +912,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.home_work_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                             size: MyConst.mediumLargeTextSize *
                                                 fontSizeScaleFactor,
                                           ),
@@ -944,7 +945,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.square_foot_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                             size: MyConst.mediumLargeTextSize *
                                                 fontSizeScaleFactor,
                                           ),
@@ -987,7 +988,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.bedroom_parent_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                           ),
                                           Text(
                                             '${selectedProperty['property_bhk']}',
@@ -1016,7 +1017,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.chair_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                           ),
                                           Text(
                                             '${selectedProperty['property_isFurnished']}',
@@ -1056,7 +1057,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.park_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                           ),
                                           Text(
                                             '${selectedProperty['property_isGarden']}',
@@ -1085,7 +1086,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                           ),
                                           Icon(
                                             Icons.local_parking_outlined,
-                                            color: Theme.of(context).primaryColor,
+                                            color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                           ),
                                           Text(
                                             '${selectedProperty['property_isParking']}',
@@ -1168,7 +1169,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColor,
+                                      backgroundColor: bluishClr,
                                       foregroundColor:
                                       Theme.of(context).primaryColorLight,
                                       shape: RoundedRectangleBorder(
@@ -1188,7 +1189,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        backgroundColor: Theme.of(context).primaryColor,
+                                        backgroundColor: bluishClr,
                                         foregroundColor:
                                         Theme.of(context).primaryColorLight,
                                         shape: RoundedRectangleBorder(
@@ -1216,7 +1217,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                             ? Center(
                           child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Theme.of(context).primaryColor,
+                                  backgroundColor: bluishClr,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10)
                                   )
@@ -1242,7 +1243,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                             margin: EdgeInsets.symmetric(horizontal: 15),
                             padding: EdgeInsets.symmetric(horizontal: 15),
                             decoration: BoxDecoration(
-                                border: Border.all(width: 1),
+                                border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             child: Column(
@@ -1280,7 +1281,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                           children: [
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10))),
                                 onPressed: () {
@@ -1303,7 +1304,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                             ),
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).errorColor,
+                                    backgroundColor: Colors.red,
                                     shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(10))),
                                 onPressed: offer.isNotEmpty ? () {
@@ -1333,7 +1334,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                             padding: EdgeInsets.symmetric(horizontal: 10),
                             margin: EdgeInsets.symmetric(horizontal: 20),
                             decoration: BoxDecoration(
-                                border: Border.all(width: 1),
+                                border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             child: Column(
@@ -1346,7 +1347,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                     SizedBox(width: 4,),
                                     //==========================================DROPDOWN CARD
                                     Card(
-                                        color: Theme.of(context).primaryColorLight,
+                                        color: Get.isDarkMode?Colors.white12: Theme.of(context).primaryColorLight,
                                         elevation: 1,
                                         child: Container(
                                             height: MyConst.deviceWidth(context)*0.1,
@@ -1391,7 +1392,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(10)
                                               ),
-                                              backgroundColor: Theme.of(context).primaryColor
+                                              backgroundColor: bluishClr
                                           ),
                                           onPressed: selectedProperty['property_isAvailable']==selectedAvailability
                                               ? null
@@ -1416,7 +1417,8 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                                     : Container(),
                               ],
                             )
-                        )
+                        ),
+                        SizedBox(height: 20,)
                       ],
                     )
                         : LinearProgressIndicator()
@@ -1431,6 +1433,36 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
           _loadOffer(appState);
           _fetchSingleProperty(appState);
         }
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }
