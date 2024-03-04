@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Customer/OtpVerificationWidget.dart';
@@ -338,7 +339,7 @@ class _SignupWidgetState extends State<SignupWidget> {
           border: OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: primaryColorDark,
+              color: context.theme.primaryColorDark,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),

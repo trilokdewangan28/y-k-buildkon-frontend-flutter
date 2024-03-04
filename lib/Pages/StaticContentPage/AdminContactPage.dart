@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../services/ThemeService/theme.dart';
 
 class AdminContactPage extends StatelessWidget {
@@ -149,11 +148,7 @@ class AdminContactPage extends StatelessWidget {
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: titleStyle,
         softWrap: true,
       ),
       actions: [
@@ -166,7 +161,7 @@ class AdminContactPage extends StatelessWidget {
           ),
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
     );
   }
 }

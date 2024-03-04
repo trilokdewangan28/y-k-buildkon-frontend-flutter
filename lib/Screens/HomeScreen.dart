@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Admin/AdminProfilePage.dart';
 import 'package:real_state/Pages/Admin/CustomerDetailPage.dart';
@@ -31,6 +32,7 @@ import 'package:real_state/Widgets/Other/EmiCalculatorWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/ThemeServices.dart';
 
 import '../Pages/Customer/FavoritePropertyListPage.dart';
 import '../services/ThemeService/theme.dart';
@@ -240,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //appState.propertyList = [];
           },
       child: Scaffold(
-        backgroundColor: primaryColorLight,
+        backgroundColor: context.theme.backgroundColor,
         resizeToAvoidBottomInset: false,
         appBar:_appBar(appBarContent),
         body: widgetContent,
@@ -251,9 +253,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   _appBar(appBarContent){
     return AppBar(
-      foregroundColor: Colors.transparent,
       iconTheme: IconThemeData(
-        color:Colors.black,
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
       ),
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
@@ -261,24 +262,27 @@ class _HomeScreenState extends State<HomeScreen> {
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: appbartitlestyle,
         softWrap: true,
       ),
       actions: [
         Container(
           margin: EdgeInsets.only(right: 20),
           child: CircleAvatar(
-            backgroundImage: AssetImage(
-                'assets/images/ic_launcher.png'
-            ),
+            backgroundColor: Colors.white,
+            child: Image.asset(
+                'assets/images/ic_launcher.png',
+              height: 100,
+            )
           ),
+        ),
+        IconButton(
+            onPressed: (){ThemeServices().switchTheme();}, 
+            icon: Icon(Icons.dark_mode_outlined)
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: Get.isDarkMode 
+          ? Colors.black45 : Colors.white,
     );
   }
   _bottomNavigation(btmIcon, secondBtmContent,appState){
@@ -288,7 +292,7 @@ class _HomeScreenState extends State<HomeScreen> {
         size: MyConst.deviceHeight(context)*0.03,
       ),
       type: BottomNavigationBarType.fixed,
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
       selectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor(context),
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.grey,

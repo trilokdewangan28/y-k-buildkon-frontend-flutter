@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -133,7 +134,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor: primaryColorLight,
+          backgroundColor: context.theme.backgroundColor,
           appBar: _appBar('Email Verification'),
           body: SingleChildScrollView(
             child: Column(
@@ -314,7 +315,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
           ),
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
     );
   }
 }

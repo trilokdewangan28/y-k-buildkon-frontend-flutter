@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Widgets/Employee/OtpVerificationWidgetForEmployee.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/theme.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
+
 
 class EmployeeSignupWidget extends StatefulWidget {
   const EmployeeSignupWidget({super.key});
@@ -163,7 +165,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor: primaryColorLight,
+          backgroundColor: context.theme.backgroundColor,
           appBar: _appBar('Employee Joining'),
           body: Container(
             child: SingleChildScrollView(
@@ -724,7 +726,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
           border: OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: primaryColorDark,
+              color: context.theme.primaryColorDark,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),
@@ -762,7 +764,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
           ),
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
     );
   }
 }

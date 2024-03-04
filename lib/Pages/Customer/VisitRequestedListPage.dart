@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -7,6 +8,7 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class VisitRequestedListPage extends StatefulWidget {
   const VisitRequestedListPage({Key? key}) : super(key: key);
@@ -153,7 +155,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
             appState.activeWidget = "ProfileWidget";
           },
           child: Container(
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
@@ -199,8 +201,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           width: 110,
                           decoration: BoxDecoration(
                               color: pendingTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
@@ -245,8 +247,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           width: 110,
                           decoration: BoxDecoration(
                               color: acceptedTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -291,8 +293,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           width: 110,
                           decoration: BoxDecoration(
                               color: completedTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -339,8 +341,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           width: 110,
                           decoration: BoxDecoration(
                               color: cancelledTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -395,7 +397,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                   horizontal: 15, vertical: 4),
                               child: Card(
                                 shadowColor: Colors.black,
-                                color: Theme.of(context).primaryColorLight,
+                                color: context.theme.backgroundColor,
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
                                     BorderRadius.circular(10)),
@@ -479,14 +481,10 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                               //=======================PRICE ROW SECTION
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    '₹',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        fontWeight:
-                                                        FontWeight.w600),
+                                                  Icon(
+                                                    Icons.currency_rupee_outlined,
+                                                    color: Get.isDarkMode?Colors.white70:context.theme.primaryColor,
+                                                    size: 20,
                                                   ),
                                                   Text(
                                                     '${property['property_price']}',
@@ -504,8 +502,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                                                 children: [
                                                   Icon(
                                                     Icons.location_pin,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
+                                                    color: Get.isDarkMode?Colors.white70:context.theme.primaryColor,
                                                     size: 20,
                                                   ),
                                                   Expanded(

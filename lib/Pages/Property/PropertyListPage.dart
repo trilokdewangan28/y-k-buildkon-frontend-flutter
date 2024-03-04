@@ -1,5 +1,7 @@
 
+import 'package:get/get.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -315,7 +317,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                 MyConst.deviceWidth(context) / MyConst.referenceWidth;
             double smallBodyText = MyConst.smallTextSize*fontSizeScaleFactor;
             return Container(
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?darkGreyClr : Theme.of(context).primaryColorLight,
                 height: MyConst.deviceHeight(context) * 0.8,
                 width: MyConst.deviceWidth(context),
                 padding: EdgeInsets.only(top: MyConst.deviceHeight(context)*0.02),
@@ -381,7 +383,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: MyConst.deviceHeight(context)*0.01,
                                             ),
                                             Card(
-                                              color: Theme.of(context).primaryColorLight,
+                                              color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                               child: Container(
                                                   height: dropDownCardHeight*0.8,
                                                   child: Center(
@@ -440,7 +442,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width: MyConst.deviceWidth(context)*0.010,
                                             ),
                                             Card(
-                                              color: Theme.of(context).primaryColorLight,
+                                              color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                               child: Container(
                                                   height: dropDownCardHeight*0.8,
                                                   child: Center(
@@ -498,7 +500,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             width: MyConst.deviceWidth(context)*0.010,
                                           ),
                                           Card(
-                                            color: Theme.of(context).primaryColorLight,
+                                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                             child:Container(
                                                 height: dropDownCardHeight*0.8,
                                                 child: Center(
@@ -555,7 +557,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             width: MyConst.deviceWidth(context)*0.010,
                                           ),
                                           Card(
-                                            color: Theme.of(context).primaryColorLight,
+                                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                             child:Container(
                                                 height: dropDownCardHeight*0.8,
                                                 child: Center(
@@ -612,7 +614,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             width: MyConst.deviceWidth(context)*0.010,
                                           ),
                                           Card(
-                                            color: Theme.of(context).primaryColorLight,
+                                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                             child: Container(
                                                 height: dropDownCardHeight*0.8,
                                                 child: Center(
@@ -668,7 +670,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             width: MyConst.deviceWidth(context)*0.010,
                                           ),
                                           Card(
-                                            color: Theme.of(context).primaryColorLight,
+                                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                             child: Container(
                                                 height: dropDownCardHeight*0.8,
                                                 child: Center(
@@ -721,7 +723,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             width: MyConst.deviceWidth(context)*0.010,
                                           ),
                                           Card(
-                                            color: Theme.of(context).primaryColorLight,
+                                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                             child: Container(
                                                 height: dropDownCardHeight*0.8,
                                                 child: Center(
@@ -768,7 +770,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         left: 15,
                                       ),
                                       child: Card(
-                                        color: Theme.of(context).primaryColorLight,
+                                        color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                         shadowColor: Colors.black,
                                         elevation: 2,
                                         child: TextField(
@@ -800,7 +802,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                         right: 15,
                                       ),
                                       child: Card(
-                                        color: Theme.of(context).primaryColorLight,
+                                        color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                         shadowColor: Colors.black,
                                         elevation: 2,
                                         child: TextField(
@@ -833,7 +835,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     horizontal: 15,
                                   ),
                                   child: Card(
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                     shadowColor: Colors.black,
                                     elevation: 2,
                                     child: TextField(
@@ -866,7 +868,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     horizontal: 15,
                                   ),
                                   child: Card(
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                                     shadowColor: Colors.black,
                                     elevation: 2,
                                     child: TextField(
@@ -901,7 +903,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                     children: [
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              backgroundColor: Theme.of(context).errorColor,
+                                              backgroundColor: Colors.red,
                                               shape: RoundedRectangleBorder(
                                                   borderRadius: BorderRadius.circular(10)
                                               )
@@ -931,11 +933,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             'Clear Filter',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.w500,
-                                                color:Theme.of(context).primaryColorLight),
+                                                color:Theme.of(context).primaryColorLight
+                                            ),
                                           )),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Theme.of(context).primaryColor,
+                                          backgroundColor: bluishClr,
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(10)
                                           )
@@ -990,7 +993,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     //=====================================FILTER BY NAME TEXTFIELD
                     Flexible(
                       child: Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? darkGreyClr : context.theme.primaryColorLight,
                         //shadowColor: Colors.black,
                         elevation: 1,
                         child: TextField(
@@ -1029,11 +1032,13 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               height: MyConst.deviceHeight(context)*0.045,
                               width: MyConst.deviceHeight(context)*0.045,
                               decoration: BoxDecoration(
+                                color: Get.isDarkMode?Colors.white10:Colors.white,
                                   border: Border.all(width: 1,color: Colors.grey),
                                   borderRadius: BorderRadius.circular(10)),
                               child: IconButton(
                                 icon: Image.asset(
                                   'assets/Icons/filter.png',
+                                  color: Get.isDarkMode? Colors.white70:Colors.black,
                                   height: MyConst.deviceHeight(context)*0.045,
                                   width: MyConst.deviceHeight(context)*0.045,
                                 ),
@@ -1083,14 +1088,12 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('Under The Project',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600
-                      ),
+                    Text('Under The Project',
+                      style: titleStyle
                     ),
                     const Spacer(),
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode?Colors.white10:Colors.white,
                         elevation: 1,
                         child: Container(
                           height: 40,
@@ -1191,8 +1194,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                               MediaQuery.of(context).size.height * 0.010,
                             ),
                             child: Card(
-                              shadowColor: Colors.black,
-                              color: Theme.of(context).primaryColorLight,
+                              color: Get.isDarkMode?darkGreyClr:Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               elevation: 0.5,
@@ -1202,9 +1204,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                 children: [
                                   //==============================PROPERTY IMAGE CONTAINER
                                   Container(
-                                    //height: MyConst.deviceHeight(context)*0.1,
-                                    //width: MyConst.deviceWidth(context)*0.25,
                                     margin: const EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Get.isDarkMode?Colors.white12:Colors.white
+                                    ),
                                     child: Center(
                                       child: ClipRRect(
                                           borderRadius:
@@ -1238,11 +1241,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               width:
                                               MyConst.deviceWidth(
                                                   context) *
-                                                  0.25,
+                                                  0.2,
                                               height:
                                               MyConst.deviceHeight(
                                                   context) *
-                                                  0.12,
+                                                  0.1,
                                               fit: BoxFit.fill,
                                             ),
                                           )),
@@ -1289,8 +1292,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               children: [
                                                 Icon(
                                                   Icons.currency_rupee_sharp,
-                                                  color:
-                                                  Theme.of(context).primaryColor,
+                                                  color:Get.isDarkMode?Colors.white70:context.theme.primaryColor,
                                                   size: MyConst
                                                       .mediumSmallTextSize *
                                                       fontSizeScaleFactor,
@@ -1321,7 +1323,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                 Icon(
                                                   Icons.location_on_outlined,
                                                   color:
-                                                  Theme.of(context).primaryColor,
+                                                  Get.isDarkMode?Colors.white70:context.theme.primaryColor,
                                                   size: MyConst
                                                       .mediumSmallTextSize *
                                                       fontSizeScaleFactor,

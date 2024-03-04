@@ -56,7 +56,8 @@ dependencies:
   webview_flutter: ^4.5.0
   flutter_inappwebview: ^6.0.0
   curved_navigation_bar:
-  get:  
+  get:
+  get_storage:
 
 
 

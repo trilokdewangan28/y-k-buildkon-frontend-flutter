@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -7,6 +8,7 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class FavoritePropertyListPage extends StatefulWidget {
   const FavoritePropertyListPage({Key? key}) : super(key: key);
@@ -150,7 +152,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
             appState.activeWidget = "ProfileWidget";
           },
           child: Container(
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
             child:Column(
               children: [
@@ -174,7 +176,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                   horizontal: 15, vertical: 4),
                               child: Card(
                                 shadowColor: Colors.black,
-                                color: Theme.of(context).primaryColorLight,
+                                color: Get.isDarkMode?darkGreyClr : Theme.of(context).primaryColorLight,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 elevation: 0.5,
@@ -244,12 +246,10 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               //=======================PRICE ROW SECTION
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    '₹',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Theme.of(context).primaryColor,
-                                                        fontWeight: FontWeight.w600),
+                                                  Icon(
+                                                    Icons.currency_rupee_outlined,
+                                                    color: Get.isDarkMode ? Colors.white70 :Theme.of(context).primaryColor,
+                                                    size: 20,
                                                   ),
                                                   Text(
                                                     '${property['property_price']}',
@@ -265,8 +265,8 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                                               Row(
                                                 children: [
                                                   Icon(
-                                                    Icons.location_pin,
-                                                    color: Theme.of(context).primaryColor,
+                                                    Icons.location_on_outlined,
+                                                    color: Get.isDarkMode ? Colors.white70 :Theme.of(context).primaryColor,
                                                     size: 20,
                                                   ),
                                                   Expanded(

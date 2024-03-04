@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -24,7 +25,7 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
           appState.activeWidget="CustomerListPage";
         },
       child: Container(
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).backgroundColor,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -66,7 +67,7 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
                 child: Column(
                   children: [
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Customer Name',
@@ -80,14 +81,14 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
                       ),
                     ),
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
                             Icon(
                               Icons.phone,
                               color:
-                              Theme.of(context).primaryColor,
+                              Get.isDarkMode? Colors.white70:Theme.of(context).primaryColor,
                               size: MyConst
                                   .mediumSmallTextSize *
                                   fontSizeScaleFactor,
@@ -105,14 +106,14 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
                       ),
                     ),
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
                             Icon(
                               Icons.email_outlined,
                               color:
-                              Theme.of(context).primaryColor,
+                              Get.isDarkMode? Colors.white70:Theme.of(context).primaryColor,
                               size: MyConst
                                   .mediumSmallTextSize *
                                   fontSizeScaleFactor,
@@ -132,14 +133,14 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
                       ),
                     ),
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
                             Icon(
                               Icons.location_on_outlined,
                               color:
-                              Theme.of(context).primaryColor,
+                              Get.isDarkMode? Colors.white70:Theme.of(context).primaryColor,
                               size: MyConst
                                   .mediumSmallTextSize *
                                   fontSizeScaleFactor,

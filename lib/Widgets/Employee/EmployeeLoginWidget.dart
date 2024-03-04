@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -7,8 +8,8 @@ import 'package:real_state/Widgets/Employee/EmployeeSignupWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
-import '../../services/theme.dart';
 class EmployeeLoginWidget extends StatefulWidget {
   const EmployeeLoginWidget({Key? key}) : super(key: key);
 
@@ -371,7 +372,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
           border: OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: primaryColorDark,
+              color: context.theme.primaryColorDark,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),

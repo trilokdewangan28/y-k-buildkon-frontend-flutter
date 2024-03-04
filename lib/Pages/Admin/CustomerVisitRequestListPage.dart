@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -7,6 +9,8 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 
 class CustomerVisitRequestListPage extends StatefulWidget {
   const CustomerVisitRequestListPage({Key? key}) : super(key: key);
@@ -160,7 +164,7 @@ class _CustomerVisitRequestListPageState
             appState.activeWidget = "ProfileWidget";
           },
           child: Container(
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
             child: Column(
               children: [
@@ -204,8 +208,8 @@ class _CustomerVisitRequestListPageState
                           width: 110,
                           decoration: BoxDecoration(
                               color: pendingTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child: Center(
@@ -250,8 +254,8 @@ class _CustomerVisitRequestListPageState
                           width: 110,
                           decoration: BoxDecoration(
                               color: acceptedTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -296,8 +300,8 @@ class _CustomerVisitRequestListPageState
                           width: 110,
                           decoration: BoxDecoration(
                               color: completedTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -344,8 +348,8 @@ class _CustomerVisitRequestListPageState
                           width: 110,
                           decoration: BoxDecoration(
                               color: cancelledTapped
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).primaryColorLight,
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                               border: Border.all(width: 1),
                               borderRadius: BorderRadius.circular(5)),
                           child:  Center(
@@ -394,8 +398,8 @@ class _CustomerVisitRequestListPageState
                       margin: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
                           color: referalCodeTapped
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).primaryColorLight,
+                              ? bluishClr
+                              : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
                           border: Border.all(width: 1),
                           borderRadius: BorderRadius.circular(5)),
                       child:  Center(
@@ -442,7 +446,7 @@ class _CustomerVisitRequestListPageState
                               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
                               child: Card(
                                 shadowColor: Colors.black,
-                                color: Colors.white,
+                                color: Get.isDarkMode?darkGreyClr:Colors.white,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
                                 elevation: 1,
@@ -510,12 +514,10 @@ class _CustomerVisitRequestListPageState
                                               //=======================PRICE ROW SECTION
                                               Row(
                                                 children: [
-                                                  Text(
-                                                    '₹',
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        color: Theme.of(context).primaryColor,
-                                                        fontWeight: FontWeight.w600),
+                                                  Icon(
+                                                    Icons.currency_rupee,
+                                                    color:Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
+                                                    size: 16,
                                                   ),
                                                   Text(
                                                     '${property['property_price']}',
@@ -532,8 +534,8 @@ class _CustomerVisitRequestListPageState
                                                 children: [
                                                   Icon(
                                                     Icons.location_pin,
-                                                    color: Theme.of(context).primaryColor,
-                                                    size: 20,
+                                                    color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
+                                                    size: 16,
                                                   ),
                                                   Expanded(
                                                     child: Text(

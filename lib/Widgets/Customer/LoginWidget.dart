@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -374,7 +375,7 @@ class _LoginWidgetState extends State<LoginWidget> {
             border: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2,
-                color: primaryColorDark,
+                color: context.theme.primaryColorDark,
               ),
               borderRadius: BorderRadius.all(Radius.circular(10),),
             )

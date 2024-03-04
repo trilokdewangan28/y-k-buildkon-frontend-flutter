@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import 'package:real_state/Provider/MyProvider.dart';
@@ -6,6 +7,7 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class CustomerVisitRequestDetailPage extends StatefulWidget {
   const CustomerVisitRequestDetailPage({Key? key}) : super(key: key);
@@ -78,7 +80,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
           appState.activeWidget = "CustomerVisitRequestListPage";
         },
         child: Container(
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
               child: Column(
@@ -171,7 +173,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: Theme.of(context).primaryColor
+                                color: Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColor
                             ),
                           ),
 
@@ -182,7 +184,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                             style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
-                                color: Theme.of(context).primaryColor
+                                color: Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColor
                             ),
                           ),
                         ],
@@ -197,7 +199,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                       child: Row(
                         children: [
                           //============================LOCATION
-                          Icon(Icons.location_on_outlined, color: Theme.of(context).primaryColor,),
+                          Icon(Icons.location_on_outlined, color: Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColor,),
                           Expanded(child:  Text(
                             '${appState.selectedCustomerRequest['property_address']}, ${appState.selectedCustomerRequest['property_locality']} , ${appState.selectedCustomerRequest['property_city']}',
                             style: const TextStyle(
@@ -265,7 +267,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
 
                     //==================================CUSTOMER NAME
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Name'),
@@ -274,7 +276,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================CUSTOMER MOBILE
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Mobile'),
@@ -283,7 +285,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================CUSTOMER EMAIL
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Email'),
@@ -292,7 +294,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================CUSTOMER ADDRESS
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color:Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Address'),
@@ -301,7 +303,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================VISITOR NAME
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Visitor Name'),
@@ -310,7 +312,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================VISITOR NUMBER
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Visitor Number'),
@@ -319,7 +321,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================VISITING DATE
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Visiting Date'),
@@ -328,7 +330,7 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
                     ),
                     //==================================VISITING Status
                     Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                         margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 4),
                         child: ListTile(
                           title: const Text('Visiting Status'),

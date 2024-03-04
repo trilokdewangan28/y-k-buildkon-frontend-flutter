@@ -1,11 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 class EmployeeListPage extends StatefulWidget {
   const EmployeeListPage({super.key});
 
@@ -157,7 +159,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                     //=====================================FILTER BY NAME TEXTFIELD
                     Flexible(
                       child: Card(
-                        color: Theme.of(context).primaryColorLight,
+                        color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
                         //shadowColor: Colors.black,
                         elevation: 1,
                         child: TextField(
@@ -224,7 +226,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                             ),
                             child: Card(
                               shadowColor: Colors.black,
-                              color: Theme.of(context).primaryColorLight,
+                              color: Get.isDarkMode ?darkGreyClr : Theme.of(context).primaryColorLight,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                               elevation: 0.5,
@@ -306,7 +308,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                                 Icon(
                                                   Icons.email_outlined,
                                                   color:
-                                                  Theme.of(context).primaryColor,
+                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                                   size: MyConst
                                                       .mediumSmallTextSize *
                                                       fontSizeScaleFactor,
@@ -335,7 +337,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                                 Icon(
                                                   Icons.phone,
                                                   color:
-                                                  Theme.of(context).primaryColor,
+                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                                   size: MyConst
                                                       .mediumSmallTextSize *
                                                       fontSizeScaleFactor,
@@ -366,7 +368,7 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
                                                 Icon(
                                                   Icons.location_on_outlined,
                                                   color:
-                                                  Theme.of(context).primaryColor,
+                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                                   size: MyConst
                                                       .mediumSmallTextSize *
                                                       fontSizeScaleFactor,

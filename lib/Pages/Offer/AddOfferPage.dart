@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -404,7 +405,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
           ),
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
     );
   }
 }

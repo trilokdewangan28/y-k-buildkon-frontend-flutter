@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -164,7 +165,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
           appState.currentState = 0;
         },
         child: Container(
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:  Container(
@@ -222,7 +223,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                                   }
                                 },
                                 child: Text('Generate Otp',style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                                    color: bluishClr,
                                     fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                                 ),
                                 )
@@ -264,7 +265,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                                   }
                                 },
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                 ),
                                 child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
@@ -330,9 +331,9 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
         keyboardType: inputType,
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Colors.black),
+          labelStyle: TextStyle(color: Get.isDarkMode? Colors.white70: Colors.black),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(width: 2, color: primaryColor),
+            borderSide: BorderSide(width: 2, color: bluishClr),
             borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
@@ -340,7 +341,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
           border: OutlineInputBorder(
             borderSide: BorderSide(
               width: 2,
-              color: primaryColorDark,
+              color: context.theme.primaryColorDark,
             ),
             borderRadius: BorderRadius.all(
               Radius.circular(10),

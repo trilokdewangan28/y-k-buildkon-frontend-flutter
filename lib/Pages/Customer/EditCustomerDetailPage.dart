@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
@@ -66,7 +67,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     return PopScope(
         child: Scaffold(
-            backgroundColor: primaryColorLight,
+            backgroundColor: context.theme.backgroundColor,
             appBar: _appBar('Edit Details'),
             body: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -77,7 +78,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                       children: [
                         //==================================NAME TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Name',
@@ -105,7 +106,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================MOBILE TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Mobile',
@@ -134,7 +135,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================EMAIL TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Email',
@@ -162,7 +163,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================ADDRESS TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Address',
@@ -190,7 +191,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================LOCALITY TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Locality',
@@ -218,7 +219,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================CITY TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'City',
@@ -246,7 +247,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================PINCODE TILE
                         Card(
-                          color: primaryColorLight,
+                          color: context.theme.backgroundColor,
                           child: ListTile(
                             title: const Text(
                               'Pincode',
@@ -275,7 +276,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: bluishClr,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
                                 )
@@ -316,7 +317,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
     return AppBar(
       foregroundColor: Colors.transparent,
       iconTheme: IconThemeData(
-        color:Colors.black,
+        color:Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
       ),
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
@@ -324,24 +325,21 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: appbartitlestyle,
         softWrap: true,
       ),
       actions: [
         Container(
           margin: EdgeInsets.only(right: 20),
           child: CircleAvatar(
+            backgroundColor: Colors.white,
             backgroundImage: AssetImage(
                 'assets/images/ic_launcher.png'
             ),
           ),
         )
       ],
-      backgroundColor: primaryColorLight,
+      backgroundColor: context.theme.backgroundColor,
     );
   }
 }

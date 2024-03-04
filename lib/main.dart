@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Screens/SplashScreen.dart';
 import 'dart:developer' as developer;
 import 'package:flutter/services.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:real_state/services/ThemeService/ThemeServices.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 
 
@@ -29,13 +31,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       // useInheritedMediaQuery: true,
       // locale: DevicePreview.locale(context),
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: Themes.light,
+      darkTheme: Themes.dark,
+      themeMode: ThemeServices().theme,
       home: const SplashScreen(),
     );
   }

@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Offer/OfferListPage.dart';
 
@@ -30,7 +31,7 @@ class AppDrawerWidget extends StatelessWidget {
           appState.currentState=0;
         },
         child:Drawer(
-          backgroundColor: Theme.of(context).primaryColorLight,
+          backgroundColor: Theme.of(context).backgroundColor,
           elevation: 0,
           width: 270,
           shape: const RoundedRectangleBorder(
@@ -45,7 +46,7 @@ class AppDrawerWidget extends StatelessWidget {
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
+                  color: Theme.of(context).backgroundColor,
                 ),
                 child: Column(
                   children: [
@@ -67,11 +68,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================HOME TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Colors.white,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.home_outlined,color: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.home_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
                   title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -85,11 +86,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================PROJECTS TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.apartment_outlined,color: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.apartment_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
                   title: const Text('Project'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -102,11 +103,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================OFFER TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.local_offer_outlined,color: Theme.of(context).primaryColor,),
+                  leading: Icon(Icons.local_offer_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,),
                   title: const Text('Offers'),
                   onTap: () {
                     //popNow(context);
@@ -119,11 +120,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================EMI CALCULATOR TILE
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.calculate_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.calculate_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
                   title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -136,11 +137,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================FUTURE OF COLONY
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business_sharp,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.business_sharp,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
                   title: const Text('Future Of Colony'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -154,11 +155,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================BLOG POST
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.post_add_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.post_add_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
                   title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -171,11 +172,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================CONTACT SUPPORT
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color:Get.isDarkMode?Colors.white30:  Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.support_agent_outlined,color:Get.isDarkMode?Colors.white70:  Theme.of(context).primaryColor),
                   title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
@@ -188,11 +189,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================EMPLOYEE JOIN
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.person_add_alt_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.person_add_alt_outlined,color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor),
                   title: const Text('Membership Join'),
                   onTap: () {
                     Navigator.pop(context);// Close the drawer
@@ -205,11 +206,11 @@ class AppDrawerWidget extends StatelessWidget {
               //==========================================ADMIN PANEL
               Card(
                 margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                color: Theme.of(context).primaryColorLight,
+                color: Get.isDarkMode?Colors.white30: Theme.of(context).primaryColorLight,
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.admin_panel_settings_outlined,color: Theme.of(context).primaryColor),
+                  leading: Icon(Icons.admin_panel_settings_outlined,color:Get.isDarkMode?Colors.white70:  Theme.of(context).primaryColor),
                   title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer

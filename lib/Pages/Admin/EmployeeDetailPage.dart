@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 class EmployeeDetailPage extends StatefulWidget {
   const EmployeeDetailPage({super.key});
 
@@ -62,7 +64,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
         appState.activeWidget="EmployeeListPage";
       },
       child: Container(
-        color: Theme.of(context).primaryColorLight,
+        color: Theme.of(context).backgroundColor,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -105,7 +107,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                   children: [
                     //==================================EMPLOYEE NAME
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Employee Name',
@@ -121,14 +123,14 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     
                     //==================================EMPLOYEE CONTACT
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
                             Icon(
                               Icons.phone,
                               color:
-                              Theme.of(context).primaryColor,
+                              Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColor,
                               size: MyConst
                                   .mediumSmallTextSize *
                                   fontSizeScaleFactor,
@@ -148,14 +150,14 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     
                     //==================================EMPLOYEE EMAIL
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
                             Icon(
                               Icons.email_outlined,
                               color:
-                              Theme.of(context).primaryColor,
+                              Get.isDarkMode ? Colors.white70 :Theme.of(context).primaryColor,
                               size: MyConst
                                   .mediumSmallTextSize *
                                   fontSizeScaleFactor,
@@ -177,7 +179,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE DOB
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Employee Date Of Birth',
@@ -193,7 +195,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE BLOOD GROUP
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Blood Group',
@@ -209,7 +211,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE EDUCATION
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Education',
@@ -225,7 +227,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE PROFESSION
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Profession',
@@ -241,7 +243,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE INTEREST
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Interest',
@@ -257,7 +259,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE FNAME
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Father Name',
@@ -273,7 +275,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE MNAME
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Mother Name',
@@ -289,7 +291,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE NOMINEE NAME
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Nominee Name',
@@ -305,7 +307,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE NOMINEE DOB
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Nominee Date of Birth',
@@ -322,7 +324,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE NOMINEE RELATION
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Text(
                           'Relation',
@@ -338,7 +340,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     
                     //==================================EMPLOYEE ADDRESS
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: Row(
                           children: [
@@ -366,7 +368,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
 
                     //==================================EMPLOYEE STATUS
                     Card(
-                      color: Theme.of(context).primaryColorLight,
+                      color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                       child: ListTile(
                         title: const Row(
                           children: [
@@ -392,7 +394,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                     //==============================CHANGE PROPERTY STATUS BUTTON
                     Container(
                         decoration: BoxDecoration(
-                            border: Border.all(width: 1),
+                            border: Border.all(width: 1,color: Get.isDarkMode?Colors.white70:Colors.black),
                             borderRadius: BorderRadius.circular(10)
                         ),
                         child: Column(
@@ -405,7 +407,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                                 const SizedBox(width: 4,),
                                 //==========================================DROPDOWN CARD
                                 Card(
-                                    color: Theme.of(context).primaryColorLight,
+                                    color: Get.isDarkMode ? Colors.white12 :Theme.of(context).primaryColorLight,
                                     elevation: 1,
                                     child: Container(
                                         height: MyConst.deviceWidth(context)*0.1,
@@ -453,7 +455,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                                       shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(10)
                                       ),
-                                      backgroundColor: Theme.of(context).primaryColor
+                                      backgroundColor: bluishClr
                                   ),
                                   onPressed: appState.employeeDetails['status']==selectedEmployeeStatus
                                       ? null

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
@@ -6,6 +7,7 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class AdminProfilePage extends StatefulWidget {
   const AdminProfilePage({Key? key}) : super(key: key);
@@ -86,7 +88,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             appState.currentState = 0;
           },
           child: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: ListView(
@@ -121,7 +123,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             right: 10,
                             child: CircleAvatar(
                               radius: 15,
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: bluishClr,
                               child: IconButton(
                                   onPressed: () {
                                     Navigator.push(
@@ -191,13 +193,13 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             appState.currentState = 1;
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child:  Row(
                               children: [
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Icon(Icons.book_outlined,color: Theme.of(context).primaryColor,),
+                                Icon(Icons.book_outlined,color: bluishClr,),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -269,13 +271,13 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             appState.activeWidget = "CustomerListPage";
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child: Row(
                               children: [
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Icon(Icons.list_alt_outlined,color: Theme.of(context).primaryColor,),
+                                Icon(Icons.list_alt_outlined,color: bluishClr,),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -296,13 +298,13 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             appState.activeWidget = "EmployeeListPage";
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child:  Row(
                               children: [
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Icon(Icons.real_estate_agent_outlined,color: Theme.of(context).primaryColor,),
+                                Icon(Icons.real_estate_agent_outlined,color: bluishClr,),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -323,13 +325,13 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             appState.activeWidget = "AddNewPropertyWidget";
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child:  Row(
                               children: [
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Icon(Icons.add_business_outlined,color: Theme.of(context).primaryColor,),
+                                Icon(Icons.add_business_outlined,color: bluishClr,),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -350,13 +352,13 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             appState.activeWidget = "AddNewProjectWidget";
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color:Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child:  Row(
                               children: [
                                 const SizedBox(
                                   width: 15,
                                 ),
-                                Icon(Icons.add_business_outlined,color: Theme.of(context).primaryColor,),
+                                Icon(Icons.add_business_outlined,color: bluishClr,),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -400,7 +402,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             Future.delayed(const Duration(milliseconds: 100));
                           },
                           child: Card(
-                            color: Theme.of(context).primaryColorLight,
+                            color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
                             child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

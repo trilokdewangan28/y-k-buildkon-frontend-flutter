@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
 import 'package:real_state/Pages/Offer/AddOfferPage.dart';
@@ -9,6 +10,7 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class FavoritePropertyDetailPage extends StatefulWidget {
   const FavoritePropertyDetailPage({Key? key}) : super(key: key);
@@ -190,7 +192,7 @@ class _FavoritePropertyDetailPageState
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).backgroundColor,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -260,8 +262,7 @@ class _FavoritePropertyDetailPageState
                                 focusNode: _visitingDateFocusNode,
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                    labelText: 'Vising Date',
-                                    labelStyle: TextStyle(color: Colors.black),
+                                    labelText: 'Visiting Date',
                                     border: OutlineInputBorder()),
                                 onTap: () => _selectDate(context),
                                 readOnly: true,
@@ -298,8 +299,11 @@ class _FavoritePropertyDetailPageState
                                 horizontal: 15, vertical: 15),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor),
+                                    backgroundColor:bluishClr,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  )
+                                ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     var visitData = {
@@ -351,19 +355,16 @@ class _FavoritePropertyDetailPageState
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).viewInsets.bottom, top: 15),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
+                decoration:  BoxDecoration(
+                    color: Get.isDarkMode?darkGreyClr:Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20))),
                 child: Column(
                   children: [
-                    const Text(
+                     Text(
                       'select your rating',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                      style: titleStyle,
                     ),
                     //--------------------------------------------RATING CONTAINER
                     Container(
@@ -458,6 +459,12 @@ class _FavoritePropertyDetailPageState
                     ),
                     //--------------------------------------------------SUBMIT NOW
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: bluishClr,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        )
+                      ),
                         onPressed: () {
                           var data = {
                             "c_id": appState.customerDetails['customer_id'],
@@ -467,7 +474,7 @@ class _FavoritePropertyDetailPageState
                           };
                           submitPropertyRating(data, appState, context);
                         },
-                        child: const Text('submit'))
+                        child: const Text('submit',style: TextStyle(color: Colors.white),))
                   ],
                 ),
               ));
@@ -502,11 +509,11 @@ class _FavoritePropertyDetailPageState
           appState.addedToFavorite = false;
         },
         child: Container(
-          color: Theme.of(context).primaryColorLight,
+          color: Theme.of(context).backgroundColor,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
               child: Container(
-            color: Theme.of(context).primaryColorLight,
+            color: Theme.of(context).backgroundColor,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -535,7 +542,7 @@ class _FavoritePropertyDetailPageState
                                     : Container(
                                         width: double.infinity,
                                         decoration: BoxDecoration(
-                                            color: Theme.of(context)
+                                            color: Get.isDarkMode? Colors.white12: Theme.of(context)
                                                 .primaryColorLight,
                                             border: Border.all(width: 1),
                                             borderRadius:
@@ -630,7 +637,7 @@ class _FavoritePropertyDetailPageState
                       //============================LOCATION
                       Icon(
                         Icons.location_pin,
-                        color: Theme.of(context).primaryColor,
+                        color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                         size: MyConst.mediumTextSize * fontSizeScaleFactor,
                       ),
                       Expanded(
@@ -657,7 +664,7 @@ class _FavoritePropertyDetailPageState
                       //============================PRICE ICON
                       Icon(
                         Icons.currency_rupee,
-                        color: Theme.of(context).primaryColor,
+                        color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                         size: MyConst.mediumTextSize * fontSizeScaleFactor,
                       ),
                       //=============================PRICE
@@ -667,7 +674,7 @@ class _FavoritePropertyDetailPageState
                             fontSize:
                                 MyConst.smallTextSize * fontSizeScaleFactor,
                             fontWeight: FontWeight.w700,
-                            color: Theme.of(context).primaryColor),
+                            color: Get.isDarkMode?Colors.white60:Theme.of(context).primaryColor),
                       ),
                       const Spacer(),
                       //=============================FAVRITE BTN
@@ -717,7 +724,7 @@ class _FavoritePropertyDetailPageState
                     padding: const EdgeInsets.symmetric(
                         horizontal: 25, vertical: 15),
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1),
+                        border: Border.all(width: 1,color: Get.isDarkMode?Colors.white70:Colors.black),
                         borderRadius: BorderRadius.circular(10)),
                     child: Column(
                       children: [
@@ -740,7 +747,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.home_work_outlined,
-                                    color: Theme.of(context).primaryColor,
+                                    color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                     size: MyConst.mediumLargeTextSize *
                                         fontSizeScaleFactor,
                                   ),
@@ -773,7 +780,7 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   Icon(
                                     Icons.square_foot_outlined,
-                                    color: Theme.of(context).primaryColor,
+                                    color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                     size: MyConst.mediumLargeTextSize *
                                         fontSizeScaleFactor,
                                   ),
@@ -819,7 +826,7 @@ class _FavoritePropertyDetailPageState
                                         ),
                                         Icon(
                                           Icons.bedroom_parent_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${appState.selectedProperty['property_bhk']}',
@@ -850,7 +857,7 @@ class _FavoritePropertyDetailPageState
                                         ),
                                         Icon(
                                           Icons.chair_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${appState.selectedProperty['property_isFurnished']}',
@@ -892,7 +899,7 @@ class _FavoritePropertyDetailPageState
                                         ),
                                         Icon(
                                           Icons.park_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${appState.selectedProperty['property_isGarden']}',
@@ -923,7 +930,7 @@ class _FavoritePropertyDetailPageState
                                         ),
                                         Icon(
                                           Icons.local_parking_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${appState.selectedProperty['property_isParking']}',
@@ -1010,7 +1017,7 @@ class _FavoritePropertyDetailPageState
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                        Theme.of(context).primaryColor,
+                                        bluishClr,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)),
@@ -1032,7 +1039,7 @@ class _FavoritePropertyDetailPageState
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor:
-                                          Theme.of(context).primaryColor,
+                                      bluishClr,
                                       foregroundColor:
                                           Theme.of(context).primaryColorLight,
                                       shape: RoundedRectangleBorder(
@@ -1061,7 +1068,7 @@ class _FavoritePropertyDetailPageState
                     ? Center(
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: bluishClr,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10))),
                             onPressed: () {},

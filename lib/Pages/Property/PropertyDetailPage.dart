@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Pages/ImagePickerPage.dart';
@@ -10,6 +11,7 @@ import 'package:real_state/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 class PropertyDetailPage extends StatefulWidget {
   const PropertyDetailPage({Key? key}) : super(key: key);
@@ -387,7 +389,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).primaryColorLight,
+                    color: Theme.of(context).backgroundColor,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -497,8 +499,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                 horizontal: 15, vertical: 15),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Theme.of(context).primaryColor),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
+                                    backgroundColor:bluishClr),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     var visitData = {
@@ -672,7 +676,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             appState.activeWidget = "PropertyListPage";
           },
           child: Container(
-              color: Theme.of(context).primaryColorLight,
+              color: Get.isDarkMode ? darkGreyClr : context.theme.backgroundColor,
               height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                   child: _isPropertyLoading==false
@@ -717,7 +721,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                           : Container(
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                              color: Theme.of(context).primaryColorLight,
+                                              color: Get.isDarkMode?Colors.white70 : Theme.of(context).primaryColorLight,
                                               border: Border.all(width: 1),
                                               borderRadius:
                                               BorderRadius.circular(25)),
@@ -803,7 +807,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             //============================LOCATION
                             Icon(
                               Icons.location_pin,
-                              color: Theme.of(context).primaryColor,
+                              color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                               size: MyConst.mediumTextSize * fontSizeScaleFactor,
                             ),
                             Expanded(
@@ -829,7 +833,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             //============================PRICE ICON
                             Icon(
                               Icons.currency_rupee,
-                              color: Theme.of(context).primaryColor,
+                              color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
                               size: MyConst.mediumTextSize * fontSizeScaleFactor,
                             ),
                             //=============================PRICE
@@ -838,7 +842,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               style: TextStyle(
                                   fontSize: MyConst.smallTextSize * fontSizeScaleFactor,
                                   fontWeight: FontWeight.w700,
-                                  color: Theme.of(context).primaryColor),
+                                  color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                              ),
                             ),
                             const Spacer(),
                             //=============================FAVRITE BTN
@@ -885,7 +890,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           padding:
                           const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                           decoration: BoxDecoration(
-                              border: Border.all(width: 1),
+                              border: Border.all(width: 1,color: Get.isDarkMode?Colors.white70:Colors.black),
                               borderRadius: BorderRadius.circular(10)),
                           child: Column(
                             children: [
@@ -908,7 +913,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.home_work_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                           size: MyConst.mediumLargeTextSize *
                                               fontSizeScaleFactor,
                                         ),
@@ -941,7 +946,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.square_foot_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                           size: MyConst.mediumLargeTextSize *
                                               fontSizeScaleFactor,
                                         ),
@@ -984,7 +989,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.bedroom_parent_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${selectedProperty['property_bhk']}',
@@ -1013,7 +1018,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.chair_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${selectedProperty['property_isFurnished']}',
@@ -1053,7 +1058,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.park_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${selectedProperty['property_isGarden']}',
@@ -1082,7 +1087,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                         ),
                                         Icon(
                                           Icons.local_parking_outlined,
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
                                         ),
                                         Text(
                                           '${selectedProperty['property_isParking']}',
@@ -1165,7 +1170,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     foregroundColor:
                                     Theme.of(context).primaryColorLight,
                                     shape: RoundedRectangleBorder(
@@ -1185,7 +1190,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Theme.of(context).primaryColor,
+                                      backgroundColor: bluishClr,
                                       foregroundColor:
                                       Theme.of(context).primaryColorLight,
                                       shape: RoundedRectangleBorder(
@@ -1213,7 +1218,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                           ? Center(
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundColor: bluishClr,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
                                 )
