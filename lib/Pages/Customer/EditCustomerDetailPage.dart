@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../config/Constant.dart';
+import '../../services/ThemeService/theme.dart';
 class EditCustomerDetailPage extends StatefulWidget {
   final Map<String,dynamic> customerDetails;
   const EditCustomerDetailPage({super.key, required this.customerDetails});
@@ -62,19 +65,10 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context, listen: false);
     return PopScope(
-        child: SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                title: const Text(
-                    'Edit Details',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600
-                  ),
-                ),
-                centerTitle: true,
-                backgroundColor: Theme.of(context).primaryColorLight,
-              ),
-              body: Container(
+        child: Scaffold(
+            backgroundColor: primaryColorLight,
+            appBar: _appBar('Edit Details'),
+            body: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: Form(
                   key: _formKey,
@@ -83,6 +77,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                       children: [
                         //==================================NAME TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Name',
@@ -91,12 +86,12 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                               ),
                             ),
                             subtitle: TextFormField(
-                              controller: TextEditingController(text: widget.customerDetails['customer_name']),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none, // Remove underline here
-                              ),
+                                controller: TextEditingController(text: widget.customerDetails['customer_name']),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none, // Remove underline here
+                                ),
                                 onChanged: (value){
-                                 name = value;
+                                  name = value;
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -110,6 +105,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================MOBILE TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Mobile',
@@ -118,11 +114,11 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                               ),
                             ),
                             subtitle: TextFormField(
-                              controller: TextEditingController(text: widget.customerDetails['customer_mobile'].toString()),
+                                controller: TextEditingController(text: widget.customerDetails['customer_mobile'].toString()),
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
-                                border: InputBorder.none, // Remove underline here
-                              ),
+                                  border: InputBorder.none, // Remove underline here
+                                ),
                                 onChanged: (value){
                                   mobile = value.toString();
                                 },
@@ -138,6 +134,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================EMAIL TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Email',
@@ -165,6 +162,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================ADDRESS TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Address',
@@ -192,6 +190,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================LOCALITY TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Locality',
@@ -219,6 +218,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================CITY TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'City',
@@ -246,6 +246,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================PINCODE TILE
                         Card(
+                          color: primaryColorLight,
                           child: ListTile(
                             title: const Text(
                               'Pincode',
@@ -307,9 +308,40 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                     ),
                   ),
                 )
-              )
             )
         )
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      foregroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color:Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
+            overflow: TextOverflow.ellipsis),
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(
+                'assets/images/ic_launcher.png'
+            ),
+          ),
+        )
+      ],
+      backgroundColor: primaryColorLight,
     );
   }
 }

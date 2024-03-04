@@ -4,6 +4,8 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../services/ThemeService/theme.dart';
+
 class AdminContactPage extends StatelessWidget {
   const AdminContactPage({Key? key}) : super(key: key);
 
@@ -32,13 +34,7 @@ class AdminContactPage extends StatelessWidget {
     return PopScope(
         child: SafeArea(
           child: Scaffold(
-            appBar: AppBar(
-              title: const Text(
-                'Contact Support',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              centerTitle: true,
-            ),
+            appBar:_appBar('Contact Support', context),
             body: Container(
               color: Theme.of(context).primaryColorLight,
               height: MediaQuery.of(context).size.height,
@@ -140,5 +136,37 @@ class AdminContactPage extends StatelessWidget {
           ),
         ),
         );
+  }
+  _appBar(appBarContent,context){
+    return AppBar(
+      foregroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color:Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
+            overflow: TextOverflow.ellipsis),
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(
+                'assets/images/ic_launcher.png'
+            ),
+          ),
+        )
+      ],
+      backgroundColor: primaryColorLight,
+    );
   }
 }

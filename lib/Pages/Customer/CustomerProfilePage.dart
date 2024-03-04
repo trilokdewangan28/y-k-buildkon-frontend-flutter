@@ -186,32 +186,28 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     ),
 
                     //-----------------------------------------your visit request
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: Card(
-                        color: Theme.of(context).primaryColorLight,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Icon(Icons.book_outlined),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Text('Your Visit Request'),
-                            const Spacer(),
-                            IconButton(
-                                onPressed: () {
-                                  appState.activeWidget = 'VisitRequestedListPage';
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_right,
-                                  size: 40,
-                                ))
-                          ],
+                    GestureDetector(
+                      onTap: (){
+                        appState.activeWidget = 'VisitRequestedListPage';
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        child: Card(
+                          color: Theme.of(context).primaryColorLight,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              const Icon(Icons.book_outlined),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              const Text('Your Visit Request'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -221,36 +217,31 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     // ),
 
                     //----------------------------------------your favorite property
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      child: Card(
-                        color: Theme.of(context).primaryColorLight,
-                        child: Row(
-                          children: [
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Icon(Icons.favorite_outline),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Text('Your Favorite Properties'),
-                            IconButton(
-                                onPressed: () {
-                                  appState.activeWidget =
-                                  "FavoritePropertyListPage";
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_right,
-                                  size: 40,
-                                ))
-                          ],
+                    GestureDetector(
+                      onTap: (){
+                        appState.activeWidget = "FavoritePropertyListPage";
+                      },
+                      child:Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        height: MediaQuery.of(context).size.height * 0.07,
+                        child: Card(
+                          color: Theme.of(context).primaryColorLight,
+                          child: Row(
+                            children: [
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              const Icon(Icons.favorite_outline),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              const Text('Your Favorite Properties'),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-
                     // const SizedBox(
                     //   height: 15,
                     // ),

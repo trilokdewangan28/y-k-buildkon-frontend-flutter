@@ -977,10 +977,6 @@ class _PropertyListPageState extends State<PropertyListPage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
-    //print('buildmethond called');
-    //print('length of proeprty is ${appState.propertyList.length}');
-    //print('property list is ${appState.propertyList}');
-    //print('firsloadrunning is ${_isFirstLoadRunning}');
     return RefreshIndicator(
         child: Container(
           child: Column(
@@ -1408,14 +1404,14 @@ class _PropertyListPageState extends State<PropertyListPage> {
               )
                   : Container(),
 
-              _hasNextPage == false
-                  ? appState.propertyList.isNotEmpty ? Container(
-                color: Colors.amber,
-                child: const Center(
-                  child: Text('You have fetched all of the content'),
-                ),
-              ) : Container()
-                  : Container()
+              // _hasNextPage == false
+              //     ? appState.propertyList.isNotEmpty ? Container(
+              //   color: Colors.amber,
+              //   child: const Center(
+              //     child: Text('You have fetched all of the content'),
+              //   ),
+              // ) : Container()
+              //     : Container()
             ],
           ),
         ),

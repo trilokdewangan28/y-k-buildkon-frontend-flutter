@@ -5,6 +5,7 @@ import 'package:real_state/Widgets/Employee/OtpVerificationWidgetForEmployee.dar
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/services/theme.dart';
 
 class EmployeeSignupWidget extends StatefulWidget {
   const EmployeeSignupWidget({super.key});
@@ -162,10 +163,8 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Employee Joining'),
-            centerTitle: true,
-          ),
+          backgroundColor: primaryColorLight,
+          appBar: _appBar('Employee Joining'),
           body: Container(
             child: SingleChildScrollView(
               child: Column(
@@ -176,22 +175,20 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                   //====================================HEADING
                   Center(
                     child: Text(
-                      'Employee Signup',
+                      'Signup Form',
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: MyConst.largeTextSize * fontSizeScaleFactor),
+                          fontSize: 18
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
 
                   //===============================FORM CONTAINER
                   Container(
                       width: MyConst.deviceWidth(context),
                       decoration: BoxDecoration(
-                        //border: Border.all(width: 1),
-                          color: Colors.grey.shade200,
+                          //color: primaryColor.withOpacity(0.08),
+                        border: Border.all(width: 1,color: Colors.grey),
                           borderRadius: BorderRadius.circular(10)),
                       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
@@ -200,7 +197,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                         child: Column(
                           children: [
                             const Text(
-                              'Joiner Details',
+                              'Applicants Details',
                               style: TextStyle(fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(
@@ -208,87 +205,49 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                             ),
 
                             //=============================NAME TEXTFIELD
-                            TextFormField(
-                              controller: _nameController,
-                              decoration: InputDecoration(
-                                  labelText: 'Full Name',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _nameController,
+                                label: 'Full Name', 
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid name';
+                                  }
+                                  return null;
+                                }, 
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=============================CONTACT TEXTFIELD
-                            TextFormField(
-                              controller: _contactController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  labelText: 'Contact Number',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty || value.length != 10) {
-                                  return 'please enter valid contact number';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _contactController,
+                                label: 'Contact Number',
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length!=10) {
+                                    return 'please enter valid contact number';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.number
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=============================EMAIL TEXTFIELD
-                            TextFormField(
-                              controller: _emailController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty ||
-                                    !value.contains('@gmail.com')) {
-                                  return 'please enter valid email';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _emailController,
+                                label: 'Email',
+                                validator: (value) {
+                                  if (value!.isEmpty ||
+                                      !value.contains('@gmail.com')) {
+                                    return 'please enter valid email';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
@@ -390,256 +349,144 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                             ),
 
                             //=============================EDUCATION TEXTFIELD
-                            TextFormField(
-                              controller: _educationController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  labelText: 'Education',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _educationController,
+                                label: 'Education',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=============================PROFESSION TEXTFIELD
-                            TextFormField(
-                              controller: _professionController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  labelText: 'Profession',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _professionController,
+                                label: 'Profession',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=============================INTEREST TEXTFIELD
-                            TextFormField(
-                              controller: _interestController,
-                              keyboardType: TextInputType.text,
-                              decoration: InputDecoration(
-                                  labelText: 'Interest In Real Estate',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _interestController,
+                                label: 'Interest',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //============================FATHER NAME
-                            TextFormField(
-                              controller: _fnameController,
-                              decoration: InputDecoration(
-                                  labelText: 'Father`s Name',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _fnameController,
+                                label: 'Father Name',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=========================== MOTHER NAME
-                            TextFormField(
-                              controller: _mnameController,
-                              decoration: InputDecoration(
-                                  labelText: 'Mother`s Name',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _mnameController,
+                                label: 'Mother Name',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=========================== ADDRESS TEXTFILED
-                            TextFormField(
-                              controller: _addressController,
-                              decoration: InputDecoration(
-                                  labelText: 'Address',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid address';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _addressController,
+                                label: 'Address',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=========================== CITY TEXTFILED
-                            TextFormField(
-                              controller: _cityController,
-                              decoration: InputDecoration(
-                                  labelText: 'City',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid city';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _cityController,
+                                label: 'City',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=========================== STATE TEXTFILED
-                            TextFormField(
-                              controller: _stateController,
-                              decoration: InputDecoration(
-                                  labelText: 'State',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid state';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _stateController,
+                                label: 'State',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
                             ),
 
                             //=========================== PINCODE TEXTFILED
-                            TextFormField(
-                              controller: _pincodeController,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  labelText: 'Pincode',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid pincode';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _pincodeController,
+                                label: 'Pincode',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.number
                             ),
                             const SizedBox(
                               height: 10,
@@ -654,28 +501,16 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                             ),
 
                             //=============================NOMINEE NAME TEXTFIELD
-                            TextFormField(
-                              controller: _nomineeNameController,
-                              decoration: InputDecoration(
-                                  labelText: 'Nominee Name',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColor
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _nomineeNameController,
+                                label: 'Nominee Name',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 10,
@@ -716,56 +551,32 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                             ),
 
                             //=============================NOMINEE RELATION TEXTFIELD
-                            TextFormField(
-                              controller: _nomineeRelationController,
-                              decoration: InputDecoration(
-                                  labelText: 'Relation',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColorDark
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _nomineeRelationController,
+                                label: 'Relation',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 20,
                             ),
 
-                            //=============================NOMINEE RELATION TEXTFIELD
-                            TextFormField(
-                              controller: _referalCodeController,
-                              decoration: InputDecoration(
-                                  labelText: 'Referal Code',
-                                  // labelStyle: TextStyle(
-                                  //     color: Theme.of(context).primaryColorDark
-                                  // ),
-                                  focusColor: Theme.of(context).primaryColor,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Theme.of(context).primaryColor,
-                                          width: 2),
-                                      borderRadius: BorderRadius.circular(10))),
-                              cursorColor: Theme.of(context).primaryColor,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
-                                }
-                                return null;
-                              },
+                            //=============================REFERALCODE TEXTFIELD
+                            _textField(
+                                controller: _referalCodeController,
+                                label: 'Referal Code',
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
+                                },
+                                inputType: TextInputType.text
                             ),
                             const SizedBox(
                               height: 20,
@@ -889,6 +700,69 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
             ),
           ),
         )
+    );
+  }
+  _textField(
+      {required TextEditingController? controller,
+         FocusNode? focusNode,
+        required String? label,
+        required validator,
+        required TextInputType? inputType}) {
+    return TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        keyboardType: inputType,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(color: Colors.black),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 2, color: primaryColor),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 2,
+              color: primaryColorDark,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+        validator: validator);
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      foregroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color:Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
+            overflow: TextOverflow.ellipsis),
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(
+                'assets/images/ic_launcher.png'
+            ),
+          ),
+        )
+      ],
+      backgroundColor: primaryColorLight,
     );
   }
 }

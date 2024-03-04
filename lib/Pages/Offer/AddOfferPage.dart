@@ -12,6 +12,8 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 
+import '../../services/ThemeService/theme.dart';
+
 
 class AddOfferPage extends StatefulWidget {
   final int p_id;
@@ -163,22 +165,21 @@ class _AddOfferPageState extends State<AddOfferPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context, listen: false);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    return SafeArea(child: PopScope(
-      canPop: true,
+    return PopScope(
+        canPop: true,
         onPopInvoked: (didPop) {
           appState.imageFile = null;
           appState.activeWidget = "PropertyListPage";
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Upload Offers'),
-          ),
+          appBar: _appBar('Add New Offer'),
           body: Container(
             color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
+                  SizedBox(height: 20,),
                   appState.imageFile != null
                       ? Image.file(
                     appState.imageFile!,
@@ -359,7 +360,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                                 },
                                 child: Text('Submit', style: TextStyle(
                                     color: Theme.of(context).primaryColorLight,
-                                  fontWeight: FontWeight.w600
+                                    fontWeight: FontWeight.w600
                                 ),)
                             )
                           ],
@@ -372,6 +373,38 @@ class _AddOfferPageState extends State<AddOfferPage> {
             ),
           ),
 
-        )));
+        ));
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      foregroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color:Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
+            overflow: TextOverflow.ellipsis),
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(
+                'assets/images/ic_launcher.png'
+            ),
+          ),
+        )
+      ],
+      backgroundColor: primaryColorLight,
+    );
   }
 }

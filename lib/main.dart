@@ -3,11 +3,16 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/Screens/SplashScreen.dart';
 import 'dart:developer' as developer;
+import 'package:flutter/services.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:real_state/services/ThemeService/theme.dart';
 
 
 void main() {
   developer.postEvent('resize_window', {'width': 600, 'height': 800});
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // Set status bar color explicitly
+  ));
   runApp(
     ChangeNotifierProvider(
       create: (_) => MyProvider(),
@@ -30,28 +35,7 @@ class MyApp extends StatelessWidget {
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        fontFamily: 'Montserrat',
-        //backgroundColor: Colors.white,
-        primaryColor: const Color.fromARGB(255, 13, 70, 155), // Set the primary color
-        primaryColorDark: Colors.black,
-        primaryColorLight: Colors.white,// Set the accent color
-        //splashColor: Colors.black,
-        //highlightColor: Colors.green,
-        errorColor: Colors.red,
-        useMaterial3: true,
-
-      ),
-        // darkTheme: ThemeData.dark().copyWith(
-        //   // Dark mode colors
-        //   primaryColor: const Color.fromARGB(255, 13, 70, 155),
-        //   hintColor: Colors.white,
-        //   secondaryHeaderColor: Colors.amber,
-        //
-        //
-        //   // Add more dark mode colors as needed
-        // ),
-        // themeMode: Provider.of<MyProvider>(context).currentThemeMode,
+      theme: Themes.light,
       home: const SplashScreen(),
     );
   }

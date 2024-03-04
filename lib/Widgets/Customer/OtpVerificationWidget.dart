@@ -6,6 +6,8 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class OtpVerificationWidget extends StatefulWidget {
   Map<String,dynamic> customerData;
    OtpVerificationWidget({super.key, required this.customerData});
@@ -142,16 +144,8 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text(
-                'Email Verificaiton',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24
-              ),
-            ),
-          ),
+          backgroundColor: primaryColorLight,
+          appBar: _appBar('Email Verification'),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -188,24 +182,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
                           ),
                           const SizedBox(height: 20,),
                           //==================================OTP TEXTFIELD
-                          Pinput(
-                            controller: _otpController,
-                            focusNode: _otpFocusNode,
-                            length: 6,
-                            defaultPinTheme: defaultPinTheme,
-                            focusedPinTheme: defaultPinTheme.copyWith(
-                              decoration: defaultPinTheme.decoration!.copyWith(
-                                border: Border.all(color: Theme.of(context).primaryColorLight),
-                              ),
-                            ),
-                            validator: (value){
-                              if(value!.isEmpty || value.length!=6){
-                                return "please enter correct otp";
-                              }
-                              return null;
-                            },
-                            onCompleted: (pin) => debugPrint(pin),
-                          ),
+                          _pinput(),
 
                           //=================COUNTDOWN AND RESEND CONTAINER
                           Container(
@@ -270,6 +247,73 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
             ),
           ),
         )
+    );
+  }
+  _pinput(){
+    return Pinput(
+      controller: _otpController,
+      focusNode: _otpFocusNode,
+      length: 6,
+      defaultPinTheme: _pinTheme(),
+      focusedPinTheme: _pinTheme().copyWith(
+        decoration: _pinTheme().decoration!.copyWith(
+          border: Border.all(color: Theme.of(context).primaryColor,width: 2),
+        ),
+      ),
+      validator: (value){
+        if(value!.isEmpty || value.length!=6){
+          return "please enter correct otp";
+        }
+        return null;
+      },
+      onCompleted: (pin) => debugPrint(pin),
+    );
+  }
+  _pinTheme(){
+    return PinTheme(
+      width: 55,
+      height: 55,
+      textStyle: const TextStyle(
+        fontSize: 22,
+        color: Colors.black,
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(150, 255, 255, 255),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
+      ),
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      foregroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color:Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
+            overflow: TextOverflow.ellipsis),
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(
+                'assets/images/ic_launcher.png'
+            ),
+          ),
+        )
+      ],
+      backgroundColor: primaryColorLight,
     );
   }
 }

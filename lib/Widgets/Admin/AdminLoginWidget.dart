@@ -6,6 +6,8 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class AdminLoginWidget extends StatefulWidget {
   const AdminLoginWidget({Key? key}) : super(key: key);
 
@@ -169,28 +171,8 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
               padding: const EdgeInsets.only(bottom: 250),
               child: Column(
                 children: [
-                  // const SizedBox(
-                  //   height: 60,
-                  // ),
-                  Image.asset(
-                    'assets/images/ic_launcher.png',
-                    height: MyConst.deviceHeight(context)*0.15,
-
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child:  Center(
-                        child:Text(
-                          'Welcome To Y&K Buildkon',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor,
-                          ),
-                        )
-                    ),
-                  ),
                   SizedBox(
-                    height: MyConst.deviceHeight(context)*0.03,
+                    height: MyConst.deviceHeight(context)*0.2,
                   ),
                   //==============================LOGIN HEADING
                   Container(
@@ -200,7 +182,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                           'LOGIN NOW',
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
-                            fontSize: MyConst.largeTextSize*fontSizeScaleFactor,
+                            fontSize: 18,
                           ),
                         )
                     ),
@@ -216,53 +198,20 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                         key: _formKey1,
                         child: Column(
                           children: [
-                            //========================MOBILE TEXTFIELD
-                            /*
-                          Card(
-                            elevation: 5,
-                            child:TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                  labelText: 'Mobile Number',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                  )
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 15,),
-                          */
-
+                            
                             //============================EMAIL TEXTFIELD
-                            TextFormField(
-                              focusNode: _emailFocusNode,
-                              controller: _emailController,
-                              readOnly: readOnly,
-                              style: const TextStyle(color: Colors.black),
-                              decoration:  InputDecoration(
-                                  labelText: 'Email',
-                                  labelStyle: const TextStyle(color: Colors.black),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: Theme.of(context).primaryColor
-                                    ),
-                                    borderRadius: const BorderRadius.all(Radius.circular(10),),
-                                  ),
-                                  border: const OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      width: 2,
-                                      color: Colors.black,
-                                    ),
-                                    borderRadius: BorderRadius.all(Radius.circular(10),),
-                                  )
-                              ),
-                              validator: (value){
-                                if(value!.isEmpty || !value.contains("@gmail.com")){
-                                  return "please enter valid email";
-                                }
-                                return null;
-                              },
+                            _textField(
+                                controller: _emailController, 
+                                focusNode: _emailFocusNode, 
+                                label: 'Email', 
+                                validator: (value) {
+                                  if (value!.isEmpty ||
+                                      !value.contains("@gmail.com")) {
+                                    return "please enter valid email";
+                                  }
+                                  return null;
+                                }, 
+                                inputType: TextInputType.text
                             ),
 
                             remainingTime==''
@@ -299,24 +248,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                         child: Column(
                           children: [
                             //==================================OTP TEXTFIELD
-                            Pinput(
-                              controller: _otpController,
-                              focusNode: _otpFocusNode,
-                              length: 6,
-                              defaultPinTheme: defaultPinTheme,
-                              focusedPinTheme: defaultPinTheme.copyWith(
-                                decoration: defaultPinTheme.decoration!.copyWith(
-                                  border: Border.all(color: Theme.of(context).primaryColorLight),
-                                ),
-                              ),
-                              validator: (value){
-                                if(value!.isEmpty || value.length!=6){
-                                  return "please enter correct otp";
-                                }
-                                return null;
-                              },
-                              onCompleted: (pin) => debugPrint(pin),
-                            ),
+                            _pinput(),
                             Text(
                               remainingTime,
                               style:  TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),
@@ -339,31 +271,6 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                             ),
                             SizedBox(height: MyConst.deviceHeight(context)*0.015,),
 
-                            //================================SIGNUP BTN
-                            /*
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                              'dont have an account ?'
-                          ),
-                          TextButton(
-                              onPressed: (){
-                                appState.activeWidget = "SignupWidget";
-                              },
-                              child:  Text(
-                                'Signup',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    color: Theme.of(context).hintColor
-                                ),
-                              )
-                          )
-                        ],
-                      )
-
-                       */
-
                           ],
                         ),
                       )
@@ -375,7 +282,71 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
           ),
         )
     );
-
-
+  }
+  _pinput(){
+    return Pinput(
+      controller: _otpController,
+      focusNode: _otpFocusNode,
+      length: 6,
+      defaultPinTheme: _pinTheme(),
+      focusedPinTheme: _pinTheme().copyWith(
+        decoration: _pinTheme().decoration!.copyWith(
+          border: Border.all(color: Theme.of(context).primaryColor,width: 2),
+        ),
+      ),
+      validator: (value){
+        if(value!.isEmpty || value.length!=6){
+          return "please enter correct otp";
+        }
+        return null;
+      },
+      onCompleted: (pin) => debugPrint(pin),
+    );
+  }
+  _pinTheme(){
+    return PinTheme(
+      width: 55,
+      height: 55,
+      textStyle: const TextStyle(
+        fontSize: 22,
+        color: Colors.black,
+      ),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(150, 255, 255, 255),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color.fromARGB(255, 18, 19, 19),width: 1),
+      ),
+    );
+  }
+  _textField(
+      {required TextEditingController? controller,
+        required FocusNode? focusNode,
+        required String? label,
+        required validator,
+        required TextInputType? inputType}) {
+    return TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        keyboardType: inputType,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(color: Colors.black),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(width: 2, color: primaryColor),
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              width: 2,
+              color: primaryColorDark,
+            ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10),
+            ),
+          ),
+        ),
+        validator: validator);
   }
 }

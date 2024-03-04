@@ -97,10 +97,7 @@ class _FavoritePropertyDetailPageState
       Navigator.pop(context);
       if (res['success'] == true) {
         StaticMethod.showDialogBar(res['message'], Colors.green);
-        appState.activeWidget = "FavoritePropertyListWidget";
-        //fetchFavoriteProperty(appState);
-        // setState(() {
-        // });
+        appState.activeWidget = "FavoritePropertyListPage";
       } else {
         StaticMethod.showDialogBar(res['message'], Colors.red);
       }

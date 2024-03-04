@@ -80,22 +80,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
               padding: const EdgeInsets.only(bottom: 250),
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/images/ic_launcher.png',
-                    height: 150,
-
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: const Center(
-                        child: Text(
-                          'Welcome To Y&K Buildkon',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                          ),
-                        )),
-                  ),
+                  
                   const SizedBox(
                     height: 20,
                   ),
@@ -105,7 +90,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
                     child: const Center(
                         child: Text(
                           'New Prject',
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25),
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                         )),
                   ),
                   const SizedBox(
