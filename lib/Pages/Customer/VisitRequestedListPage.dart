@@ -571,8 +571,8 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                 _isLoadMoreRunning == true
                     ? Container(
                   padding: const EdgeInsets.only(top: 10, bottom: 40),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+                  child:  Center(
+                    child:StaticMethod.progressIndicator()
                   ),
                 )
                     : Container(),

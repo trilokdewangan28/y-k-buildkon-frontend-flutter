@@ -157,7 +157,7 @@ class _OfferListPageState extends State<OfferListPage> {
         child: Scaffold(
           backgroundColor: context.theme.backgroundColor,
           appBar: _appBar('Offer List'),
-          body: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
+          body: _isFirstLoadRunning == true ?  Center(child: StaticMethod.progressIndicator(),) :Container(
             height: MediaQuery.of(context).size.height,
             child: appState.offerList.isNotEmpty
                 ? ListView.builder(

@@ -58,6 +58,7 @@ dependencies:
   curved_navigation_bar:
   get:
   get_storage:
+  flutter_spinkit:   
 
 
 

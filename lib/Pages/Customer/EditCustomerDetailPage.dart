@@ -32,8 +32,8 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child: StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.updateCustomerDetails(appState.token, url, data);

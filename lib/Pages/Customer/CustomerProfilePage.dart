@@ -84,7 +84,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
             appState.activeWidget = "PropertyListPage";
             appState.currentState = 0;
           },
-          child: _isFirstLoadRunning == true? const Center(child: CircularProgressIndicator(),) :Container(
+          child: _isFirstLoadRunning == true?  Center(child: StaticMethod.progressIndicator(),) :Container(
             width: MediaQuery.of(context).size.width,
             color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
@@ -284,7 +284,6 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             appState.currentState = 0;
                           },
                           child:  Card(
-                            color: Get.isDarkMode?Colors.white12 : Theme.of(context).primaryColorLight,
                             child:const  Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

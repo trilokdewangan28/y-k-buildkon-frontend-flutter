@@ -44,8 +44,8 @@ class _FavoritePropertyDetailPageState
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child: StaticMethod.progressIndicator()
       ),
     );
     final res =
@@ -65,8 +65,8 @@ class _FavoritePropertyDetailPageState
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.addToFavorite(appState.token, data, url);
@@ -89,8 +89,8 @@ class _FavoritePropertyDetailPageState
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) => Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res =
@@ -162,8 +162,8 @@ class _FavoritePropertyDetailPageState
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
 

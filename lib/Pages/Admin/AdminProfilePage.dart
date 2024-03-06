@@ -87,7 +87,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             appState.activeWidget = "PropertyListPage";
             appState.currentState = 0;
           },
-          child: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
+          child: _isFirstLoadRunning == true ?  Center(child: StaticMethod.progressIndicator(),) :Container(
             color: Theme.of(context).backgroundColor,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,

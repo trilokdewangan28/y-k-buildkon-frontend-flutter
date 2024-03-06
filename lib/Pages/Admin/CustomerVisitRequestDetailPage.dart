@@ -32,8 +32,8 @@ class _CustomerVisitRequestDetailPageState extends State<CustomerVisitRequestDet
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.changeVisitStatus(appState.token,data,url);

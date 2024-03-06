@@ -130,8 +130,8 @@ class _AddOfferPageState extends State<AddOfferPage> {
    showDialog(
      context: context,
      barrierDismissible: false,
-     builder: (dialogContext) => const Center(
-       child: CircularProgressIndicator(),
+     builder: (dialogContext) => Center(
+       child:StaticMethod.progressIndicator()
      ),
    );
    final response = await uploadImage(data, url, widget.forWhich, appState);

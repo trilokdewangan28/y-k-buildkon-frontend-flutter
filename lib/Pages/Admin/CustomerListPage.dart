@@ -400,17 +400,17 @@ class _CustomerListPageState extends State<CustomerListPage> {
                     : Container(
                   margin: EdgeInsets.symmetric(
                       vertical: MyConst.deviceHeight(context) * 0.2),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+                  child:  Center(
+                    child:StaticMethod.progressIndicator()
                   ),
                 ),
 
                 //================================loading more
                 _isLoadMoreRunning == true
-                    ? const Padding(
+                    ?  Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 40),
                   child: Center(
-                    child: CircularProgressIndicator(),
+                    child:StaticMethod.progressIndicator()
                   ),
                 )
                     : Container(),

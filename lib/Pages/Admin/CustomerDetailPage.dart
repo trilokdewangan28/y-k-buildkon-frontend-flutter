@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
+
+import '../../config/StaticMethod.dart';
 class CustomerDetailPage extends StatefulWidget {
   const CustomerDetailPage({super.key});
 
@@ -45,7 +47,7 @@ class _CustomerDetailPageState extends State<CustomerDetailPage> {
                           child: CachedNetworkImage(
                             imageUrl:
                             '${ApiLinks.accessCustomerProfilePic}/${appState.customerDetails['customer_profilePic']}',
-                            placeholder: (context, url) => const CircularProgressIndicator(),
+                            placeholder: (context, url) =>  StaticMethod.progressIndicator(),
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                             // Other CachedNetworkImage properties
                           )

@@ -588,8 +588,8 @@ class _CustomerVisitRequestListPageState
                 )
                     : Container(
                   margin: const EdgeInsets.only(top: 300),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+                  child:  Center(
+                    child:StaticMethod.progressIndicator()
                   ),
                 ),
 
@@ -597,8 +597,8 @@ class _CustomerVisitRequestListPageState
                 _isLoadMoreRunning == true
                     ? Container(
                   padding: const EdgeInsets.only(top: 10, bottom: 40),
-                  child: const Center(
-                    child: CircularProgressIndicator(),
+                  child:  Center(
+                    child: StaticMethod.progressIndicator()
                   ),
                 )
                     : Container(),

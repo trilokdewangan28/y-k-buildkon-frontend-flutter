@@ -24,8 +24,8 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.changeEmployeeStatus(appState.token, data, url);
@@ -84,7 +84,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                           child: CachedNetworkImage(
                             imageUrl:
                             '${ApiLinks.accessEmployeeProfilePic}/${appState.employeeDetails['profilePic']}',
-                            placeholder: (context, url) => const CircularProgressIndicator(),
+                            placeholder: (context, url) => StaticMethod.progressIndicator(),
                             errorWidget: (context, url, error) => const Icon(Icons.error),
                             // Other CachedNetworkImage properties
                           )

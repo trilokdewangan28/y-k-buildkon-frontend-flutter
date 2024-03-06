@@ -277,7 +277,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         IconButton(
-            onPressed: (){ThemeServices().switchTheme();}, 
+            onPressed: (){
+              //ThemeServices().switchTheme(); 
+              StaticMethod.showDialogBar('theme changed', Colors.green);
+              }, 
             icon: Icon(Get.isDarkMode? Icons.light_mode_outlined:Icons.dark_mode_outlined, color: Get.isDarkMode?Colors.grey:Colors.black,size: 24,)
         )
       ],

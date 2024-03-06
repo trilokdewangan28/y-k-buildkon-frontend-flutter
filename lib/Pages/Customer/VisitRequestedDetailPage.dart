@@ -43,8 +43,8 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.requestVisit(appState.token, requestData, url);
@@ -63,8 +63,8 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.addToFavorite(appState.token, data, url);
@@ -87,8 +87,8 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) => Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.removeFromFavorite(appState.token,data, url);
@@ -144,8 +144,8 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) => Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
 
@@ -490,8 +490,8 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (dialogContext) => const Center(
-        child: CircularProgressIndicator(),
+      builder: (dialogContext) =>  Center(
+        child:StaticMethod.progressIndicator()
       ),
     );
     final res = await StaticMethod.changeVisitStatus(appState.token,data,url);

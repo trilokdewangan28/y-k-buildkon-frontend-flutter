@@ -1,9 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
+
+import '../services/ThemeService/theme.dart';
 
 class StaticMethod {
   //============================================INITIAL FETCH TOKEN AND USERTYPE
@@ -1160,14 +1164,34 @@ class StaticMethod {
   
   //===================================SHOW TOAST MESSAGE=======================
 
-  static void showDialogBar(String msg, Color textColor){
-    Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
-      gravity: ToastGravity.TOP, // Toast position
-      backgroundColor: Colors.white, // Background color of the toast
-      textColor: textColor, // Text color of the toast message
-      fontSize: 16.0, // Font size of the toast message
+  static void showDialogBar(String msg,  Color? textColor){
+    Get.snackbar(
+      '',
+      '',
+      titleText: Text(msg,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w400),),
+      colorText: Colors.white,
+      backgroundColor:Get.isDarkMode ? Colors.white54 :Colors.black.withOpacity(0.8 ),
+      borderRadius: 20,
+      snackPosition: SnackPosition.TOP,
+      dismissDirection: DismissDirection.horizontal,
+      snackStyle: SnackStyle.FLOATING
+      //backgroundGradient: LinearGradient(colors: [Colors.black,Colors.white])
+    );
+    // Fluttertoast.showToast(
+    //   msg: msg,
+    //   toastLength: Toast.LENGTH_LONG, // Duration for which the toast should be visible
+    //   gravity: ToastGravity.TOP, // Toast position
+    //   backgroundColor: Colors.white, // Background color of the toast
+    //   textColor: textColor, // Text color of the toast message
+    //   fontSize: 16.0, // Font size of the toast message
+    // );
+  }
+  
+  static progressIndicator(){
+   return SpinKitThreeBounce(
+      color: bluishClr,
+      duration: Duration(seconds: 1),
+      size: 20.0,
     );
   }
   
