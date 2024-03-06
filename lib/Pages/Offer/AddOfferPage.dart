@@ -173,9 +173,9 @@ class _AddOfferPageState extends State<AddOfferPage> {
           appState.activeWidget = "PropertyListPage";
         },
         child: Scaffold(
+          backgroundColor: context.theme.backgroundColor,
           appBar: _appBar('Add New Offer'),
           body: Container(
-            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
@@ -207,7 +207,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                             _mounted=true;
                             await _pickImageFromGallery(appState);
                           },
-                              icon: Icon(Icons.photo, color: Theme.of(context).primaryColor, size: 50,)
+                              icon: Icon(Icons.photo, color:bluishClr, size: 50,)
                           ),
                           const Text('Galary')
                         ],
@@ -220,7 +220,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                             _mounted=true;
                             await _captureImageFromCamera(appState);
                           },
-                              icon: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor, size: 50,)
+                              icon: Icon(Icons.camera_alt, color: bluishClr, size: 50,)
                           ),
                           const Text('Camera')
                         ],
@@ -236,113 +236,35 @@ class _AddOfferPageState extends State<AddOfferPage> {
                         child: Column(
                           children: [
                             //===========================ABOUT OFFER TEXTFIELD 1
-                            TextFormField(
-                                focusNode: _aboutOneFocusNode,
-                                controller: _aboutOneController,
-                                maxLines: 3,
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                    labelText: 'About Offer 1',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'should not be empty';
-                                  }
-                                  return null;
-                                }),
+                            _textField(
+                                controller: _aboutOneController, 
+                                focusNode: _aboutOneFocusNode, 
+                                label: 'About 1', 
+                                inputtype: TextInputType.text
+                            ),
                             const SizedBox(height: 20,),
 
                             //===========================ABOUT OFFER TEXTFIELD 2
-                            TextFormField(
-                                focusNode: _aboutTwoFocusNode,
+                            _textField(
                                 controller: _aboutTwoController,
-                                maxLines: 3,
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                    labelText: 'About Offer 2',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'should not be empty';
-                                  }
-                                  return null;
-                                }),
+                                focusNode: _aboutTwoFocusNode,
+                                label: 'About 2',
+                                inputtype: TextInputType.text
+                            ),
                             const SizedBox(height: 20,),
 
                             //===========================ABOUT OFFER TEXTFIELD 3
-                            TextFormField(
-                                focusNode: _aboutThreeFocusNode,
+                            _textField(
                                 controller: _aboutThreeController,
-                                maxLines: 3,
-                                keyboardType: TextInputType.text,
-                                decoration: const InputDecoration(
-                                    labelText: 'About Offer 3',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'should not be empty';
-                                  }
-                                  return null;
-                                }),
+                                focusNode: _aboutThreeFocusNode,
+                                label: 'About 3',
+                                inputtype: TextInputType.text
+                            ),
                             const SizedBox(height: 20,),
 
                             ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Theme.of(context).primaryColor,
+                                    backgroundColor: bluishClr,
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
                                 ),
                                 onPressed: (){
@@ -380,7 +302,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
     return AppBar(
       foregroundColor: Colors.transparent,
       iconTheme: IconThemeData(
-        color:Colors.black,
+        color:Get.isDarkMode?Colors.white70:Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
       ),
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
@@ -388,11 +310,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
       elevation: 0.0,
       title:Text(
         appBarContent,
-        style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-            fontSize: MyConst.mediumTextSize*fontSizeScaleFactor(context),
-            overflow: TextOverflow.ellipsis),
+        style: appbartitlestyle,
         softWrap: true,
       ),
       actions: [
@@ -407,5 +325,42 @@ class _AddOfferPageState extends State<AddOfferPage> {
       ],
       backgroundColor: context.theme.backgroundColor,
     );
+  }
+  _textField(
+  {
+    required TextEditingController? controller,
+    required FocusNode? focusNode,
+    required String? label,
+    required TextInputType? inputtype,
+    validator
+}
+      ){
+    return TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        maxLines: 3,
+        keyboardType: inputtype,
+        decoration:  InputDecoration(
+            labelText: label,
+            labelStyle: TextStyle(color: Get.isDarkMode?Colors.white: Colors.black),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 1,
+                  color: bluishClr
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 1,
+                color: Colors.grey,
+              ),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              ),
+            )),
+        validator:validator);
   }
 }

@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +14,8 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../services/ThemeService/theme.dart';
 
 
 class ImagePickerPage extends StatefulWidget {
@@ -115,18 +118,16 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context, listen: false);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
-    return SafeArea(child: PopScope(
-      canPop: true,
-      onPopInvoked: (didPop) {
-        appState.imageFile = null;
-        //Navigator.pop(context);
-      },
+    return PopScope(
+        canPop: true,
+        onPopInvoked: (didPop) {
+          appState.imageFile = null;
+          //Navigator.pop(context);
+        },
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Image Picker'),
-          ),
+          backgroundColor: context.theme.backgroundColor,
+          appBar: _appBar('Image Picker'),
           body: Container(
-            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: Center(
               child: Column(
@@ -160,7 +161,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             _mounted=true;
                             await _pickImageFromGallery(appState);
                           },
-                              icon: Icon(Icons.photo, color: Theme.of(context).primaryColor, size: 50,)
+                              icon: Icon(Icons.photo, color: bluishClr, size: 50,)
                           ),
                           const Text('Galary')
                         ],
@@ -173,7 +174,7 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
                             _mounted=true;
                             await _captureImageFromCamera(appState);
                           },
-                              icon: Icon(Icons.camera_alt, color: Theme.of(context).primaryColor, size: 50,)
+                              icon: Icon(Icons.camera_alt, color:bluishClr, size: 50,)
                           ),
                           const Text('Camera')
                         ],
@@ -222,68 +223,99 @@ class _ImagePickerPageState extends State<ImagePickerPage> {
           //-------------------------------------------------FLOATING ACTION BTN
           floatingActionButton: appState.imageFile != null
               ? FloatingActionButton(
-                  onPressed: () async {
-                    //print('floating button acion called');
-                      var url;
-                      if(widget.forWhich=='customerProfilePic'){
-                        url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
-                      }else if(widget.forWhich=='offerImage'){
-                        url = Uri.parse(ApiLinks.uploadOffer);
-                      }else if(widget.forWhich=='propertyImage'){
-                        url = Uri.parse(ApiLinks.uploadPropertyImage);
-                      }else if(widget.forWhich=='adminProfilePic'){
-                        url = Uri.parse(ApiLinks.uploadAdminProfilePic);
-                      }
-                      var data;
-                      if(widget.forWhich=="adminProfilePic"){
-                        data = {
-                          "ad_id":widget.userDetails['admin_id'],
-                          "imageFile":appState.imageFile!
-                        };
-                      }else if(widget.forWhich=="customerProfilePic"){
-                         data={
-                          "c_id":widget.userDetails['customer_id'],
-                          "imageFile":appState.imageFile!
-                        };
-                      }else if(widget.forWhich=='propertyImage'){
-                        data={
-                          "p_id":widget.userDetails['property_id'],
-                          "imageFile":appState.imageFile!
-                        };
-                      }else if(widget.forWhich=='offerImage'){
-                        data={
-                          "p_id":widget.userDetails['property_id'],
-                          "imageFile":appState.imageFile!
-                        };
-                      }
-                      showDialog(
-                        context: context,
-                        barrierDismissible: false,
-                        builder: (dialogContext) => const Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                      final response = await uploadImage(data, url, widget.forWhich, appState);
-                      //print('inside the floating action');
-                      //print(response);
-                      if(response.isNotEmpty){
-                        Navigator.pop(context);
-                        if(response['success']==true){
-                          StaticMethod.showDialogBar(response['message'], Colors.green);
-                          if(appState.activeWidget=="PropertyDetailPage"){
-                            appState.activeWidget="PropertyListPage";
-                            Navigator.pop(context);
-                          }else {
-                            Navigator.pop(context);
-                          }
-                        }else{
-                          StaticMethod.showDialogBar(response['message'], Colors.red);
-                        }
-                      }
-                  },
-                  child: const Icon(Icons.check),
-                )
+            onPressed: () async {
+              //print('floating button acion called');
+              var url;
+              if(widget.forWhich=='customerProfilePic'){
+                url = Uri.parse(ApiLinks.uploadCustomerProfilePic);
+              }else if(widget.forWhich=='offerImage'){
+                url = Uri.parse(ApiLinks.uploadOffer);
+              }else if(widget.forWhich=='propertyImage'){
+                url = Uri.parse(ApiLinks.uploadPropertyImage);
+              }else if(widget.forWhich=='adminProfilePic'){
+                url = Uri.parse(ApiLinks.uploadAdminProfilePic);
+              }
+              var data;
+              if(widget.forWhich=="adminProfilePic"){
+                data = {
+                  "ad_id":widget.userDetails['admin_id'],
+                  "imageFile":appState.imageFile!
+                };
+              }else if(widget.forWhich=="customerProfilePic"){
+                data={
+                  "c_id":widget.userDetails['customer_id'],
+                  "imageFile":appState.imageFile!
+                };
+              }else if(widget.forWhich=='propertyImage'){
+                data={
+                  "p_id":widget.userDetails['property_id'],
+                  "imageFile":appState.imageFile!
+                };
+              }else if(widget.forWhich=='offerImage'){
+                data={
+                  "p_id":widget.userDetails['property_id'],
+                  "imageFile":appState.imageFile!
+                };
+              }
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (dialogContext) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+              final response = await uploadImage(data, url, widget.forWhich, appState);
+              //print('inside the floating action');
+              //print(response);
+              if(response.isNotEmpty){
+                Navigator.pop(context);
+                if(response['success']==true){
+                  StaticMethod.showDialogBar(response['message'], Colors.green);
+                  if(appState.activeWidget=="PropertyDetailPage"){
+                    appState.activeWidget="PropertyListPage";
+                    Navigator.pop(context);
+                  }else {
+                    Navigator.pop(context);
+                  }
+                }else{
+                  StaticMethod.showDialogBar(response['message'], Colors.red);
+                }
+              }
+            },
+            backgroundColor: bluishClr,
+            child: const Icon(Icons.check),
+          )
               : null,
-        )));
+        ));
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
+    );
   }
 }

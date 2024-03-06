@@ -283,7 +283,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         _generateOtpForCustomer(context, appState);
                                       }
                                     },
-                                    child: Text('Generate Otp',style: TextStyle(color: Theme.of(context).primaryColor),)
+                                    child: Text('Generate Otp',style: TextStyle(color: bluishClr),)
                                 )
                               ],
                             ),
@@ -364,7 +364,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         style: const TextStyle(),
         decoration:  InputDecoration(
             labelText: 'Email',
-            labelStyle: const TextStyle(color: Colors.black),
+            labelStyle: TextStyle(color: Get.isDarkMode? Colors.grey: Colors.black),
             focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2,
@@ -397,7 +397,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       defaultPinTheme: _pinTheme(),
       focusedPinTheme: _pinTheme().copyWith(
         decoration: _pinTheme().decoration!.copyWith(
-          border: Border.all(color: Theme.of(context).primaryColor,width: 2),
+          border: Border.all(color: bluishClr,width: 2),
         ),
       ),
       validator: (value){

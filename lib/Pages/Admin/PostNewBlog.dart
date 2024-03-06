@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class PostNewBlog extends StatefulWidget {
   const PostNewBlog({super.key});
 
@@ -47,15 +50,10 @@ class _PostNewBlogState extends State<PostNewBlog> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
-        child: SafeArea(
-            child: Scaffold(
-              appBar: AppBar(
-                backgroundColor: Theme.of(context).primaryColorLight,
-                title: const Text('Post New Blog'),
-                centerTitle: true,
-              ),
-              backgroundColor: Theme.of(context).primaryColorLight,
-              body: Container(
+        child: Scaffold(
+          backgroundColor:context.theme.backgroundColor,
+            appBar: _appBar('Post New Blog'),
+            body: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 child:Form(
                   key:_formKey,
@@ -130,7 +128,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
                       const SizedBox(height: 20,),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).primaryColor,
+                              backgroundColor: bluishClr,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)
                               )
@@ -141,7 +139,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
                               "blog_subtitle":_blogSubTitleController.text,
                               "blog_url":_blogUrlController.text
                             };
-                            
+
                             if (_formKey.currentState!.validate()) {
                               _submitData(data, appState, context);
                             }
@@ -157,9 +155,38 @@ class _PostNewBlogState extends State<PostNewBlog> {
                     ],
                   ),
                 )
-              )
             )
         )
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

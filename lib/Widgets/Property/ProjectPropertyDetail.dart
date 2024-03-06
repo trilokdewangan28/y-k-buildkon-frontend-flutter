@@ -236,8 +236,8 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                     margin: const EdgeInsets.symmetric(horizontal: 15),
                     padding: EdgeInsets.only(
                         bottom: MediaQuery.of(context).viewInsets.bottom, top: 15),
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
+                    decoration: BoxDecoration(
+                        color: Get.isDarkMode?darkGreyClr:Colors.white,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(20),
                             topRight: Radius.circular(20))),
@@ -247,7 +247,6 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                           'select your rating',
                           style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
                         //--------------------------------------------RATING CONTAINER
@@ -343,6 +342,12 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                         ),
                         //--------------------------------------------------SUBMIT NOW
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: bluishClr,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)
+                            )
+                          ),
                             onPressed: () {
                               var data = {
                                 "c_id": appState.customerDetails['customer_id'],
@@ -353,7 +358,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                               _mounted=true;
                               submitPropertyRating(data, appState, context);
                             },
-                            child: const Text('submit'))
+                            child:  Text('submit',style: titleStyle,))
                       ],
                     ),
                   ));
@@ -653,6 +658,12 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
     fetchFavoriteProperty(appState);
     super.initState();
   }
+  
+  @override
+  void dispose() {
+    _mounted=false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -889,7 +900,7 @@ class _ProjectPropertyDetailState extends State<ProjectPropertyDetail> {
                             padding:
                             const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
                             decoration: BoxDecoration(
-                                border: Border.all(width: 1),
+                                border: Border.all(width: 1, color: Get.isDarkMode?Colors.grey:Colors.black),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Column(
                               children: [

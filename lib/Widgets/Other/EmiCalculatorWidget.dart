@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:real_state/config/Constant.dart';
+
+import '../../services/ThemeService/theme.dart';
 
 class EmiCalculatorWidget extends StatefulWidget {
   const EmiCalculatorWidget({Key? key}) : super(key: key);
@@ -51,13 +54,13 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
     return PopScope(
       
         child: Scaffold(
+          backgroundColor: context.theme.backgroundColor,
           appBar: AppBar(
-            backgroundColor: Theme.of(context).primaryColorLight,
+            backgroundColor:context.theme.backgroundColor,
             title: const Text('EMI CALCULATOR'),
           ),
           body: Container(
             height: MediaQuery.of(context).size.height,
-            color: Theme.of(context).primaryColorLight,
             child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
@@ -68,78 +71,40 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: TextFormField(
-                          controller: _principleAmmountController,
-                          focusNode: _principleAmmountFocusNode,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Principle Ammount',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'please enter valid principle ammount';
-                            }
-                            return null;
-                          }),
+                      child: _textField(
+                          controller: _principleAmmountController, 
+                          focusNode: _principleAmmountFocusNode, 
+                          label: "Principle Amount", 
+                          inputType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please enter valid principle ammount';
+                          }
+                          return null;
+                        }
+                      )
                     ),
                     const SizedBox(
                       height: 15,
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(horizontal: 15),
-                      child: TextFormField(
-                          controller: _downPaymentController,
-                          focusNode: _downPaymentFocusNode,
-                          keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                              labelText: 'Down Payment',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  // color: Theme.of(context).hintColor
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1,
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                              )),
-                          validator: (value) {
-                            double dp = double.tryParse(value.toString()) ?? 0.0;
-                            double pam =
-                                double.tryParse(_principleAmmountController.text) ??
-                                    0.0;
-                            if (value!.isEmpty || dp > pam) {
-                              return 'down payment should be less than principle amount';
-                            }
-                            return null;
-                          }),
+                      child: _textField(
+                          controller: _downPaymentController, 
+                          focusNode: _downPaymentFocusNode, 
+                          label: 'Down Payment', 
+                          inputType: TextInputType.number,
+                        validator: (value) {
+                          double dp = double.tryParse(value.toString()) ?? 0.0;
+                          double pam =
+                              double.tryParse(_principleAmmountController.text) ??
+                                  0.0;
+                          if (value!.isEmpty || dp > pam) {
+                            return 'down payment should be less than principle amount';
+                          }
+                          return null;
+                        }
+                      )
                     ),
                     const SizedBox(
                       height: 15,
@@ -149,73 +114,35 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: TextFormField(
+                            child: _textField(
                                 controller: _interestController,
                                 focusNode: _interestFocusNode,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                    labelText: 'Interest Rate',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                label: "Interest Rate",
+                                inputType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid interest rate';
+                                    return 'please enter valid interest';
                                   }
                                   return null;
-                                }),
+                                }
+                            )
                           ),
                           const SizedBox(
                             width: 10,
                           ),
                           Expanded(
-                            child: TextFormField(
+                            child: _textField(
                                 controller: _timeController,
                                 focusNode: _timeFocusNode,
-                                keyboardType: TextInputType.number,
-                                decoration: const InputDecoration(
-                                    labelText: 'time in years',
-                                    labelStyle: TextStyle(color: Colors.black),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        // color: Theme.of(context).hintColor
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 1,
-                                        color: Colors.grey,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10),
-                                      ),
-                                    )),
+                                label: "time in year",
+                                inputType: TextInputType.number,
                                 validator: (value) {
                                   if (value!.isEmpty) {
-                                    return 'please enter valid value';
+                                    return 'please enter valid time';
                                   }
                                   return null;
-                                }),
+                                }
+                            )
                           )
                         ],
                       ),
@@ -256,6 +183,12 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                       height: 30,
                     ),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: bluishClr,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                        )
+                      ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             double principalAmount =
@@ -274,7 +207,7 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
                         },
                         child: Text(
                           'Calculate EMI',
-                          style: TextStyle(color: Theme.of(context).primaryColor),
+                          style: titleStyle,
                         ))
                   ],
                 ),
@@ -282,6 +215,46 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
             ),
           ),
         )
+    );
+  }
+  _textField({
+    required TextEditingController? controller,
+    required FocusNode? focusNode,
+    required String? label,
+    required TextInputType inputType,
+    validator
+}){
+    return  Container(
+      width: MyConst.deviceWidth(context)*0.9,
+      child: TextFormField(
+        focusNode: focusNode,
+        controller: controller,
+        keyboardType: inputType,
+        decoration:  InputDecoration(
+            labelText: label,
+            labelStyle: TextStyle(color: Get.isDarkMode? Colors.grey: Colors.black),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 2,
+                  color: primaryColor
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(10),),
+            ),
+            border: OutlineInputBorder(
+              borderSide: BorderSide(
+                width: 2,
+                color: context.theme.primaryColorDark,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(10),),
+            )
+        ),
+        validator: (value){
+          if(value!.isEmpty || !value.contains("@gmail.com")){
+            return "please enter valid email";
+          }
+          return null;
+        },
+      ),
     );
   }
 }

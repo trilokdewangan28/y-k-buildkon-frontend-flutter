@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/Provider/MyProvider.dart';
@@ -7,6 +8,8 @@ import 'package:real_state/Widgets/Property/SinglePropertyListWidget.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class OfferListPage extends StatefulWidget {
   final String fromWidget;
   const OfferListPage({Key? key, required this.fromWidget}) : super(key: key);
@@ -152,12 +155,9 @@ class _OfferListPageState extends State<OfferListPage> {
         appState.activeWidget = widget.fromWidget;
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: const Text('offer list'),
-            backgroundColor: Theme.of(context).primaryColorLight,
-          ),
+          backgroundColor: context.theme.backgroundColor,
+          appBar: _appBar('Offer List'),
           body: _isFirstLoadRunning == true ? const Center(child: CircularProgressIndicator(),) :Container(
-            color: Theme.of(context).primaryColorLight,
             height: MediaQuery.of(context).size.height,
             child: appState.offerList.isNotEmpty
                 ? ListView.builder(
@@ -179,6 +179,7 @@ class _OfferListPageState extends State<OfferListPage> {
                           children: [
                             // offer image container
                             Container(
+                              width: MyConst.deviceWidth(context)*0.9,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
                                   child: CachedNetworkImage(
@@ -186,7 +187,7 @@ class _OfferListPageState extends State<OfferListPage> {
                                     placeholder: (context, url) =>
                                     const LinearProgressIndicator(),
                                     errorWidget: (context, url, error) => const Icon(Icons.error),
-                                    //height: 200,
+                                    height: 200,
                                     fit: BoxFit.fitHeight,
                                   )
                               ),
@@ -211,6 +212,36 @@ class _OfferListPageState extends State<OfferListPage> {
                 : const Center(child: Text('No Any Offers'),),
           )
         )
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }

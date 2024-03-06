@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/Pages/Admin/PostNewBlog.dart';
 import 'package:real_state/Pages/Error/SpacificErrorPage.dart';
@@ -7,6 +8,8 @@ import 'package:real_state/Provider/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+
+import '../../services/ThemeService/theme.dart';
 class BlogListPage extends StatefulWidget {
   const BlogListPage({super.key});
 
@@ -143,18 +146,15 @@ class _BlogListPageState extends State<BlogListPage> {
         child: RefreshIndicator(
           child: SafeArea(
             child: Scaffold(
-                appBar: AppBar(
-                  title: const Text('Blog list'),
-                  backgroundColor: Theme.of(context).primaryColorLight,
-                  centerTitle: true,
-                ),
+              backgroundColor: context.theme.backgroundColor,
+                appBar: _appBar('Blog List'),
                 body: _isFirstLoadRunning==true
                     ? Container(child: const Center(child:CircularProgressIndicator(),))
                     : blogList.isNotEmpty
                     ? Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColorLight
+                    
                   ),
                   child: Container(
                       child: ListView.builder(
@@ -177,7 +177,7 @@ class _BlogListPageState extends State<BlogListPage> {
                     : Container(child: const Center(child: Text('empty blog'),),),
 
                 floatingActionButton: appState.userType=='admin' ? CircleAvatar(
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: bluishClr,
                   radius: 30,
                   child: IconButton(
                       onPressed: (){
@@ -197,6 +197,36 @@ class _BlogListPageState extends State<BlogListPage> {
             _fetchBlog(appState);
           },
         )
+    );
+  }
+  _appBar(appBarContent){
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Get.isDarkMode ?  Colors.white70 :Colors.black,
+        size: MyConst.deviceHeight(context)*0.030,
+      ),
+      toolbarHeight: MyConst.deviceHeight(context)*0.060,
+      titleSpacing: MyConst.deviceHeight(context)*0.02,
+      elevation: 0.0,
+      title:Text(
+        appBarContent,
+        style: appbartitlestyle,
+        softWrap: true,
+      ),
+      actions: [
+        Container(
+          margin: EdgeInsets.only(right: 20),
+          child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 100,
+              )
+          ),
+        ),
+      ],
+      backgroundColor: Get.isDarkMode
+          ? Colors.black45 : Colors.white,
     );
   }
 }
