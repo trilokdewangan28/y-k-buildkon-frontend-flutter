@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import '../Provider/MyProvider.dart';
+import '../controller/MyProvider.dart';
 
 class MyConst {
   static double deviceWidth(BuildContext context) {
