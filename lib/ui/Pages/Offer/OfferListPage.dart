@@ -214,6 +214,10 @@ class _OfferListPageState extends State<OfferListPage> {
   }
   _appBar(appBarContent){
     return AppBar(
+      leading: IconButton(
+        onPressed: (){Get.back();},
+        icon: Icon(Icons.arrow_back_ios),
+      ),
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,

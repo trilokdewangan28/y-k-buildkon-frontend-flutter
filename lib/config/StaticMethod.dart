@@ -11,11 +11,11 @@ import '../services/ThemeService/theme.dart';
 
 class StaticMethod {
   //============================================INITIAL FETCH TOKEN AND USERTYPE
-  static void initialFetch(appState) async {
-    appState.fetchUserType();
-    await Future.delayed(const Duration(milliseconds: 100));
-    appState.fetchToken(appState.userType);
-    await Future.delayed(const Duration(milliseconds: 100));
+  static Future<void> initialFetch(appState) async {
+    await appState.fetchUserType();
+    //await Future.delayed(const Duration(milliseconds: 100));
+    await appState.fetchToken(appState.userType);
+    //await Future.delayed(const Duration(milliseconds: 100));
   }
   //================================================FETCH CUSTOMER DATA BY TOKEN
   static userProfileInitial(token, url, appState) async {
@@ -1170,9 +1170,9 @@ class StaticMethod {
       '',
       titleText: Text(msg,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w400),),
       colorText: Colors.white,
-      backgroundColor:Get.isDarkMode ? Colors.white54 :Colors.black.withOpacity(0.8 ),
+      backgroundColor:Colors.grey.shade300,
       borderRadius: 20,
-      snackPosition: SnackPosition.TOP,
+      snackPosition: SnackPosition.BOTTOM,
       dismissDirection: DismissDirection.horizontal,
       snackStyle: SnackStyle.FLOATING
       //backgroundGradient: LinearGradient(colors: [Colors.black,Colors.white])
@@ -1189,6 +1189,14 @@ class StaticMethod {
   
   static progressIndicator(){
    return SpinKitThreeBounce(
+      color: bluishClr,
+      duration: Duration(seconds: 1),
+      size: 20.0,
+    );
+  }
+
+  static progressIndicatorFadingCircle(){
+    return SpinKitFadingCircle(
       color: bluishClr,
       duration: Duration(seconds: 1),
       size: 20.0,

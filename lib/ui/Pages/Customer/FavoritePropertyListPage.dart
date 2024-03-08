@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 
@@ -10,6 +12,7 @@ import 'package:real_state/controller/MyProvider.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
+import 'package:real_state/controller/PropertyListController.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
@@ -145,6 +148,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
   
   @override
   Widget build(BuildContext context) {
+    PropertyListController controller = Get.find();
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     //print(appState.favoritePropertyList);
@@ -164,148 +168,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                 _isFirstLoadRunning==true 
                     ? const Center(child: LinearProgressIndicator(),)   
                     : favoritePropertyList.isNotEmpty 
-                    ? Expanded(
-                    child: ListView.builder(
-                      controller: _controller,
-                      itemCount: favoritePropertyList.length,
-                      itemBuilder: (context, index) {
-                        final property = favoritePropertyList[index];
-                        return InkWell(
-                          onTap: () {
-                            appState.p_id = property['property_id'];
-                            appState.activeWidget = "FavoritePropertyDetailPage";
-                          },
-                          child: Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 4),
-                              child: Card(
-                                shadowColor: Colors.black,
-                                color: Get.isDarkMode?darkGreyClr : Theme.of(context).primaryColorLight,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                elevation: 0.5,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    //==============================PROPERTY IMAGE CONTAINER
-                                    Container(
-                                      margin: const EdgeInsets.all(8),
-                                      child: Center(
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
-                                            child: property['pi_name'].length > 0
-                                                ? CachedNetworkImage(
-                                              imageUrl:
-                                              '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                                              placeholder: (context, url) =>
-                                              const LinearProgressIndicator(),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                              const Icon(Icons.error),
-                                              height: 100,
-                                              width: 100,
-                                              fit: BoxFit.fill,
-                                            )
-                                                : ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(10),
-                                              child: Image.asset(
-                                                'assets/images/home.jpg',
-                                                width: 100,
-                                              ),
-                                            )),
-                                      ),
-                                    ),
-
-                                    //==============================PROPERTY DETAIL CONTAINER
-                                    Expanded(
-                                        child: Container(
-                                          width: double.infinity,
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 4, vertical: 8),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              //=======================NAME CONTAINER
-                                              Text(
-                                                '${property['property_name'].toUpperCase()}',
-                                                style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w600,
-                                                  overflow: TextOverflow.ellipsis,
-                                                ),
-                                                softWrap: true,
-                                              ),
-
-                                              //=======================AREA TEXT
-                                              Text(
-                                                '${property['property_area']} ${property['property_areaUnit']}',
-                                                style: const TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.grey,
-                                                    fontWeight: FontWeight.w500),
-                                              ),
-
-                                              //=======================PRICE ROW SECTION
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.currency_rupee_outlined,
-                                                    color: Get.isDarkMode ? Colors.white70 :Theme.of(context).primaryColor,
-                                                    size: 20,
-                                                  ),
-                                                  Text(
-                                                    '${property['property_price']}',
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        color: Colors.grey,
-                                                        fontWeight: FontWeight.w500),
-                                                  ),
-                                                ],
-                                              ),
-
-                                              //=======================LOCATION ROW SECTION
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.location_on_outlined,
-                                                    color: Get.isDarkMode ? Colors.white70 :Theme.of(context).primaryColor,
-                                                    size: 20,
-                                                  ),
-                                                  Expanded(
-                                                      child:Text(
-                                                        '${property['property_locality']}, ${property['property_city']}',
-                                                        style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 14,
-                                                          fontWeight: FontWeight.w500,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
-                                                      )
-                                                  )
-                                                ],
-                                              ),
-
-                                              //=======================RATING ROW SECTION
-                                              Row(
-                                                children: [
-                                                  RatingDisplayWidgetTwo(
-                                                    rating: property['property_rating'].toDouble(),
-                                                  ),
-                                                  Text('(${property['property_ratingCount']})')
-                                                ],
-                                              ),
-                                              //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                              )),
-                        );
-                      },
-                    )) 
+                    ? _propertyListAnimation(appState,controller)
                     : const Center(
                   child: Text('Empty Favorite Property'),
                 ),
@@ -346,5 +209,213 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
           _firstLoad(appState);
           appState.activeWidget = appState.activeWidget;
         });
+  }
+  _propertyListAnimation(appState, PropertyListController controller){
+    return Container(child: Flexible(
+        child:ListView.builder(
+          itemCount: favoritePropertyList.length,
+          controller: _controller,
+          itemBuilder: (context, index) {
+            final property = favoritePropertyList[index];
+            print(property);
+            double propertyRating = 0.0;
+            int totalRating = int.parse(property['total_rating']);
+            int totalReview = property['review_count'];
+            if (totalRating != 0) {
+              propertyRating = totalRating / totalReview;
+            }
+            return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: Duration(milliseconds: 500),
+                child: SlideAnimation(
+                  horizontalOffset: 100,
+                  child: FadeInAnimation(
+                      child: InkWell(
+                        onTap: () {
+                          //print(property['property_id']);
+                          appState.p_id = property['property_id'];
+                          appState.activeWidget = "PropertyDetailPage";
+                          controller.appBarContent.value = 'Favorite Property Detail';
+                        },
+                        child: Container(
+                            margin: EdgeInsets.symmetric(
+                              horizontal:
+                              MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.010,
+                            ),
+                            child: Card(
+                              color: Get.isDarkMode ? darkGreyClr : Colors
+                                  .white,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10)),
+                              elevation: 0.5,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  //==============================PROPERTY IMAGE CONTAINER
+                                  _propertyImage(property),
+
+                                  //==============================PROPERTY DETAIL CONTAINER
+                                  _propertyDetail(property, propertyRating),
+                                ],
+                              ),
+                            )),
+                      )
+                  ),
+                )
+            );
+          },
+        ))
+    );
+  }
+  
+  _propertyImage(property) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+          color: Get.isDarkMode ? Colors.white12 : Colors.white,
+          borderRadius: BorderRadius.circular(10)
+      ),
+      width: 100,
+      height: 100,
+      child: Center(
+        child: ClipRRect(
+          borderRadius:
+          BorderRadius.circular(10),
+          child: property['pi_name'].length >
+              0
+              ? CachedNetworkImage(
+            imageUrl:
+            '${ApiLinks.accessPropertyImages}/${property['pi_name'][0]}',
+            placeholder: (context,
+                url) =>
+                StaticMethod.progressIndicatorFadingCircle(),
+            errorWidget: (context, url,
+                error) =>
+            const Icon(Icons.error),
+            fit: BoxFit.fill,
+          )
+              : Image.asset(
+            'assets/images/home.jpg',
+            fit: BoxFit.fill,
+          ),),
+      ),
+    );
+  }
+
+  _propertyDetail(property, propertyRating) {
+    return Flexible(
+        child: Container(
+          //height: MyConst.deviceHeight(context)*0.1,
+          width: double.infinity,
+          margin: const EdgeInsets.all(8),
+          // padding: const EdgeInsets.symmetric(
+          //     horizontal: 4, vertical: 8),
+          child: Column(
+            crossAxisAlignment:
+            CrossAxisAlignment.start,
+            children: [
+              //=======================NAME CONTAINER
+              Text(
+                '${property['property_name'].toUpperCase()}',
+                style: TextStyle(
+                  fontSize: MyConst.smallTextSize,
+                  fontWeight: FontWeight.w600,
+                ),
+                softWrap: true,
+              ),
+
+              //=======================AREA TEXT
+              Text(
+                '${property['property_area']}  ${property['property_areaUnit']}',
+                softWrap: true,
+                style: TextStyle(
+                    fontSize:
+                    MyConst.smallTextSize,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500),
+              ),
+
+              //=======================PRICE ROW SECTION
+              Row(
+                children: [
+                  Icon(
+                    Icons.currency_rupee_sharp,
+                    color: Get.isDarkMode ? Colors.white70 : context.theme
+                        .primaryColor,
+                    size: MyConst
+                        .mediumSmallTextSize,
+                  ),
+                  Flexible(
+                    child: Text(
+                      '${property['property_price']}',
+                      style: TextStyle(
+                          fontSize: MyConst
+                              .smallTextSize,
+                          color: Colors.grey,
+                          fontWeight:
+                          FontWeight.w500),
+                      softWrap: true,
+                    ),
+                  )
+                ],
+              ),
+
+              //=======================LOCATION ROW SECTION
+              Row(
+                mainAxisAlignment:
+                MainAxisAlignment.start,
+                crossAxisAlignment:
+                CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    color:
+                    Get.isDarkMode ? Colors.white70 : context.theme
+                        .primaryColor,
+                    size: MyConst
+                        .mediumSmallTextSize,
+                  ),
+                  Flexible(
+                      child: Text(
+                        '${property['property_locality']}, ${property['property_city']}',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize:
+                          MyConst.smallTextSize,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        softWrap: true,
+                      ))
+                ],
+              ),
+
+              //=======================RATING ROW SECTION
+              Row(
+                children: [
+                  RatingDisplayWidgetTwo(
+                    rating:
+                    propertyRating
+                        .toDouble(),
+                  ),
+                  Flexible(
+                    child: Text(
+                      '(${property['review_count']})',
+                      style: TextStyle(
+                          fontSize:
+                          MyConst.smallTextSize
+                      ),
+                      softWrap: true,
+                    ),
+                  )
+                ],
+              ),
+              //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
+            ],
+          ),
+        ));
   }
 }

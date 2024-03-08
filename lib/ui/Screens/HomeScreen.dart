@@ -6,6 +6,7 @@ import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/controller/MyProvider.dart';
 import 'package:real_state/controller/PropertyListController.dart';
+import 'package:real_state/services/ThemeService/ThemeServices.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Admin/AdminProfilePage.dart';
 import 'package:real_state/ui/Pages/Admin/CustomerDetailPage.dart';
@@ -44,6 +45,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool darkMode = false;
+  bool _mounted = false;
   var _propertyListController = Get.put(PropertyListController());
   @override
   void initState() {
@@ -60,6 +62,12 @@ class _HomeScreenState extends State<HomeScreen> {
       }
       StaticMethod.userProfileInitial(appState.token, url, appState);
     }
+  }
+  
+  @override
+  void dispose() {
+    _mounted=false;
+    super.dispose();
   }
 
   @override
@@ -99,20 +107,36 @@ class _HomeScreenState extends State<HomeScreen> {
         widgetContent = const PropertyListPage();
         appBarContent = 'Y&K BUILDCON';
         _propertyListController.appBarContent.value= 'Y&K BUILDCON';
+       //  _mounted=true;
+       // if(_mounted){
+       //   _propertyListController.appBarContent.value= 'Y&K BUILDCON';
+       // }
         break;
       case "LoginWidget":
         if (myAppState(context).userType.isNotEmpty && myAppState(context).token.isNotEmpty) {
           if (myAppState(context).userType == "admin") {
             widgetContent = const AdminProfileWidget();
             appBarContent = "Admin Profile";
+            // _mounted=true;
+            // if(_mounted){
+            //   _propertyListController.appBarContent.value = "Admin Profile";
+            // }
             _propertyListController.appBarContent.value = "Admin Profile";
           } else if(myAppState(context).userType == "customer") {
             widgetContent = const ProfileWidget();
             appBarContent = "Customer Profile";
+            // _mounted=true;
+            // if(_mounted){
+            //   _propertyListController.appBarContent.value = "Customer Profile";
+            // }
             _propertyListController.appBarContent.value = "Customer Profile";
           }else{
             widgetContent = const EmployeeProfileWidget();
             appBarContent = "Employee Profile";
+            // _mounted=true;
+            // if(_mounted){
+            //   _propertyListController.appBarContent.value = "Employee Profile";
+            // }
             _propertyListController.appBarContent.value = "Employee Profile";
           }
           secondBtmContent = "Profile";
@@ -120,6 +144,10 @@ class _HomeScreenState extends State<HomeScreen> {
           widgetContent = const LoginWidget();
           secondBtmContent = "Login";
           appBarContent = "Customer Login";
+          // _mounted=true;
+          // if(_mounted){
+          //   _propertyListController.appBarContent.value = "Customer Login";
+          // }
           _propertyListController.appBarContent.value = "Customer Login";
         }
         break;
@@ -133,16 +161,28 @@ class _HomeScreenState extends State<HomeScreen> {
         if (myAppState(context).userType == "admin") {
           widgetContent = const AdminProfilePage();
           appBarContent = "Admin Profile";
+          // _mounted=true;
+          // if(_mounted){
+          //   _propertyListController.appBarContent.value = "Admin Profile";
+          // }
           _propertyListController.appBarContent.value = "Admin Profile";
         }else if(myAppState(context).userType=='employee'){
           print('employee profile section');
           widgetContent = const EmployeeProfileWidget();
           appBarContent = "Employee Profile";
+          // _mounted=true;
+          // if(_mounted){
+          //   _propertyListController.appBarContent.value = "Employee Profile";
+          // }
           _propertyListController.appBarContent.value = "Employee Profile";
         }
         else {
           widgetContent = const CustomerProfilePage();
           appBarContent = "Customer Profile";
+          // _mounted=true;
+          // if(_mounted){
+          //   _propertyListController.appBarContent.value = "Customer Profile";
+          // }
           _propertyListController.appBarContent.value = "Customer Profile";
         }
         secondBtmContent = 'Profile';
@@ -151,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
       case "PropertyDetailPage":
         widgetContent = const PropertyDetailPage();
         appBarContent = 'Property Details';
-        _propertyListController.appBarContent.value= "Property Details";
+        //_propertyListController.appBarContent.value= "Property Details";
         break;
       case "FavoritePropertyDetailPage":
         widgetContent = const PropertyDetailPage();
@@ -305,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         IconButton(
             onPressed: (){
-              //ThemeServices().switchTheme(); 
+              ThemeServices().switchTheme(); 
               StaticMethod.showDialogBar('theme changed', Colors.green);
               }, 
             icon: Icon(Get.isDarkMode? Icons.light_mode_outlined:Icons.dark_mode_outlined, color: Get.isDarkMode?Colors.grey:Colors.black,size: 24,)

@@ -80,6 +80,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
     final appState = Provider.of<MyProvider>(context);
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return RefreshIndicator(
+      color: bluishClr,
         child: PopScope(
           canPop: false,
           onPopInvoked: (didPop) {

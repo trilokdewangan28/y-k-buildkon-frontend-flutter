@@ -38,11 +38,14 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
+ @override
+  void dispose() {
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
-    final appState = Provider.of<MyProvider>(context);
-    double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
+    //final appState = Provider.of<MyProvider>(context);
+    //double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -68,7 +71,7 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       }
     });
-    return SafeArea(child: Scaffold(
+    return Scaffold(
         body: Container(
             decoration: BoxDecoration(color: Theme.of(context).primaryColorLight),
             child: Center(
@@ -84,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           color: Theme.of(context).primaryColorDark,
                           fontWeight: FontWeight.bold),
                     ),
-                     Text(
+                    Text(
                       'LETS CONNECT TO YOUR DREAM',
                       style: TextStyle(
                           fontSize: 16,
@@ -92,6 +95,6 @@ class _SplashScreenState extends State<SplashScreen> {
                           fontWeight: FontWeight.bold),
                     )
                   ],
-                )))));
+                ))));
   }
 }

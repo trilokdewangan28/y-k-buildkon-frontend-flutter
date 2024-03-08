@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
+import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/ui/Pages/Property/FullImageView.dart';
 
 class ImageSlider extends StatefulWidget {
@@ -85,8 +86,7 @@ class _ImageSliderState extends State<ImageSlider> {
                       },
                       child: CachedNetworkImage(
                         imageUrl: singleImageUrl,
-                        placeholder: (context, url) =>
-                        const LinearProgressIndicator(),
+                        placeholder: (context, url) =>StaticMethod.progressIndicatorFadingCircle(),
                         errorWidget: (context, url, error) => const Icon(Icons.error),
                         //height: 200,
                         fit: BoxFit.fitHeight,

@@ -351,7 +351,8 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                               onTap: (){
                                 //print(property);
                                 appState.p_id = property['property_id'];
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=>const ProjectPropertyDetail()));
+                                appState.activeWidget='ProjectPropertyDetailPage';
+                                Get.to(()=>ProjectPropertyDetail());
                               },
                               child: GridTile(
                                   child: Card(
@@ -380,6 +381,10 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
   }
   _appBar(appBarContent){
     return AppBar(
+      leading: IconButton(
+        onPressed: (){Get.back();},
+        icon: Icon(Icons.arrow_back_ios),
+      ),
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,

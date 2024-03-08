@@ -1228,7 +1228,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               //==========================PROJECT ROW
               _projectRow(appState,plcon),
               //=====================================OFFER CONTAINER
-              _offerContainer(appState),
+             // _offerContainer(appState),
               SizedBox(
                 height: MyConst.deviceHeight(context) * 0.02,
               ),
@@ -1251,6 +1251,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
             ],
           ),
         ),
+        color: bluishClr,
         onRefresh: () async {
           // setState(() {
           _isOfferLoading = false;
@@ -1369,7 +1370,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: _isProjectLoading
-          ? const Center(child: LinearProgressIndicator())
+          ? Center(child:Container())
           : projectList.length != 0
           ? Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -1489,6 +1490,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           //print(property['property_id']);
                           appState.p_id = property.property_id!;
                           appState.activeWidget = "PropertyDetailPage";
+                          controller.appBarContent.value = 'Property Details';
                         },
                         child: Container(
                             margin: EdgeInsets.symmetric(
@@ -1546,7 +1548,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               '${ApiLinks.accessPropertyImages}/${property.pi_name![0]}',
               placeholder: (context,
                   url) =>
-              const LinearProgressIndicator(),
+               StaticMethod.progressIndicatorFadingCircle(),
               errorWidget: (context, url,
                   error) =>
               const Icon(Icons.error),

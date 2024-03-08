@@ -13,7 +13,8 @@ import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/ImagePickerPage.dart';
 import 'package:real_state/ui/Pages/Offer/AddOfferPage.dart';
 import 'package:real_state/ui/Pages/Property/ImageSlider.dart';
-import 'package:real_state/ui/Widgets/Other/FetchAdminContactWidget.dart';
+import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
+
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 
 class FavoritePropertyDetailPage extends StatefulWidget {
@@ -1051,11 +1052,7 @@ class _FavoritePropertyDetailPageState
                                               BorderRadius.circular(10))),
                                   onPressed: () {
                                     //Navigator.pop(context);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const FetchAdminContactWidget()));
+                                    Get.to(()=>AdminContactPage());
                                     appState.currentState = 0;
                                   },
                                   child: Text(

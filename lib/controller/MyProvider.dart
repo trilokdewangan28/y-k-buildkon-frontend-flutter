@@ -93,9 +93,11 @@ class MyProvider extends ChangeNotifier {
 
   //----------------------------------------------------------------------------HANDLING USER TYPE
   String userType="";
-  Future<void> fetchUserType() async{
-    userType=await getUserType();
+  Future<String> fetchUserType() async{
+    String type = await getUserType();
+    userType = type;
     notifyListeners();
+    return type;
   }
 
   void storeUserType(userType)async{
@@ -134,9 +136,11 @@ class MyProvider extends ChangeNotifier {
 
 //------------------------------------------------------------------------------TOKEN MANAGER
   String token="";
-  void fetchToken(String userType) async{
-    token = await getToken(userType);
+  Future<String> fetchToken(String userType) async{
+    String tk = await getToken(userType);
+    token = tk;
     notifyListeners();
+    return token;
   }
 
   void storeToken(String token, String userType) async {

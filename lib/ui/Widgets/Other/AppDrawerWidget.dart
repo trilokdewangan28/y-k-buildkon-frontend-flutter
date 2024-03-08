@@ -6,9 +6,9 @@ import 'package:real_state/controller/MyProvider.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Offer/OfferListPage.dart';
+import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
 import 'package:real_state/ui/Pages/StaticContentPage/BlogListPage.dart';
 import 'package:real_state/ui/Widgets/Other/EmiCalculatorWidget.dart';
-import 'package:real_state/ui/Widgets/Other/FetchAdminContactWidget.dart';
 import 'package:real_state/ui/Widgets/Property/ProjectLisWidget.dart';
 class AppDrawerWidget extends StatelessWidget {
   const AppDrawerWidget({Key? key}) : super(key: key);
@@ -177,7 +177,7 @@ class AppDrawerWidget extends StatelessWidget {
                   title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>const FetchAdminContactWidget()));
+                    Get.to(()=>AdminContactPage());
                     appState.currentState=0;
                   },
                 ),
