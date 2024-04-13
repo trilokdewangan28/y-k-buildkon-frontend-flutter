@@ -92,7 +92,7 @@ class MyProvider extends ChangeNotifier {
 
 
   //----------------------------------------------------------------------------HANDLING USER TYPE
-  String userType="";
+  String userType="jff";
   Future<String> fetchUserType() async{
     String type = await getUserType();
     userType = type;
