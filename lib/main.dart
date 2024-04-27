@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:real_state/services/ThemeService/ThemeServices.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'ui/Screens/SplashScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 
 void main() async{
@@ -35,9 +38,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // useInheritedMediaQuery: true,
-      // locale: DevicePreview.locale(context),
-      // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: Themes.light,

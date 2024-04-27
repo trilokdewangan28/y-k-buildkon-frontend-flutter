@@ -60,7 +60,10 @@ dependencies:
   get_storage:
   flutter_spinkit:  
   flutter_staggered_animations: 
-  intl:  
+  intl:
+  permission_handler: 
+  contacts_service: 
+  mailer:  
 
 
 

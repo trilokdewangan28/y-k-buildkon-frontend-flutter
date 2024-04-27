@@ -1,5 +1,5 @@
 class ApiLinks{
-  static const baseUrl = "http://18.212.212.22.nip.io:5000/";
+  static const baseUrl = "http://18.208.140.95.nip.io:5000/";
   //static const baseUrl = "https://c71c-2401-4900-51f2-bb19-74af-cd20-2bad-e6cb.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
