@@ -18,7 +18,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final _formKey = GlobalKey<FormState>();
   bool _mounted = false;
   bool _isProjectLoading = false;
-  int? selectedId;
+  int selectedId=1;
   String selectedName='';
   List<dynamic> projectList = [];
 
@@ -130,6 +130,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       "property_ratingCount":0,
       "project_id":selectedId
     };
+   
     var url = Uri.parse(ApiLinks.insertPropertyDetails);
     showDialog(
       context: context,
@@ -139,6 +140,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       ),
     );
     final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
+    print(res);
     if (res.isNotEmpty) {
       //print(res);
       Navigator.pop(context);
@@ -1042,6 +1044,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
         )
     );
   }
+  
   _textField({
     required TextEditingController? controller,
     required FocusNode? focusNode,

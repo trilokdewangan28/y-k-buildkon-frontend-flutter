@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:real_state/controller/MyProvider.dart';
@@ -649,6 +650,35 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     _mounted=true;
     await fetchFavoriteProperty(appState);
   }
+  
+  _deleteProperty(data,appState,context)async{
+    _mounted = true;
+    var url = Uri.parse(ApiLinks.deleteProperty);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: SpinKitThreeBounce(color: primaryColor,size: 20,),
+      ),
+    );
+    final res =
+    await StaticMethod.deleteProperty(url, data, appState.token);
+    print(res);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        StaticMethod.showDialogBar(res['message'], Colors.green);
+        if(_mounted){
+          setState(() {
+            offer = {};
+          });
+        }
+        //_loadOffer(appState);
+      } else {
+        StaticMethod.showDialogBar(res['message'], Colors.red);
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -798,6 +828,11 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 _showVisitDetailContainer(appState, pageContext);
               }else if(selectedOption=='ContactNow'){
                 Get.to(()=>AdminContactPage());
+              }else if(selectedOption=='DeleteProperty'){
+                var data = {
+                  "property_id":selectedProperty['property_id']
+                };
+                _deleteProperty(data, appState, context);
               }
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
@@ -813,6 +848,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 value: 'BookNow',
                 child: Text('Book Now'),
               ),
+             appState.userType=='admin' ? PopupMenuItem<String>(
+                value: 'DeleteProperty',
+                child: Text('Delete Property'),
+              ) : PopupMenuItem(child: Container())
             ],
           ),
         ],

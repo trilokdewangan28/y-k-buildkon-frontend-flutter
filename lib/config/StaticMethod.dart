@@ -993,6 +993,33 @@ class StaticMethod {
   }
 
 
+  //=========================================================INSERT NEW PROPERTY
+  static Future<Map<String, dynamic>> deleteProperty(url, data, token) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res =
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete insertProperty api');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for delete property api',
+        "error":e.toString()
+      };
+    }
+  }
+
+
   //======================================================DELETE PROPERTY IMAGES
   static Future<Map<String, dynamic>> deletePropertyImage(token, data, url) async {
     try {

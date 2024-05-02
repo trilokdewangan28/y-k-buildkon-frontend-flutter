@@ -1,6 +1,6 @@
 class ApiLinks{
-  static const baseUrl = "http://18.208.140.95.nip.io:5000/";
-  //static const baseUrl = "https://c71c-2401-4900-51f2-bb19-74af-cd20-2bad-e6cb.ngrok-free.app/";
+  //static const baseUrl = "http://18.208.140.95.nip.io:5000/";
+  static const baseUrl = "https://2555-2401-4900-56c2-3626-c032-941-3319-8f29.ngrok-free.app/";
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -37,6 +37,7 @@ class ApiLinks{
 
   //==================================ADMIN API================================
   static const insertPropertyDetails = "${baseUrl}api/admin/insertPropertyDetails";
+  static const deleteProperty = "${baseUrl}api/admin/deleteProperty";
   static const insertProjectDetails = "${baseUrl}api/admin/insertProjectDetails";
   static const fetchProject = "${baseUrl}api/admin/fetchProject";
   static const fetchProjectWithPagination = "${baseUrl}api/admin/fetchProjectWithPagination";
@@ -56,7 +57,7 @@ class ApiLinks{
   static const fetchEmployeeList = "${baseUrl}api/admin/fetchAllEmployeeList";
   static const postBlog ="${baseUrl}api/admin/postBlog";
   static const changeEmployeeStatus="${baseUrl}api/admin/changeEmployeeStatus";
-  static const accessAdminProfilePic = "";
+  static const accessAdminProfilePic = "${baseUrl}api/admin/accessAdminProfilePic";
   
   
   //===========================EMPLOYEE API====================================
