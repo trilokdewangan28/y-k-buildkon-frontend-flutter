@@ -617,7 +617,7 @@ class _VisitRequestedDetailPageState extends State<VisitRequestedDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //===========================PROPERTY IMAGES
+                  //===========================PROPERTY IMAGEs
                   Stack(
                     children: [
                       Padding(
