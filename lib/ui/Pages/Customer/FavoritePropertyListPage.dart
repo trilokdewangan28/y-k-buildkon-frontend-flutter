@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,6 +16,7 @@ import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/controller/PropertyListController.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 
 class FavoritePropertyListPage extends StatefulWidget {
@@ -154,50 +156,55 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
     //print(appState.favoritePropertyList);
     return RefreshIndicator(
         child: PopScope(
-          canPop: false,
+          canPop: true,
           onPopInvoked: (didPop) {
             appState.favoritePropertyList=[];
             appState.activeWidget = "ProfileWidget";
           },
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            height: MediaQuery.of(context).size.height,
-            child:Column(
-              children: [
-                //=====================================PROPERTY LIST CONTAINER
-                _isFirstLoadRunning==true 
-                    ? const Center(child: LinearProgressIndicator(),)   
-                    : favoritePropertyList.isNotEmpty 
-                    ? _propertyListAnimation(appState,controller)
-                    : const Center(
-                  child: Text('Empty Favorite Property'),
-                ),
-
-
-                //================================loading more
-                _isLoadMoreRunning == true
-                    ? Container(
-                  padding: const EdgeInsets.only(top: 10, bottom: 40),
-                  child:  Center(
-                    child:StaticMethod.progressIndicator()
-                  ),
-                )
-                    : Container(),
-
-                //==================================fetched all
-                _hasNextPage == false
-                    ? favoritePropertyList.isNotEmpty
-                    ? Container(
-                  color: Colors.amber,
-                  child: const Center(
-                    child: Text('You have fetched all of the content'),
-                  ),
-                )
-                    : Container()
-                    : Container()
-              ],
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0.0,
+              title: Text('Favorite Property List',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),),
             ),
-          ),
+            body: _isFirstLoadRunning 
+                ? const Center(child: SpinKitThreeBounce(color: primaryColor,size: 20,),) 
+                : favoritePropertyList.isNotEmpty 
+                ? Container(
+              color: Theme.of(context).backgroundColor,
+              height: MediaQuery.of(context).size.height,
+              child:Column(
+                children: [
+                  //=====================================PROPERTY LIST CONTAINER
+                  _propertyListAnimation(appState,controller),
+
+
+                  //================================loading more
+                  _isLoadMoreRunning == true
+                      ? Container(
+                    padding: const EdgeInsets.only(top: 10, bottom: 40),
+                    child:  Center(
+                        child:StaticMethod.progressIndicator()
+                    ),
+                  )
+                      : Container(),
+
+                  //==================================fetched all
+                  _hasNextPage == false
+                      ? favoritePropertyList.isNotEmpty
+                      ? Container(
+                    color: Colors.amber,
+                    child: const Center(
+                      child: Text('You have fetched all of the content'),
+                    ),
+                  )
+                      : Container()
+                      : Container()
+                ],
+              ),
+            )
+                : const Center(child:  Text('Empty Favorite Property'),),
+          )
         ),
         onRefresh: () async {
           // setState(() {
@@ -236,6 +243,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                           appState.p_id = property['property_id'];
                           appState.activeWidget = "PropertyDetailPage";
                           controller.appBarContent.value = 'Favorite Property Detail';
+                          Get.to(()=>PropertyDetailPage(propertyid: property['property_id'],appbartitle: 'Favorite Property Details',));
                         },
                         child: Container(
                             margin: EdgeInsets.symmetric(

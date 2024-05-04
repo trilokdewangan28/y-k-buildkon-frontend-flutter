@@ -8,6 +8,8 @@ import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Customer/EditCustomerDetailPage.dart';
+import 'package:real_state/ui/Pages/Customer/FavoritePropertyListPage.dart';
+import 'package:real_state/ui/Pages/Customer/VisitRequestedListPage.dart';
 
 import '../Error/SpacificErrorPage.dart';
 import '../ImagePickerPage.dart';
@@ -194,6 +196,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     GestureDetector(
                       onTap: (){
                         appState.activeWidget = 'VisitRequestedListPage';
+                        Get.to(()=>VisitRequestedListPage());
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -225,6 +228,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     GestureDetector(
                       onTap: (){
                         appState.activeWidget = "FavoritePropertyListPage";
+                        Get.to(()=>FavoritePropertyListPage());
                       },
                       child:Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),

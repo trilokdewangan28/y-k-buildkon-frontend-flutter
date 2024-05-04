@@ -151,273 +151,280 @@ class _CustomerListPageState extends State<CustomerListPage> {
             appState.activeWidget = "ProfileWidget";
             appState.currentState=1;
           },
-          child: Container(
-            child: Column(
-              children: [
-                //=============================================FILTER CONTAINER
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: MyConst.deviceHeight(context) * 0.015),
-                  child: Row(
-                    children: [
-                      //=====================================FILTER BY NAME TEXTFIELD
-                      Flexible(
-                        child: Card(
-                          color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
-                          //shadowColor: Colors.black,
-                          elevation: 1,
-                          child: TextField(
-                            onChanged: (value) {
-                              searchItem = value;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _firstLoadCustomerList(appState);
-                              //});
-                            },
-                            keyboardType: TextInputType.text,
-                            style: TextStyle(
-                                fontSize: MyConst.mediumSmallTextSize *
-                                    fontSizeScaleFactor),
-                            textAlignVertical: TextAlignVertical.center,
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.only(bottom: 5),
-                              labelText: 'Filter By Name, Email, Mobile, City',
-                              labelStyle: TextStyle(fontSize: 15),
-                              border: InputBorder.none,
-                              prefixIcon: Icon(Icons.search),
+          child: Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0.0,
+              title: Text('Customer List'),
+            ),
+            body: Container(
+              child: Column(
+                children: [
+                  //=============================================FILTER CONTAINER
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MyConst.deviceHeight(context) * 0.015),
+                    child: Row(
+                      children: [
+                        //=====================================FILTER BY NAME TEXTFIELD
+                        Flexible(
+                          child: Card(
+                            color: Get.isDarkMode?Colors.white12 :Theme.of(context).primaryColorLight,
+                            //shadowColor: Colors.black,
+                            elevation: 1,
+                            child: TextField(
+                              onChanged: (value) {
+                                searchItem = value;
+                                _hasNextPage=true;
+                                page=1;
+                                //setState(() {
+                                _isFirstLoadRunning=false;
+                                _firstLoadCustomerList(appState);
+                                //});
+                              },
+                              keyboardType: TextInputType.text,
+                              style: TextStyle(
+                                  fontSize: MyConst.mediumSmallTextSize *
+                                      fontSizeScaleFactor),
+                              textAlignVertical: TextAlignVertical.center,
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.only(bottom: 5),
+                                labelText: 'Filter By Name, Email, Mobile, City',
+                                labelStyle: TextStyle(fontSize: 15),
+                                border: InputBorder.none,
+                                prefixIcon: Icon(Icons.search),
+                              ),
+                              cursorOpacityAnimates: false,
                             ),
-                            cursorOpacityAnimates: false,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
 
-                SizedBox(
-                  height: MyConst.deviceHeight(context) * 0.02,
-                ),
+                  SizedBox(
+                    height: MyConst.deviceHeight(context) * 0.02,
+                  ),
 
-                //===========================================CUSTOMER LIST CONTAINER
-                _isFirstLoadRunning==false
-                    ? appState.customerList.isNotEmpty
-                    ? Container(child: Flexible(
-                    child: ListView.builder(
-                      itemCount: appState.customerList.length,
-                      controller: _controller,
-                      itemBuilder: (context, index) {
-                        final customer = appState.customerList[index];
-                        return InkWell(
-                          onTap: () {
-                            appState.customerDetails = customer;
-                            appState.activeWidget = "CustomerDetailPage";
-                          },
-                          child: Container(
-                              margin: EdgeInsets.symmetric(
-                                horizontal:
-                                MediaQuery.of(context).size.height * 0.010,
-                              ),
-                              child: Card(
-                                shadowColor: Colors.black,
-                                color: Get.isDarkMode? darkGreyClr:Theme.of(context).primaryColorLight,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                elevation: 0.5,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    //==============================PROPERTY IMAGE CONTAINER
-                                    Container(
-                                      margin: const EdgeInsets.all(8),
-                                      child: Center(
-                                        child: ClipRRect(
-                                            borderRadius:
-                                            BorderRadius.circular(10),
-                                            child: customer['customer_profilePic'].length >
-                                                0
-                                                ? CachedNetworkImage(
-                                              imageUrl:
-                                              '${ApiLinks.accessCustomerProfilePic}/${customer['customer_ProfilePic']}',
-                                              placeholder: (context,
-                                                  url) =>
-                                              const LinearProgressIndicator(),
-                                              errorWidget: (context, url,
-                                                  error) =>
-                                              const Icon(Icons.error),
-                                              height:
-                                              MyConst.deviceHeight(
-                                                  context) *
-                                                  0.1,
-                                              width: MyConst.deviceWidth(
-                                                  context) *
-                                                  0.25,
-                                              fit: BoxFit.fill,
-                                            )
-                                                : ClipRRect(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    10),
-                                                child: Container(
-                                                  height:
-                                                  MyConst.deviceHeight(
-                                                      context) *
-                                                      0.12,
-                                                  width: MyConst.deviceWidth(
-                                                      context) *
-                                                      0.25,
-                                                  child: const Icon(Icons.person,size: 70,),
-                                                )
-                                            )),
+                  //===========================================CUSTOMER LIST CONTAINER
+                  _isFirstLoadRunning==false
+                      ? appState.customerList.isNotEmpty
+                      ? Container(child: Flexible(
+                      child: ListView.builder(
+                        itemCount: appState.customerList.length,
+                        controller: _controller,
+                        itemBuilder: (context, index) {
+                          final customer = appState.customerList[index];
+                          return InkWell(
+                            onTap: () {
+                              appState.customerDetails = customer;
+                              appState.activeWidget = "CustomerDetailPage";
+                            },
+                            child: Container(
+                                margin: EdgeInsets.symmetric(
+                                  horizontal:
+                                  MediaQuery.of(context).size.height * 0.010,
+                                ),
+                                child: Card(
+                                  shadowColor: Colors.black,
+                                  color: Get.isDarkMode? darkGreyClr:Theme.of(context).primaryColorLight,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  elevation: 0.5,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: [
+                                      //==============================PROPERTY IMAGE CONTAINER
+                                      Container(
+                                        margin: const EdgeInsets.all(8),
+                                        child: Center(
+                                          child: ClipRRect(
+                                              borderRadius:
+                                              BorderRadius.circular(10),
+                                              child: customer['customer_profilePic'].length >
+                                                  0
+                                                  ? CachedNetworkImage(
+                                                imageUrl:
+                                                '${ApiLinks.accessCustomerProfilePic}/${customer['customer_ProfilePic']}',
+                                                placeholder: (context,
+                                                    url) =>
+                                                const LinearProgressIndicator(),
+                                                errorWidget: (context, url,
+                                                    error) =>
+                                                const Icon(Icons.error),
+                                                height:
+                                                MyConst.deviceHeight(
+                                                    context) *
+                                                    0.1,
+                                                width: MyConst.deviceWidth(
+                                                    context) *
+                                                    0.25,
+                                                fit: BoxFit.fill,
+                                              )
+                                                  : ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      10),
+                                                  child: Container(
+                                                    height:
+                                                    MyConst.deviceHeight(
+                                                        context) *
+                                                        0.12,
+                                                    width: MyConst.deviceWidth(
+                                                        context) *
+                                                        0.25,
+                                                    child: const Icon(Icons.person,size: 70,),
+                                                  )
+                                              )),
+                                        ),
                                       ),
-                                    ),
 
-                                    //==============================PROPERTY DETAIL CONTAINER
-                                    Flexible(
-                                        child: Container(
-                                          //height: MyConst.deviceHeight(context)*0.1,
-                                          width: double.infinity,
-                                          margin: const EdgeInsets.all(8),
-                                          // padding: const EdgeInsets.symmetric(
-                                          //     horizontal: 4, vertical: 8),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              //=======================NAME CONTAINER
-                                              Text(
-                                                '${customer['customer_name'].toUpperCase()}',
-                                                style: TextStyle(
-                                                  fontSize: MyConst.smallTextSize *
-                                                      fontSizeScaleFactor,
-                                                  fontWeight: FontWeight.w600,
+                                      //==============================PROPERTY DETAIL CONTAINER
+                                      Flexible(
+                                          child: Container(
+                                            //height: MyConst.deviceHeight(context)*0.1,
+                                            width: double.infinity,
+                                            margin: const EdgeInsets.all(8),
+                                            // padding: const EdgeInsets.symmetric(
+                                            //     horizontal: 4, vertical: 8),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                //=======================NAME CONTAINER
+                                                Text(
+                                                  '${customer['customer_name'].toUpperCase()}',
+                                                  style: TextStyle(
+                                                    fontSize: MyConst.smallTextSize *
+                                                        fontSizeScaleFactor,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                  softWrap: true,
                                                 ),
-                                                softWrap: true,
-                                              ),
 
-                                              //=======================MOBILE ROW SECTION
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.email_outlined,
-                                                    color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
-                                                    size: MyConst
-                                                        .mediumSmallTextSize *
-                                                        fontSizeScaleFactor,
-                                                  ),
-                                                  Flexible(
-                                                    child: Text(
-                                                      '${customer['customer_email']}',
-                                                      style: TextStyle(
-                                                          fontSize: MyConst
-                                                              .smallTextSize *
-                                                              fontSizeScaleFactor,
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                          FontWeight.w500,
-                                                          overflow: TextOverflow.ellipsis
-                                                      ),
-                                                      softWrap: true,
+                                                //=======================MOBILE ROW SECTION
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.email_outlined,
+                                                      color: Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
+                                                      size: MyConst
+                                                          .mediumSmallTextSize *
+                                                          fontSizeScaleFactor,
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-
-                                              //=======================MOBILE ROW SECTION
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    Icons.phone,
-                                                    color:
-                                                    Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
-                                                    size: MyConst
-                                                        .mediumSmallTextSize *
-                                                        fontSizeScaleFactor,
-                                                  ),
-                                                  Flexible(
-                                                    child: Text(
-                                                      '${customer['customer_mobile']}',
-                                                      style: TextStyle(
-                                                          fontSize: MyConst
-                                                              .smallTextSize *
-                                                              fontSizeScaleFactor,
-                                                          color: Colors.grey,
-                                                          fontWeight:
-                                                          FontWeight.w500),
-                                                      softWrap: true,
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-
-                                              //=======================LOCATION ROW SECTION
-                                              Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                                children: [
-                                                  Icon(
-                                                    Icons.location_on_outlined,
-                                                    color:
-                                                    Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
-                                                    size: MyConst
-                                                        .mediumSmallTextSize *
-                                                        fontSizeScaleFactor,
-                                                  ),
-                                                  Flexible(
+                                                    Flexible(
                                                       child: Text(
-                                                        '${customer['customer_locality']}, ${customer['customer_city']} ${customer['customer_pincode']}',
+                                                        '${customer['customer_email']}',
                                                         style: TextStyle(
-                                                            color: Colors.grey,
-                                                            fontSize:
-                                                            MyConst.smallTextSize *
+                                                            fontSize: MyConst
+                                                                .smallTextSize *
                                                                 fontSizeScaleFactor,
-                                                            fontWeight: FontWeight.w500,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                            FontWeight.w500,
                                                             overflow: TextOverflow.ellipsis
                                                         ),
                                                         softWrap: true,
-                                                      ))
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ))
-                                  ],
-                                ),
-                              )),
-                        );
-                      },
-                    )),)
-                    : const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 100,),
-                    Center(child: Text('No Such Properties'),)
-                  ],
-                )
-                    : Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: MyConst.deviceHeight(context) * 0.2),
-                  child:  Center(
-                    child:StaticMethod.progressIndicator()
-                  ),
-                ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
 
-                //================================loading more
-                _isLoadMoreRunning == true
-                    ?  Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 40),
-                  child: Center(
-                    child:StaticMethod.progressIndicator()
+                                                //=======================MOBILE ROW SECTION
+                                                Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.phone,
+                                                      color:
+                                                      Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
+                                                      size: MyConst
+                                                          .mediumSmallTextSize *
+                                                          fontSizeScaleFactor,
+                                                    ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        '${customer['customer_mobile']}',
+                                                        style: TextStyle(
+                                                            fontSize: MyConst
+                                                                .smallTextSize *
+                                                                fontSizeScaleFactor,
+                                                            color: Colors.grey,
+                                                            fontWeight:
+                                                            FontWeight.w500),
+                                                        softWrap: true,
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+
+                                                //=======================LOCATION ROW SECTION
+                                                Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.location_on_outlined,
+                                                      color:
+                                                      Get.isDarkMode? Colors.white70: Theme.of(context).primaryColor,
+                                                      size: MyConst
+                                                          .mediumSmallTextSize *
+                                                          fontSizeScaleFactor,
+                                                    ),
+                                                    Flexible(
+                                                        child: Text(
+                                                          '${customer['customer_locality']}, ${customer['customer_city']} ${customer['customer_pincode']}',
+                                                          style: TextStyle(
+                                                              color: Colors.grey,
+                                                              fontSize:
+                                                              MyConst.smallTextSize *
+                                                                  fontSizeScaleFactor,
+                                                              fontWeight: FontWeight.w500,
+                                                              overflow: TextOverflow.ellipsis
+                                                          ),
+                                                          softWrap: true,
+                                                        ))
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ))
+                                    ],
+                                  ),
+                                )),
+                          );
+                        },
+                      )),)
+                      : const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 100,),
+                      Center(child: Text('No Such Properties'),)
+                    ],
+                  )
+                      : Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: MyConst.deviceHeight(context) * 0.2),
+                    child:  Center(
+                        child:StaticMethod.progressIndicator()
+                    ),
                   ),
-                )
-                    : Container(),
-                
-              ],
+
+                  //================================loading more
+                  _isLoadMoreRunning == true
+                      ?  Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 40),
+                    child: Center(
+                        child:StaticMethod.progressIndicator()
+                    ),
+                  )
+                      : Container(),
+
+                ],
+              ),
             ),
           ),
         ),

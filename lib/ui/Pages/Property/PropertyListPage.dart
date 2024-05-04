@@ -5,6 +5,7 @@ import 'package:real_state/models/PropertyListModel.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
 import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/ui/Pages/Offer/OfferSlider.dart';
+import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -1489,6 +1490,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                         onTap: () {
                           //print(property['property_id']);
                           appState.p_id = property.property_id!;
+                          Get.to(()=>PropertyDetailPage(propertyid: property.property_id!,appbartitle: 'Property Detail',));
                           appState.activeWidget = "PropertyDetailPage";
                           controller.appBarContent.value = 'Property Details';
                         },

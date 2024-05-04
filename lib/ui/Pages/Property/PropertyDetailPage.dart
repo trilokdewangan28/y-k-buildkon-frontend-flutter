@@ -16,8 +16,9 @@ import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 
 class PropertyDetailPage extends StatefulWidget {
-  const PropertyDetailPage({Key? key}) : super(key: key);
-
+  PropertyDetailPage({Key? key, required this.propertyid, required this.appbartitle}) : super(key: key);
+  int propertyid;
+  String appbartitle;
   @override
   State<PropertyDetailPage> createState() => _PropertyDetailPageState();
 }
@@ -704,29 +705,36 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     return RefreshIndicator(
       color: bluishClr,
         child: PopScope(
-          canPop: false,
+          canPop: true,
           onPopInvoked: (didPop) {
-            //selectedProperty={};
-            appState.addedToFavorite = false;
-            if(controller.appBarContent.value=='Favorite Property Detail'){
-              appState.activeWidget='FavoritePropertyListPage';  
-            }else if(controller.appBarContent.value=='Property Details'){
-              appState.activeWidget = "PropertyListPage"; 
-            }else if(controller.appBarContent.value=='Your Requested Property'){
-              appState.activeWidget = 'VisitRequestedPropertyList';
-            }else{
-              appState.activeWidget = "PropertyListPage";
-            }
+            // //selectedProperty={};
+            // appState.addedToFavorite = false;
+            // if(controller.appBarContent.value=='Favorite Property Detail'){
+            //   appState.activeWidget='FavoritePropertyListPage';  
+            // }else if(controller.appBarContent.value=='Property Details'){
+            //   appState.activeWidget = "PropertyListPage"; 
+            // }else if(controller.appBarContent.value=='Your Requested Property'){
+            //   appState.activeWidget = 'VisitRequestedPropertyList';
+            // }else{
+            //   appState.activeWidget = "PropertyListPage";
+            // }
           },
-          child: Container(
-              color: Get.isDarkMode ? darkGreyClr : context.theme.backgroundColor,
-              height: MediaQuery.of(context).size.height,
-              child: SingleChildScrollView(
-                  child: _isPropertyLoading==false
-                      ? _detailContainer(appState, fontSizeScaleFactor)
-                      : _progresContainer()
-              )
-          ),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(widget.appbartitle,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),),
+              scrolledUnderElevation: 0.0,
+              backgroundColor: Colors.white,
+            ),
+            body: Container(
+                color: Get.isDarkMode ? darkGreyClr : context.theme.backgroundColor,
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                    child: _isPropertyLoading==false
+                        ? _detailContainer(appState, fontSizeScaleFactor)
+                        : _progresContainer()
+                )
+            ),
+          )
         ),
         onRefresh: ()async{
           appState.activeWidget=appState.activeWidget;
@@ -737,6 +745,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         }
     );
   }
+  
+  //property detailing function
   _detailContainer(appState,fontSizeScaleFactor){
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -809,53 +819,53 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   }
   _propertyAvailability(appState,pageContext){
     return Container(
-      margin:const EdgeInsets.symmetric(horizontal: 20),
-      child:Row(
-        children: [
-          Text(
-            '${selectedProperty['property_isAvailable']}',
-            style: TextStyle(
-                color: availabilityColor,
-                fontWeight: FontWeight.bold
+        margin:const EdgeInsets.symmetric(horizontal: 20),
+        child:Row(
+          children: [
+            Text(
+              '${selectedProperty['property_isAvailable']}',
+              style: TextStyle(
+                  color: availabilityColor,
+                  fontWeight: FontWeight.bold
+              ),
             ),
-          ),
-          Spacer(),
-          PopupMenuButton<String>(
-            color: Get.isDarkMode?Colors.white12:Colors.white,
-            onSelected: (String result) {
+            Spacer(),
+            PopupMenuButton<String>(
+              color: Get.isDarkMode?Colors.white12:Colors.white,
+              onSelected: (String result) {
                 selectedOption = result;
-              if(selectedOption=='RequestVisit'){
-                _showVisitDetailContainer(appState, pageContext);
-              }else if(selectedOption=='ContactNow'){
-                Get.to(()=>AdminContactPage());
-              }else if(selectedOption=='DeleteProperty'){
-                var data = {
-                  "property_id":selectedProperty['property_id']
-                };
-                _deleteProperty(data, appState, context);
-              }
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'RequestVisit',
-                child: Text('Request Visit'),
-              ),
-              PopupMenuItem<String>(
-                value: 'ContactNow',
-                child: Text('Contact Now'),
-              ),
-              PopupMenuItem<String>(
-                value: 'BookNow',
-                child: Text('Book Now'),
-              ),
-             appState.userType=='admin' ? PopupMenuItem<String>(
-                value: 'DeleteProperty',
-                child: Text('Delete Property'),
-              ) : PopupMenuItem(child: Container())
-            ],
-          ),
-        ],
-      )
+                if(selectedOption=='RequestVisit'){
+                  _showVisitDetailContainer(appState, pageContext);
+                }else if(selectedOption=='ContactNow'){
+                  Get.to(()=>AdminContactPage());
+                }else if(selectedOption=='DeleteProperty'){
+                  var data = {
+                    "property_id":selectedProperty['property_id']
+                  };
+                  _deleteProperty(data, appState, context);
+                }
+              },
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'RequestVisit',
+                  child: Text('Request Visit'),
+                ),
+                PopupMenuItem<String>(
+                  value: 'ContactNow',
+                  child: Text('Contact Now'),
+                ),
+                PopupMenuItem<String>(
+                  value: 'BookNow',
+                  child: Text('Book Now'),
+                ),
+                appState.userType=='admin' ? PopupMenuItem<String>(
+                  value: 'DeleteProperty',
+                  child: Text('Delete Property'),
+                ) : PopupMenuItem(child: Container())
+              ],
+            ),
+          ],
+        )
     );
   }
   _propertyImageAndEditBtn(appState,fontSizeScaleFactor){

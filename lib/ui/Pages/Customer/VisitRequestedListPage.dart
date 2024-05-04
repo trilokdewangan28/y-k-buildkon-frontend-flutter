@@ -9,6 +9,7 @@ import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/controller/PropertyListController.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:real_state/ui/Pages/Customer/VisitRequestedDetailPage.dart';
 import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
 import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:intl/intl.dart';
@@ -169,70 +170,77 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
     //print('visit requested property list is : ${appState.visitRequestedPropertyList}');
     return RefreshIndicator(
         child: PopScope(
-          canPop: false,
+          canPop: true,
           onPopInvoked: (didPop) {
             appState.visitRequestedPropertyList=[];
             appState.activeWidget = "ProfileWidget";
           },
-          child: Container(
-            color: Theme.of(context).backgroundColor,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 15,
-                ),
-                //=====================================FILTER USING REQUEST STATUS
-                _filterContainer(appState, fontSizeScaleFactor),
-
-                //=====================================PROPERTY LIST CONTAINER
-                _isFirstLoadRunning == false
-                    ? appState.visitRequestedPropertyList.isNotEmpty
-                    ? _propertyListAnimation(appState, controller)
-                    : Container(
-                  margin: const EdgeInsets.only(top: 300),
-                  child: Center(
-                    child: Text(
-                      'no such request',
-                      style: TextStyle(
-                          fontSize: MyConst.largeTextSize *
-                              fontSizeScaleFactor,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                )
-                    : Container(
-                  height: MediaQuery.of(context).size.height*0.75,
-                  margin: const EdgeInsets.only(top: 5),
-                  child: Center(
-                    child: StaticMethod.progressIndicator(),
-                  )
-                ),
-
-                //================================loading more
-                _isLoadMoreRunning == true
-                    ? Container(
-                  padding: const EdgeInsets.only(top: 10, bottom: 40),
-                  child:  Center(
-                    child:StaticMethod.progressIndicator()
-                  ),
-                )
-                    : Container(),
-
-                //==================================fetched all
-                _hasNextPage == false
-                    ? appState.visitRequestedPropertyList.isNotEmpty
-                    ? Container(
-                  color: Colors.amber,
-                  child: const Center(
-                    child: Text('You have fetched all of the content'),
-                  ),
-                )
-                    : Container()
-                    : Container()
-              ],
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Visit Request List',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),),
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0.0,
             ),
-          ),
+            body: Container(
+              color: Theme.of(context).backgroundColor,
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  //=====================================FILTER USING REQUEST STATUS
+                  _filterContainer(appState, fontSizeScaleFactor),
+
+                  //=====================================PROPERTY LIST CONTAINER
+                  _isFirstLoadRunning == false
+                      ? appState.visitRequestedPropertyList.isNotEmpty
+                      ? _propertyListAnimation(appState, controller)
+                      : Container(
+                    margin: const EdgeInsets.only(top: 300),
+                    child: Center(
+                      child: Text(
+                        'no such request',
+                        style: TextStyle(
+                            fontSize: MyConst.largeTextSize *
+                                fontSizeScaleFactor,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  )
+                      : Container(
+                      height: MediaQuery.of(context).size.height*0.75,
+                      margin: const EdgeInsets.only(top: 5),
+                      child: Center(
+                        child: StaticMethod.progressIndicator(),
+                      )
+                  ),
+
+                  //================================loading more
+                  _isLoadMoreRunning == true
+                      ? Container(
+                    padding: const EdgeInsets.only(top: 10, bottom: 40),
+                    child:  Center(
+                        child:StaticMethod.progressIndicator()
+                    ),
+                  )
+                      : Container(),
+
+                  //==================================fetched all
+                  _hasNextPage == false
+                      ? appState.visitRequestedPropertyList.isNotEmpty
+                      ? Container(
+                    color: Colors.amber,
+                    child: const Center(
+                      child: Text('You have fetched all of the content'),
+                    ),
+                  )
+                      : Container()
+                      : Container()
+                ],
+              ),
+            ),
+          )
         ),
         onRefresh: () async {
           // setState(() {
@@ -671,6 +679,7 @@ class _VisitRequestedListPageState extends State<VisitRequestedListPage> {
                           //print(property['property_id']);
                           appState.p_id = property['property_id'];
                           appState.activeWidget = "PropertyDetailPage";
+                          Get.to(()=>VisitRequestedDetailPage(visitid: property['v_id'],));
                           controller.appBarContent.value = 'Visit Detail';
                         },
                         child: Container(

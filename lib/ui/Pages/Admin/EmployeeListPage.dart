@@ -149,303 +149,310 @@ class _EmployeeListPageState extends State<EmployeeListPage> {
             appState.employeeList = [];
             appState.activeWidget="ProfileWidget";
           },
-          child: Column(
-            children: [
-              //=============================================FILTER CONTAINER
-              Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: MyConst.deviceHeight(context) * 0.015),
-                child: Row(
-                  children: [
-                    //=====================================FILTER BY NAME TEXTFIELD
-                    Flexible(
-                      child: Card(
-                        color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
-                        //shadowColor: Colors.black,
-                        elevation: 1,
-                        child: TextField(
-                          onChanged: (value) {
-                            searchItem = value;
-                            _hasNextPage=true;
-                            page=1;
-                            //setState(() {
-                            _isFirstLoadRunning=false;
-                            _firstLoadEmployeeList(appState);
-                            //});
-                          },
-                          keyboardType: TextInputType.text,
-                          style: TextStyle(
-                              fontSize: MyConst.mediumSmallTextSize *
-                                  fontSizeScaleFactor),
-                          textAlignVertical: TextAlignVertical.center,
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.only(bottom: 5),
-                            labelText: 'Filter By Name, Email, Mobile, City',
-                            labelStyle: TextStyle(fontSize: 15),
-                            border: InputBorder.none,
-                            prefixIcon: Icon(Icons.search),
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text('Employee List'),
+              backgroundColor: Colors.white,
+              scrolledUnderElevation: 0.0,
+            ),
+            body: Column(
+              children: [
+                //=============================================FILTER CONTAINER
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MyConst.deviceHeight(context) * 0.015),
+                  child: Row(
+                    children: [
+                      //=====================================FILTER BY NAME TEXTFIELD
+                      Flexible(
+                        child: Card(
+                          color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
+                          //shadowColor: Colors.black,
+                          elevation: 1,
+                          child: TextField(
+                            onChanged: (value) {
+                              searchItem = value;
+                              _hasNextPage=true;
+                              page=1;
+                              //setState(() {
+                              _isFirstLoadRunning=false;
+                              _firstLoadEmployeeList(appState);
+                              //});
+                            },
+                            keyboardType: TextInputType.text,
+                            style: TextStyle(
+                                fontSize: MyConst.mediumSmallTextSize *
+                                    fontSizeScaleFactor),
+                            textAlignVertical: TextAlignVertical.center,
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.only(bottom: 5),
+                              labelText: 'Filter By Name, Email, Mobile, City',
+                              labelStyle: TextStyle(fontSize: 15),
+                              border: InputBorder.none,
+                              prefixIcon: Icon(Icons.search),
+                            ),
+                            cursorOpacityAnimates: false,
                           ),
-                          cursorOpacityAnimates: false,
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
 
-              SizedBox(
-                height: MyConst.deviceHeight(context) * 0.02,
-              ),
+                SizedBox(
+                  height: MyConst.deviceHeight(context) * 0.02,
+                ),
 
-              //===========================================EMPLOYEE LIST CONTAINER
-              _isFirstLoadRunning==false
-                  ? appState.employeeList.isNotEmpty
-                  ? Container(child: Flexible(
-                  child: ListView.builder(
-                    itemCount: appState.employeeList.length,
-                    controller: _controller,
-                    itemBuilder: (context, index) {
-                      final employee = appState.employeeList[index];
-                      if(employee['status']=="Newly Applied"){
-                        statusColor = Colors.orange;
-                      }else if(employee['status']=='Rejected'){
-                        statusColor=Colors.red;
-                      }else if(employee['status']=='Joined'){
-                        statusColor = Colors.green;
-                      }else if(employee['status']=='Leaved'){
-                        statusColor = Colors.red;
-                      }
-                      return InkWell(
-                        onTap: () {
-                          appState.employeeDetails = employee;
-                          appState.activeWidget = "EmployeeDetailPage";
-                        },
-                        child: Container(
-                            margin: EdgeInsets.symmetric(
-                              horizontal:
-                              MediaQuery.of(context).size.height * 0.010,
-                            ),
-                            child: Card(
-                              shadowColor: Colors.black,
-                              color: Get.isDarkMode ?darkGreyClr : Theme.of(context).primaryColorLight,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              elevation: 0.5,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  //==============================PROPERTY IMAGE CONTAINER
-                                  Container(
-                                    margin: const EdgeInsets.all(8),
-                                    child: Center(
-                                      child: ClipRRect(
-                                          borderRadius:
-                                          BorderRadius.circular(10),
-                                          child: employee['profilePic'].length >
-                                              0
-                                              ? CachedNetworkImage(
-                                            imageUrl:
-                                            '${ApiLinks.accessEmployeeProfilePic}/${employee['profilePic']}',
-                                            placeholder: (context,
-                                                url) =>
-                                            const LinearProgressIndicator(),
-                                            errorWidget: (context, url,
-                                                error) =>
-                                            const Icon(Icons.error),
-                                            height:
-                                            MyConst.deviceHeight(
-                                                context) *
-                                                0.1,
-                                            width: MyConst.deviceWidth(
-                                                context) *
-                                                0.25,
-                                            fit: BoxFit.fill,
-                                          )
-                                              : ClipRRect(
-                                              borderRadius:
-                                              BorderRadius.circular(
-                                                  10),
-                                              child: Container(
-                                                height:
-                                                MyConst.deviceHeight(
-                                                    context) *
-                                                    0.12,
-                                                width: MyConst.deviceWidth(
-                                                    context) *
-                                                    0.25,
-                                                child: const Icon(Icons.person,size: 70,),
-                                              )
-                                          )),
+                //===========================================EMPLOYEE LIST CONTAINER
+                _isFirstLoadRunning==false
+                    ? appState.employeeList.isNotEmpty
+                    ? Container(child: Flexible(
+                    child: ListView.builder(
+                      itemCount: appState.employeeList.length,
+                      controller: _controller,
+                      itemBuilder: (context, index) {
+                        final employee = appState.employeeList[index];
+                        if(employee['status']=="Newly Applied"){
+                          statusColor = Colors.orange;
+                        }else if(employee['status']=='Rejected'){
+                          statusColor=Colors.red;
+                        }else if(employee['status']=='Joined'){
+                          statusColor = Colors.green;
+                        }else if(employee['status']=='Leaved'){
+                          statusColor = Colors.red;
+                        }
+                        return InkWell(
+                          onTap: () {
+                            appState.employeeDetails = employee;
+                            appState.activeWidget = "EmployeeDetailPage";
+                          },
+                          child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal:
+                                MediaQuery.of(context).size.height * 0.010,
+                              ),
+                              child: Card(
+                                shadowColor: Colors.black,
+                                color: Get.isDarkMode ?darkGreyClr : Theme.of(context).primaryColorLight,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 0.5,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    //==============================PROPERTY IMAGE CONTAINER
+                                    Container(
+                                      margin: const EdgeInsets.all(8),
+                                      child: Center(
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: employee['profilePic'].length >
+                                                0
+                                                ? CachedNetworkImage(
+                                              imageUrl:
+                                              '${ApiLinks.accessEmployeeProfilePic}/${employee['profilePic']}',
+                                              placeholder: (context,
+                                                  url) =>
+                                              const LinearProgressIndicator(),
+                                              errorWidget: (context, url,
+                                                  error) =>
+                                              const Icon(Icons.error),
+                                              height:
+                                              MyConst.deviceHeight(
+                                                  context) *
+                                                  0.1,
+                                              width: MyConst.deviceWidth(
+                                                  context) *
+                                                  0.25,
+                                              fit: BoxFit.fill,
+                                            )
+                                                : ClipRRect(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    10),
+                                                child: Container(
+                                                  height:
+                                                  MyConst.deviceHeight(
+                                                      context) *
+                                                      0.12,
+                                                  width: MyConst.deviceWidth(
+                                                      context) *
+                                                      0.25,
+                                                  child: const Icon(Icons.person,size: 70,),
+                                                )
+                                            )),
+                                      ),
                                     ),
-                                  ),
 
-                                  //==============================PROPERTY DETAIL CONTAINER
-                                  Flexible(
-                                      child: Container(
-                                        //height: MyConst.deviceHeight(context)*0.1,
-                                        width: double.infinity,
-                                        margin: const EdgeInsets.all(8),
-                                        // padding: const EdgeInsets.symmetric(
-                                        //     horizontal: 4, vertical: 8),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            //=======================NAME CONTAINER
-                                            Text(
-                                              '${employee['name'].toUpperCase()}',
-                                              style: TextStyle(
-                                                fontSize: MyConst.smallTextSize *
-                                                    fontSizeScaleFactor,
-                                                fontWeight: FontWeight.w600,
+                                    //==============================PROPERTY DETAIL CONTAINER
+                                    Flexible(
+                                        child: Container(
+                                          //height: MyConst.deviceHeight(context)*0.1,
+                                          width: double.infinity,
+                                          margin: const EdgeInsets.all(8),
+                                          // padding: const EdgeInsets.symmetric(
+                                          //     horizontal: 4, vertical: 8),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              //=======================NAME CONTAINER
+                                              Text(
+                                                '${employee['name'].toUpperCase()}',
+                                                style: TextStyle(
+                                                  fontSize: MyConst.smallTextSize *
+                                                      fontSizeScaleFactor,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                                softWrap: true,
                                               ),
-                                              softWrap: true,
-                                            ),
 
-                                            //=======================MOBILE ROW SECTION
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.email_outlined,
-                                                  color:
-                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                                                  size: MyConst
-                                                      .mediumSmallTextSize *
-                                                      fontSizeScaleFactor,
-                                                ),
-                                                Flexible(
-                                                  child: Text(
-                                                    '${employee['email']}',
-                                                    style: TextStyle(
-                                                        fontSize: MyConst
-                                                            .smallTextSize *
-                                                            fontSizeScaleFactor,
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                        FontWeight.w500,
-                                                        overflow: TextOverflow.ellipsis
-                                                    ),
-                                                    softWrap: true,
+                                              //=======================MOBILE ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.email_outlined,
+                                                    color:
+                                                    Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
                                                   ),
-                                                )
-                                              ],
-                                            ),
-
-                                            //=======================MOBILE ROW SECTION
-                                            Row(
-                                              children: [
-                                                Icon(
-                                                  Icons.phone,
-                                                  color:
-                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                                                  size: MyConst
-                                                      .mediumSmallTextSize *
-                                                      fontSizeScaleFactor,
-                                                ),
-                                                Flexible(
-                                                  child: Text(
-                                                    '${employee['mobile']}',
-                                                    style: TextStyle(
-                                                        fontSize: MyConst
-                                                            .smallTextSize *
-                                                            fontSizeScaleFactor,
-                                                        color: Colors.grey,
-                                                        fontWeight:
-                                                        FontWeight.w500),
-                                                    softWrap: true,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-
-                                            //=======================LOCATION ROW SECTION
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: [
-                                                Icon(
-                                                  Icons.location_on_outlined,
-                                                  color:
-                                                  Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                                                  size: MyConst
-                                                      .mediumSmallTextSize *
-                                                      fontSizeScaleFactor,
-                                                ),
-                                                Flexible(
+                                                  Flexible(
                                                     child: Text(
-                                                      '${employee['address']}, ${employee['city']}, ${employee['state']}, ${employee['pincode']}',
+                                                      '${employee['email']}',
                                                       style: TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize:
-                                                          MyConst.smallTextSize *
+                                                          fontSize: MyConst
+                                                              .smallTextSize *
                                                               fontSizeScaleFactor,
-                                                          fontWeight: FontWeight.w500,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                          FontWeight.w500,
                                                           overflow: TextOverflow.ellipsis
                                                       ),
                                                       softWrap: true,
-                                                    ))
-                                              ],
-                                            ),
-
-                                            //===============================STATUS
-                                            Text(
-                                              '${employee['status']}',
-                                              style: TextStyle(
-                                                fontSize: MyConst.smallTextSize *
-                                                    fontSizeScaleFactor,
-                                                fontWeight: FontWeight.w500,
-                                                color: statusColor
+                                                    ),
+                                                  )
+                                                ],
                                               ),
-                                              softWrap: true,
-                                            ),
-                                          ],
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            )),
-                      );
-                    },
-                  )),)
-                  : const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: 100,),
-                  Center(child: Text('No Such Employee'),)
-                ],
-              )
-                  : Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: MyConst.deviceHeight(context) * 0.2),
-                child:  Center(
-                  child:StaticMethod.progressIndicator()
-                ),
-              ),
 
-              //================================loading more
-              _isLoadMoreRunning == true
-                  ?  Padding(
-                padding: EdgeInsets.only(top: 10, bottom: 40),
-                child: Center(
-                  child: StaticMethod.progressIndicator()
-                ),
-              )
-                  : Container(),
+                                              //=======================MOBILE ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.phone,
+                                                    color:
+                                                    Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      '${employee['mobile']}',
+                                                      style: TextStyle(
+                                                          fontSize: MyConst
+                                                              .smallTextSize *
+                                                              fontSizeScaleFactor,
+                                                          color: Colors.grey,
+                                                          fontWeight:
+                                                          FontWeight.w500),
+                                                      softWrap: true,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
 
-              _hasNextPage == false
-                  ? appState.propertyList.isNotEmpty ? Container(
-                color: Colors.amber,
-                child: const Center(
-                  child: Text('You have fetched all of the content'),
+                                              //=======================LOCATION ROW SECTION
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on_outlined,
+                                                    color:
+                                                    Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                                                    size: MyConst
+                                                        .mediumSmallTextSize *
+                                                        fontSizeScaleFactor,
+                                                  ),
+                                                  Flexible(
+                                                      child: Text(
+                                                        '${employee['address']}, ${employee['city']}, ${employee['state']}, ${employee['pincode']}',
+                                                        style: TextStyle(
+                                                            color: Colors.grey,
+                                                            fontSize:
+                                                            MyConst.smallTextSize *
+                                                                fontSizeScaleFactor,
+                                                            fontWeight: FontWeight.w500,
+                                                            overflow: TextOverflow.ellipsis
+                                                        ),
+                                                        softWrap: true,
+                                                      ))
+                                                ],
+                                              ),
+
+                                              //===============================STATUS
+                                              Text(
+                                                '${employee['status']}',
+                                                style: TextStyle(
+                                                    fontSize: MyConst.smallTextSize *
+                                                        fontSizeScaleFactor,
+                                                    fontWeight: FontWeight.w500,
+                                                    color: statusColor
+                                                ),
+                                                softWrap: true,
+                                              ),
+                                            ],
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                    )),)
+                    : const Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 100,),
+                    Center(child: Text('No Such Employee'),)
+                  ],
+                )
+                    : Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: MyConst.deviceHeight(context) * 0.2),
+                  child:  Center(
+                      child:StaticMethod.progressIndicator()
+                  ),
                 ),
-              ) : Container()
-                  : Container()
-            ],
-          ),
+
+                //================================loading more
+                _isLoadMoreRunning == true
+                    ?  Padding(
+                  padding: EdgeInsets.only(top: 10, bottom: 40),
+                  child: Center(
+                      child: StaticMethod.progressIndicator()
+                  ),
+                )
+                    : Container(),
+
+                _hasNextPage == false
+                    ? appState.propertyList.isNotEmpty ? Container(
+                  color: Colors.amber,
+                  child: const Center(
+                    child: Text('You have fetched all of the content'),
+                  ),
+                ) : Container()
+                    : Container()
+              ],
+            ),
+          )
         ),
         onRefresh: () async {
           // setState(() {

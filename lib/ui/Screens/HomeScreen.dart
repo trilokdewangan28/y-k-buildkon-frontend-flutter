@@ -25,7 +25,6 @@ import 'package:real_state/ui/Pages/Property/PropertyListPage.dart';
 import 'package:real_state/ui/Widgets/Admin/AddNewProjectWidget.dart';
 import 'package:real_state/ui/Widgets/Admin/AddNewPropertyWidget.dart';
 import 'package:real_state/ui/Widgets/Admin/AdminLoginWidget.dart';
-import 'package:real_state/ui/Widgets/Admin/AdminProfileWidget.dart';
 import 'package:real_state/ui/Widgets/Customer/LoginWidget.dart';
 import 'package:real_state/ui/Widgets/Customer/ProfileWidget.dart';
 import 'package:real_state/ui/Widgets/Customer/SignupWidget.dart';
@@ -46,6 +45,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool darkMode = false;
   bool _mounted = false;
+  int currentindex=0;
   var _propertyListController = Get.put(PropertyListController());
   @override
   void initState() {
@@ -72,254 +72,60 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //final appState = Provider.of<MyProvider>(context);
+    final appState = Provider.of<MyProvider>(context);
     
  print(_propertyListController.userType.value);
-    Widget darkModeAction = IconButton(
-        onPressed: () {
-          darkMode = !darkMode;
-          //print(darkMode);
-          setState(() {
-            myAppState(context).toggleTheme();
-          });
-          //logout();
-        },
-        icon: darkMode == false
-            ? const Icon(
-                Icons.dark_mode,
-                color: Colors.black,
-              )
-            : const Icon(
-                Icons.light_mode,
-                color: Colors.black,
-              ));
-    String secondBtmContent =
-    myAppState(context).userType != "" && myAppState(context).token != "" ? 'Profile' : 'Login';
-    IconData btmIcon = myAppState(context).userType != "" && myAppState(context).token != ""
-        ? Icons.person_outline
-        : Icons.login;
+    String secondBtmContent = appState.userType!='' && appState.token!=''?'Profile':'Login';
+    IconData btmIcon = appState.userType!='' && appState.token!=''?Icons.person_outline :Icons.login_outlined;
 
     //================== CONDITIONALLY PAGE NAVIGATION==========================
     Widget widgetContent = LoginWidget();
     String appBarContent = 'Y&K BUILDCON';
-    switch (myAppState(context).activeWidget) {
-      case "PropertyListPage":
+    switch (currentindex) {
+      case 0:
         widgetContent = const PropertyListPage();
         appBarContent = 'Y&K BUILDCON';
-        _propertyListController.appBarContent.value= 'Y&K BUILDCON';
-       //  _mounted=true;
-       // if(_mounted){
-       //   _propertyListController.appBarContent.value= 'Y&K BUILDCON';
-       // }
         break;
-      case "LoginWidget":
-        if (myAppState(context).userType.isNotEmpty && myAppState(context).token.isNotEmpty) {
-          if (myAppState(context).userType == "admin") {
-            widgetContent = const AdminProfileWidget();
-            appBarContent = "Admin Profile";
-            // _mounted=true;
-            // if(_mounted){
-            //   _propertyListController.appBarContent.value = "Admin Profile";
-            // }
-            _propertyListController.appBarContent.value = "Admin Profile";
-          } else if(myAppState(context).userType == "customer") {
-            widgetContent = const ProfileWidget();
-            appBarContent = "Customer Profile";
-            // _mounted=true;
-            // if(_mounted){
-            //   _propertyListController.appBarContent.value = "Customer Profile";
-            // }
-            _propertyListController.appBarContent.value = "Customer Profile";
-          }else{
-            widgetContent = const EmployeeProfileWidget();
-            appBarContent = "Employee Profile";
-            // _mounted=true;
-            // if(_mounted){
-            //   _propertyListController.appBarContent.value = "Employee Profile";
-            // }
-            _propertyListController.appBarContent.value = "Employee Profile";
-          }
-          secondBtmContent = "Profile";
-        } else {
-          widgetContent = const LoginWidget();
-          secondBtmContent = "Login";
-          appBarContent = "Customer Login";
-          // _mounted=true;
-          // if(_mounted){
-          //   _propertyListController.appBarContent.value = "Customer Login";
-          // }
-          _propertyListController.appBarContent.value = "Customer Login";
+      case 1:
+        if(appState.userType!='' && appState.token!=''){
+          appBarContent = 'Profile';
+          btmIcon = Icons.person_outline;
+          secondBtmContent = 'Profile';
+          if(appState.userType=='admin'){
+            widgetContent = AdminProfilePage();
+          }else if(appState.userType=='customer'){
+            widgetContent = CustomerProfilePage();
+          }else if(appState.userType=='employee'){
+            widgetContent = EmployeeProfileWidget();
+          } 
+        }else{
+          appBarContent = 'Login Page';
+          btmIcon=Icons.login_outlined;
+          secondBtmContent='Login';
+          widgetContent = LoginWidget();
         }
-        break;
-      case "SignupWidget":
-        widgetContent = const SignupWidget();
-        appBarContent = 'Customer Registration';
-        _propertyListController.appBarContent.value = "Customer Registration";
-        secondBtmContent = 'Registration';
-        btmIcon = Icons.person_add_outlined;
-      case "ProfileWidget":
-        if (myAppState(context).userType == "admin") {
-          widgetContent = const AdminProfilePage();
-          appBarContent = "Admin Profile";
-          // _mounted=true;
-          // if(_mounted){
-          //   _propertyListController.appBarContent.value = "Admin Profile";
-          // }
-          _propertyListController.appBarContent.value = "Admin Profile";
-        }else if(myAppState(context).userType=='employee'){
-          print('employee profile section');
-          widgetContent = const EmployeeProfileWidget();
-          appBarContent = "Employee Profile";
-          // _mounted=true;
-          // if(_mounted){
-          //   _propertyListController.appBarContent.value = "Employee Profile";
-          // }
-          _propertyListController.appBarContent.value = "Employee Profile";
-        }
-        else {
-          widgetContent = const CustomerProfilePage();
-          appBarContent = "Customer Profile";
-          // _mounted=true;
-          // if(_mounted){
-          //   _propertyListController.appBarContent.value = "Customer Profile";
-          // }
-          _propertyListController.appBarContent.value = "Customer Profile";
-        }
-        secondBtmContent = 'Profile';
-        btmIcon = Icons.person_outline;
-        break;
-      case "PropertyDetailPage":
-        widgetContent = const PropertyDetailPage();
-        appBarContent = 'Property Details';
-        //_propertyListController.appBarContent.value= "Property Details";
-        break;
-      case "FavoritePropertyDetailPage":
-        widgetContent = const PropertyDetailPage();
-        appBarContent = 'Your Favorite Property';
-        _propertyListController.appBarContent.value = "Your Favorite Property";
-        break;
-      case "FavoritePropertyListPage":
-        widgetContent = const FavoritePropertyListPage();
-        appBarContent = "Favorite List";
-        _propertyListController.appBarContent.value = "Favorite List";
-        break;
-      case "VisitRequestedListPage":
-        widgetContent = const VisitRequestedListPage();
-        appBarContent = "Your Request List";
-        _propertyListController.appBarContent.value= "Your Request List";
-        break;
-      case "VisitRequestedDetailPage":
-        widgetContent = const VisitRequestedDetailPage();
-        appBarContent = "Your Requested Property";
-        _propertyListController.appBarContent.value = "Your Requested Property";
-        break;
-      case "EmiCalculatorWidget":
-        widgetContent = const EmiCalculatorWidget();
-        appBarContent = "EMI CALCULATOR";
-        _propertyListController.appBarContent.value = "EMI CALCULATOR";
-        break;
-      case "AdminLoginWidget":
-        if (myAppState(context).token.isNotEmpty && myAppState(context).userType.isNotEmpty) {
-          if(myAppState(context).userType=='admin'){
-            widgetContent = const AdminProfileWidget();
-            appBarContent = "Admin Profile";
-            _propertyListController.appBarContent.value = "Admin Profile";
-            //appState.currentState = 1;
-          }else{
-            widgetContent = const AdminLoginWidget();
-            appBarContent = "Admin Login";
-            _propertyListController.appBarContent.value = "Admin Login";
-            btmIcon = Icons.login;
-            //appState.currentState = 1;
-          }
-        } else {
-          widgetContent = const AdminLoginWidget();
-          appBarContent = "Admin Login";
-          _propertyListController.appBarContent.value = "Admin Login";
-          //appState.currentState = 1;
-        }
-        break;
-      case "EmployeeLoginWidget":
-        if (myAppState(context).token.isNotEmpty && myAppState(context).userType.isNotEmpty) {
-          if(myAppState(context).userType=='employee'){
-            widgetContent = const EmployeeProfileWidget();
-            appBarContent = "Employee Profile";
-            _propertyListController.appBarContent.value = "Employee Profile";
-            //appState.currentState = 1;
-          }else{
-            widgetContent = const EmployeeLoginWidget();
-            appBarContent = "Employee Login";
-            _propertyListController.appBarContent.value = "Employee Login";
-            btmIcon = Icons.login;
-            //appState.currentState = 1;
-          }
-        } else {
-          widgetContent = const EmployeeLoginWidget();
-          appBarContent = "Employee Login";
-          _propertyListController.appBarContent.value = "Employee Login";
-          //appState.currentState = 1;
-        }
-        break;  
-      case "CustomerVisitRequestListPage":
-        widgetContent = const CustomerVisitRequestListPage();
-        appBarContent = "Customer Request";
-        _propertyListController.appBarContent.value= "Customer Request";
-        break;
-      case "CustomerVisitRequestDetailPage":
-        widgetContent = const CustomerVisitRequestDetailPage();
-        appBarContent = "Request Detail";
-        _propertyListController.appBarContent.value = "Request Detail";
-      case "AddNewPropertyWidget":
-        widgetContent = const AddNewPropertyWidget();
-        appBarContent = "Add New Property";
-        _propertyListController.appBarContent.value = "Add New Property";
-        break;
-      case "AddNewProjectWidget":
-        widgetContent = const AddNewProjectWidget();
-        appBarContent="Add New Project";
-        _propertyListController.appBarContent.value = "Add New Project";
-        break;
-      case "SpacificErrorPage":
-        widgetContent=const SpacificErrorPage();
-        break;
-      case "CustomerListPage":
-        widgetContent=const CustomerListPage();
-        appBarContent="Customer List";
-        _propertyListController.appBarContent.value = "Customer List";
-        break;
-      case "CustomerDetailPage":
-        widgetContent=CustomerDetailPage();
-        appBarContent="Customer Details";
-        _propertyListController.appBarContent.value = "Customer Details";
-        break;
-      case "EmployeeListPage":
-        widgetContent = EmployeeListPage();
-        appBarContent = "Employee List";
-        _propertyListController.appBarContent.value = "Employee List";
-        break;
-      case "EmployeeDetailPage":
-        widgetContent=EmployeeDetailPage();
-        appBarContent = "Employee Details";
-        _propertyListController.appBarContent.value = "Employee Detail";
-        
     }
     return PopScope(
-        canPop: true,
+        canPop: currentindex==0 ? true : false,
         onPopInvoked:(didPop) {
-          //appState.propertyList = [];
-          },
-      child: Scaffold(
-        backgroundColor: context.theme.backgroundColor,
+          if(currentindex==1){
+            currentindex = 0;
+          }
+        },
+        child: Scaffold(
+        backgroundColor:Colors.white,
         resizeToAvoidBottomInset: false,
         appBar:_appBar(appBarContent),
         body: widgetContent,
-        bottomNavigationBar:_bottomNavigation(btmIcon, secondBtmContent, myAppState(context)),
+        bottomNavigationBar:_bottomNavigation(btmIcon, secondBtmContent, appState),
         drawer:const AppDrawerWidget(),
       )
     );
   }
+  
   _appBar(appBarContent){
     return AppBar(
+      scrolledUnderElevation: 0.0,
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
         size: MyConst.deviceHeight(context)*0.030,
@@ -327,11 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
       toolbarHeight: MyConst.deviceHeight(context)*0.060,
       titleSpacing: MyConst.deviceHeight(context)*0.02,
       elevation: 0.0,
-      title:Obx((){return Text(
-        _propertyListController.appBarContent.value,
+      title:Text(
+        appBarContent,
         style: appbartitlestyle,
         softWrap: true,
-      );}),
+      ),
       actions: [
         Container(
           margin: EdgeInsets.only(right: 20),
@@ -362,23 +168,25 @@ class _HomeScreenState extends State<HomeScreen> {
         size: MyConst.deviceHeight(context)*0.03,
       ),
       type: BottomNavigationBarType.fixed,
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Colors.white,
       selectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor(context),
       selectedItemColor: primaryColor,
       unselectedItemColor: Colors.grey,
       unselectedFontSize: MyConst.smallTextSize*fontSizeScaleFactor(context)*0.9,
-      currentIndex: appState.currentState,
+      currentIndex: currentindex,
       onTap: (index) async {
         //setState(() {
         appState.currentState = index;
         switch (index) {
           case 0:
-           appState.activeWidget = 'PropertyListPage';
+           setState(() {
+             currentindex = index;
+           });
             break;
           case 1:
-            appState.token.isNotEmpty && appState.userType.isNotEmpty
-                ? appState.activeWidget = "ProfileWidget"
-                : appState.activeWidget = 'LoginWidget';
+            setState(() {
+              currentindex = index;
+            });
             break;
         }
       },
@@ -393,8 +201,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ],
     );
-  }
-  _curvedNavigationBar(){
-    
   }
 }

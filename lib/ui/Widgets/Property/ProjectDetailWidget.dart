@@ -6,6 +6,7 @@ import 'package:real_state/config/ApiLinks.dart';
 import 'package:real_state/config/Constant.dart';
 import 'package:real_state/config/StaticMethod.dart';
 import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
 import 'package:real_state/ui/Widgets/Property/ProjectPropertyDetail.dart';
 import 'package:shimmer/shimmer.dart';
 class ProjectDetailWidget extends StatefulWidget {
@@ -351,8 +352,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                               onTap: (){
                                 //print(property);
                                 appState.p_id = property['property_id'];
-                                appState.activeWidget='ProjectPropertyDetailPage';
-                                Get.to(()=>ProjectPropertyDetail());
+                                Get.to(()=>PropertyDetailPage(propertyid: property['property_id'],appbartitle: 'Property Details',));
                               },
                               child: GridTile(
                                   child: Card(

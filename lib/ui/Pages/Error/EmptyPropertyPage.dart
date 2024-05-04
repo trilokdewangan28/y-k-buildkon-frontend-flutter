@@ -16,13 +16,20 @@ class EmptyPropertyPage extends StatelessWidget {
         onPopInvoked: (didPop) {
           appState.activeWidget = backWidget;
         },
-        child: Container(
-          color: Theme.of(context).primaryColorLight,
-          height: MediaQuery.of(context).size.height,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor,fontWeight: FontWeight.w500),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Empty Page'),
+            scrolledUnderElevation: 0.0,
+            backgroundColor: Colors.white,
+          ),
+          body: Container(
+            color: Theme.of(context).primaryColorLight,
+            height: MediaQuery.of(context).size.height,
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor,fontWeight: FontWeight.w500),
+              ),
             ),
           ),
         )
