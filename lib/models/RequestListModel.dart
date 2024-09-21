@@ -44,7 +44,7 @@ class RequestList {
   }
 
   Map<String,dynamic> toJson(){
-    final Map<String,dynamic> data =  new Map<String,dynamic>();
+    final Map<String,dynamic> data =  <String,dynamic>{};
     data['property_id'] = property_id;
     data['property_name'] = property_name;
     data['property_un'] = property_un;

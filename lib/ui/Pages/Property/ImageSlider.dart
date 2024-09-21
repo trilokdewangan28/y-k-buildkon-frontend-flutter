@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/ui/Pages/Property/FullImageView.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Property/FullImageView.dart';
 
 class ImageSlider extends StatefulWidget {
   final Map<String, dynamic> propertyData;
   bool asFinder;
 
-  ImageSlider({required this.propertyData, required this.asFinder});
+  ImageSlider({super.key, required this.propertyData, required this.asFinder});
 
   @override
   _ImageSliderState createState() => _ImageSliderState();

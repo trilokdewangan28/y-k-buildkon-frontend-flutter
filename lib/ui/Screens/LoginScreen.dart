@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:JAY_BUILDCON/ui/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
@@ -10,14 +11,14 @@ import 'package:JAY_BUILDCON/config/Constant.dart';
 import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
-class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<LoginWidget> createState() => _LoginWidgetState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginWidgetState extends State<LoginWidget> {
+class _LoginScreenState extends State<LoginScreen> {
   bool changeButton =false;
   bool _mounted = false;
   final _formKey1 = GlobalKey<FormState>();
@@ -27,7 +28,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   final _otpController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _otpFocusNode = FocusNode();
-  
+
   //----------------------------------------------------------------------------COUNTDOWN VARIABLE
   bool otpSent = false;
   Duration countdownDuration = const Duration(minutes: 5); // Example: 10 minutes
@@ -130,6 +131,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         //--------------------------------------------------------------------
         StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget='ProfileWidget';
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
       }else{
         StaticMethod.showDialogBar(res['message'], Colors.red);
       }
@@ -233,158 +235,145 @@ class _LoginWidgetState extends State<LoginWidget> {
     double fontSizeScaleFactor = MediaQuery.of(context).size.width/MyConst.referenceWidth;
     return PopScope(
       canPop: false,
-        onPopInvoked: (didPop) {
-          appState.activeWidget="PropertyListPage";
-          appState.currentState=0;
-        },
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: constraints.maxHeight,
-                ),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child:
-                  Column(
-                    children: [
-                      const SizedBox(
-                        height: 5,
+      onPopInvoked: (didPop) {
+        appState.activeWidget="PropertyListPage";
+        appState.currentState=0;
+      },
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 100,
+              ),
+              Image.asset(
+                'assets/images/ic_launcher.png',
+                height: 180,
+              ),
+              //==============================LOGIN HEADING
+              const SizedBox(
+                width: double.infinity,
+                child: Center(
+                    child:Text(
+                      "India's #1 Housing Company",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,color: bluishClr
                       ),
-                      Image.asset(
-                        'assets/images/ic_launcher.png',
-                        height: 180,
-                      ),
-                      //==============================LOGIN HEADING
-                      const SizedBox(
-                        width: double.infinity,
-                        child: Center(
-                            child:Text(
-                              "India's #1 Housing Company",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,color: bluishClr
-                              ),
-                            )
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                       
-                       //==============================FORM1 CONTAINER Gen Otp
-                      Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Form(
-                            key: _formKey1,
-                            child: Column(
-                              children: [
-                                _emailTextField(),
-                                TextButton(
-                                    onPressed: (){
-                                      if (_formKey1.currentState!.validate()) {
-                                        _generateOtpForCustomer(context, appState);
-                                      }
-                                    },
-                                    child: const Text('Generate Otp',style: TextStyle(color: bluishClr),)
-                                )
-                              ],
-                            ),
-                          )
-                      ),
-                      // const SizedBox(height: 15,),
-
-                      const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
-                      const SizedBox(height: 15,),
-
-                      //==============================FORM2 CONTAINER Login
-                      Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Form(
-                            key: _formKey2,
-                            child: Column(
-                              children: [
-                                _pinput(),
-                                Text(
-                                  remainingTime,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
-                                const SizedBox(height: 15,),
-                                // ElevatedButton(
-                                //     onPressed: (){
-                                //       if (_formKey2.currentState!.validate()) {
-                                //         _submitOtpForCustomer(context, appState);
-                                //       }
-                                //     },
-                                //     style: ElevatedButton.styleFrom(
-                                //         backgroundColor: Theme.of(context).primaryColor,
-                                //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
-                                //     ),
-                                //     child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
-                                // ),
-                                InkWell(
-                                  onTap: ()async{setState(() {
-
-                                  });
-
-                                  if (_formKey2.currentState!.validate()) {
-                                    changeButton=true;
-                                    _submitOtpForCustomer(context, appState);
-
-                                  }await Future.delayed(const Duration(seconds: 1));
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: const Duration(seconds: 1),
-                                    width:changeButton?50 : 250,
-                                    height: 50,
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        // shape:changeButton?BoxShape.circle:BoxShape.rectangle,
-                                        borderRadius: BorderRadius.circular(changeButton?50:8)
-                                    ),
-                                    child: changeButton?const Icon(Icons.done,color: Colors.white,):const Text(
-                                      "LOGIN",
-                                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 15,),
-                                //================================SIGNUP BTN
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                        "don't have an account ?",
-                                      style: TextStyle(fontSize: 18,fontWeight: FontWeight.w500),
-                                    ),
-                                    TextButton(
-                                        onPressed: (){
-                                          appState.activeWidget = "SignupWidget";
-                                        },
-                                        child:  Text(
-                                          'Signup',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Theme.of(context).primaryColor
-                                          ),
-                                        )
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                      ),
-                    ],
-                  ),
+                    )
                 ),
               ),
-            );
-          },
+              const SizedBox(
+                height: 25,
+              ),
+
+              //==============================FORM1 CONTAINER Gen Otp
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey1,
+                    child: Column(
+                      children: [
+                        _emailTextField(),
+                        TextButton(
+                            onPressed: (){
+                              if (_formKey1.currentState!.validate()) {
+                                _generateOtpForCustomer(context, appState);
+                              }
+                            },
+                            child: const Text('Generate Otp',style: TextStyle(color: bluishClr),)
+                        )
+                      ],
+                    ),
+                  )
+              ),
+              // const SizedBox(height: 15,),
+
+              const Text('Enter Otp Here', style: TextStyle(fontWeight: FontWeight.w600),),
+              const SizedBox(height: 15,),
+
+              //==============================FORM2 CONTAINER Login
+              Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Form(
+                    key: _formKey2,
+                    child: Column(
+                      children: [
+                        _pinput(),
+                        Text(
+                          remainingTime,
+                          style: const TextStyle(fontSize: 24),
+                        ),
+                        const SizedBox(height: 15,),
+                        // ElevatedButton(
+                        //     onPressed: (){
+                        //       if (_formKey2.currentState!.validate()) {
+                        //         _submitOtpForCustomer(context, appState);
+                        //       }
+                        //     },
+                        //     style: ElevatedButton.styleFrom(
+                        //         backgroundColor: Theme.of(context).primaryColor,
+                        //         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))
+                        //     ),
+                        //     child: Text('LOGIN',style: TextStyle(color: Theme.of(context).primaryColorLight, fontWeight: FontWeight.w600),)
+                        // ),
+                        InkWell(
+                          onTap: ()async{setState(() {
+
+                          });
+
+                          if (_formKey2.currentState!.validate()) {
+                            changeButton=true;
+                            _submitOtpForCustomer(context, appState);
+
+                          }await Future.delayed(const Duration(seconds: 1));
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(seconds: 1),
+                            width:changeButton?50 : 250,
+                            height: 50,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                // shape:changeButton?BoxShape.circle:BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(changeButton?50:8)
+                            ),
+                            child: changeButton?const Icon(Icons.done,color: Colors.white,):const Text(
+                              "LOGIN",
+                              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15,),
+                        //================================SIGNUP BTN
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                                "don't have an account ?"
+                            ),
+                            TextButton(
+                                onPressed: (){
+                                  appState.activeWidget = "SignupWidget";
+                                },
+                                child:  Text(
+                                  'Signup',
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Theme.of(context).primaryColor
+                                  ),
+                                )
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+              ),
+            ],
+          ),
         ),
+      )
     );
   }
   _emailTextField(){

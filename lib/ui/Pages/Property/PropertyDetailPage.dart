@@ -1,24 +1,25 @@
+import 'package:JAY_BUILDCON/ui/Screens/payment_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/controller/PropertyListController.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/ui/Pages/ImagePickerPage.dart';
-import 'package:real_state/ui/Pages/Offer/AddOfferPage.dart';
-import 'package:real_state/ui/Pages/Property/ImageSlider.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
-import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/PropertyListController.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/ImagePickerPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Offer/AddOfferPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Property/ImageSlider.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/AdminContactPage.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PropertyDetailPage extends StatefulWidget {
-  PropertyDetailPage({Key? key, required this.propertyid, required this.appbartitle}) : super(key: key);
-  int propertyid;
-  String appbartitle;
+  const PropertyDetailPage({super.key});
+
   @override
   State<PropertyDetailPage> createState() => _PropertyDetailPageState();
 }
@@ -27,15 +28,15 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
 
   bool _mounted = false;
   final _formKey = GlobalKey<FormState>();
-  
+
   //===========================================DATE VARIABLE
   DateTime selectedDate = DateTime.now().add(const Duration(days: 1));
   final DateTime lastSelectableDate =
-      DateTime.now().add(const Duration(days: 365));
+  DateTime.now().add(const Duration(days: 365));
   final DateTime firstSelectableDate =
-      DateTime.now().add(const Duration(days: 1));
-  
-  
+  DateTime.now().add(const Duration(days: 1));
+
+
   final _visitingDateController = TextEditingController();
   final _visitorNameController = TextEditingController();
   final _visitorNumberController = TextEditingController();
@@ -53,7 +54,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   List<String> available = ['Sold','Not Available','Available'];
   String selectedAvailability='Sold';
   Color availabilityColor = Colors.orange;
-  
+
   //===========================================RATING VARIABLE
   Map<String,dynamic> selectedProperty = {};
   double propertyRating = 0.0;
@@ -72,7 +73,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       ),
     );
     final res =
-        await StaticMethod.requestVisit(appState.token, requestData, url);
+    await StaticMethod.requestVisit(appState.token, requestData, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -96,6 +97,32 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     );
     final res =
     await StaticMethod.changePropertyAvailability(appState.token, data, url);
+    if (res.isNotEmpty) {
+      Navigator.pop(context);
+      if (res['success'] == true) {
+        StaticMethod.showDialogBar(res['message'], Colors.green);
+        appState.activeWidget=appState.activeWidget;
+        _isPropertyLoading=false;
+        _isOfferLoading=false;
+        _loadOffer(appState);
+        _fetchSingleProperty(appState);
+      } else {
+        StaticMethod.showDialogBar(res['message'], Colors.red);
+      }
+    }
+  }
+  updateYoutubeLink(data, appState, context) async {
+    _mounted=true;
+    var url = Uri.parse(ApiLinks.updateYoutubeLink);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final res =
+    await StaticMethod.updateYoutubeLink(appState.token, data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -147,7 +174,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       ),
     );
     final res =
-        await StaticMethod.removeFromFavorite(appState.token, data, url);
+    await StaticMethod.removeFromFavorite(appState.token, data, url);
     if (res.isNotEmpty) {
       Navigator.pop(context);
       if (res['success'] == true) {
@@ -171,7 +198,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     };
     var url = Uri.parse(ApiLinks.fetchFavoriteProperty);
     final res =
-        await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
+    await StaticMethod.fetchFavoriteProperty(appState.token, data, url);
     if (res.isNotEmpty) {
       if (res['success'] == true) {
         print(res);
@@ -209,7 +236,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     );
 
     final response =
-        await StaticMethod.submitPropertyRating(appState.token, data, url);
+    await StaticMethod.submitPropertyRating(appState.token, data, url);
     Navigator.pop(context);
     if (response.isNotEmpty) {
       if (response['success'] == true) {
@@ -237,130 +264,130 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             StatefulBuilder(builder: (context, setState) {
               return SingleChildScrollView(
                   child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom, top: 15),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20))),
-                child: Column(
-                  children: [
-                    const Text(
-                      'select your rating',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    //--------------------------------------------RATING CONTAINER
-                    Container(
-                        margin: const EdgeInsets.all(15),
-                        padding:
-                            const EdgeInsets.only(top: 8, left: 16, right: 16),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    rateValue = 1;
-                                  });
-                                  //print(rateValue);
-                                },
-                                icon: rateValue >= 1
-                                    ? const Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(Icons.star_border_outlined)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    rateValue = 2;
-                                  });
-                                  //print(rateValue);
-                                },
-                                icon: rateValue >= 2
-                                    ? const Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(Icons.star_border_outlined)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    rateValue = 3;
-                                  });
-                                  //print(rateValue);
-                                },
-                                icon: rateValue >= 3
-                                    ? const Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(Icons.star_border_outlined)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    rateValue = 4;
-                                  });
-                                  //print(rateValue);
-                                },
-                                icon: rateValue >= 4
-                                    ? const Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(Icons.star_border_outlined)),
-                            IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    rateValue = 5;
-                                  });
-                                  //print(rateValue);
-                                },
-                                icon: rateValue == 5
-                                    ? const Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                      )
-                                    : const Icon(Icons.star_border_outlined)),
-                          ],
-                        )),
-                    //---------------------------------------FEEDBACK CONTAINER
-                    Container(
-                      margin: const EdgeInsets.all(15),
-                      child: TextField(
-                        controller: feedbackController,
-                        maxLines: null,
-                        // Allows an unlimited number of lines
-                        decoration: InputDecoration(
-                          labelText: 'Enter your feedback...',
-                          hintText: 'Enter your feedback here...',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15)),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom, top: 15),
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'select your rating',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
                         ),
-                      ),
+                        //--------------------------------------------RATING CONTAINER
+                        Container(
+                            margin: const EdgeInsets.all(15),
+                            padding:
+                            const EdgeInsets.only(top: 8, left: 16, right: 16),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        rateValue = 1;
+                                      });
+                                      //print(rateValue);
+                                    },
+                                    icon: rateValue >= 1
+                                        ? const Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    )
+                                        : const Icon(Icons.star_border_outlined)),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        rateValue = 2;
+                                      });
+                                      //print(rateValue);
+                                    },
+                                    icon: rateValue >= 2
+                                        ? const Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    )
+                                        : const Icon(Icons.star_border_outlined)),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        rateValue = 3;
+                                      });
+                                      //print(rateValue);
+                                    },
+                                    icon: rateValue >= 3
+                                        ? const Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    )
+                                        : const Icon(Icons.star_border_outlined)),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        rateValue = 4;
+                                      });
+                                      //print(rateValue);
+                                    },
+                                    icon: rateValue >= 4
+                                        ? const Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    )
+                                        : const Icon(Icons.star_border_outlined)),
+                                IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        rateValue = 5;
+                                      });
+                                      //print(rateValue);
+                                    },
+                                    icon: rateValue == 5
+                                        ? const Icon(
+                                      Icons.star,
+                                      color: Colors.green,
+                                    )
+                                        : const Icon(Icons.star_border_outlined)),
+                              ],
+                            )),
+                        //---------------------------------------FEEDBACK CONTAINER
+                        Container(
+                          margin: const EdgeInsets.all(15),
+                          child: TextField(
+                            controller: feedbackController,
+                            maxLines: null,
+                            // Allows an unlimited number of lines
+                            decoration: InputDecoration(
+                              labelText: 'Enter your feedback...',
+                              hintText: 'Enter your feedback here...',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                            ),
+                          ),
+                        ),
+                        //--------------------------------------------------SUBMIT NOW
+                        ElevatedButton(
+                            onPressed: () {
+                              var data = {
+                                "c_id": appState.customerDetails['customer_id'],
+                                "p_id": selectedProperty['property_id'],
+                                "feedback": feedbackController.text,
+                                "rating": rateValue
+                              };
+                              _mounted=true;
+                              submitPropertyRating(data, appState, context);
+                            },
+                            child: const Text('submit'))
+                      ],
                     ),
-                    //--------------------------------------------------SUBMIT NOW
-                    ElevatedButton(
-                        onPressed: () {
-                          var data = {
-                            "c_id": appState.customerDetails['customer_id'],
-                            "p_id": selectedProperty['property_id'],
-                            "feedback": feedbackController.text,
-                            "rating": rateValue
-                          };
-                          _mounted=true;
-                          submitPropertyRating(data, appState, context);
-                        },
-                        child: const Text('submit'))
-                  ],
-                ),
-              ));
+                  ));
             }));
   }
 
@@ -394,7 +421,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.surface,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -493,7 +520,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                               keyboardType: TextInputType.text,
                               decoration: const InputDecoration(
                                   labelText:
-                                      'Employee Reference Number ( optional )',
+                                  'Employee Reference Number ( optional )',
                                   border: OutlineInputBorder()),
                             ),
                           ),
@@ -504,19 +531,19 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                                 horizontal: 15, vertical: 15),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
                                     backgroundColor:bluishClr),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     var visitData = {
                                       "visitor_name":
-                                          _visitorNameController.text,
+                                      _visitorNameController.text,
                                       "visitor_number":
-                                          _visitorNumberController.text,
+                                      _visitorNumberController.text,
                                       "employee_un":
-                                          _employeeRefNoController.text ?? "",
+                                      _employeeRefNoController.text ?? "",
                                       "v_date": _visitingDateController.text,
                                       "c_id": appState
                                           .customerDetails['customer_id'],
@@ -559,7 +586,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         }else{
           offer = {};
         }
-         //print(offer);
+        //print(offer);
         if(_mounted){
           setState(() {
             _isOfferLoading=false;
@@ -651,7 +678,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     _mounted=true;
     await fetchFavoriteProperty(appState);
   }
-  
+
   _deleteProperty(data,appState,context)async{
     _mounted = true;
     var url = Uri.parse(ApiLinks.deleteProperty);
@@ -703,38 +730,31 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       availabilityColor=Colors.orange;
     }
     return RefreshIndicator(
-      color: bluishClr,
+        color: bluishClr,
         child: PopScope(
-          canPop: true,
+          canPop: false,
           onPopInvoked: (didPop) {
-            // //selectedProperty={};
-            // appState.addedToFavorite = false;
-            // if(controller.appBarContent.value=='Favorite Property Detail'){
-            //   appState.activeWidget='FavoritePropertyListPage';  
-            // }else if(controller.appBarContent.value=='Property Details'){
-            //   appState.activeWidget = "PropertyListPage"; 
-            // }else if(controller.appBarContent.value=='Your Requested Property'){
-            //   appState.activeWidget = 'VisitRequestedPropertyList';
-            // }else{
-            //   appState.activeWidget = "PropertyListPage";
-            // }
+            //selectedProperty={};
+            appState.addedToFavorite = false;
+            if(controller.appBarContent.value=='Favorite Property Detail'){
+              appState.activeWidget='FavoritePropertyListPage';
+            }else if(controller.appBarContent.value=='Property Details'){
+              appState.activeWidget = "PropertyListPage";
+            }else if(controller.appBarContent.value=='Your Requested Property'){
+              appState.activeWidget = 'VisitRequestedPropertyList';
+            }else{
+              appState.activeWidget = "PropertyListPage";
+            }
           },
-          child: Scaffold(
-            appBar: AppBar(
-              title: Text(widget.appbartitle,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w500),),
-              scrolledUnderElevation: 0.0,
-              backgroundColor: Colors.white,
-            ),
-            body: Container(
-                color: Get.isDarkMode ? darkGreyClr : context.theme.backgroundColor,
-                height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                    child: _isPropertyLoading==false
-                        ? _detailContainer(appState, fontSizeScaleFactor)
-                        : _progresContainer()
-                )
-            ),
-          )
+          child: Container(
+              color: Get.isDarkMode ? darkGreyClr : context.theme.colorScheme.surface,
+              height: MediaQuery.of(context).size.height,
+              child: SingleChildScrollView(
+                  child: _isPropertyLoading==false
+                      ? _detailContainer(appState, fontSizeScaleFactor)
+                      : _progresContainer()
+              )
+          ),
         ),
         onRefresh: ()async{
           appState.activeWidget=appState.activeWidget;
@@ -745,125 +765,280 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
         }
     );
   }
-  
-  //property detailing function
+  TextEditingController youtubelinkcontroller = TextEditingController();
   _detailContainer(appState,fontSizeScaleFactor){
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 10,),
-        _propertyAvailability(appState,context),
-        _propertyImageAndEditBtn(appState, fontSizeScaleFactor),
-        _nameAndRating(appState, fontSizeScaleFactor),
-        _addressRow(appState,fontSizeScaleFactor),
-        _priceAndFavBtn(appState, fontSizeScaleFactor),
-        _spacificationContainer(appState, fontSizeScaleFactor),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10,),
+          _propertyAvailability(appState,context),
+          _propertyImageAndEditBtn(appState, fontSizeScaleFactor),
+          if(appState.userType=='admin')
+            Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child:TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Paste Youtube Link Here',
+                      contentPadding: EdgeInsets.only(bottom: 0),
+                      suffixIcon: Padding(
+                        padding: EdgeInsets.only(left: 10),
+                        child: InkWell(
+                          onTap: ()async{
+                            if(youtubelinkcontroller.text==""){
+                              String mapUrl = "https://www.youtube.com/";
+                              if (!await launchUrl(Uri.parse(mapUrl),
+                                  mode: LaunchMode.externalApplication)) {
+                                throw 'Could not launch the map.';
+                              }
+                            }else{
+                              var data = {
+                                "youtubelink":youtubelinkcontroller.text,
+                                "p_id":selectedProperty['property_id']
+                              };
+                              updateYoutubeLink(data, appState, context);
+                            }
+                          },
+                          child: Text(youtubelinkcontroller.text!="" ? "Add" :"Open Youtube",style: TextStyle(color: Theme.of(context).primaryColor,fontWeight: FontWeight.w600)),
+                        ),
+                      )
+                  ),
+                  controller: youtubelinkcontroller,
+                )
+            ),
+          if(selectedProperty['youtubelink']!="" && selectedProperty['youtubelink']!=null)
+            InkWell(
+              onTap: ()async{
+                String mapUrl = selectedProperty['youtubelink'];
+                if (!await launchUrl(Uri.parse(mapUrl),
+                    mode: LaunchMode.externalApplication)) {
+                  throw 'Could not launch the map.';
+                }
+              },
+              child: Container(
+                height: 40,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor
+                ),
+                child: Center(child: Text('Open Youtube Video',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600 ),),),
+              ),
+            ),
+          _nameAndRating(appState, fontSizeScaleFactor),
+          _addressRow(appState,fontSizeScaleFactor),
+          _priceAndFavBtn(appState, fontSizeScaleFactor),
+          _spacificationContainer(appState, fontSizeScaleFactor),
 
-        //======================================PROPERTY DESCRIPTION AND HEADING
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          child: const Text(
-            'About Property',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          //======================================PROPERTY DESCRIPTION AND HEADING
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            child: const Text(
+              'About Property',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
           ),
-        ),
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          child: Text(
-            '${selectedProperty['property_desc']}',
-            style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 15,
-                color: Colors.grey),
-            softWrap: true,
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            child: Text(
+              '${selectedProperty['property_desc']}',
+              style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: Colors.grey),
+              softWrap: true,
+            ),
           ),
-        ),
 
-        //========================================LOCATION MAP HEADING AND IMAGE
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-          child: const Text(
-            'Location',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+          //========================================LOCATION MAP HEADING AND IMAGE
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+            child: const Text(
+              'Location',
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+            ),
           ),
-        ),
-        _locationImage(appState, fontSizeScaleFactor),
+          _locationImage(appState, fontSizeScaleFactor),
 
-        //===========================================BUTTONS
-        // appState.userType == 'customer'
-        //     ? _visitContactBtn(appState, fontSizeScaleFactor)
-        //     : Container(),
-        //
-        // appState.userType == 'customer'
-        //     ? _bookBtn()
-        //     : Container(),
+          //===========================================BUTTONS
+          // appState.userType == 'customer'
+          //     ? _visitContactBtn(appState, fontSizeScaleFactor)
+          //     : Container(),
+          //
+          // appState.userType == 'customer'
+          //     ? _bookBtn()
+          //     : Container(),
 
-        //=======================================OFFER RELATED ROW
-        _isOfferLoading==true
-            ? StaticMethod.progressIndicator()
-            : offer.isNotEmpty
-            ? _offerContainer(appState, fontSizeScaleFactor)
-            : Container(),
-        const SizedBox(height: 20,),
+          //=======================================OFFER RELATED ROW
+          _isOfferLoading==true
+              ? StaticMethod.progressIndicator()
+              : offer.isNotEmpty
+              ? _offerContainer(appState, fontSizeScaleFactor)
+              : Container(),
+          const SizedBox(height: 20,),
 
-        //======================================OFFER ADD AND REMOVAL BUTTON
-        appState.userType == 'admin'
-            ? _offerAddRemoveBtn(appState, fontSizeScaleFactor)
-            : Container(),
-        const SizedBox(height: 20,),
+          //======================================OFFER ADD AND REMOVAL BUTTON
+          appState.userType == 'admin'
+              ? _offerAddRemoveBtn(appState, fontSizeScaleFactor)
+              : Container(),
+          const SizedBox(height: 20,),
 
-        //==============================CHANGE PROPERTY STATUS BUTTON
-        _changePropertyStatusBtn(appState, fontSizeScaleFactor)
-      ],
+          //==============================CHANGE PROPERTY STATUS BUTTON
+          _changePropertyStatusBtn(appState, fontSizeScaleFactor)
+        ],
+      ),
     );
   }
   _propertyAvailability(appState,pageContext){
     return Container(
         margin:const EdgeInsets.symmetric(horizontal: 20),
-        child:Row(
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '${selectedProperty['property_isAvailable']}',
-              style: TextStyle(
-                  color: availabilityColor,
-                  fontWeight: FontWeight.bold
+            Container(
+              height: 30,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(
+                color: availabilityColor,
+                borderRadius: BorderRadius.circular(5)
+              ),
+              child: Center(child: Text(
+                '${selectedProperty['property_isAvailable']}',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold
+                ),
+              ),),
+            ),
+            const SizedBox(height: 10,),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  if(appState.userType=='customer')
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap:(){
+                          _showVisitDetailContainer(appState, pageContext);
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 105,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Center(
+                            child: Text('Request Visit',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                    ],
+                  ),
+                  if(appState.userType=='customer')
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(()=>const AdminContactPage());
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 105,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Center(
+                            child:  Text('Contact Now',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                    ],
+                  ),
+                  if(appState.userType=='customer')
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentQr()));
+                        },
+                        child: Container(
+                          height: 30,
+                          width: 105,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(5)
+                          ),
+                          child: Center(
+                            child: Text('Book Now',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                    ],
+                  ),
+                  if(appState.userType=='admin')
+                  GestureDetector(
+                    onTap: (){
+                      var data = {
+                        "property_id":selectedProperty['property_id']
+                      };
+                      _deleteProperty(data, appState, context);
+                    },
+                    child: Container(
+                      height: 30,
+                      width: 105,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: Center(
+                        child: Text('Delete Property',style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ),
-            Spacer(),
-            PopupMenuButton<String>(
-              color: Get.isDarkMode?Colors.white12:Colors.white,
-              onSelected: (String result) {
-                selectedOption = result;
-                if(selectedOption=='RequestVisit'){
-                  _showVisitDetailContainer(appState, pageContext);
-                }else if(selectedOption=='ContactNow'){
-                  Get.to(()=>AdminContactPage());
-                }else if(selectedOption=='DeleteProperty'){
-                  var data = {
-                    "property_id":selectedProperty['property_id']
-                  };
-                  _deleteProperty(data, appState, context);
-                }
-              },
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                PopupMenuItem<String>(
-                  value: 'RequestVisit',
-                  child: Text('Request Visit'),
-                ),
-                PopupMenuItem<String>(
-                  value: 'ContactNow',
-                  child: Text('Contact Now'),
-                ),
-                PopupMenuItem<String>(
-                  value: 'BookNow',
-                  child: Text('Book Now'),
-                ),
-                appState.userType=='admin' ? PopupMenuItem<String>(
-                  value: 'DeleteProperty',
-                  child: Text('Delete Property'),
-                ) : PopupMenuItem(child: Container())
-              ],
-            ),
+            // PopupMenuButton<String>(
+            //   color: Get.isDarkMode?Colors.white12:Colors.white,
+            //   onSelected: (String result) {
+            //     selectedOption = result;
+            //     if(selectedOption=='RequestVisit'){
+            //       _showVisitDetailContainer(appState, pageContext);
+            //     }else if(selectedOption=='ContactNow'){
+            //       Get.to(()=>const AdminContactPage());
+            //     }else if(selectedOption=='DeleteProperty'){
+            //       var data = {
+            //         "property_id":selectedProperty['property_id']
+            //       };
+            //       _deleteProperty(data, appState, context);
+            //     }
+            //   },
+            //   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+            //     const PopupMenuItem<String>(
+            //       value: 'RequestVisit',
+            //       child: Text('Request Visit'),
+            //     ),
+            //     const PopupMenuItem<String>(
+            //       value: 'ContactNow',
+            //       child: Text('Contact Now'),
+            //     ),
+            //     const PopupMenuItem<String>(
+            //       value: 'BookNow',
+            //       child: Text('Book Now'),
+            //     ),
+            //     appState.userType=='admin' ? const PopupMenuItem<String>(
+            //       value: 'DeleteProperty',
+            //       child: Text('Delete Property'),
+            //     ) : PopupMenuItem(child: Container())
+            //   ],
+            // ),
           ],
         )
     );
@@ -883,7 +1058,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                       width: double.infinity,
                       decoration:  BoxDecoration(
                           color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20)
+                          borderRadius: BorderRadius.circular(20)
                       ),
                       child: ImageSlider(
                         propertyData:
@@ -963,7 +1138,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
               )),
           //================================RATING USER COUNT
           Text(
-            '(${totalReview})',
+            '($totalReview)',
             style: TextStyle(
                 fontSize: MyConst.smallTextSize * fontSizeScaleFactor),
           )
@@ -1053,6 +1228,10 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
       ),
     );
   }
+
+
+
+
   _spacificationContainer(appState,fontSizeScaleFactor){
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
@@ -1067,7 +1246,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             Row(
               children: [
                 //=========================type container
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1100,7 +1279,8 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ),
                 const Spacer(),
                 //=========================area container
-                Container(
+
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1131,6 +1311,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     ],
                   ),
                 )
+
               ],
             ),
 
@@ -1144,7 +1325,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ? Row(
               children: [
                 //==========================BHK CONTAINER
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1173,7 +1354,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ),
                 const Spacer(),
                 //==========================FURNISHED CONTAINER
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1213,7 +1394,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ? Row(
               children: [
                 //==============================garden container
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1242,7 +1423,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ),
                 const Spacer(),
                 //==============================parking container
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -1275,6 +1456,12 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
           ],
         ));
   }
+
+
+
+
+
+
   _locationImage(appState,fontSizeScaleFactor){
     return Padding(
         padding:
@@ -1301,7 +1488,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
+        SizedBox(
           width: MediaQuery.of(context).size.width * 0.4,
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -1321,7 +1508,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                     color: Theme.of(context).primaryColorLight),
               )),
         ),
-        Container(
+        SizedBox(
             width: MediaQuery.of(context).size.width * 0.4,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -1334,7 +1521,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
                 ),
                 onPressed: () {
                   //Navigator.pop(context);
-                  Get.to(()=>AdminContactPage());
+                  Get.to(()=>const AdminContactPage());
                   appState.currentState = 0;
                 },
                 child: Text(
@@ -1365,7 +1552,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
     );
   }
   _offerContainer(appState,fontSizeScaleFactor){
-    return offer.isNotEmpty 
+    return offer.isNotEmpty
         ?  Container(
         width: MyConst.deviceWidth(context),
         margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -1398,7 +1585,7 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
             )
           ],
         )
-    ) 
+    )
         : Container();
   }
   _offerAddRemoveBtn(appState,fontSizeScaleFactor){
@@ -1455,87 +1642,87 @@ class _PropertyDetailPageState extends State<PropertyDetailPage> {
   }
   _changePropertyStatusBtn(appState,fontSizeScaleFactor){
     return appState.userType=='admin' ? Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 20),
-      decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
-          borderRadius: BorderRadius.circular(10)
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          const Text('Marked As:'),
-          const SizedBox(width: 4,),
-          //==========================================DROPDOWN CARD
-          Card(
-              color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
-              elevation: 1,
-              child: Container(
-                  height: MyConst.deviceWidth(context)*0.1,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Center(
-                    child: DropdownButton<String>(
-                      value: selectedAvailability,
-                      alignment: Alignment.center,
-                      elevation: 16,
-                      underline: Container(),
-                      onChanged: (String? value) {
-                        // This is called when the user selects an item.
-                        setState(() {
-                          selectedAvailability = value!;
-                          //print('selected property type is ${selectedPropertyType}');
-                        });
-                      },
-                      ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
-                      items: available
-                          .map<DropdownMenuItem<String>>(
-                              (String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text('${value}',
-                                  softWrap: true,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
-                                      overflow: TextOverflow
-                                          .ellipsis)),
-                            );
-                          }).toList(),
-                    ),
-                  )
-              )
-          ),
-          const SizedBox(width: 4,),
-          //==========================================SUBMIT BUTTON
-          Container(
-            child: TextButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)
-                    ),
-                    backgroundColor: bluishClr
-                ),
-                onPressed: selectedProperty['property_isAvailable']==selectedAvailability
-                    ? null
-                    :  (){
-                  var data = {
-                    "newStatus":selectedAvailability,
-                    "p_id":selectedProperty['property_id']
-                  };
-                  changePropertyAvailability(data, appState, context);
-                },
-                child:Text(
-                  'Submit',
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColorLight,
-                      fontWeight: FontWeight.w600
-                  ),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+            border: Border.all(width: 1,color: Get.isDarkMode?Colors.grey:Colors.black),
+            borderRadius: BorderRadius.circular(10)
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text('Marked As:'),
+            const SizedBox(width: 4,),
+            //==========================================DROPDOWN CARD
+            Card(
+                color: Get.isDarkMode? Colors.white12:Theme.of(context).primaryColorLight,
+                elevation: 1,
+                child: Container(
+                    height: MyConst.deviceWidth(context)*0.1,
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Center(
+                      child: DropdownButton<String>(
+                        value: selectedAvailability,
+                        alignment: Alignment.center,
+                        elevation: 16,
+                        underline: Container(),
+                        onChanged: (String? value) {
+                          // This is called when the user selects an item.
+                          setState(() {
+                            selectedAvailability = value!;
+                            //print('selected property type is ${selectedPropertyType}');
+                          });
+                        },
+                        ////style: TextStyle(overflow: TextOverflow.ellipsis, ),
+                        items: available
+                            .map<DropdownMenuItem<String>>(
+                                (String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value,
+                                    softWrap: true,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
+                                        overflow: TextOverflow
+                                            .ellipsis)),
+                              );
+                            }).toList(),
+                      ),
+                    )
                 )
             ),
-          )
-        ],
-      )
-        
+            const SizedBox(width: 4,),
+            //==========================================SUBMIT BUTTON
+            Container(
+              child: TextButton(
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      backgroundColor: bluishClr
+                  ),
+                  onPressed: selectedProperty['property_isAvailable']==selectedAvailability
+                      ? null
+                      :  (){
+                    var data = {
+                      "newStatus":selectedAvailability,
+                      "p_id":selectedProperty['property_id']
+                    };
+                    changePropertyAvailability(data, appState, context);
+                  },
+                  child:Text(
+                    'Submit',
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColorLight,
+                        fontWeight: FontWeight.w600
+                    ),
+                  )
+              ),
+            )
+          ],
+        )
+
     ) : Container();
   }
   _progresContainer(){

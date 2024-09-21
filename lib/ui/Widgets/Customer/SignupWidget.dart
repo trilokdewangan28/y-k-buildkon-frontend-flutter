@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Widgets/Customer/OtpVerificationWidget.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Customer/OtpVerificationWidget.dart';
 
 
 class SignupWidget extends StatefulWidget {
-  const SignupWidget({Key? key}) : super(key: key);
+  const SignupWidget({super.key});
 
   @override
   State<SignupWidget> createState() => _SignupWidgetState();
@@ -113,9 +113,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                     height: 20,
                   ),
                   //==============================SIGNUP HEADING
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
-                    child: const Center(
+                    child: Center(
                         child: Text(
                       'Personal Information',
                       style:
@@ -330,9 +330,9 @@ class _SignupWidgetState extends State<SignupWidget> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: const TextStyle(color: Colors.black),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: primaryColor),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
@@ -341,7 +341,7 @@ class _SignupWidgetState extends State<SignupWidget> {
               width: 2,
               color: context.theme.primaryColorDark,
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
           ),

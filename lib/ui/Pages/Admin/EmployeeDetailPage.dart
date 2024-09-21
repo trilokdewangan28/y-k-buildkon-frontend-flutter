@@ -2,11 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 class EmployeeDetailPage extends StatefulWidget {
   const EmployeeDetailPage({super.key});
 
@@ -64,7 +64,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
         appState.activeWidget="EmployeeListPage";
       },
       child: Container(
-        color: Theme.of(context).backgroundColor,
+        color: Theme.of(context).colorScheme.surface,
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -431,7 +431,7 @@ class _EmployeeDetailPageState extends State<EmployeeDetailPage> {
                                                     (String value) {
                                                   return DropdownMenuItem<String>(
                                                     value: value,
-                                                    child: Text('${value}',
+                                                    child: Text(value,
                                                         softWrap: true,
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(

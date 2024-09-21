@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 
 class EmiCalculatorWidget extends StatefulWidget {
-  const EmiCalculatorWidget({Key? key}) : super(key: key);
+  const EmiCalculatorWidget({super.key});
 
   @override
   State<EmiCalculatorWidget> createState() => _EmiCalculatorWidgetState();
@@ -54,16 +54,16 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
     return PopScope(
       
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: AppBar(
             leading: IconButton(
               onPressed: (){Get.back();},
-              icon: Icon(Icons.arrow_back_ios),
+              icon: const Icon(Icons.arrow_back_ios),
             ),
-            backgroundColor:context.theme.backgroundColor,
+            backgroundColor:context.theme.colorScheme.surface,
             title:  Text('EMI CALCULATOR',style: appbartitlestyle,),
           ),
-          body: Container(
+          body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Form(
@@ -226,9 +226,9 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
     required FocusNode? focusNode,
     required String? label,
     required TextInputType inputType,
-    validator
+    required String? Function(String?)? validator,
 }){
-    return  Container(
+    return  SizedBox(
       width: MyConst.deviceWidth(context)*0.9,
       child: TextFormField(
         focusNode: focusNode,
@@ -237,27 +237,22 @@ class _EmiCalculatorWidgetState extends State<EmiCalculatorWidget> {
         decoration:  InputDecoration(
             labelText: label,
             labelStyle: TextStyle(color: Get.isDarkMode? Colors.grey: Colors.black),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2,
                   color: primaryColor
               ),
-              borderRadius: const BorderRadius.all(Radius.circular(10),),
+              borderRadius: BorderRadius.all(Radius.circular(10),),
             ),
             border: OutlineInputBorder(
               borderSide: BorderSide(
                 width: 2,
                 color: context.theme.primaryColorDark,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(10),),
+              borderRadius: const BorderRadius.all(Radius.circular(10),),
             )
         ),
-        validator: (value){
-          if(value!.isEmpty || !value.contains("@gmail.com")){
-            return "please enter valid email";
-          }
-          return null;
-        },
+        validator:validator,
       ),
     );
   }

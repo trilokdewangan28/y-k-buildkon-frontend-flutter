@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/ui/Widgets/Property/ProjectDetailWidget.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Property/ProjectDetailWidget.dart';
 
 class ProjectListWidget extends StatefulWidget {
   const ProjectListWidget({super.key});
@@ -20,7 +20,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
   bool _mounted = false;
   //======================================PAGINATION AND FILTER VARIABLE===================
   int page = 1;
-  final int limit = 6;
+  final int limit = 60;
   String searchItem = "";
   //===================================project related variable
   bool _isProjectLoading = false;
@@ -28,6 +28,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
   bool _isLoadMoreRunning = false;
 
   List<dynamic> projectList = [];
+
   //==========================================first load method
   //==========================================first load method
   _fetchProject(appState)async{
@@ -152,7 +153,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
-            backgroundColor: context.theme.backgroundColor,
+            backgroundColor: context.theme.colorScheme.surface,
             appBar: _appBar('Project List'),
             body: Container(
               child: Column(
@@ -202,7 +203,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
                   
                   //=======================PROJECT LIST
                   _isProjectLoading
-                      ? Container(height: 400,child: Center(child: StaticMethod.progressIndicator()),)
+                      ? SizedBox(height: 400,child: Center(child: StaticMethod.progressIndicator()),)
                       : Container(
                     child: Flexible(
                       child: ListView.builder(
@@ -276,7 +277,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
     return AppBar(
       leading: IconButton(
         onPressed: (){Get.back();},
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
       ),
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
@@ -292,7 +293,7 @@ class _ProjectListWidgetState extends State<ProjectListWidget> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

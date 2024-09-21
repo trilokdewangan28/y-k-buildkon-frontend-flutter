@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
@@ -381,12 +380,12 @@ class StaticMethod {
   static Future<Map<String, dynamic>> addToFavorite(token, data, url) async {
     try {
       Map<String, String> requestHeaders = {
-        'Authorization': 'Bearer ${token}',
+        'Authorization': 'Bearer $token',
         'Content-type': 'application/json',
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -413,7 +412,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -425,7 +424,7 @@ class StaticMethod {
       return {
         "success": false,
         "message":
-            'An error occured while requesting for removeFromFavorite api',
+        'An error occured while requesting for removeFromFavorite api',
         "error":e.toString()
       };
     }
@@ -441,7 +440,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -469,7 +468,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -496,7 +495,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -571,7 +570,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -665,8 +664,8 @@ class StaticMethod {
         return jsonDecode(res.body);
       }
     } catch (e) {
-     // print('failed to complete fetchAdminContact api');
-     // print(e.toString());
+      // print('failed to complete fetchAdminContact api');
+      // print(e.toString());
       return {
         "success": false,
         "message": 'An error occured while requesting admin contact',
@@ -723,7 +722,7 @@ class StaticMethod {
 
   //============================================================FETCH PROPERTIES
   static Future<Map<String,dynamic>> fetchBlog(appState, paginationOptions,url,) async{
-    
+
     try {
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
@@ -810,11 +809,11 @@ class StaticMethod {
 
   //======================================FETCH CUSTOMER REQUEST WITH PAGINATION
   static Future<Map<String,dynamic>> fetchCustomerRequestWithPagination(
-    appState,url,paginationOptions,token, {
-    int selectedRequestStatus = 4,
-    String employee_un=""    
-  }
-  )async {
+      appState,url,paginationOptions,token, {
+        int selectedRequestStatus = 4,
+        String employee_un=""
+      }
+      )async {
     Map<String,dynamic> filterOptions={
       "requestStatus":selectedRequestStatus,
       "employee_un":employee_un
@@ -861,7 +860,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.put(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.put(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -900,6 +899,32 @@ class StaticMethod {
       return {
         "success": false,
         "message": 'An error occured while requesting for change availability',
+        "error":e.toString()
+      };
+    }
+  }
+
+  //================================================update youitube link
+  static Future<Map<String, dynamic>> updateYoutubeLink(token,data, url) async {
+    try {
+      Map<String, String> requestHeaders = {
+        'Authorization': 'Bearer $token',
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      final res =
+      await http.put(url, body: jsonEncode(data), headers: requestHeaders);
+      if (res.statusCode == 200) {
+        return jsonDecode(res.body);
+      } else {
+        return jsonDecode(res.body);
+      }
+    } catch (e) {
+      //print('failed to complete changeVisitStatus api');
+      //print(e.toString());
+      return {
+        "success": false,
+        "message": 'An error occured while requesting for update youtube link',
         "error":e.toString()
       };
     }
@@ -975,7 +1000,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -1029,7 +1054,7 @@ class StaticMethod {
         'Accept': 'application/json',
       };
       final res =
-          await http.post(url, body: jsonEncode(data), headers: requestHeaders);
+      await http.post(url, body: jsonEncode(data), headers: requestHeaders);
       if (res.statusCode == 200) {
         return jsonDecode(res.body);
       } else {
@@ -1039,7 +1064,7 @@ class StaticMethod {
       return {
         "success": false,
         "message":
-            'An error occured while requesting for deletePropertyImage api',
+        'An error occured while requesting for deletePropertyImage api',
         "error":e.toString()
       };
     }
@@ -1127,10 +1152,10 @@ class StaticMethod {
       };
     }
   }
-  
-  
-  
-  
+
+
+
+
   //=========================================BLOG POST
 //======================================================DELETE PROPERTY IMAGES
   static Future<Map<String, dynamic>> postBlog(token, data, url) async {
@@ -1183,25 +1208,25 @@ class StaticMethod {
       };
     }
   }
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
   //===================================SHOW TOAST MESSAGE=======================
 
   static void showDialogBar(String msg,  Color? textColor){
     Get.snackbar(
-      '',
-      '',
-      titleText: Text(msg,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w400),),
-      colorText: Colors.white,
-      backgroundColor:Colors.grey.shade300,
-      borderRadius: 20,
-      snackPosition: SnackPosition.BOTTOM,
-      dismissDirection: DismissDirection.horizontal,
-      snackStyle: SnackStyle.FLOATING
+        '',
+        '',
+        titleText: Text(msg,style: TextStyle(color: textColor,fontSize: 16,fontWeight: FontWeight.w400),),
+        colorText: Colors.white,
+        backgroundColor:Colors.grey.shade300,
+        borderRadius: 20,
+        snackPosition: SnackPosition.BOTTOM,
+        dismissDirection: DismissDirection.horizontal,
+        snackStyle: SnackStyle.FLOATING
       //backgroundGradient: LinearGradient(colors: [Colors.black,Colors.white])
     );
     // Fluttertoast.showToast(
@@ -1213,9 +1238,9 @@ class StaticMethod {
     //   fontSize: 16.0, // Font size of the toast message
     // );
   }
-  
+
   static progressIndicator(){
-   return SpinKitThreeBounce(
+    return const SpinKitThreeBounce(
       color: bluishClr,
       duration: Duration(seconds: 1),
       size: 20.0,
@@ -1223,13 +1248,13 @@ class StaticMethod {
   }
 
   static progressIndicatorFadingCircle(){
-    return SpinKitFadingCircle(
+    return const SpinKitFadingCircle(
       color: bluishClr,
       duration: Duration(seconds: 1),
       size: 20.0,
     );
   }
-  
+
 
 
 

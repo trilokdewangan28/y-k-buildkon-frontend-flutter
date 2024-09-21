@@ -1,20 +1,18 @@
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
 import 'dart:developer' as developer;
 import 'package:flutter/services.dart';
-import 'package:real_state/services/ThemeService/ThemeServices.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/ThemeServices.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 import 'ui/Screens/SplashScreen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 
 
 void main() async{
   developer.postEvent('resize_window', {'width': 600, 'height': 800});
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.white, // Set status bar color explicitly
   ));
   //WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +21,7 @@ void main() async{
   runApp(
     ChangeNotifierProvider(
       create: (_) => MyProvider(),
-      child:  MyApp()
+      child:  const MyApp()
     ),
   );
 }
@@ -39,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'JAY BUILDCON',
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeServices().theme,

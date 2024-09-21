@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 class AddNewPropertyWidget extends StatefulWidget {
-  const AddNewPropertyWidget({Key? key}) : super(key: key);
+  const AddNewPropertyWidget({super.key});
 
   @override
   State<AddNewPropertyWidget> createState() => _AddNewPropertyWidgetState();
@@ -18,7 +18,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final _formKey = GlobalKey<FormState>();
   bool _mounted = false;
   bool _isProjectLoading = false;
-  int selectedId=1;
+  int selectedId = 1;
   String selectedName='';
   List<dynamic> projectList = [];
 
@@ -34,7 +34,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        //print('succes is true and result is ${res['result']}');
+        //print('success is true and result is ${res['result']}');
         projectList = res['result'];
         if(_mounted){
           setState(() {
@@ -105,6 +105,54 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
   final FocusNode _propertyPincodeFocusNode = FocusNode();
   final FocusNode _propertyLocationUrlFocusNode = FocusNode();
 
+  // _submitData(appState, context) async {
+  //   var propertyData = {
+  //     "property_name": _propertyNameController.text,
+  //     "property_un": _propertyUnController.text,
+  //     "property_area": _propertyAreaController.text,
+  //     "property_areaUnit": areaUnit,
+  //     "property_price": _propertyPriceController.text,
+  //     "property_bookAmount": _propertyBookingAmountController.text,
+  //     "property_type": selectedPropertyType,
+  //     "property_bhk": selectedBhk,
+  //     "property_floor": selectedFloor,
+  //     "property_isGarden": selectedGarden,
+  //     "property_isParking": selectedParking,
+  //     "property_isFurnished": selectedFurnished,
+  //     "property_isAvailable": selectedAvailability,
+  //     "property_desc": _propertyDescriptionController.text,
+  //     "property_address": _propertyAddressController.text,
+  //     "property_locality": _propertyLocalityController.text,
+  //     "property_city": _propertyCityController.text,
+  //     "property_pincode": _propertyPincodeController.text,
+  //     "property_locationUrl": _propertyLocationUrlController.text,
+  //     "property_rating":0,
+  //     "property_ratingCount":0,
+  //     "project_id":selectedId
+  //   };
+  //   var url = Uri.parse(ApiLinks.insertPropertyDetails);
+  //   showDialog(
+  //     context: context,
+  //     barrierDismissible: false,
+  //     builder: (dialogContext) => const Center(
+  //       child: CircularProgressIndicator(),
+  //     ),
+  //   );
+  //   final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
+  //   if (res.isNotEmpty) {
+  //     print(res);
+  //     Navigator.pop(context);
+  //     if (res['success'] == true) {
+  //       StaticMethod.showDialogBar(res['message'], Colors.green);
+  //       appState.activeWidget = "PropertyListPage";
+  //       appState.currentState = 0;
+  //     } else {
+  //       StaticMethod.showDialogBar(res['message'], Colors.red);
+  //     }
+  //   }
+  //     print(propertyData);
+  // }
+
   _submitData(appState, context) async {
     var propertyData = {
       "property_name": _propertyNameController.text,
@@ -128,9 +176,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       "property_locationUrl": _propertyLocationUrlController.text,
       "property_rating":0,
       "property_ratingCount":0,
+      "youtubelink":"",
       "project_id":selectedId
     };
-   
     var url = Uri.parse(ApiLinks.insertPropertyDetails);
     showDialog(
       context: context,
@@ -140,9 +188,8 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       ),
     );
     final res = await StaticMethod.insertProperty(appState.token, propertyData, url);
-    print(res);
     if (res.isNotEmpty) {
-      //print(res);
+      print(res);
       Navigator.pop(context);
       if (res['success'] == true) {
         StaticMethod.showDialogBar(res['message'], Colors.green);
@@ -153,7 +200,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
       }
     }
   }
-  
+
   @override
   void initState() {
     _mounted = true;
@@ -176,12 +223,12 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
     final dropDownCardWidth = MyConst.deviceWidth(context) * 0.41;
     double smallBodyText = 14;
     return PopScope(
-      canPop: false,
+        canPop: false,
         onPopInvoked: (didPop) {
           appState.activeWidget = "ProfileWidget";
         },
         child: Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.surface,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Container(
@@ -192,9 +239,9 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                     height: 20,
                   ),
                   //==============================SIGNUP HEADING
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
-                    child: const Center(
+                    child: Center(
                         child: Text(
                           'New Property Listing',
                           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
@@ -214,7 +261,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                             Container(
                               child: _isProjectLoading
                                   ? const Center(child:LinearProgressIndicator())
-                                  : projectList.length!=0
+                                  : projectList.isNotEmpty
                                   ? Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -235,7 +282,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                         width: dropDownCardWidth,
                                         margin: const EdgeInsets.symmetric(horizontal: 8),
                                         child: DropdownButton<String>(
-                                          value: selectedName.length==0 ? projectList[0]['project_name']:selectedName,
+                                          value: selectedName.isEmpty ? projectList[0]['project_name']:selectedName,
                                           alignment: Alignment.center,
                                           elevation: 16,
                                           underline: Container(),
@@ -323,7 +370,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -384,7 +431,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                         (String value) {
                                                       return DropdownMenuItem<String>(
                                                         value: value,
-                                                        child: Text('${value}',
+                                                        child: Text(value,
                                                             softWrap: true,
                                                             textAlign: TextAlign.center,
                                                             style: TextStyle(
@@ -445,7 +492,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -508,7 +555,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -570,7 +617,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -633,7 +680,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -694,7 +741,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -718,16 +765,16 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
 
                             //=============================PROPERTY NAME TEXTFIELD
                             _textField(
-                                controller: _propertyNameController, 
-                                focusNode: _propertyNameFocusNode, 
-                                label: 'Property Name', 
+                                controller: _propertyNameController,
+                                focusNode: _propertyNameFocusNode,
+                                label: 'Property Name',
                                 inputType: TextInputType.text,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'please enter valid input';
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please enter valid input';
+                                  }
+                                  return null;
                                 }
-                                return null;
-                              }
                             ),
 
                             const SizedBox(
@@ -781,7 +828,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                     children: [
                                       //Text('select unit:',style: TextStyle(fontSize: MyConst.smallTextSize*fontSizeScaleFactor),),
 
-                                      Container(
+                                      SizedBox(
                                           height: dropDownCardHeight,
                                           //width: dropDownCardWidth,
                                           child: Card(
@@ -806,7 +853,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                                           (String value) {
                                                         return DropdownMenuItem<String>(
                                                           value: value,
-                                                          child: Text('${value}',
+                                                          child: Text(value,
                                                               softWrap: true,
                                                               textAlign: TextAlign.center,
                                                               style: TextStyle(
@@ -877,7 +924,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                   }
                                   return null;
                                 },
-                              maxline: 4
+                                maxline: 4
                             ),
                             const SizedBox(
                               height: 15,
@@ -989,7 +1036,7 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
                                       'https://maps.app.goo.gl/cC71ok8WYcdzXuGF7';
                                   StaticMethod.openMap(url);
                                 },
-                                child: Text('Open Map',style: TextStyle(color: bluishClr),)),
+                                child: const Text('Open Map',style: TextStyle(color: bluishClr),)),
 
                             //============================LOCATION MAP URL TEXTFIELD
                             _textField(
@@ -1044,16 +1091,15 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
         )
     );
   }
-  
   _textField({
     required TextEditingController? controller,
     required FocusNode? focusNode,
     required String? label,
-    required TextInputType? inputType, 
+    required TextInputType? inputType,
     validator,
     maxline=1
-}){
-   return TextFormField(
+  }){
+    return TextFormField(
         focusNode: focusNode,
         controller: controller,
         keyboardType: inputType,
@@ -1061,16 +1107,16 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
         decoration:  InputDecoration(
             labelText: label,
             labelStyle: TextStyle(color: Get.isDarkMode?Colors.white70:Colors.black),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
-                width: 2,
-                color:bluishClr
+                  width: 2,
+                  color:bluishClr
               ),
               borderRadius: BorderRadius.all(
                 Radius.circular(10),
               ),
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
                 color: Colors.grey,
@@ -1080,7 +1126,6 @@ class _AddNewPropertyWidgetState extends State<AddNewPropertyWidget> {
               ),
             )),
         validator:validator
-        );
+    );
+  }
 }
-}
-

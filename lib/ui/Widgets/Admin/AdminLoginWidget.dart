@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 class AdminLoginWidget extends StatefulWidget {
-  const AdminLoginWidget({Key? key}) : super(key: key);
+  const AdminLoginWidget({super.key});
 
   @override
   State<AdminLoginWidget> createState() => _AdminLoginWidgetState();
@@ -165,7 +165,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
           appState.currentState = 0;
         },
         child: Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.surface,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:  Container(
@@ -176,7 +176,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
                     height: MyConst.deviceHeight(context)*0.2,
                   ),
                   //==============================LOGIN HEADING
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
                     child:  Center(
                         child:Text(
@@ -332,9 +332,9 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(color: Get.isDarkMode? Colors.white70: Colors.black),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: bluishClr),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
@@ -343,7 +343,7 @@ class _AdminLoginWidgetState extends State<AdminLoginWidget> {
               width: 2,
               color: context.theme.primaryColorDark,
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
           ),

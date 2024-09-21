@@ -1,23 +1,22 @@
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:real_state/controller/PropertyListController.dart';
-import 'package:real_state/models/PropertyListModel.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/ui/Pages/Offer/OfferSlider.dart';
-import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
-import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
+import 'package:JAY_BUILDCON/controller/PropertyListController.dart';
+import 'package:JAY_BUILDCON/models/PropertyListModel.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Offer/OfferSlider.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 
 class PropertyListPage extends StatefulWidget {
-  const PropertyListPage({Key? key}) : super(key: key);
+  const PropertyListPage({super.key});
 
   @override
   State<PropertyListPage> createState() => _PropertyListPageState();
@@ -59,7 +58,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        //print('succes is true and result is ${res['result']}');
+        //print('success is true and result is ${res['result']}');
         projectList = res['result'];
         if (_mounted) {
           setState(() {
@@ -121,7 +120,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
   //======================================PAGINATION VARIABLE===================
   int page = 1;
-  final int limit = 6;
+  final int limit = 60;
 
   bool _isFirstLoadRunning = false;
   bool _isOfferLoading = false;
@@ -159,7 +158,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        //print('succes is true and result is ${res['result']}');
+        //print('success is true and result is ${res['result']}');
         appState.propertyList = res['result'];
         controller.assignPropertyList(res['result']);
         //print(appState.propertyList);
@@ -185,7 +184,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
   }
 
   //==========================================LOAD MORE METHOD
-  void _loadMore(appState,plcon) async {
+  void _loadMore(appState, plcon) async {
     if (_hasNextPage == true &&
         _isFirstLoadRunning == false &&
         _isLoadMoreRunning == false &&
@@ -193,8 +192,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     ) {
       if (_mounted) {
         setState(() {
-          _isLoadMoreRunning =
-          true; // Display a progress indicator at the bottom
+          _isLoadMoreRunning = true; // Display a progress indicator at the bottom
         });
       }
 
@@ -222,10 +220,10 @@ class _PropertyListPageState extends State<PropertyListPage> {
       if (res.isNotEmpty) {
         if (res['success'] == true) {
           if (res['result'].length > 0) {
-            //print('succes is true and result is ${res['result']}');
+            //print('success is true and result is ${res['result']}');
             if (_mounted) {
               setState(() {
-                appState.propertyList.addAll(res['result']);
+                appState.propertyList.addAll(res['result']); // Append new properties to the existing list
                 _isFirstLoadRunning = false;
               });
             }
@@ -247,7 +245,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               builder: (context) => const SpacificErrorPage())).then((_) {
             _mounted = true;
             _hasNextPage = true;
-            _firstLoad(appState,plcon);
+            _firstLoad(appState, plcon);
           });
         }
       }
@@ -288,7 +286,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
 
   @override
   void initState() {
-    ///print('initstate methond called');
+    ///print('init state method called');
     _mounted = true;
     final appState = Provider.of<MyProvider>(context, listen: false);
     PropertyListController plcon = Get.find();
@@ -300,7 +298,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
     _mounted = true;
     _controller = ScrollController()
       ..addListener(() => _loadMore(appState,plcon));
-    //print('initstate called');
+    //print('init state called');
     super.initState();
   }
 
@@ -353,7 +351,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                     ),
                     const Divider(),
                     Expanded(
-                        child: Container(
+                        child: SizedBox(
                           width: MyConst.deviceWidth(context),
                           child: SingleChildScrollView(
                               child: Container(
@@ -376,7 +374,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                       height: MyConst.deviceHeight(context) *
                                           0.01,
                                     ),
-                                    //===========================SPACIFICATION CONTAINER
+                                    //===========================SPECIFICATION CONTAINER
                                     Container(
                                       //width: MyConst.deviceWidth(context)*0.7,
                                       margin: EdgeInsets.symmetric(
@@ -429,7 +427,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                       .white12 : Theme
                                                       .of(context)
                                                       .primaryColorLight,
-                                                  child: Container(
+                                                  child: SizedBox(
                                                       height: dropDownCardHeight *
                                                           0.8,
                                                       child: Center(
@@ -457,7 +455,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                     String>(
                                                                   value: value,
                                                                   child: Text(
-                                                                      '${value}',
+                                                                      value,
                                                                       softWrap: true,
                                                                       style: TextStyle(
                                                                           fontSize: MyConst
@@ -508,7 +506,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                       .white12 : Theme
                                                       .of(context)
                                                       .primaryColorLight,
-                                                  child: Container(
+                                                  child: SizedBox(
                                                       height: dropDownCardHeight *
                                                           0.8,
                                                       child: Center(
@@ -538,7 +536,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                     String>(
                                                                   value: value,
                                                                   child: Text(
-                                                                      '${value}',
+                                                                      value,
                                                                       softWrap: true,
                                                                       style: TextStyle(
                                                                           fontSize: MyConst
@@ -588,7 +586,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                     .white12 : Theme
                                                     .of(context)
                                                     .primaryColorLight,
-                                                child: Container(
+                                                child: SizedBox(
                                                     height: dropDownCardHeight *
                                                         0.8,
                                                     child: Center(
@@ -617,7 +615,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                   String>(
                                                                 value: value,
                                                                 child: Text(
-                                                                    '${value}',
+                                                                    value,
                                                                     softWrap: true,
                                                                     style: TextStyle(
                                                                         fontSize: MyConst
@@ -646,7 +644,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                             children: [
                                               Container(
                                                 child: Text(
-                                                  'Garden Availibility',
+                                                  'Garden Availability',
                                                   softWrap: true,
                                                   style: TextStyle(
                                                       fontWeight: FontWeight
@@ -665,7 +663,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                     .white12 : Theme
                                                     .of(context)
                                                     .primaryColorLight,
-                                                child: Container(
+                                                child: SizedBox(
                                                     height: dropDownCardHeight *
                                                         0.8,
                                                     child: Center(
@@ -692,7 +690,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                   String>(
                                                                 value: value,
                                                                 child: Text(
-                                                                    '${value}',
+                                                                    value,
                                                                     softWrap: true,
                                                                     style: TextStyle(
                                                                         fontSize: MyConst
@@ -740,7 +738,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                     .white12 : Theme
                                                     .of(context)
                                                     .primaryColorLight,
-                                                child: Container(
+                                                child: SizedBox(
                                                     height: dropDownCardHeight *
                                                         0.8,
                                                     child: Center(
@@ -767,7 +765,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                   String>(
                                                                 value: value,
                                                                 child: Text(
-                                                                    '${value}',
+                                                                    value,
                                                                     softWrap: true,
                                                                     style: TextStyle(
                                                                         fontSize: MyConst
@@ -816,7 +814,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                     .white12 : Theme
                                                     .of(context)
                                                     .primaryColorLight,
-                                                child: Container(
+                                                child: SizedBox(
                                                     height: dropDownCardHeight *
                                                         0.8,
                                                     child: Center(
@@ -843,7 +841,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                   String>(
                                                                 value: value,
                                                                 child: Text(
-                                                                    '${value}',
+                                                                    value,
                                                                     softWrap: true,
                                                                     style: TextStyle(
                                                                         fontSize: MyConst
@@ -889,7 +887,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                     .white12 : Theme
                                                     .of(context)
                                                     .primaryColorLight,
-                                                child: Container(
+                                                child: SizedBox(
                                                     height: dropDownCardHeight *
                                                         0.8,
                                                     child: Center(
@@ -916,7 +914,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                                                   String>(
                                                                 value: value,
                                                                 child: Text(
-                                                                    '${value}',
+                                                                    value,
                                                                     softWrap: true,
                                                                     style: TextStyle(
                                                                         fontSize: MyConst
@@ -932,7 +930,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                               )
                                             ],
                                           ),
-                                          SizedBox(height: 20,),
+                                          const SizedBox(height: 20,),
                                         ],
                                       ),
                                     ),
@@ -1215,6 +1213,19 @@ class _PropertyListPageState extends State<PropertyListPage> {
     double fontSizeScaleFactor =
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return RefreshIndicator(
+        color: bluishClr,
+        onRefresh: () async {
+          // setState(() {
+          _isOfferLoading = false;
+          _hasNextPage = true;
+          page = 1;
+          projectId = 1;
+          _isFirstLoadRunning = false;
+          _isLoadMoreRunning = false;
+          _firstLoad(appState,plcon);
+          appState.activeWidget = appState.activeWidget;
+          //});
+        },
         child: Container(
           child: Column(
             children: [
@@ -1251,20 +1262,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   : Container(),
             ],
           ),
-        ),
-        color: bluishClr,
-        onRefresh: () async {
-          // setState(() {
-          _isOfferLoading = false;
-          _hasNextPage = true;
-          page = 1;
-          projectId = 1;
-          _isFirstLoadRunning = false;
-          _isLoadMoreRunning = false;
-          _firstLoad(appState,plcon);
-          appState.activeWidget = appState.activeWidget;
-          //});
-        });
+        ));
   }
   
   _filterContainer(appState,plcon){
@@ -1273,37 +1271,47 @@ class _PropertyListPageState extends State<PropertyListPage> {
           horizontal: MyConst.deviceHeight(context) * 0.015),
       child: Row(
         children: [
-          //=====================================FILTER BY NAME TEXTFIELD
+          //=====================================FILTER BY NAME TEXT FIELD
           Flexible(
             child: Card(
-              color: Get.isDarkMode ? darkGreyClr : context.theme
-                  .primaryColorLight,
-              //shadowColor: Colors.black,
-              elevation: 1,
-              child: TextField(
-                onChanged: (value) {
-                  selectedPropertyName = value;
-                  _hasNextPage = true;
-                  page = 1;
-                  //setState(() {
-                  _isFirstLoadRunning = false;
-                  _firstLoad(appState,plcon);
-                  //});
-                },
-                keyboardType: TextInputType.text,
-                style: TextStyle(
-                    fontSize: MyConst.mediumSmallTextSize,),
-                textAlignVertical: TextAlignVertical.center,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.only(bottom: 5),
-                  labelText: 'Filter By Name',
-                  labelStyle: TextStyle(fontSize: MyConst
-                      .smallTextSize,),
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search,
-                    size: MyConst.deviceHeight(context) * 0.025,),
+              // color: Get.isDarkMode ? darkGreyClr : context.theme
+              //     .primaryColorLight,
+              color: Get.isDarkMode ? darkGreyClr : Colors.white,
+              shadowColor: Colors.black.withOpacity(0.2),
+              elevation: 0.5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0), // Circular border radius
+              ),
+              // shadowColor: Colors.grey.withOpacity(0.5), // Set a consistent shadow color
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0), // Circular border radius
                 ),
-                cursorOpacityAnimates: false,
+                    child: TextField(
+                      onChanged: (value) {
+                        selectedPropertyName = value;
+                        _hasNextPage = true;
+                        page = 1;
+                        //setState(() {
+                        _isFirstLoadRunning = false;
+                        _firstLoad(appState,plcon);
+                        //});
+                      },
+                      keyboardType: TextInputType.text,
+                      style: const TextStyle(
+                          fontSize: MyConst.mediumSmallTextSize,),
+                      textAlignVertical: TextAlignVertical.center,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(bottom: 5),
+                        labelText: 'Filter By Name',
+                        labelStyle: const TextStyle(fontSize: MyConst
+                            .smallTextSize,),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(Icons.search,
+                          size: MyConst.deviceHeight(context) * 0.025,),
+                      ),
+                      cursorOpacityAnimates: false,
+                    ),
               ),
             ),
           ),
@@ -1322,7 +1330,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                             : Colors.white,
                         border: Border.all(
                             width: 1, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(100)),
                     child: IconButton(
                       icon: Image.asset(
                         'assets/Icons/filter.png',
@@ -1372,23 +1380,31 @@ class _PropertyListPageState extends State<PropertyListPage> {
       margin: const EdgeInsets.symmetric(horizontal: 15),
       child: _isProjectLoading
           ? Center(child:Container())
-          : projectList.length != 0
+          : projectList.isNotEmpty
           ? Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Under The Project',
+          // Text('Under The Project',
+          //     style: titleStyle
+          // ),
+          Text('Buildcon Projects',
               style: titleStyle
           ),
           const Spacer(),
           Card(
               color: Get.isDarkMode ? Colors.white10 : Colors.white,
-              elevation: 1,
+              elevation: 0.5,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50.0), // Circular border radius
+              ),
+
               child: Container(
-                height: 40,
-                margin: const EdgeInsets.symmetric(horizontal: 4),
+                height: 30,
+                // margin: const EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 0.0),
                 child: DropdownButton<String>(
-                  value: selectedName.length == 0
+                  value: selectedName.isEmpty
                       ? projectList[0]['project_name']
                       : selectedName,
                   alignment: Alignment.center,
@@ -1420,7 +1436,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                           child: Text('${project['project_name']}',
                               softWrap: true,
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: MyConst.smallTextSize,
                                   overflow: TextOverflow
                                       .ellipsis)),
@@ -1482,7 +1498,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               }
               return AnimationConfiguration.staggeredList(
                   position: index,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: SlideAnimation(
                     horizontalOffset: 100,
                     child: FadeInAnimation(
@@ -1490,7 +1506,6 @@ class _PropertyListPageState extends State<PropertyListPage> {
                         onTap: () {
                           //print(property['property_id']);
                           appState.p_id = property.property_id!;
-                          Get.to(()=>PropertyDetailPage(propertyid: property.property_id!,appbartitle: 'Property Detail',));
                           appState.activeWidget = "PropertyDetailPage";
                           controller.appBarContent.value = 'Property Details';
                         },
@@ -1501,13 +1516,14 @@ class _PropertyListPageState extends State<PropertyListPage> {
                                   .of(context)
                                   .size
                                   .height * 0.010,
+                              vertical: 8,
                             ),
                             child: Card(
                               color: Get.isDarkMode ? darkGreyClr : Colors
                                   .white,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              elevation: 0.5,
+                                  borderRadius: BorderRadius.circular(15)),
+                              elevation: 8,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -1543,8 +1559,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
         child: ClipRRect(
             borderRadius:
             BorderRadius.circular(10),
-            child: property.pi_name!.length >
-                0
+            child: property.pi_name!.isNotEmpty
                 ? CachedNetworkImage(
               imageUrl:
               '${ApiLinks.accessPropertyImages}/${property.pi_name![0]}',
@@ -1578,8 +1593,8 @@ class _PropertyListPageState extends State<PropertyListPage> {
             children: [
               //=======================NAME CONTAINER
               Text(
-                '${property.property_name!.toUpperCase()}',
-                style: TextStyle(
+                property.property_name!.toUpperCase(),
+                style: const TextStyle(
                   fontSize: MyConst.smallTextSize,
                   fontWeight: FontWeight.w600,
                 ),
@@ -1590,7 +1605,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
               Text(
                 '${property.property_area}  ${property.property_areaUnit}',
                 softWrap: true,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize:
                     MyConst.smallTextSize,
                     color: Colors.grey,
@@ -1610,7 +1625,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   Flexible(
                     child: Text(
                       '${property.property_price}',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: MyConst
                               .smallTextSize,
                           color: Colors.grey,
@@ -1640,7 +1655,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   Flexible(
                       child: Text(
                         '${property.property_locality}, ${property.property_city}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize:
                           MyConst.smallTextSize,
@@ -1662,7 +1677,7 @@ class _PropertyListPageState extends State<PropertyListPage> {
                   Flexible(
                     child: Text(
                       '(${property.review_count})',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize:
                           MyConst.smallTextSize
                       ),
@@ -1678,11 +1693,11 @@ class _PropertyListPageState extends State<PropertyListPage> {
   }
 
   _emptyProperty() {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const SizedBox(height: 150,),
+        SizedBox(height: 150,),
         Center(child: Text(
           'No Such Properties',
           style: TextStyle(

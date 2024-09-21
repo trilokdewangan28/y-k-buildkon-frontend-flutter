@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Admin/PostNewBlog.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/WebViewPage.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Admin/PostNewBlog.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/WebViewPage.dart';
 
 
 class BlogListPage extends StatefulWidget {
@@ -147,14 +147,14 @@ class _BlogListPageState extends State<BlogListPage> {
         child: RefreshIndicator(
           child: SafeArea(
             child: Scaffold(
-              backgroundColor: context.theme.backgroundColor,
+              backgroundColor: context.theme.colorScheme.surface,
                 appBar: _appBar('Blog List'),
                 body: _isFirstLoadRunning==true
                     ? Container(child: const Center(child:CircularProgressIndicator(),))
                     : blogList.isNotEmpty
                     ? Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     
                   ),
                   child: Container(
@@ -216,7 +216,7 @@ class _BlogListPageState extends State<BlogListPage> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

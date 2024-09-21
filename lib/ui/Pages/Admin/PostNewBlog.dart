@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 
 import '../../../services/ThemeService/theme.dart';
 
@@ -52,7 +52,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor:context.theme.backgroundColor,
+          backgroundColor:context.theme.colorScheme.surface,
             appBar: _appBar('Post New Blog'),
             body: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -176,7 +176,7 @@ class _PostNewBlogState extends State<PostNewBlog> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

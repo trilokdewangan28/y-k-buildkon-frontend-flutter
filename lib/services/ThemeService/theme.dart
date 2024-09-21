@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-const Color bluishClr = Color.fromARGB(255, 11, 111, 245);
+const Color bluishClr = Color.fromARGB(255, 15, 80, 132);
 const Color yellowClr = Color(0xFFFFB746);
 const Color pinkClr = Color(0xFFff4667);
 const Color white = Colors.white;
@@ -14,22 +14,55 @@ class Themes{
 
   static final light = ThemeData(
     primaryColor: primaryColor,
-    backgroundColor: Colors.white,
     primaryColorLight: Colors.white,
     primaryColorDark: Colors.black,
     brightness: Brightness.light,
     useMaterial3: true,
+    colorScheme: const ColorScheme(
+      primary: primaryColor,
+      primaryContainer: bluishClr,
+      secondary: yellowClr,
+      secondaryContainer: yellowClr,
+      surface: Color.fromARGB(255, 245, 245, 245),
+      background: Color.fromARGB(255, 245, 245, 245),
+      error: Colors.red,
+      onPrimary: Colors.white,
+      onSecondary: Colors.black,
+      onSurface: Colors.black,
+      onBackground: Colors.black,
+      onError: Colors.white,
+      brightness: Brightness.light,
+    ),
   );
 
-  static final dark =  ThemeData(
-    backgroundColor: darkGreyClr,
+  static final dark = ThemeData(
     primaryColor: darkGreyClr,
     primaryColorLight: Colors.white,
     primaryColorDark: Colors.black,
     brightness: Brightness.dark,
     useMaterial3: true,
+    colorScheme: const ColorScheme(
+      primary: darkGreyClr,
+      primaryContainer: darkHeaderColor,
+      secondary: yellowClr,
+      secondaryContainer: yellowClr,
+      surface: darkGreyClr,
+      background: darkGreyClr,
+      error: Colors.red,
+      onPrimary: Colors.black,
+      onSecondary: Colors.black,
+      onSurface: Colors.white,
+      onBackground: Colors.white,
+      onError: Colors.black,
+      brightness: Brightness.dark,
+    ),
   );
 
+}
+
+// Define a function to provide the background color
+Color getBackgroundColor(BuildContext context) {
+  return Theme.of(context).scaffoldBackgroundColor;
 }
 
 TextStyle get subHeadingStyle{

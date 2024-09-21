@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 import '../Error/SpacificErrorPage.dart';
 import '../ImagePickerPage.dart';
 
 class AdminProfilePage extends StatefulWidget {
-  const AdminProfilePage({Key? key}) : super(key: key);
+  const AdminProfilePage({super.key});
 
   @override
   State<AdminProfilePage> createState() => _AdminProfilePageState();
@@ -91,7 +91,7 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
             appState.currentState = 0;
           },
           child:_isFirstLoadRunning == true ?  Center(child: StaticMethod.progressIndicator(),) :Container(
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.surface,
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: ListView(
@@ -199,16 +199,16 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             },
                             child: Card(
                               color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
-                              child:  Row(
+                              child:  const Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
                                   Icon(Icons.book_outlined,color: bluishClr,),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
-                                  const Text('Customer Visit Request'),
+                                  Text('Customer Visit Request'),
                                 ],
                               ),
                             ),
@@ -277,16 +277,16 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             },
                             child: Card(
                               color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
-                              child: Row(
+                              child: const Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
                                   Icon(Icons.list_alt_outlined,color: bluishClr,),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
-                                  const Text('customer list'),
+                                  Text('customer list'),
                                 ],
                               ),
                             ),
@@ -304,16 +304,16 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             },
                             child: Card(
                               color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
-                              child:  Row(
+                              child:  const Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
                                   Icon(Icons.real_estate_agent_outlined,color: bluishClr,),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
-                                  const Text('Employee List'),
+                                  Text('Employee List'),
                                 ],
                               ),
                             ),
@@ -331,16 +331,16 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             },
                             child: Card(
                               color: Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
-                              child:  Row(
+                              child:  const Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
                                   Icon(Icons.add_business_outlined,color: bluishClr,),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
-                                  const Text('Add New Property'),
+                                  Text('Add New Property'),
                                 ],
                               ),
                             ),
@@ -358,16 +358,16 @@ class _AdminProfilePageState extends State<AdminProfilePage> {
                             },
                             child: Card(
                               color:Get.isDarkMode? Colors.white12: Theme.of(context).primaryColorLight,
-                              child:  Row(
+                              child:  const Row(
                                 children: [
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
                                   Icon(Icons.add_business_outlined,color: bluishClr,),
-                                  const SizedBox(
+                                  SizedBox(
                                     width: 15,
                                   ),
-                                  const Text('Add New Project'),
+                                  Text('Add New Project'),
                                 ],
                               ),
                             ),

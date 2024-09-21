@@ -1,6 +1,6 @@
 class ApiLinks{
-  //static const baseUrl = "http://18.208.140.95.nip.io:5000/";
-  static const baseUrl = "https://2a6e-2401-4900-51ca-a60e-556c-a1f9-6ece-db6f.ngrok-free.app/";
+  static const baseUrl = "http://18.208.140.95.nip.io:5000/";
+  // static const baseUrl = "https://2555-2401-4900-56c2-3626-c032-941-3319-8f29.ngrok-free.app/";/
 
   //==================================CUSTOMER API==================================
   static const customerSignup = "${baseUrl}api/customer/customerSignup";
@@ -32,7 +32,7 @@ class ApiLinks{
   static const fetchVisitRequestedList = "${baseUrl}api/customer/fetchVisitRequestedList";
   static const fetchVisitRequestedPropertyDetails = "${baseUrl}api/customer/fetchVisitRequestedPropertyDetails";
   static const cancelVisitRequest = "${baseUrl}api/customer/cancelRequest";
-  
+
   static const fetchBlog = "${baseUrl}api/customer/fetchBlog";
 
   //==================================ADMIN API================================
@@ -42,6 +42,7 @@ class ApiLinks{
   static const fetchProject = "${baseUrl}api/admin/fetchProject";
   static const fetchProjectWithPagination = "${baseUrl}api/admin/fetchProjectWithPagination";
   static const changePropertyAvailability = "${baseUrl}api/admin/changePropertyAvailability";
+  static const updateYoutubeLink = "${baseUrl}api/admin/updateYoutubeLink";
   static const uploadOffer = "${baseUrl}api/admin/uploadOffer";
   static const deleteOffer = "${baseUrl}api/admin/deleteOffer";
   static const accessOfferImage = "${baseUrl}api/offer/accessOfferImage";
@@ -58,8 +59,8 @@ class ApiLinks{
   static const postBlog ="${baseUrl}api/admin/postBlog";
   static const changeEmployeeStatus="${baseUrl}api/admin/changeEmployeeStatus";
   static const accessAdminProfilePic = "${baseUrl}api/admin/accessAdminProfilePic";
-  
-  
+
+
   //===========================EMPLOYEE API====================================
   static const sendOtpForEmployeeSignup = "${baseUrl}api/employee/sendOtpForEmployeeSignup";
   static const verifyOtpForEmployeeSignup = "${baseUrl}api/employee/verifyOtpForEmployeeSignup";

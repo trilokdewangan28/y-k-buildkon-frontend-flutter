@@ -4,7 +4,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 class WebViewPage extends StatefulWidget {
   final String url;
 
-  WebViewPage({Key? key, required this.url}) : super(key: key);
+  const WebViewPage({super.key, required this.url});
 
   @override
   _WebViewPageState createState() => _WebViewPageState();

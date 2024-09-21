@@ -2,12 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
 class EmployeeProfileWidget extends StatefulWidget {
   const EmployeeProfileWidget({super.key});
 
@@ -89,7 +89,7 @@ class _EmployeeProfileWidgetState extends State<EmployeeProfileWidget> {
                 ? const Center(child: CircularProgressIndicator(),)
                 : Container(
               width: MediaQuery.of(context).size.width,
-              color: Theme.of(context).backgroundColor,
+              color: Theme.of(context).colorScheme.surface,
               height: MediaQuery.of(context).size.height,
               child: ListView(
                 children: [
