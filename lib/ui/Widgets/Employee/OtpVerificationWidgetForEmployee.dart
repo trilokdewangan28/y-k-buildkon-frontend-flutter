@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 class OtpVerificationWidgetForEmployee extends StatefulWidget {
   Map<String,dynamic> employeeData;
@@ -134,7 +134,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: _appBar('Email Verification'),
           body: SingleChildScrollView(
             child: Column(
@@ -194,7 +194,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
                                     };
                                     _sendOtpForEmployeeSignup(employeeData, appState, context);
                                   },
-                                  child: Text('resend otp',style: TextStyle(color:bluishClr),),
+                                  child: const Text('resend otp',style: TextStyle(color:bluishClr),),
                                 )
                               ],
                             ),
@@ -203,7 +203,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
 
 
                           //===============================LOGIN BTN
-                          Container(
+                          SizedBox(
                             width: 150,
                             child: ElevatedButton(
                                 onPressed: (){
@@ -302,7 +302,7 @@ class _OtpVerificationWidgetForEmployeeState extends State<OtpVerificationWidget
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

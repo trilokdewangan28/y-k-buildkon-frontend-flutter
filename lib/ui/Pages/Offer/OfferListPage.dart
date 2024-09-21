@@ -1,16 +1,16 @@
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
 class OfferListPage extends StatefulWidget {
   final String fromWidget;
-  const OfferListPage({Key? key, required this.fromWidget}) : super(key: key);
+  const OfferListPage({super.key, required this.fromWidget});
 
   @override
   State<OfferListPage> createState() => _OfferListPageState();
@@ -153,9 +153,9 @@ class _OfferListPageState extends State<OfferListPage> {
         appState.activeWidget = widget.fromWidget;
         },
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: _appBar('Offer List'),
-          body: _isFirstLoadRunning == true ?  Center(child: StaticMethod.progressIndicator(),) :Container(
+          body: _isFirstLoadRunning == true ?  Center(child: StaticMethod.progressIndicator(),) :SizedBox(
             height: MediaQuery.of(context).size.height,
             child: appState.offerList.isNotEmpty
                 ? ListView.builder(
@@ -176,7 +176,7 @@ class _OfferListPageState extends State<OfferListPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             // offer image container
-                            Container(
+                            SizedBox(
                               width: MyConst.deviceWidth(context)*0.9,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(15),
@@ -216,7 +216,7 @@ class _OfferListPageState extends State<OfferListPage> {
     return AppBar(
       leading: IconButton(
         onPressed: (){Get.back();},
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
       ),
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
@@ -232,7 +232,7 @@ class _OfferListPageState extends State<OfferListPage> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

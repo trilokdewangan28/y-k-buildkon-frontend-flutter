@@ -1,14 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:provider/provider.dart';
 
-import 'package:real_state/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
 
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 
 import '../../../services/ThemeService/theme.dart';
 import '../../Widgets/Other/RatingDisplayWidgetTwo.dart';
@@ -17,7 +16,7 @@ import '../Error/SpacificErrorPage.dart';
 
 
 class CustomerVisitRequestListPage extends StatefulWidget {
-  const CustomerVisitRequestListPage({Key? key}) : super(key: key);
+  const CustomerVisitRequestListPage({super.key});
 
   @override
   State<CustomerVisitRequestListPage> createState() =>
@@ -64,7 +63,7 @@ class _CustomerVisitRequestListPageState
 
     if (res.isNotEmpty) {
       if (res['success'] == true) {
-        //print('succes is true and result is ${res['result']}');
+        //print('success is true and result is ${res['result']}');
         appState.filteredCustomerRequestList = res['result'];
         if(_mounted){
           setState(() {
@@ -167,465 +166,458 @@ class _CustomerVisitRequestListPageState
             appState.customerRequestList=[];
             appState.activeWidget = "ProfileWidget";
           },
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              scrolledUnderElevation: 0.0,
-              title: Text('Customer Request'),
-            ),
-            body: Container(
-              color: Theme.of(context).backgroundColor,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                children: [
-                  const SizedBox(height: 10,),
-                  //=====================================FILTER USING REQUEST STATUS
-                  Container(
-                    height: 30,
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            pendingTapped = !pendingTapped;
-                            acceptedTapped = false;
-                            completedTapped = false;
-                            cancelledTapped = false;
-                            if (pendingTapped == true) {
-                              selectedRequestStatus = 0;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                              //});
-                            } else {
-                              selectedRequestStatus = 4;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                              //});
-                            }
-                            //setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            width: 110,
-                            decoration: BoxDecoration(
-                                color: pendingTapped
-                                    ? bluishClr
-                                    : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Center(
-                                child: Text(
-                                  'Pending',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: pendingTapped
-                                          ? Theme.of(context).primaryColorLight
-                                          : Theme.of(context).hintColor
-                                  ),
-                                )),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            acceptedTapped = !acceptedTapped;
-                            pendingTapped = false;
-                            completedTapped = false;
-                            cancelledTapped = false;
-                            if (acceptedTapped == true) {
-                              selectedRequestStatus = 1;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            } else {
-                              selectedRequestStatus = 4;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            }
-                            //setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            width: 110,
-                            decoration: BoxDecoration(
-                                color: acceptedTapped
-                                    ? bluishClr
-                                    : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child:  Center(
-                                child: Text(
-                                  'Accepted',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      color: acceptedTapped ? Theme.of(context).primaryColorLight : Theme.of(context).hintColor
-                                  ),
-                                )),
-                          ),
-                        ),
-
-                        //==================================COMPLETED FILTER BUTTON
-                        GestureDetector(
-                          onTap: () {
-                            completedTapped = !completedTapped;
-                            pendingTapped = false;
-                            acceptedTapped = false;
-                            cancelledTapped=false;
-                            if (completedTapped == true) {
-                              selectedRequestStatus = 2;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            } else {
-                              selectedRequestStatus = 4;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            }
-                            //setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            width: 110,
-                            decoration: BoxDecoration(
-                                color: completedTapped
-                                    ? bluishClr
-                                    : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child:  Center(
-                                child: Text(
-                                  'Completed',
-                                  style: TextStyle(
+          child: Container(
+            color: Theme.of(context).colorScheme.surface,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                const SizedBox(height: 10,),
+                //=====================================FILTER USING REQUEST STATUS
+                Container(
+                  height: 30,
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          pendingTapped = !pendingTapped;
+                          acceptedTapped = false;
+                          completedTapped = false;
+                          cancelledTapped = false;
+                          if (pendingTapped == true) {
+                            selectedRequestStatus = 0;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                            //});
+                          } else {
+                            selectedRequestStatus = 4;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                            //});
+                          }
+                          //setState(() {});
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          width: 110,
+                          decoration: BoxDecoration(
+                              color: pendingTapped
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Center(
+                              child: Text(
+                                'Pending',
+                                style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: completedTapped
+                                    color: pendingTapped
                                         ? Theme.of(context).primaryColorLight
-                                        : Theme.of(context).hintColor,
-                                  ),
-                                )),
-                          ),
+                                        : Theme.of(context).hintColor
+                                ),
+                              )),
                         ),
-
-                        //==================================CANCELLED FILTER BUTTON
-                        GestureDetector(
-                          onTap: () {
-                            cancelledTapped = !cancelledTapped;
-                            pendingTapped = false;
-                            acceptedTapped = false;
-                            completedTapped=false;
-                            if (cancelledTapped == true) {
-                              selectedRequestStatus = 3;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            } else {
-                              selectedRequestStatus = 4;
-                              _hasNextPage=true;
-                              page=1;
-                              //setState(() {
-                              _isFirstLoadRunning=false;
-                              _mounted=true;
-                              _firstLoad(appState);
-                            }
-                            //setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 6),
-                            width: 110,
-                            decoration: BoxDecoration(
-                                color: cancelledTapped
-                                    ? bluishClr
-                                    : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
-                                border: Border.all(width: 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child:  Center(
-                                child: Text(
-                                  'Cancelled',
-                                  style: TextStyle(
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          acceptedTapped = !acceptedTapped;
+                          pendingTapped = false;
+                          completedTapped = false;
+                          cancelledTapped = false;
+                          if (acceptedTapped == true) {
+                            selectedRequestStatus = 1;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          } else {
+                            selectedRequestStatus = 4;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          }
+                          //setState(() {});
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          width: 110,
+                          decoration: BoxDecoration(
+                              color: acceptedTapped
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child:  Center(
+                              child: Text(
+                                'Accepted',
+                                style: TextStyle(
                                     fontWeight: FontWeight.w500,
-                                    color: cancelledTapped
-                                        ? Theme.of(context).primaryColorLight
-                                        : Theme.of(context).hintColor,
-                                  ),
-                                )),
-                          ),
-                        )
-                      ],
+                                    color: acceptedTapped ? Theme.of(context).primaryColorLight : Theme.of(context).hintColor
+                                ),
+                              )),
+                        ),
+                      ),
+
+                      //==================================COMPLETED FILTER BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          completedTapped = !completedTapped;
+                          pendingTapped = false;
+                          acceptedTapped = false;
+                          cancelledTapped=false;
+                          if (completedTapped == true) {
+                            selectedRequestStatus = 2;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          } else {
+                            selectedRequestStatus = 4;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          }
+                          //setState(() {});
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          width: 110,
+                          decoration: BoxDecoration(
+                              color: completedTapped
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child:  Center(
+                              child: Text(
+                                'Completed',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: completedTapped
+                                      ? Theme.of(context).primaryColorLight
+                                      : Theme.of(context).hintColor,
+                                ),
+                              )),
+                        ),
+                      ),
+
+                      //==================================CANCELLED FILTER BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          cancelledTapped = !cancelledTapped;
+                          pendingTapped = false;
+                          acceptedTapped = false;
+                          completedTapped=false;
+                          if (cancelledTapped == true) {
+                            selectedRequestStatus = 3;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          } else {
+                            selectedRequestStatus = 4;
+                            _hasNextPage=true;
+                            page=1;
+                            //setState(() {
+                            _isFirstLoadRunning=false;
+                            _mounted=true;
+                            _firstLoad(appState);
+                          }
+                          //setState(() {});
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 6),
+                          width: 110,
+                          decoration: BoxDecoration(
+                              color: cancelledTapped
+                                  ? bluishClr
+                                  : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
+                              border: Border.all(width: 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child:  Center(
+                              child: Text(
+                                'Cancelled',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  color: cancelledTapped
+                                      ? Theme.of(context).primaryColorLight
+                                      : Theme.of(context).hintColor,
+                                ),
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                appState.userType=="employee" 
+                    ? SizedBox(
+                  height: 30,
+                  child:  //==================================COMPLETED FILTER BUTTON
+                  GestureDetector(
+                    onTap: () {
+                      referalCodeTapped = !referalCodeTapped;
+                      if (referalCodeTapped == true) {
+                        employee_un = appState.employeeDetails['employee_code'];
+                        _hasNextPage=true;
+                        page=1;
+                        //setState(() {
+                        _isFirstLoadRunning=false;
+                        _mounted=true;
+                        _firstLoad(appState);
+                      } else {
+                        employee_un = "";
+                        _hasNextPage=true;
+                        page=1;
+                        //setState(() {
+                        _isFirstLoadRunning=false;
+                        _mounted=true;
+                        _firstLoad(appState);
+                      }
+                      //setState(() {});
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                          color: referalCodeTapped
+                              ? bluishClr
+                              : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
+                          border: Border.all(width: 1),
+                          borderRadius: BorderRadius.circular(5)),
+                      child:  Center(
+                          child: Text(
+                            'Refered Customer',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: referalCodeTapped
+                                  ? Theme.of(context).primaryColorLight
+                                  : Theme.of(context).hintColor,
+                            ),
+                          )),
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  appState.userType=="employee"
-                      ? Container(
-                    height: 30,
-                    child:  //==================================COMPLETED FILTER BUTTON
-                    GestureDetector(
-                      onTap: () {
-                        referalCodeTapped = !referalCodeTapped;
-                        if (referalCodeTapped == true) {
-                          employee_un = appState.employeeDetails['employee_code'];
-                          _hasNextPage=true;
-                          page=1;
-                          //setState(() {
-                          _isFirstLoadRunning=false;
-                          _mounted=true;
-                          _firstLoad(appState);
-                        } else {
-                          employee_un = "";
-                          _hasNextPage=true;
-                          page=1;
-                          //setState(() {
-                          _isFirstLoadRunning=false;
-                          _mounted=true;
-                          _firstLoad(appState);
+                )
+                    : Container(),
+                //=====================================CUSTOMER LIST CONTAINER
+                _isFirstLoadRunning==false
+                    ? appState.filteredCustomerRequestList.isNotEmpty
+                    ? Expanded(
+                    child: ListView.builder(
+                      itemCount: appState.filteredCustomerRequestList.length,
+                      itemBuilder: (context, index) {
+                        final property = appState.filteredCustomerRequestList[index];
+                        if (property['v_status'] == 0) {
+                          requestStatus = "Pending";
+                          statusColor = Colors.orange;
+                        } else if (property['v_status'] == 1) {
+                          requestStatus = "Accepted";
+                          statusColor = Colors.green;
+                        } else if(property['v_status'] == 2){
+                          requestStatus = "Completed";
+                          statusColor = Colors.red;
+                        }else{
+                          requestStatus="request rejected";
+                          statusColor = Colors.red;
                         }
-                        //setState(() {});
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        decoration: BoxDecoration(
-                            color: referalCodeTapped
-                                ? bluishClr
-                                : Get.isDarkMode? Colors.white38 : Theme.of(context).primaryColorLight,
-                            border: Border.all(width: 1),
-                            borderRadius: BorderRadius.circular(5)),
-                        child:  Center(
-                            child: Text(
-                              'Refered Customer',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: referalCodeTapped
-                                    ? Theme.of(context).primaryColorLight
-                                    : Theme.of(context).hintColor,
-                              ),
-                            )),
-                      ),
-                    ),
-                  )
-                      : Container(),
-                  //=====================================CUSTOMER LIST CONTAINER
-                  _isFirstLoadRunning==false
-                      ? appState.filteredCustomerRequestList.isNotEmpty
-                      ? Expanded(
-                      child: ListView.builder(
-                        itemCount: appState.filteredCustomerRequestList.length,
-                        itemBuilder: (context, index) {
-                          final property = appState.filteredCustomerRequestList[index];
-                          if (property['v_status'] == 0) {
-                            requestStatus = "Pending";
-                            statusColor = Colors.orange;
-                          } else if (property['v_status'] == 1) {
-                            requestStatus = "Accepted";
-                            statusColor = Colors.green;
-                          } else if(property['v_status'] == 2){
-                            requestStatus = "Completed";
-                            statusColor = Colors.red;
-                          }else{
-                            requestStatus="request rejected";
-                            statusColor = Colors.red;
-                          }
-                          return InkWell(
-                            onTap: () {
-                              appState.selectedCustomerRequest = property;
-                              appState.activeWidget = "CustomerVisitRequestDetailPage";
-                            },
-                            child: Container(
-                                margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                                child: Card(
-                                  shadowColor: Colors.black,
-                                  color: Get.isDarkMode?darkGreyClr:Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                  elevation: 1,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      //==============================PROPERTY IMAGE CONTAINER
-                                      Container(
-                                        margin: const EdgeInsets.all(8),
-                                        child: Center(
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
-                                            child: property['customer_profilePic'].length > 0
-                                                ? CachedNetworkImage(
-                                              imageUrl:
-                                              '${ApiLinks.accessCustomerProfilePic}/${property['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
-                                              placeholder: (context, url) =>
-                                              const LinearProgressIndicator(),
-                                              errorWidget: (context, url, error) =>
-                                              const Icon(Icons.error),
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.fill,
-                                            )
-                                                : Image.asset(
-                                              'assets/images/home.jpg',
-                                              height: 100,
-                                              width: 100,
-                                            ),
+                        return InkWell(
+                          onTap: () {
+                            appState.selectedCustomerRequest = property;
+                            appState.activeWidget = "CustomerVisitRequestDetailPage";
+                          },
+                          child: Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                              child: Card(
+                                shadowColor: Colors.black,
+                                color: Get.isDarkMode?darkGreyClr:Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                                elevation: 1,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    //==============================PROPERTY IMAGE CONTAINER
+                                    Container(
+                                      margin: const EdgeInsets.all(8),
+                                      child: Center(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: property['customer_profilePic'].length > 0
+                                              ? CachedNetworkImage(
+                                            imageUrl:
+                                            '${ApiLinks.accessCustomerProfilePic}/${property['customer_profilePic']}?timestamp=${DateTime.now().millisecondsSinceEpoch}',
+                                            placeholder: (context, url) =>
+                                            const LinearProgressIndicator(),
+                                            errorWidget: (context, url, error) =>
+                                            const Icon(Icons.error),
+                                            width: 100,
+                                            height: 100,
+                                            fit: BoxFit.fill,
+                                          )
+                                              : Image.asset(
+                                            'assets/images/home.jpg',
+                                            height: 100,
+                                            width: 100,
                                           ),
                                         ),
                                       ),
+                                    ),
 
-                                      //==============================CUSTOMER REQUEST DETAIL CONTAINER
-                                      Expanded(
-                                          child: Container(
-                                            width: double.infinity,
-                                            padding:
-                                            const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                //=======================CUSTOMER NAME CONTAINER
-                                                Text(
-                                                  '${property['customer_name'].toUpperCase()}',
-                                                  style: const TextStyle(
+                                    //==============================CUSTOMER REQUEST DETAIL CONTAINER
+                                    Expanded(
+                                        child: Container(
+                                          width: double.infinity,
+                                          padding:
+                                          const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              //=======================CUSTOMER NAME CONTAINER
+                                              Text(
+                                                '${property['customer_name'].toUpperCase()}',
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w600,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                                softWrap: true,
+                                              ),
+
+
+                                              //=======================AREA TEXT
+                                              Text(
+                                                '${property['property_name']}',
+                                                style: const TextStyle(
                                                     fontSize: 14,
-                                                    fontWeight: FontWeight.w600,
-                                                    overflow: TextOverflow.ellipsis,
+                                                    color: Colors.grey,
+                                                    fontWeight: FontWeight.w500),
+                                              ),
+
+                                              //=======================PRICE ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.currency_rupee,
+                                                    color:Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
+                                                    size: 16,
                                                   ),
-                                                  softWrap: true,
-                                                ),
+                                                  Text(
+                                                    '${property['property_price']}',
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.grey,
+                                                        fontWeight: FontWeight.w500),
+                                                  ),
+                                                ],
+                                              ),
 
-
-                                                //=======================AREA TEXT
-                                                Text(
-                                                  '${property['property_name']}',
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.grey,
-                                                      fontWeight: FontWeight.w500),
-                                                ),
-
-                                                //=======================PRICE ROW SECTION
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.currency_rupee,
-                                                      color:Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
-                                                      size: 16,
-                                                    ),
-                                                    Text(
-                                                      '${property['property_price']}',
+                                              //=======================LOCATION ROW SECTION
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_pin,
+                                                    color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
+                                                    size: 16,
+                                                  ),
+                                                  Expanded(
+                                                    child: Text(
+                                                      '${property['property_locality']}, ${property['property_city']}',
                                                       style: const TextStyle(
-                                                          fontSize: 14,
-                                                          color: Colors.grey,
-                                                          fontWeight: FontWeight.w500),
-                                                    ),
-                                                  ],
-                                                ),
-
-                                                //=======================LOCATION ROW SECTION
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.location_pin,
-                                                      color: Get.isDarkMode?Colors.white70: Theme.of(context).primaryColor,
-                                                      size: 16,
-                                                    ),
-                                                    Expanded(
-                                                      child: Text(
-                                                        '${property['property_locality']}, ${property['property_city']}',
-                                                        style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          fontSize: 14,
-                                                          fontWeight: FontWeight.w500,
-                                                          overflow: TextOverflow.ellipsis,
-                                                        ),
+                                                        color: Colors.grey,
+                                                        fontSize: 14,
+                                                        fontWeight: FontWeight.w500,
+                                                        overflow: TextOverflow.ellipsis,
                                                       ),
-                                                    )
-                                                  ],
-                                                ),
-
-                                                //=======================RATING ROW SECTION
-                                                Row(
-                                                  children: [
-                                                    RatingDisplayWidgetTwo(
-                                                      rating: property['property_rating'].toDouble(),
                                                     ),
-                                                    Text('(${property['property_ratingCount']})')
-                                                  ],
-                                                ),
+                                                  )
+                                                ],
+                                              ),
 
-                                                //========================REQUEST STATUS
-                                                Text(
-                                                  requestStatus,
-                                                  style: TextStyle(color: statusColor),
-                                                ),
+                                              //=======================RATING ROW SECTION
+                                              Row(
+                                                children: [
+                                                  RatingDisplayWidgetTwo(
+                                                    rating: property['property_rating'].toDouble(),
+                                                  ),
+                                                  Text('(${property['property_ratingCount']})')
+                                                ],
+                                              ),
 
-                                                //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
-                                              ],
-                                            ),
-                                          ))
-                                    ],
-                                  ),
-                                )),
-                          );
-                        },
-                      ))
-                      : Container(
-                    margin: const EdgeInsets.only(top: 300),
-                    child: Center(
-                      child: Text('no such request',style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: MyConst.largeTextSize*fontSizeScaleFactor
-                      ),),
-                    ),
-                  )
-                      : Container(
-                    margin: const EdgeInsets.only(top: 300),
-                    child:  Center(
-                        child:StaticMethod.progressIndicator()
-                    ),
+                                              //========================REQUEST STATUS
+                                              Text(
+                                                requestStatus,
+                                                style: TextStyle(color: statusColor),
+                                              ),
+
+                                              //property['pi_name'].length>0 ? Text('${property['pi_name'][0]}') : Container()
+                                            ],
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              )),
+                        );
+                      },
+                    ))
+                    : Container(
+                  margin: const EdgeInsets.only(top: 300),
+                  child: Center(
+                    child: Text('no such request',style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: MyConst.largeTextSize*fontSizeScaleFactor
+                    ),),
                   ),
+                )
+                    : Container(
+                  margin: const EdgeInsets.only(top: 300),
+                  child:  Center(
+                    child:StaticMethod.progressIndicator()
+                  ),
+                ),
 
-                  //================================loading more
-                  _isLoadMoreRunning == true
-                      ? Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 40),
-                    child:  Center(
-                        child: StaticMethod.progressIndicator()
-                    ),
-                  )
-                      : Container(),
+                //================================loading more
+                _isLoadMoreRunning == true
+                    ? Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 40),
+                  child:  Center(
+                    child: StaticMethod.progressIndicator()
+                  ),
+                )
+                    : Container(),
 
-                  //==================================fetched all
-                  _hasNextPage == false
-                      ? appState.filteredCustomerRequestList.isNotEmpty ? Container(
-                    color: Colors.amber,
-                    child: const Center(
-                      child: Text('You have fetched all of the content'),
-                    ),
-                  ) : Container()
-                      : Container()
-                ],
-              ),
+                //==================================fetched all
+                _hasNextPage == false
+                    ? appState.filteredCustomerRequestList.isNotEmpty ? Container(
+                  color: Colors.amber,
+                  child: const Center(
+                    child: Text('You have fetched all of the content'),
+                  ),
+                ) : Container()
+                    : Container()
+              ],
             ),
-          )
+          ),
         ),
         onRefresh: ()async{
           // setState(() {

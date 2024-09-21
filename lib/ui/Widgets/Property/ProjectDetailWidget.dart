@@ -1,14 +1,12 @@
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
-import 'package:real_state/ui/Widgets/Property/ProjectPropertyDetail.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Property/ProjectPropertyDetail.dart';
 class ProjectDetailWidget extends StatefulWidget {
   final Map<String,dynamic> projectData;
   const ProjectDetailWidget({super.key, required this.projectData});
@@ -28,7 +26,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
 
   //======================================PAGINATION VARIABLE===================
   int page = 1;
-  final int limit = 6;
+  final int limit = 60;
 
   bool _isFirstLoadRunning = false;
   bool _hasNextPage = true;
@@ -159,7 +157,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
     return RefreshIndicator(
         child: PopScope(
           child: Scaffold(
-            backgroundColor: context.theme.backgroundColor,
+            backgroundColor: context.theme.colorScheme.surface,
             appBar: _appBar('Project Details'),
             body: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -248,7 +246,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                       elevation: 1,
                       child: TextField(
                         onChanged: (value) {
-                          propertyUn = value.length!=0 ? int.parse(value) : 0;
+                          propertyUn = value.isNotEmpty ? int.parse(value) : 0;
                           _hasNextPage=true;
                           page=1;
                           //setState(() {
@@ -287,7 +285,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
 
                       Card(
                           color: Get.isDarkMode?Colors.white12:Theme.of(context).primaryColorLight,
-                          child: Container(
+                          child: SizedBox(
                             height: 45,
                             width: MyConst.deviceWidth(context)*0.4,
                             child: Center(
@@ -310,7 +308,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                                         (String value) {
                                       return DropdownMenuItem<String>(
                                         value: value,
-                                        child: Text('${value}',
+                                        child: Text(value,
                                             softWrap: true,
                                             style: TextStyle(
                                                 fontSize: MyConst.smallTextSize*fontSizeScaleFactor,
@@ -352,7 +350,8 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
                               onTap: (){
                                 //print(property);
                                 appState.p_id = property['property_id'];
-                                Get.to(()=>PropertyDetailPage(propertyid: property['property_id'],appbartitle: 'Property Details',));
+                                appState.activeWidget='ProjectPropertyDetailPage';
+                                Get.to(()=>const ProjectPropertyDetail());
                               },
                               child: GridTile(
                                   child: Card(
@@ -383,7 +382,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
     return AppBar(
       leading: IconButton(
         onPressed: (){Get.back();},
-        icon: Icon(Icons.arrow_back_ios),
+        icon: const Icon(Icons.arrow_back_ios),
       ),
       iconTheme: IconThemeData(
         color: Get.isDarkMode ?  Colors.white70 :Colors.black,
@@ -399,7 +398,7 @@ class _ProjectDetailWidgetState extends State<ProjectDetailWidget> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(

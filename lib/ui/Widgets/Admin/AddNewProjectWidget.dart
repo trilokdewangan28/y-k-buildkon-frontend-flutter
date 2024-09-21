@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 
 class AddNewProjectWidget extends StatefulWidget {
@@ -78,7 +78,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
           appState.activeWidget="ProfileWidget";
         },
         child: Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.surface,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child: Container(
@@ -90,11 +90,11 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
                     height: 20,
                   ),
                   //==============================SIGNUP HEADING
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
-                    child: const Center(
+                    child: Center(
                         child: Text(
-                          'New Prject',
+                          'New Project',
                           style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                         )),
                   ),
@@ -271,7 +271,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
         decoration:  InputDecoration(
             labelText: label,
             labelStyle: TextStyle(color: Get.isDarkMode?Colors.white70:Colors.black),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                   width: 2,
                   color:bluishClr
@@ -280,7 +280,7 @@ class _AddNewProjectWidgetState extends State<AddNewProjectWidget> {
                 Radius.circular(10),
               ),
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
                 color: Colors.grey,

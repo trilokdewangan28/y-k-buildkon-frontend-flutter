@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 
 class FullImageView extends StatelessWidget {
-  const FullImageView({Key? key, required this.imageUrl, required this.asFinder}) : super(key: key);
+  const FullImageView({super.key, required this.imageUrl, required this.asFinder});
 
   final imageUrl;
   final bool asFinder;

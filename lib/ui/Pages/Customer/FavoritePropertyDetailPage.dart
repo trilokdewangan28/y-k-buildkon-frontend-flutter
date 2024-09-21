@@ -3,22 +3,22 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 
-import 'package:real_state/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
 
 
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/ImagePickerPage.dart';
-import 'package:real_state/ui/Pages/Offer/AddOfferPage.dart';
-import 'package:real_state/ui/Pages/Property/ImageSlider.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/ImagePickerPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Offer/AddOfferPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Property/ImageSlider.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/AdminContactPage.dart';
 
-import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 
 class FavoritePropertyDetailPage extends StatefulWidget {
-  const FavoritePropertyDetailPage({Key? key}) : super(key: key);
+  const FavoritePropertyDetailPage({super.key});
 
   @override
   State<FavoritePropertyDetailPage> createState() =>
@@ -197,7 +197,7 @@ class _FavoritePropertyDetailPageState
           builder: (BuildContext context, StateSetter setState) {
             return SingleChildScrollView(
                 child: Container(
-                    color: Theme.of(context).backgroundColor,
+                    color: Theme.of(context).colorScheme.surface,
                     padding: EdgeInsets.only(
                       top: MediaQuery.of(context).viewInsets.top + 16,
                       bottom: MediaQuery.of(context).viewInsets.bottom + 16,
@@ -362,7 +362,7 @@ class _FavoritePropertyDetailPageState
                     bottom: MediaQuery.of(context).viewInsets.bottom, top: 15),
                 decoration:  BoxDecoration(
                     color: Get.isDarkMode?darkGreyClr:Colors.white,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(20),
                         topRight: Radius.circular(20))),
                 child: Column(
@@ -513,320 +513,314 @@ class _FavoritePropertyDetailPageState
           appState.activeWidget = "FavoritePropertyListPage";
           appState.addedToFavorite = false;
         },
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text('Favorite Property Details'),
-            backgroundColor: Colors.white,
-            scrolledUnderElevation: 0.0,
-          ),
-          body: Container(
-            color: Theme.of(context).backgroundColor,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-                child: Container(
-                  color: Theme.of(context).backgroundColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //===========================PROPERTY IMAGES
-                      Stack(
-                        children: [
-                          Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 15),
-                              child: Stack(
-                                children: [
-                                  ClipRRect(
-                                      child: appState.selectedProperty['pi_name']
-                                          .length !=
-                                          0
-                                          ? Container(
+        child: Container(
+          color: Theme.of(context).colorScheme.surface,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+              child: Container(
+            color: Theme.of(context).colorScheme.surface,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //===========================PROPERTY IMAGES
+                Stack(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15, vertical: 15),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                                child: appState.selectedProperty['pi_name']
+                                            .length !=
+                                        0
+                                    ? Container(
                                         width: double.infinity,
                                         decoration: const BoxDecoration(
                                             color: Colors.white),
                                         child: ImageSlider(
                                           propertyData:
-                                          appState.selectedProperty,
+                                              appState.selectedProperty,
                                           asFinder: true,
                                         ),
                                       )
-                                          : Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                              color: Get.isDarkMode? Colors.white12: Theme.of(context)
-                                                  .primaryColorLight,
-                                              border: Border.all(width: 1),
-                                              borderRadius:
-                                              BorderRadius.circular(25)),
-                                          child: Image.asset(
-                                            'assets/images/home.jpg',
-                                            height: 150,
-                                          ))),
-                                ],
-                              )),
-                          appState.userType == 'admin'
-                              ? Positioned(
-                              bottom: 25,
-                              right: 25,
-                              child: CircleAvatar(
-                                radius: 20,
-                                backgroundColor: Theme.of(context).primaryColor,
-                                child: IconButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ImagePickerPage(
-                                                    userDetails:
-                                                    appState.selectedProperty,
-                                                    forWhich: 'propertyImage',
-                                                  )));
-                                    },
-                                    icon: Icon(
-                                      Icons.edit,
-                                      color: Theme.of(context).primaryColorLight,
-                                    )),
-                              ))
-                              : Container()
-                        ],
+                                    : Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Get.isDarkMode? Colors.white12: Theme.of(context)
+                                                .primaryColorLight,
+                                            border: Border.all(width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        child: Image.asset(
+                                          'assets/images/home.jpg',
+                                          height: 150,
+                                        ))),
+                          ],
+                        )),
+                    appState.userType == 'admin'
+                        ? Positioned(
+                            bottom: 25,
+                            right: 25,
+                            child: CircleAvatar(
+                              radius: 20,
+                              backgroundColor: Theme.of(context).primaryColor,
+                              child: IconButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImagePickerPage(
+                                                  userDetails:
+                                                      appState.selectedProperty,
+                                                  forWhich: 'propertyImage',
+                                                )));
+                                  },
+                                  icon: Icon(
+                                    Icons.edit,
+                                    color: Theme.of(context).primaryColorLight,
+                                  )),
+                            ))
+                        : Container()
+                  ],
+                ),
+
+                //===========================PROPERTY DETAIL SECTION
+                //================================== ROW 1
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  child: Row(
+                    children: [
+                      //================================NAME
+                      Expanded(
+                        child: Text(
+                          '${appState.selectedProperty['property_name'].toUpperCase()}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: MyConst.mediumSmallTextSize *
+                                fontSizeScaleFactor,
+                          ),
+                          softWrap: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 10,
                       ),
 
-                      //===========================PROPERTY DETAIL SECTION
-                      //================================== ROW 1
-                      Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Row(
-                          children: [
-                            //================================NAME
-                            Expanded(
-                              child: Text(
-                                '${appState.selectedProperty['property_name'].toUpperCase()}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: MyConst.mediumSmallTextSize *
-                                      fontSizeScaleFactor,
-                                ),
-                                softWrap: true,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-
-                            //================================RATINGS
-                            InkWell(
-                                onTap: appState.userType == 'customer'
-                                    ? () {
+                      //================================RATINGS
+                      InkWell(
+                          onTap: appState.userType == 'customer'
+                              ? () {
                                   _mounted = true;
                                   _showBottomSheetForSubmitRating(
                                       context, appState);
                                 }
-                                    : null,
-                                child: RatingDisplayWidgetTwo(
-                                    rating: appState
-                                        .selectedProperty['property_rating']
-                                        .toDouble())),
-                            //================================RATING USER COUNT
-                            Text(
-                              '(${appState.selectedProperty['property_ratingCount']})',
-                              style: TextStyle(
-                                  fontSize:
+                              : null,
+                          child: RatingDisplayWidgetTwo(
+                              rating: appState
+                                  .selectedProperty['property_rating']
+                                  .toDouble())),
+                      //================================RATING USER COUNT
+                      Text(
+                        '(${appState.selectedProperty['property_ratingCount']})',
+                        style: TextStyle(
+                            fontSize:
+                                MyConst.smallTextSize * fontSizeScaleFactor),
+                      )
+                    ],
+                  ),
+                ),
+
+                //==================================ROW 2
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  child: Row(
+                    children: [
+                      //============================LOCATION
+                      Icon(
+                        Icons.location_pin,
+                        color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                        size: MyConst.mediumTextSize * fontSizeScaleFactor,
+                      ),
+                      Expanded(
+                        child: Text(
+                          '${appState.selectedProperty['property_address']}, ${appState.selectedProperty['property_locality']} , ${appState.selectedProperty['property_city']}',
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.w500,
+                              fontSize:
                                   MyConst.smallTextSize * fontSizeScaleFactor),
-                            )
-                          ],
+                          softWrap: true,
                         ),
-                      ),
+                      )
+                    ],
+                  ),
+                ),
 
-                      //==================================ROW 2
-                      Container(
-                        margin:
+                //==================================ROW 3
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+                  child: Row(
+                    children: [
+                      //============================PRICE ICON
+                      Icon(
+                        Icons.currency_rupee,
+                        color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                        size: MyConst.mediumTextSize * fontSizeScaleFactor,
+                      ),
+                      //=============================PRICE
+                      Text(
+                        '${appState.selectedProperty['property_price']}',
+                        style: TextStyle(
+                            fontSize:
+                                MyConst.smallTextSize * fontSizeScaleFactor,
+                            fontWeight: FontWeight.w700,
+                            color: Get.isDarkMode?Colors.white60:Theme.of(context).primaryColor),
+                      ),
+                      const Spacer(),
+                      //=============================FAVRITE BTN
+                      appState.userType == 'customer'
+                          ? IconButton(
+                              onPressed: appState.userType == 'customer'
+                                  ? () {
+                                      if (appState.customerDetails.isNotEmpty) {
+                                        //print(appState.customerDetails);
+                                        var data = {
+                                          "c_id": appState
+                                              .customerDetails['customer_id'],
+                                          "p_id": appState
+                                              .selectedProperty['property_id']
+                                        };
+
+                                        _mounted = true;
+                                        appState.addedToFavorite == false
+                                            ? addToFavorite(
+                                                data, appState, context)
+                                            : removeFromFavorite(
+                                                data, appState, context);
+                                      } else {
+                                        StaticMethod.showDialogBar('You have to login, please login', Colors.black);
+                                      }
+                                    }
+                                  : null,
+                              icon: appState.addedToFavorite == false
+                                  ? const Icon(Icons.favorite_outline)
+                                  : const Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    ))
+                          : Container(),
+                    ],
+                  ),
+                ),
+                //-----------price
+                const SizedBox(
+                  height: 10,
+                ),
+
+                //=================================ROW 4
+                Container(
+                    margin:
                         const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                        child: Row(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 15),
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1,color: Get.isDarkMode?Colors.white70:Colors.black),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      children: [
+                        //-----------------------------type and area
+                        Row(
                           children: [
-                            //============================LOCATION
-                            Icon(
-                              Icons.location_pin,
-                              color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                              size: MyConst.mediumTextSize * fontSizeScaleFactor,
-                            ),
-                            Expanded(
-                              child: Text(
-                                '${appState.selectedProperty['property_address']}, ${appState.selectedProperty['property_locality']} , ${appState.selectedProperty['property_city']}',
-                                style: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                    MyConst.smallTextSize * fontSizeScaleFactor),
-                                softWrap: true,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-
-                      //==================================ROW 3
-                      Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-                        child: Row(
-                          children: [
-                            //============================PRICE ICON
-                            Icon(
-                              Icons.currency_rupee,
-                              color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                              size: MyConst.mediumTextSize * fontSizeScaleFactor,
-                            ),
-                            //=============================PRICE
-                            Text(
-                              '${appState.selectedProperty['property_price']}',
-                              style: TextStyle(
-                                  fontSize:
-                                  MyConst.smallTextSize * fontSizeScaleFactor,
-                                  fontWeight: FontWeight.w700,
-                                  color: Get.isDarkMode?Colors.white60:Theme.of(context).primaryColor),
-                            ),
-                            const Spacer(),
-                            //=============================FAVRITE BTN
-                            appState.userType == 'customer'
-                                ? IconButton(
-                                onPressed: appState.userType == 'customer'
-                                    ? () {
-                                  if (appState.customerDetails.isNotEmpty) {
-                                    //print(appState.customerDetails);
-                                    var data = {
-                                      "c_id": appState
-                                          .customerDetails['customer_id'],
-                                      "p_id": appState
-                                          .selectedProperty['property_id']
-                                    };
-
-                                    _mounted = true;
-                                    appState.addedToFavorite == false
-                                        ? addToFavorite(
-                                        data, appState, context)
-                                        : removeFromFavorite(
-                                        data, appState, context);
-                                  } else {
-                                    StaticMethod.showDialogBar('You have to login, please login', Colors.black);
-                                  }
-                                }
-                                    : null,
-                                icon: appState.addedToFavorite == false
-                                    ? const Icon(Icons.favorite_outline)
-                                    : const Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                ))
-                                : Container(),
-                          ],
-                        ),
-                      ),
-                      //-----------price
-                      const SizedBox(
-                        height: 10,
-                      ),
-
-                      //=================================ROW 4
-                      Container(
-                          margin:
-                          const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 25, vertical: 15),
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 1,color: Get.isDarkMode?Colors.white70:Colors.black),
-                              borderRadius: BorderRadius.circular(10)),
-                          child: Column(
-                            children: [
-                              //-----------------------------type and area
-                              Row(
+                            //=========================type container
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  //=========================type container
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.3,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Type',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: MyConst.smallTextSize *
-                                                  fontSizeScaleFactor),
-                                        ),
-                                        Icon(
-                                          Icons.home_work_outlined,
-                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                                          size: MyConst.mediumLargeTextSize *
-                                              fontSizeScaleFactor,
-                                        ),
-                                        Text(
-                                          '${appState.selectedProperty['property_type']}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: MyConst.smallTextSize *
-                                                  fontSizeScaleFactor,
-                                              color: Colors.grey),
-                                        )
-                                      ],
-                                    ),
+                                  Text(
+                                    'Type',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: MyConst.smallTextSize *
+                                            fontSizeScaleFactor),
                                   ),
-                                  const Spacer(),
-                                  //=========================area container
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.3,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Area',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: MyConst.smallTextSize *
-                                                  fontSizeScaleFactor),
-                                        ),
-                                        Icon(
-                                          Icons.square_foot_outlined,
-                                          color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
-                                          size: MyConst.mediumLargeTextSize *
-                                              fontSizeScaleFactor,
-                                        ),
-                                        Text(
-                                          '${appState.selectedProperty['property_area']} ${appState.selectedProperty['property_areaUnit']}',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: MyConst.smallTextSize *
-                                                  fontSizeScaleFactor,
-                                              color: Colors.grey),
-                                        )
-                                      ],
-                                    ),
+                                  Icon(
+                                    Icons.home_work_outlined,
+                                    color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                                    size: MyConst.mediumLargeTextSize *
+                                        fontSizeScaleFactor,
+                                  ),
+                                  Text(
+                                    '${appState.selectedProperty['property_type']}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: MyConst.smallTextSize *
+                                            fontSizeScaleFactor,
+                                        color: Colors.grey),
                                   )
                                 ],
                               ),
-
-                              const SizedBox(
-                                height: 20,
+                            ),
+                            const Spacer(),
+                            //=========================area container
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Area',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: MyConst.smallTextSize *
+                                            fontSizeScaleFactor),
+                                  ),
+                                  Icon(
+                                    Icons.square_foot_outlined,
+                                    color: Get.isDarkMode?Colors.white70:Theme.of(context).primaryColor,
+                                    size: MyConst.mediumLargeTextSize *
+                                        fontSizeScaleFactor,
+                                  ),
+                                  Text(
+                                    '${appState.selectedProperty['property_area']} ${appState.selectedProperty['property_areaUnit']}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: MyConst.smallTextSize *
+                                            fontSizeScaleFactor,
+                                        color: Colors.grey),
+                                  )
+                                ],
                               ),
+                            )
+                          ],
+                        ),
 
-                              //-----------------------------bhk and furnished
-                              appState.selectedProperty['property_type'] == 'House' ||
-                                  appState.selectedProperty['property_type'] ==
-                                      'Flat'
-                                  ? Row(
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        //-----------------------------bhk and furnished
+                        appState.selectedProperty['property_type'] == 'House' ||
+                                appState.selectedProperty['property_type'] ==
+                                    'Flat'
+                            ? Row(
                                 children: [
                                   //==========================BHK CONTAINER
-                                  Container(
+                                  SizedBox(
                                     width:
-                                    MediaQuery.of(context).size.width * 0.3,
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'BHK',
@@ -852,12 +846,12 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   const Spacer(),
                                   //==========================FURNISHED CONTAINER
-                                  Container(
+                                  SizedBox(
                                     width:
-                                    MediaQuery.of(context).size.width * 0.3,
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'Furnished',
@@ -883,23 +877,23 @@ class _FavoritePropertyDetailPageState
                                   )
                                 ],
                               )
-                                  : Container(),
+                            : Container(),
 
-                              const SizedBox(
-                                height: 20,
-                              ),
+                        const SizedBox(
+                          height: 20,
+                        ),
 
-                              //---------------------------garden and parking
-                              appState.selectedProperty['property_type'] == 'House'
-                                  ? Row(
+                        //---------------------------garden and parking
+                        appState.selectedProperty['property_type'] == 'House'
+                            ? Row(
                                 children: [
                                   //==============================garden container
-                                  Container(
+                                  SizedBox(
                                     width:
-                                    MediaQuery.of(context).size.width * 0.3,
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'Garden',
@@ -925,12 +919,12 @@ class _FavoritePropertyDetailPageState
                                   ),
                                   const Spacer(),
                                   //==============================parking container
-                                  Container(
+                                  SizedBox(
                                     width:
-                                    MediaQuery.of(context).size.width * 0.3,
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Column(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.center,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'Parking',
@@ -956,84 +950,84 @@ class _FavoritePropertyDetailPageState
                                   )
                                 ],
                               )
-                                  : Container(),
-                            ],
-                          )),
-                      const SizedBox(
-                        width: 20,
-                      ),
+                            : Container(),
+                      ],
+                    )),
+                const SizedBox(
+                  width: 20,
+                ),
 
-                      //==========================================PROPERTY DESCRIPTION
-                      Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                        child: const Text(
-                          'About Property',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                //==========================================PROPERTY DESCRIPTION
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  child: const Text(
+                    'About Property',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                ),
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  child: Text(
+                    '${appState.selectedProperty['property_desc']}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 15,
+                        color: Colors.grey),
+                    softWrap: true,
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+
+                //==========================================LOCATION MAP
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+                  child: const Text(
+                    'Location',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 15),
+                    child: InkWell(
+                      highlightColor: Theme.of(context).primaryColorDark,
+                      onTap: () {
+                        //print('map url is ${appState.selectedProperty['p_locationUrl']}');
+                        StaticMethod.openMap(
+                            appState.selectedProperty['property_locationUrl']);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(25),
+                        child: Image.asset(
+                          'assets/images/map.jpg',
+                          fit: BoxFit.cover,
+                          height: 100,
+                          width: double.infinity,
                         ),
                       ),
-                      Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                        child: Text(
-                          '${appState.selectedProperty['property_desc']}',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15,
-                              color: Colors.grey),
-                          softWrap: true,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                    )),
 
-                      //==========================================LOCATION MAP
-                      Container(
-                        margin:
-                        const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-                        child: const Text(
-                          'Location',
-                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-                        ),
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15, vertical: 15),
-                          child: InkWell(
-                            highlightColor: Theme.of(context).primaryColorDark,
-                            onTap: () {
-                              //print('map url is ${appState.selectedProperty['p_locationUrl']}');
-                              StaticMethod.openMap(
-                                  appState.selectedProperty['property_locationUrl']);
-                            },
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.asset(
-                                'assets/images/map.jpg',
-                                fit: BoxFit.cover,
-                                height: 100,
-                                width: double.infinity,
-                              ),
-                            ),
-                          )),
-
-                      //===========================================BUTTONS
-                      appState.userType == 'customer'
-                          ? Row(
+                //===========================================BUTTONS
+                appState.userType == 'customer'
+                    ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor:
-                                    bluishClr,
+                                        bluishClr,
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                        BorderRadius.circular(10)),
+                                            BorderRadius.circular(10)),
                                     foregroundColor:
-                                    Theme.of(context).primaryColorLight),
+                                        Theme.of(context).primaryColorLight),
                                 onPressed: () {
                                   _showVisitDetailContainer(appState, context);
                                 },
@@ -1041,38 +1035,38 @@ class _FavoritePropertyDetailPageState
                                   'Request Visit',
                                   style: TextStyle(
                                       color:
-                                      Theme.of(context).primaryColorLight,
+                                          Theme.of(context).primaryColorLight,
                                       fontWeight: FontWeight.w500),
                                 )),
                           ),
-                          Container(
+                          SizedBox(
                               width: MediaQuery.of(context).size.width * 0.4,
                               child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor:
                                       bluishClr,
                                       foregroundColor:
-                                      Theme.of(context).primaryColorLight,
+                                          Theme.of(context).primaryColorLight,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
-                                          BorderRadius.circular(10))),
+                                              BorderRadius.circular(10))),
                                   onPressed: () {
                                     //Navigator.pop(context);
-                                    Get.to(()=>AdminContactPage());
+                                    Get.to(()=>const AdminContactPage());
                                     appState.currentState = 0;
                                   },
                                   child: Text(
                                     'Contact Now',
                                     style: TextStyle(
                                         color:
-                                        Theme.of(context).primaryColorLight,
+                                            Theme.of(context).primaryColorLight,
                                         fontWeight: FontWeight.w500),
                                   ))),
                         ],
                       )
-                          : Container(),
-                      appState.userType == 'customer'
-                          ? Center(
+                    : Container(),
+                appState.userType == 'customer'
+                    ? Center(
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: bluishClr,
@@ -1086,49 +1080,47 @@ class _FavoritePropertyDetailPageState
                                   fontWeight: FontWeight.w500),
                             )),
                       )
-                          : Container(),
+                    : Container(),
 
-                      // //=======================================OFFER RELATED ROW
-                      // Container(
-                      //   height: MyConst.deviceHeight(context)*0.3,
-                      //   width: MyConst.deviceWidth(context),
-                      //   margin: EdgeInsets.symmetric(horizontal: 15),
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(width: 1),
-                      //     borderRadius: BorderRadius.circular(10)
-                      //   ),
-                      //   child: Text('offer here'),
-                      // ),
-                      Center(
-                        child: appState.userType == 'admin'
-                            ? ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Theme.of(context).primaryColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10))),
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => AddOfferPage(
-                                        p_id: appState
-                                            .selectedProperty['property_id'],
-                                        forWhich: "offerImage",
-                                      )));
-                            },
-                            child: Text(
-                              'Add Offers',
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColorLight,
-                                  fontWeight: FontWeight.w600),
-                            ))
-                            : Container(),
-                      ),
-                    ],
-                  ),
-                )),
-          ),
-        )
-    );
+                // //=======================================OFFER RELATED ROW
+                // Container(
+                //   height: MyConst.deviceHeight(context)*0.3,
+                //   width: MyConst.deviceWidth(context),
+                //   margin: EdgeInsets.symmetric(horizontal: 15),
+                //   decoration: BoxDecoration(
+                //     border: Border.all(width: 1),
+                //     borderRadius: BorderRadius.circular(10)
+                //   ),
+                //   child: Text('offer here'),
+                // ),
+                Center(
+                  child: appState.userType == 'admin'
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddOfferPage(
+                                          p_id: appState
+                                              .selectedProperty['property_id'],
+                                          forWhich: "offerImage",
+                                        )));
+                          },
+                          child: Text(
+                            'Add Offers',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorLight,
+                                fontWeight: FontWeight.w600),
+                          ))
+                      : Container(),
+                ),
+              ],
+            ),
+          )),
+        ));
   }
 }

@@ -8,11 +8,11 @@ import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 
 
 
@@ -22,7 +22,7 @@ class AddOfferPage extends StatefulWidget {
   final String forWhich;
 
 
-  AddOfferPage({Key? key, required this.p_id, required this.forWhich,}) : super(key: key);
+  const AddOfferPage({super.key, required this.p_id, required this.forWhich,});
 
   @override
   State<AddOfferPage> createState() => _AddOfferPageState();
@@ -174,14 +174,14 @@ class _AddOfferPageState extends State<AddOfferPage> {
           appState.activeWidget = "PropertyListPage";
         },
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: _appBar('Add New Offer'),
-          body: Container(
+          body: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  SizedBox(height: 20,),
+                  const SizedBox(height: 20,),
                   appState.imageFile != null
                       ? Image.file(
                     appState.imageFile!,
@@ -208,7 +208,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                             _mounted=true;
                             await _pickImageFromGallery(appState);
                           },
-                              icon: Icon(Icons.photo, color:bluishClr, size: 50,)
+                              icon: const Icon(Icons.photo, color:bluishClr, size: 50,)
                           ),
                           const Text('Galary')
                         ],
@@ -221,7 +221,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                             _mounted=true;
                             await _captureImageFromCamera(appState);
                           },
-                              icon: Icon(Icons.camera_alt, color: bluishClr, size: 50,)
+                              icon: const Icon(Icons.camera_alt, color: bluishClr, size: 50,)
                           ),
                           const Text('Camera')
                         ],
@@ -316,15 +316,15 @@ class _AddOfferPageState extends State<AddOfferPage> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
-          child: CircleAvatar(
+          margin: const EdgeInsets.only(right: 20),
+          child: const CircleAvatar(
             backgroundImage: AssetImage(
                 'assets/images/ic_launcher.png'
             ),
           ),
         )
       ],
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: context.theme.colorScheme.surface,
     );
   }
   _textField(
@@ -344,7 +344,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
         decoration:  InputDecoration(
             labelText: label,
             labelStyle: TextStyle(color: Get.isDarkMode?Colors.white: Colors.black),
-            focusedBorder: OutlineInputBorder(
+            focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(
                   width: 1,
                   color: bluishClr
@@ -353,7 +353,7 @@ class _AddOfferPageState extends State<AddOfferPage> {
                 Radius.circular(10),
               ),
             ),
-            border: OutlineInputBorder(
+            border: const OutlineInputBorder(
               borderSide: BorderSide(
                 width: 1,
                 color: Colors.grey,

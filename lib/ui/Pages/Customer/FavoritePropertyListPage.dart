@@ -1,26 +1,23 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 
 
-import 'package:real_state/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
 
 
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/controller/PropertyListController.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
-import 'package:real_state/ui/Pages/Property/PropertyDetailPage.dart';
-import 'package:real_state/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/PropertyListController.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Other/RatingDisplayWidgetTwo.dart';
 
 class FavoritePropertyListPage extends StatefulWidget {
-  const FavoritePropertyListPage({Key? key}) : super(key: key);
+  const FavoritePropertyListPage({super.key});
 
   @override
   State<FavoritePropertyListPage> createState() =>
@@ -156,55 +153,50 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
     //print(appState.favoritePropertyList);
     return RefreshIndicator(
         child: PopScope(
-          canPop: true,
+          canPop: false,
           onPopInvoked: (didPop) {
             appState.favoritePropertyList=[];
             appState.activeWidget = "ProfileWidget";
           },
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.white,
-              scrolledUnderElevation: 0.0,
-              title: Text('Favorite Property List',style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16),),
+          child: Container(
+            color: Theme.of(context).colorScheme.surface,
+            height: MediaQuery.of(context).size.height,
+            child:Column(
+              children: [
+                //=====================================PROPERTY LIST CONTAINER
+                _isFirstLoadRunning==true 
+                    ? const Center(child: LinearProgressIndicator(),)   
+                    : favoritePropertyList.isNotEmpty 
+                    ? _propertyListAnimation(appState,controller)
+                    : const Center(
+                  child: Text('Empty Favorite Property'),
+                ),
+
+
+                //================================loading more
+                _isLoadMoreRunning == true
+                    ? Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 40),
+                  child:  Center(
+                    child:StaticMethod.progressIndicator()
+                  ),
+                )
+                    : Container(),
+
+                //==================================fetched all
+                _hasNextPage == false
+                    ? favoritePropertyList.isNotEmpty
+                    ? Container(
+                  color: Colors.amber,
+                  child: const Center(
+                    child: Text('You have fetched all of the content'),
+                  ),
+                )
+                    : Container()
+                    : Container()
+              ],
             ),
-            body: _isFirstLoadRunning 
-                ? const Center(child: SpinKitThreeBounce(color: primaryColor,size: 20,),) 
-                : favoritePropertyList.isNotEmpty 
-                ? Container(
-              color: Theme.of(context).backgroundColor,
-              height: MediaQuery.of(context).size.height,
-              child:Column(
-                children: [
-                  //=====================================PROPERTY LIST CONTAINER
-                  _propertyListAnimation(appState,controller),
-
-
-                  //================================loading more
-                  _isLoadMoreRunning == true
-                      ? Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 40),
-                    child:  Center(
-                        child:StaticMethod.progressIndicator()
-                    ),
-                  )
-                      : Container(),
-
-                  //==================================fetched all
-                  _hasNextPage == false
-                      ? favoritePropertyList.isNotEmpty
-                      ? Container(
-                    color: Colors.amber,
-                    child: const Center(
-                      child: Text('You have fetched all of the content'),
-                    ),
-                  )
-                      : Container()
-                      : Container()
-                ],
-              ),
-            )
-                : const Center(child:  Text('Empty Favorite Property'),),
-          )
+          ),
         ),
         onRefresh: () async {
           // setState(() {
@@ -233,7 +225,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
             }
             return AnimationConfiguration.staggeredList(
                 position: index,
-                duration: Duration(milliseconds: 500),
+                duration: const Duration(milliseconds: 500),
                 child: SlideAnimation(
                   horizontalOffset: 100,
                   child: FadeInAnimation(
@@ -243,7 +235,6 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                           appState.p_id = property['property_id'];
                           appState.activeWidget = "PropertyDetailPage";
                           controller.appBarContent.value = 'Favorite Property Detail';
-                          Get.to(()=>PropertyDetailPage(propertyid: property['property_id'],appbartitle: 'Favorite Property Details',));
                         },
                         child: Container(
                             margin: EdgeInsets.symmetric(
@@ -329,7 +320,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
               //=======================NAME CONTAINER
               Text(
                 '${property['property_name'].toUpperCase()}',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: MyConst.smallTextSize,
                   fontWeight: FontWeight.w600,
                 ),
@@ -340,7 +331,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
               Text(
                 '${property['property_area']}  ${property['property_areaUnit']}',
                 softWrap: true,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize:
                     MyConst.smallTextSize,
                     color: Colors.grey,
@@ -360,7 +351,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                   Flexible(
                     child: Text(
                       '${property['property_price']}',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: MyConst
                               .smallTextSize,
                           color: Colors.grey,
@@ -390,7 +381,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                   Flexible(
                       child: Text(
                         '${property['property_locality']}, ${property['property_city']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.grey,
                           fontSize:
                           MyConst.smallTextSize,
@@ -412,7 +403,7 @@ class _FavoritePropertyListPageState extends State<FavoritePropertyListPage> {
                   Flexible(
                     child: Text(
                       '(${property['review_count']})',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize:
                           MyConst.smallTextSize
                       ),

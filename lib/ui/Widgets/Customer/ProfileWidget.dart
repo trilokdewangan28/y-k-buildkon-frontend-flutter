@@ -2,15 +2,15 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/ui/Pages/Customer/CustomerProfilePage.dart';
-import 'package:real_state/ui/Pages/Error/EmptyPropertyPage.dart';
-import 'package:real_state/ui/Pages/Error/InternetErrorPage.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Customer/CustomerProfilePage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/EmptyPropertyPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/InternetErrorPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
 class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
+  const ProfileWidget({super.key});
 
   @override
   State<ProfileWidget> createState() => _ProfileWidgetState();

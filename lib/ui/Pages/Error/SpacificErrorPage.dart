@@ -1,13 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/Constant.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
 
 class SpacificErrorPage extends StatefulWidget {
 
-  const SpacificErrorPage({Key? key})
-      : super(key: key);
+  const SpacificErrorPage({super.key});
 
   @override
   _SpacificErrorPageState createState() => _SpacificErrorPageState();
@@ -29,7 +28,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
         child: RefreshIndicator(
           child: Scaffold(
             appBar: AppBar(
-              title: Text('Error Page'),
+              title: const Text('Error Page'),
               centerTitle: true,
             ),
             body: Container(
@@ -47,7 +46,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                         style: TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).errorColor
+                            color: Theme.of(context).colorScheme.error
                         ),
                       ),
                       const SizedBox(height: 20,),
@@ -59,7 +58,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                           'Internal Server Error',
                           textAlign: TextAlign.center,
                           style:  TextStyle(
-                              color: Theme.of(context).errorColor,
+                              color: Theme.of(context).colorScheme.error,
                               fontWeight: FontWeight.w600,
                               fontSize: MyConst.extraLargeTextSize*fontSizeScaleFactor
                           ),
@@ -74,7 +73,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                           appState.errorString,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Theme.of(context).errorColor,
+                              color: Theme.of(context).colorScheme.error,
                               fontSize: MyConst.mediumSmallTextSize*fontSizeScaleFactor
                           ),
                         ),
@@ -118,7 +117,7 @@ class _SpacificErrorPageState extends State<SpacificErrorPage> {
                           appState.error,
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Theme.of(context).errorColor,
+                              color: Theme.of(context).colorScheme.error,
                               fontSize: MyConst.smallTextSize*fontSizeScaleFactor
                           ),
                         ),

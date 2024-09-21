@@ -1,17 +1,18 @@
 
+import 'package:JAY_BUILDCON/ui/Screens/payment_qr.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Offer/OfferListPage.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/AdminContactPage.dart';
-import 'package:real_state/ui/Pages/StaticContentPage/BlogListPage.dart';
-import 'package:real_state/ui/Widgets/Other/EmiCalculatorWidget.dart';
-import 'package:real_state/ui/Widgets/Property/ProjectLisWidget.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Offer/OfferListPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/AdminContactPage.dart';
+import 'package:JAY_BUILDCON/ui/Pages/StaticContentPage/BlogListPage.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Other/EmiCalculatorWidget.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Property/ProjectLisWidget.dart';
 class AppDrawerWidget extends StatelessWidget {
-  const AppDrawerWidget({Key? key}) : super(key: key);
+  const AppDrawerWidget({super.key});
 
 
   popNow(context){
@@ -28,7 +29,7 @@ class AppDrawerWidget extends StatelessWidget {
           appState.currentState=0;
         },
         child:Drawer(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           elevation: 0,
           width: 270,
           shape: const RoundedRectangleBorder(
@@ -43,21 +44,21 @@ class AppDrawerWidget extends StatelessWidget {
             children: <Widget>[
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).backgroundColor,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 child: Column(
                   children: [
                     Image.asset(
                       'assets/images/ic_launcher.png',
-                      height: 100,
+                      height: 130,
                     ),
-                    const Text(
-                      'Y&K BUILDCON',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                      ),
-                    ),
+                    // const Text(
+                    //   'JAY BUILDCON',
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.w600,
+                    //     fontSize: 20,
+                    //   ),
+                    // ),
                   ],
                 )
               ),
@@ -69,7 +70,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.home_outlined,color:bluishClr,),
+                  leading: const Icon(Icons.home_outlined,color:bluishClr,),
                   title: const Text('Home'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -87,7 +88,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.apartment_outlined,color:bluishClr,),
+                  leading: const Icon(Icons.apartment_outlined,color:bluishClr,),
                   title: const Text('Project'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -104,7 +105,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.local_offer_outlined, color:bluishClr,),
+                  leading: const Icon(Icons.local_offer_outlined, color:bluishClr,),
                   title: const Text('Offers'),
                   onTap: () {
                     //popNow(context);
@@ -121,7 +122,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.calculate_outlined,color:bluishClr),
+                  leading: const Icon(Icons.calculate_outlined,color:bluishClr),
                   title: const Text('EMI Calculator'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -138,13 +139,12 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.business_sharp,color:bluishClr),
-                  title: const Text('Future Of Colony'),
+                  leading: const Icon(Icons.business_sharp,color:bluishClr),
+                  title: const Text('Payment Option'),
                   onTap: () {
                     // Handle the onTap action for the Home item
-                    Navigator.pop(context);// Close the drawer
-                    appState.activeWidget='PropertyListPage';
-                    appState.currentState=0;
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentQr()));
+
                   },
                 ),
               ),
@@ -156,7 +156,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.post_add_outlined,color:bluishClr),
+                  leading: const Icon(Icons.post_add_outlined,color:bluishClr),
                   title: const Text('Blog Post'),
                   onTap: () {
                     // Handle the onTap action for the Home item
@@ -173,11 +173,11 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.support_agent_outlined,color:bluishClr),
+                  leading: const Icon(Icons.support_agent_outlined,color:bluishClr),
                   title: const Text('Contact Support'),
                   onTap: () {
                     Navigator.pop(context);
-                    Get.to(()=>AdminContactPage());
+                    Get.to(()=>const AdminContactPage());
                     appState.currentState=0;
                   },
                 ),
@@ -190,7 +190,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.person_add_alt_outlined,color:bluishClr),
+                  leading: const Icon(Icons.person_add_alt_outlined,color:bluishClr),
                   title: const Text('Membership Join'),
                   onTap: () {
                     Navigator.pop(context);// Close the drawer
@@ -207,7 +207,7 @@ class AppDrawerWidget extends StatelessWidget {
                 shadowColor: Colors.black,
                 elevation: 0.5,
                 child: ListTile(
-                  leading: Icon(Icons.admin_panel_settings_outlined,color:bluishClr),
+                  leading: const Icon(Icons.admin_panel_settings_outlined,color:bluishClr),
                   title: const Text('Admin Pannel'),
                   onTap: () {
                     Navigator.of(context).pop();// Close the drawer

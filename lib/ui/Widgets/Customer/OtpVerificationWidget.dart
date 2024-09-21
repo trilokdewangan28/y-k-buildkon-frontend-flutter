@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
 
 
 class OtpVerificationWidget extends StatefulWidget {
@@ -145,7 +145,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: _appBar('Email Verification'),
           body: SingleChildScrollView(
             child: Column(
@@ -214,7 +214,7 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
 
 
                           //===============================LOGIN BTN
-                          Container(
+                          SizedBox(
                             width: 150,
                             child: ElevatedButton(
                                 onPressed: (){
@@ -306,15 +306,15 @@ class _OtpVerificationWidgetState extends State<OtpVerificationWidget> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
-          child: CircleAvatar(
+          margin: const EdgeInsets.only(right: 20),
+          child: const CircleAvatar(
             backgroundImage: AssetImage(
                 'assets/images/ic_launcher.png'
             ),
           ),
         )
       ],
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: context.theme.colorScheme.surface,
     );
   }
 }

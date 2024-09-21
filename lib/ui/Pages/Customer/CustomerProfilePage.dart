@@ -2,20 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Customer/EditCustomerDetailPage.dart';
-import 'package:real_state/ui/Pages/Customer/FavoritePropertyListPage.dart';
-import 'package:real_state/ui/Pages/Customer/VisitRequestedListPage.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Customer/EditCustomerDetailPage.dart';
 
 import '../Error/SpacificErrorPage.dart';
 import '../ImagePickerPage.dart';
 
 class CustomerProfilePage extends StatefulWidget {
-  const CustomerProfilePage({Key? key}) : super(key: key);
+  const CustomerProfilePage({super.key});
 
   @override
   State<CustomerProfilePage> createState() => _CustomerProfilePageState();
@@ -91,7 +89,7 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
           },
           child: _isFirstLoadRunning == true?  Center(child: StaticMethod.progressIndicator(),) :Container(
             width: MediaQuery.of(context).size.width,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.of(context).colorScheme.surface,
             height: MediaQuery.of(context).size.height,
             child: ListView(
               children: [
@@ -196,7 +194,6 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     GestureDetector(
                       onTap: (){
                         appState.activeWidget = 'VisitRequestedListPage';
-                        Get.to(()=>VisitRequestedListPage());
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -204,16 +201,16 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         height: MediaQuery.of(context).size.height * 0.07,
                         child: Card(
                           color: Get.isDarkMode?Colors.white12 : Theme.of(context).primaryColorLight,
-                          child: Row(
+                          child: const Row(
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 width: 15,
                               ),
-                              const Icon(Icons.book_outlined),
-                              const SizedBox(
+                              Icon(Icons.book_outlined),
+                              SizedBox(
                                 width: 15,
                               ),
-                              const Text('Your Visit Request'),
+                              Text('Your Visit Request'),
                             ],
                           ),
                         ),
@@ -228,7 +225,6 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                     GestureDetector(
                       onTap: (){
                         appState.activeWidget = "FavoritePropertyListPage";
-                        Get.to(()=>FavoritePropertyListPage());
                       },
                       child:Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -236,16 +232,16 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                         height: MediaQuery.of(context).size.height * 0.07,
                         child: Card(
                           color: Get.isDarkMode?Colors.white12 : Theme.of(context).primaryColorLight,
-                          child: Row(
+                          child: const Row(
                             children: [
-                              const SizedBox(
+                              SizedBox(
                                 width: 15,
                               ),
-                              const Icon(Icons.favorite_outline),
-                              const SizedBox(
+                              Icon(Icons.favorite_outline),
+                              SizedBox(
                                 width: 15,
                               ),
-                              const Text('Your Favorite Properties'),
+                              Text('Your Favorite Properties'),
                             ],
                           ),
                         ),
@@ -290,8 +286,8 @@ class _CustomerProfilePageState extends State<CustomerProfilePage> {
                             appState.activeWidget = "PropertyListPage";
                             appState.currentState = 0;
                           },
-                          child:  Card(
-                            child:const  Row(
+                          child:  const Card(
+                            child:Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
 class EditCustomerDetailPage extends StatefulWidget {
   final Map<String,dynamic> customerDetails;
   const EditCustomerDetailPage({super.key, required this.customerDetails});
@@ -66,7 +66,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
     final appState = Provider.of<MyProvider>(context, listen: false);
     return PopScope(
         child: Scaffold(
-            backgroundColor: context.theme.backgroundColor,
+            backgroundColor: context.theme.colorScheme.surface,
             appBar: _appBar('Edit Details'),
             body: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -77,7 +77,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
                       children: [
                         //==================================NAME TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Name',
@@ -105,7 +105,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================MOBILE TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Mobile',
@@ -134,7 +134,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================EMAIL TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Email',
@@ -162,7 +162,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================ADDRESS TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Address',
@@ -190,7 +190,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================LOCALITY TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Locality',
@@ -218,7 +218,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================CITY TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'City',
@@ -246,7 +246,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
 
                         //==================================PINCODE TILE
                         Card(
-                          color: context.theme.backgroundColor,
+                          color: context.theme.colorScheme.surface,
                           child: ListTile(
                             title: const Text(
                               'Pincode',
@@ -329,8 +329,8 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
-          child: CircleAvatar(
+          margin: const EdgeInsets.only(right: 20),
+          child: const CircleAvatar(
             backgroundColor: Colors.white,
             backgroundImage: AssetImage(
                 'assets/images/ic_launcher.png'
@@ -338,7 +338,7 @@ class _EditCustomerDetailPageState extends State<EditCustomerDetailPage> {
           ),
         )
       ],
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: context.theme.colorScheme.surface,
     );
   }
 }

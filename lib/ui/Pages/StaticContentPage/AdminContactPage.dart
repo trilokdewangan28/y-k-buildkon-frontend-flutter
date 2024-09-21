@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Pages/Error/SpacificErrorPage.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Pages/Error/SpacificErrorPage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AdminContactPage extends StatefulWidget {
@@ -102,13 +102,14 @@ class _AdminContactPageState extends State<AdminContactPage> {
     double fontSizeScaleFactor = MyConst.deviceWidth(context)/MyConst.referenceWidth;
     return PopScope(
       child: Scaffold(
-        backgroundColor: context.theme.backgroundColor,
+        backgroundColor: context.theme.colorScheme.surface,
         appBar:_appBar('Contact Support', context),
         body: _isDataLoading==true
             ?Container(child: Center(child: StaticMethod.progressIndicator(),),)
             : adminContact.isNotEmpty 
-            ? Container(
+            ? SizedBox(
           height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -118,19 +119,19 @@ class _AdminContactPageState extends State<AdminContactPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: IconButton(
                       onPressed: () {
                         _sendEmail("${adminContact['email']}");
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.email,
                         size: 100,
                         color: bluishClr,
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Center(
                       child: Text(
@@ -145,19 +146,19 @@ class _AdminContactPageState extends State<AdminContactPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: IconButton(
                       onPressed: () {
                         _makePhoneCall("${adminContact['mobile']}");
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.phone,
                         size: 100,
                         color: bluishClr,
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Center(
                       child: Text(
@@ -172,17 +173,17 @@ class _AdminContactPageState extends State<AdminContactPage> {
                 const SizedBox(
                   height: 50,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: IconButton(
                       onPressed: () {},
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.business,
                         size: 100,
                         color: bluishClr,
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: const Center(
                       child: Text(
@@ -191,11 +192,12 @@ class _AdminContactPageState extends State<AdminContactPage> {
                         TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Center(
                       child: Text(
                         '${adminContact['address']}',
+                        textAlign: TextAlign.center,
                         style:
                         const TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
                       )),
@@ -203,7 +205,7 @@ class _AdminContactPageState extends State<AdminContactPage> {
               ],
             ),
           ),
-        ) : Container(child: Center(child: Text('No Admin Contact'),),),
+        ) : Container(child: const Center(child: Text('No Admin Contact'),),),
       ),
     );
   }
@@ -224,8 +226,8 @@ class _AdminContactPageState extends State<AdminContactPage> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
-          child: CircleAvatar(
+          margin: const EdgeInsets.only(right: 20),
+          child: const CircleAvatar(
             backgroundImage: AssetImage(
                 'assets/images/ic_launcher.png'
             ),

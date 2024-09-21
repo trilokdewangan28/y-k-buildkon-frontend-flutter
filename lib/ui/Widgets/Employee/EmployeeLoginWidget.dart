@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pinput/pinput.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Widgets/Employee/EmployeeSignupWidget.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Employee/EmployeeSignupWidget.dart';
 
 class EmployeeLoginWidget extends StatefulWidget {
-  const EmployeeLoginWidget({Key? key}) : super(key: key);
+  const EmployeeLoginWidget({super.key});
 
   @override
   State<EmployeeLoginWidget> createState() => _EmployeeLoginWidgetState();
@@ -180,7 +180,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
           appState.currentState = 0;
         },
         child: Container(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.surface,
           height: MediaQuery.of(context).size.height,
           child: SingleChildScrollView(
             child:  Container(
@@ -191,9 +191,9 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                     height: 100,
                   ),
                   //==============================LOGIN HEADING
-                  Container(
+                  const SizedBox(
                     width: double.infinity,
-                    child: const Center(
+                    child: Center(
                         child:Text(
                           'LOGIN NOW',
                           style: TextStyle(
@@ -234,7 +234,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                     _generateOtpForEmployee(context, appState);
                                   }
                                 },
-                                child: Text('Generate Otp',style: TextStyle(color: bluishClr,)
+                                child: const Text('Generate Otp',style: TextStyle(color: bluishClr,)
                             )
 
                             )],
@@ -290,7 +290,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
                                     onPressed: (){
                                       Navigator.push(context, MaterialPageRoute(builder: (context)=>const EmployeeSignupWidget()));
                                     },
-                                    child:  Text(
+                                    child:  const Text(
                                       'Signup',
                                       style: TextStyle(
                                           fontSize: 16,
@@ -363,9 +363,9 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle:  TextStyle(color: Get.isDarkMode? Colors.white70: Colors.black),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: primaryColor),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
@@ -374,7 +374,7 @@ class _EmployeeLoginWidgetState extends State<EmployeeLoginWidget> {
               width: 2,
               color: context.theme.primaryColorDark,
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
           ),

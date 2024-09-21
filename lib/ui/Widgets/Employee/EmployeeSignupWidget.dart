@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:real_state/controller/MyProvider.dart';
-import 'package:real_state/config/ApiLinks.dart';
-import 'package:real_state/config/Constant.dart';
-import 'package:real_state/config/StaticMethod.dart';
-import 'package:real_state/services/ThemeService/ThemeServices.dart';
-import 'package:real_state/services/ThemeService/theme.dart';
-import 'package:real_state/ui/Widgets/Employee/OtpVerificationWidgetForEmployee.dart';
+import 'package:JAY_BUILDCON/controller/MyProvider.dart';
+import 'package:JAY_BUILDCON/config/ApiLinks.dart';
+import 'package:JAY_BUILDCON/config/Constant.dart';
+import 'package:JAY_BUILDCON/config/StaticMethod.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/ThemeServices.dart';
+import 'package:JAY_BUILDCON/services/ThemeService/theme.dart';
+import 'package:JAY_BUILDCON/ui/Widgets/Employee/OtpVerificationWidgetForEmployee.dart';
 
 
 
@@ -167,7 +167,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         MyConst.deviceWidth(context) / MyConst.referenceWidth;
     return PopScope(
         child: Scaffold(
-          backgroundColor: context.theme.backgroundColor,
+          backgroundColor: context.theme.colorScheme.surface,
           appBar: _appBar('Employee Joining'),
           body: Container(
             child: SingleChildScrollView(
@@ -177,7 +177,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                     height: 20,
                   ),
                   //====================================HEADING
-                  Center(
+                  const Center(
                     child: Text(
                       'Signup Form',
                       style: TextStyle(
@@ -332,7 +332,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                                       (String value) {
                                                     return DropdownMenuItem<String>(
                                                       value: value,
-                                                      child: Text('${value}',
+                                                      child: Text(value,
                                                           softWrap: true,
                                                           textAlign: TextAlign.center,
                                                           style: TextStyle(
@@ -625,7 +625,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
                                           )));
                                     }
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Self Declaration',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w500,
@@ -721,9 +721,9 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         decoration: InputDecoration(
           labelText: label,
           labelStyle:  TextStyle(color: Get.isDarkMode?Colors.grey: Colors.black),
-          focusedBorder: OutlineInputBorder(
+          focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(width: 2, color: primaryColor),
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
@@ -732,7 +732,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
               width: 2,
               color: context.theme.primaryColorDark,
             ),
-            borderRadius: BorderRadius.all(
+            borderRadius: const BorderRadius.all(
               Radius.circular(10),
             ),
           ),
@@ -756,7 +756,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
       ),
       actions: [
         Container(
-          margin: EdgeInsets.only(right: 20),
+          margin: const EdgeInsets.only(right: 20),
           child: CircleAvatar(
               backgroundColor: Colors.white,
               child: Image.asset(
@@ -767,7 +767,7 @@ class _EmployeeSignupWidgetState extends State<EmployeeSignupWidget> {
         ),
         IconButton(
             onPressed: (){ThemeServices().switchTheme();},
-            icon: Icon(Icons.dark_mode_outlined)
+            icon: const Icon(Icons.dark_mode_outlined)
         )
       ],
       backgroundColor: Get.isDarkMode
