@@ -136,7 +136,7 @@ class MyProvider extends ChangeNotifier {
   String token="";
   Future<String> fetchToken(String userType) async{
     String tk = await getToken(userType);
-    token = tk;
+    token =  tk;
     notifyListeners();
     return token;
   }
@@ -180,7 +180,7 @@ class MyProvider extends ChangeNotifier {
 
   }
 
-  void deleteToken(String userType) async {
+  Future<void> deleteToken(String userType) async {
     const storage = FlutterSecureStorage();
     if (userType=='customer') {
       await storage.delete(key: 'customerToken');

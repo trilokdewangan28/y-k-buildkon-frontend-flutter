@@ -131,6 +131,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         StaticMethod.showDialogBar(res['message'], Colors.green);
         appState.activeWidget='ProfileWidget';
       }else{
+        print("Login Error");
         StaticMethod.showDialogBar(res['message'], Colors.red);
       }
     }

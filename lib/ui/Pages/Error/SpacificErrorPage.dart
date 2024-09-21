@@ -1,4 +1,5 @@
 
+import 'package:JAY_BUILDCON/ui/Screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:JAY_BUILDCON/controller/MyProvider.dart';
@@ -15,6 +16,20 @@ class SpacificErrorPage extends StatefulWidget {
 class _SpacificErrorPageState extends State<SpacificErrorPage> {
   bool knowMore = false;
   String btncontent = "know more";
+  @override
+  void initState() {
+    MyProvider appState = Provider.of<MyProvider>(context,listen: false);
+    if(appState.errorString.toLowerCase() == "invalid token" || appState.errorString.toLowerCase() == "no token provided"){
+      appState.token = "";
+      appState.userType = "";
+      appState.deleteToken(appState.userType);
+      appState.deleteUserType();
+      appState.activeWidget = "LoginWidget";
+      Navigator.pop(context);
+      //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomeScreen()), (route) => false);
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<MyProvider>(context);
